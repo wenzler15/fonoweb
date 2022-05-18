@@ -6,7 +6,7 @@ import S3 from "react-aws-s3";
 import ResponsiveAppBar from "../../components/bar";
 import Select from 'react-select'
 
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { Form, Row, Col, Button, Modal } from 'react-bootstrap';
 
 import {
   MainContainer,
@@ -25,6 +25,10 @@ function RegisterUser() {
   const [crfa, setCrfa] = useState("");
   const [cep, setCep] = useState("");
   const [specialty, setSpecialty] = useState("");
+  const [show, setShow] = useState(false);
+  const [urlPayment, setUrl] = useState("");
+
+  const handleClose = () => setShow(false);
 
   const navigate = useNavigate();
   let params = useLocation();
@@ -44,6 +48,44 @@ function RegisterUser() {
 
   const register = async () => {
     try {
+      const toSend = {
+        email,
+        name,
+        cpf,
+        address,
+        crfa,
+        cep,
+        specialty
+      };
+
+      const preference = {
+        items: [
+          {
+            title: 'Assinatura',
+            quantity: 1,
+            unit_price: 129
+          }
+        ]
+      };
+
+      //navigate('/payment', { state: toSend });
+      const resp = await fetch("https://api.mercadopago.com/checkout/preferences?access_token=TEST-839873972326160-051700-d50edb93763bcf54c251226707e01692-146149588", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(preference),
+      });
+      const res = await resp.json();
+      setUrl(res.sandbox_init_point);
+      setShow(true)
+
+    } catch (err) {
+      console.log(err);
+    }
+    /*try {
+      
       const toSend = {
         email,
         name,
@@ -75,13 +117,12 @@ function RegisterUser() {
       }
     } catch (err) {
       console.log(err);
-    }
+    }*/
   };
 
 
   return (
-    <MainContainer style={{ background: "#FFF" }}>
-      <ResponsiveAppBar />
+    <MainContainer style={{ background: "#E5E5E5" }}>
       <ContentRegister>
         <Title>Faça seu cadastro</Title>
         <ContentForm>
@@ -90,6 +131,7 @@ function RegisterUser() {
               <Form.Group as={Col} controlId="formGridName">
                 <Form.Label style={{ fontWeight: "bold", color: "#1E3354" }}>Nome completo</Form.Label>
                 <Form.Control placeholder="Ex.: João da Silva" onChange={(e) => setName(e.target.value)} />
+                <Form.Control hidden value={urlPayment} />
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridEmail">
@@ -100,7 +142,7 @@ function RegisterUser() {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridCpf">
                 <Form.Label style={{ fontWeight: "bold", color: "#1E3354" }}>CPF</Form.Label>
-                <Form.Control placeholder="Ex.: 000.000.000-00" onChange={(e) => setCPF(e.target.value)} />
+                <Form.Control placeholder="Ex.: 000.000.000-00" as={InputMask} mask='999.999.999-99' onChange={(e) => setCPF(e.target.value)} />
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridAddress">
@@ -118,13 +160,13 @@ function RegisterUser() {
 
               <Form.Group as={Col} controlId="formGridCep">
                 <Form.Label style={{ fontWeight: "bold", color: "#1E3354" }}>CEP</Form.Label>
-                <Form.Control placeholder="Ex.: 00000-000" onChange={(e) => setCep(e.target.value)} />
+                <Form.Control placeholder="Ex.: 00000-000" as={InputMask} mask='99999-999' onChange={(e) => setCep(e.target.value)} />
               </Form.Group>
             </Row>
             <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridState">
+              <Form.Group as={Col} controlId="formGridEspecialidade">
                 <Form.Label style={{ fontWeight: "bold", color: "#1E3354" }}>Especialidade</Form.Label>
-                <Form.Select defaultValue="Especialidade">
+                <Form.Select defaultValue="Especialidade" onChange={(e) => setSpecialty(e.target.value)}>
                   <option value="Especialidade"> Especialidade </option>
                   <option value="Audiologia"> Audiologia </option>
                   <option value="Linguagem"> Linguagem </option>
@@ -145,7 +187,7 @@ function RegisterUser() {
 
               <Form.Group as={Col} controlId="formGridState">
                 <ContentButton>
-                  <Button
+                  <Button onClick={register}
                     style={{
                       width: "300px",
                       borderRadius: "30px",
@@ -154,7 +196,7 @@ function RegisterUser() {
                       border: "none",
                       cursor: "pointer"
                     }}>
-                    Avançar Cadastro
+                    Ir para pagamento
                   </Button>
                 </ContentButton>
               </Form.Group>
@@ -162,6 +204,14 @@ function RegisterUser() {
           </Form>
         </ContentForm>
       </ContentRegister>
+      <Modal show={show} onHide={handleClose} size="lg" >
+        <Modal.Header closeButton>
+          <Modal.Title>Escolha a forma de pagamento</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ height: "75vh" }}>
+          <iframe src={urlPayment} style={{ width: "100%", height: "100%" }}></iframe>
+        </Modal.Body>
+      </Modal>
     </MainContainer>
   );
 }

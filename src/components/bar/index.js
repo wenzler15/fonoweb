@@ -38,15 +38,12 @@ const ResponsiveAppBar = () => {
   };
 
   useEffect(() => {
-    const user = localStorage.getItem("userType");
-    if (user === "Doutor") {
-      setPages(["Home", "Dashboard", "Pacientes"]);
-    } else setPages(["Home", "consultas", "exercicios", "documentos"]);
+    setPages(["Home", "Sobre", "Contato"]);
   });
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position="static" style={{ background: "linear-gradient(to right, #1E98D4, #803888)" }}>
+      <Container maxWidth="xl" >
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton

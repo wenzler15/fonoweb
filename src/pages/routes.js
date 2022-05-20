@@ -13,6 +13,8 @@ import ModelsEvaluation from "./ModelsEvaluation";
 import Evaluation from "./Evaluation";
 import Anamnese from "./Anamnese";
 import ToViewAnamnese from "./ToViewAnamnese";
+import Pacientes from "./Pacientes";
+import PaymentUser from "./PaymentUser";
 
 export function AppRoutes() {
   return (
@@ -31,6 +33,8 @@ export function AppRoutes() {
         <Route path="/evaluation" element={<Evaluation />} />
         <Route path="/anamnese" element={<Anamnese />} />
         <Route path="/toviewanamnese" element={<ToViewAnamnese />} />
+        <Route path="/pacientes" element={<Pacientes />} />
+        <Route path="/payment" element={<PaymentUser />} />
       </Routes>
     </Router>
   );

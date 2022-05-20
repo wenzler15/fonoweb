@@ -22,12 +22,9 @@ export const ContentRight = styled.div`
 `;
 
 export const ContentPacientes = styled.div`
+  margin-top: 60px;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin-left: 30px;
-  margin-top: 30px;
+  justify-content: space-evenly;
 `;
 
 export const TitlePacientes = styled.div`
@@ -39,6 +36,37 @@ export const TitlePacientes = styled.div`
   font-size: 48px;
   line-height: 110%;
   color: #181818;
+`;
+
+export const ButtonEditSchedule = styled.button`
+  width: 329px;
+  height: 56px;
+  background: #1e98d4;
+  border-radius: 70px;
+  border: none;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  color: #ffffff;
+  cursor: pointer;
+`;
+
+export const ContentMsgFilter = styled.div`
+  margin-top: 60px;
+  margin-left: 140px;
+`;
+
+export const MsgFilter = styled.div`
+  width: 559px;
+  height: 36px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: 0.15px;
+  color: #aaaaaa;
 `;
 
 export const ContentContainerPacientes = styled.div`

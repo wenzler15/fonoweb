@@ -1,5 +1,6 @@
 import React from "react";
-import ResponsiveAppBar from "../../components/bar";
+// import ResponsiveAppBar from "../../components/bar";
+import { useNavigate } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
 import {
   MainContainer,
@@ -7,6 +8,9 @@ import {
   ContentRight,
   ContentPacientes,
   TitlePacientes,
+  ButtonEditSchedule,
+  ContentMsgFilter,
+  MsgFilter,
   ContentContainerPacientes,
   ContentNamePaciente,
   NamePaciente,
@@ -19,20 +23,31 @@ import {
   Button,
 } from "./styles";
 
-export default function Pacientes() {
+export default function Schedule() {
+  const navigate = useNavigate();
   return (
     <MainContainer>
-      <ResponsiveAppBar />
+      {/* <ResponsiveAppBar /> */}
       <ContentContainer>
         <ContentRight>
           <ContentPacientes>
-            <TitlePacientes>Pacientes</TitlePacientes>
+            <div>
+              <TitlePacientes>Minhas consultas na agenda</TitlePacientes>
+            </div>
+            <div>
+              <ButtonEditSchedule onClick={() => navigate("/changeschedule")}>
+                Editar agenda
+              </ButtonEditSchedule>
+            </div>
           </ContentPacientes>
+          <ContentMsgFilter>
+            <MsgFilter>Agenda do dia 12 de Novembro á 24 de Dezembro</MsgFilter>
+          </ContentMsgFilter>
           <div
             style={{
               display: "flex",
               flexDirection: "row",
-              marginTop: "80px",
+              marginTop: "30px",
             }}
           >
             <div
@@ -48,7 +63,7 @@ export default function Pacientes() {
             </div>
             <ContentContainerPacientes>
               <ContentNamePaciente>
-                <NamePaciente>Juscelino Kubitschek</NamePaciente>
+                <NamePaciente>Paciente 23</NamePaciente>
                 <ContentDateHour>
                   <Date>21 de Dezembro</Date>
                   <Hour>14H</Hour>

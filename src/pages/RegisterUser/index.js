@@ -97,9 +97,10 @@ function RegisterUser() {
         crfa,
         cep,
         specialty,
+        password,
       };
 
-      const resp = await fetch("http://18.215.217.253:3001/user/", {
+      const resp = await fetch("http://18.215.217.253:3001/users/", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -110,11 +111,11 @@ function RegisterUser() {
       const res = await resp.json();
 
       if (res.message === "User created") {
-        navigate("/login", {
-          state: {
-            path,
-          },
-        });
+        // navigate("/login", {
+        //   state: {
+        //     path,
+        //   },
+        // });
       } else if (res.message === "User already exists") {
         toast.warn("Usuário já cadastrado");
       }

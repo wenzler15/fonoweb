@@ -43,7 +43,7 @@ function Login() {
       if (res.message === "User Logged") {
         localStorage.setItem("userId", res.user.id);
         localStorage.setItem("token", res.token);
-        navigate("/pacientes", {
+        navigate("/mypatient", {
           state: {
             path,
           },

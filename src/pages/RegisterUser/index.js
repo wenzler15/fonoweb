@@ -250,6 +250,7 @@ function RegisterUser() {
                 </Form.Label>
                 <Form.Control
                   placeholder="Senha"
+                  type="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Group>

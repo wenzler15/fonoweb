@@ -88,8 +88,7 @@ function RegisterUser() {
     } catch (err) {
       console.log(err);
     }
-    /*try {
-      
+    try {
       const toSend = {
         email,
         name,
@@ -97,10 +96,10 @@ function RegisterUser() {
         address,
         crfa,
         cep,
-        specialty
+        specialty,
       };
 
-      const resp = await fetch("http://18.212.199.176:3001/users/", {
+      const resp = await fetch("http://18.215.217.253:3001/user/", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -121,7 +120,7 @@ function RegisterUser() {
       }
     } catch (err) {
       console.log(err);
-    }*/
+    }
   };
 
   return (

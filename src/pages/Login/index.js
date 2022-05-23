@@ -10,7 +10,6 @@ import {
   LogoFonoweb,
   Inputs,
   SmallText,
-  SmallTextContainer,
   ContainerButtonText,
   ContainerButton,
   SmallTextContainerButton,

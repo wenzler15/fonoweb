@@ -70,7 +70,7 @@ function RegisterUser() {
         ],
       };
 
-      //navigate('/payment', { state: toSend });
+      navigate("/payment", { state: toSend });
       const resp = await fetch(
         "https://api.mercadopago.com/checkout/preferences?access_token=TEST-839873972326160-051700-d50edb93763bcf54c251226707e01692-146149588",
         {
@@ -89,7 +89,7 @@ function RegisterUser() {
       console.log(err);
     }
     try {
-      const toSend = {
+      const toSendUsers = {
         email,
         name,
         cpf,
@@ -97,20 +97,21 @@ function RegisterUser() {
         crfa,
         cep,
         specialty,
+        password,
       };
 
-      const resp = await fetch("http://18.215.217.253:3001/user/", {
+      const resp = await fetch("http://18.215.217.253:3001/users/", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(toSend),
+        body: JSON.stringify(toSendUsers),
       });
       const res = await resp.json();
 
       if (res.message === "User created") {
-        navigate("/login", {
+        navigate("/", {
           state: {
             path,
           },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import ResponsiveAppBar from "../../components/bar";
+import NavBar from "../../components/navBar";
 import { BiUserCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +28,7 @@ import {
 function MyPatient() {
   const navigate = useNavigate();
   const [getPatients, setGetPatients] = useState("");
-
+  const [searchPatients, setSearchPatients] = useState("");
   useEffect(() => {
     getUsersPatients();
   }, []);
@@ -45,7 +45,7 @@ function MyPatient() {
 
   return (
     <MainContainer>
-      {/* <ResponsiveAppBar /> */}
+      <NavBar />
       <ContentContainer>
         <ContentRight>
           <ContentPacientes>
@@ -56,7 +56,12 @@ function MyPatient() {
           </ContentPacientes>
 
           <ContentFilterAddPatient>
-            <Input placeholder="Buscar Pacientes" />
+            <Input
+              placeholder="Buscar Pacientes"
+              onChange={(event) => {
+                setSearchPatients(event.target.value);
+              }}
+            />
             <ButtonAddPatient onClick={() => navigate("/registernewpatient")}>
               Adicionar Pacientes
             </ButtonAddPatient>
@@ -64,26 +69,38 @@ function MyPatient() {
 
           <ContentTablePatient>
             {getPatients &&
-              getPatients.map((item) => (
-                <>
-                  <ContentUser>
-                    <BiUserCircle color="#803888" size={60} />
-                    <User>
-                      {item.name} {item.lastName}
-                    </User>
-                  </ContentUser>
-                  <ContentNewAnamneseEvolution>
-                    <AddAnamnese>Novo Anamnese</AddAnamnese>
-                    <AddEvolution>Nova Evolução</AddEvolution>
-                  </ContentNewAnamneseEvolution>
-                  <ContentAddAssessment>
-                    <AddAssessment>Adicionar Nova Avaliação</AddAssessment>
-                  </ContentAddAssessment>
-                  <ContentCheckUser>
-                    <CheckUser>Ver</CheckUser>
-                  </ContentCheckUser>
-                </>
-              ))}
+              getPatients
+                .filter((item) => {
+                  if (searchPatients == "") {
+                    return item;
+                  } else if (
+                    item.name
+                      .toLowerCase()
+                      .includes(searchPatients.toLowerCase())
+                  ) {
+                    return item;
+                  }
+                })
+                .map((item) => (
+                  <>
+                    <ContentUser>
+                      <BiUserCircle color="#803888" size={60} />
+                      <User>
+                        {item.name} {item.lastName}
+                      </User>
+                    </ContentUser>
+                    <ContentNewAnamneseEvolution>
+                      <AddAnamnese>Novo Anamnese</AddAnamnese>
+                      <AddEvolution>Nova Evolução</AddEvolution>
+                    </ContentNewAnamneseEvolution>
+                    <ContentAddAssessment>
+                      <AddAssessment>Adicionar Nova Avaliação</AddAssessment>
+                    </ContentAddAssessment>
+                    <ContentCheckUser>
+                      <CheckUser>Ver</CheckUser>
+                    </ContentCheckUser>
+                  </>
+                ))}
           </ContentTablePatient>
         </ContentRight>
       </ContentContainer>

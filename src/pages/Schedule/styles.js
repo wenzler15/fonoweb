@@ -13,11 +13,11 @@ export const ContentContainer = styled.div`
 `;
 
 export const ContentRight = styled.div`
-  width: 98vw;
-  height: 85vh;
-  border: 1px solid #ffffff;
+  width: 90vw;
+  height: 100vh;
   border-radius: 8px;
   margin-top: 10px;
+  border: 1px solid #ffffff;
   background-color: #ffffff;
 `;
 
@@ -69,44 +69,55 @@ export const MsgFilter = styled.div`
   color: #aaaaaa;
 `;
 
-export const ContentContainerPacientes = styled.div`
+export const ContainerInput = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
 `;
 
-export const ContentNamePaciente = styled.div`
-  width: 100%;
+export const ContentLine = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 50px;
+`;
+
+export const ContentPhoto = styled.div``;
+
+export const ContentColumn = styled.div`
+  width: 500px;
+`;
+
+export const ContentRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 `;
 
-export const NamePaciente = styled.div`
+export const ContentName = styled.div`
+  width: 500px;
+  height: 36px;
+`;
+
+export const Name = styled.div`
   font-family: "Lato";
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
-  line-height: 150%;
+  color: #2d2d2d;
 `;
 
-export const ContentDateHour = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-left: 30px;
-`;
-
-export const Date = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 120px;
+export const ContentDateMonth = styled.div`
+  width: 200px;
   height: 28px;
+  padding: 0px 30px;
   background: #1e98d4;
   border-radius: 50px;
-  margin-top: 3px;
+`;
+
+export const DateMonth = styled.text`
+  width: 80px;
+  height: 12px;
   font-family: "Roboto Condensed";
   font-style: normal;
   font-weight: 700;
@@ -114,17 +125,17 @@ export const Date = styled.div`
   color: #ffffff;
 `;
 
-export const Hour = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 44px;
+export const ContentHour = styled.div`
+  width: 80px;
   height: 28px;
+  padding: 0px 13px;
   background: #803888;
   border-radius: 50px;
-  margin-top: 3px;
-  margin-left: 5px;
+`;
+
+export const Hour = styled.text`
+  width: 20px;
+  height: 12px;
   font-family: "Roboto Condensed";
   font-style: normal;
   font-weight: 700;
@@ -132,13 +143,13 @@ export const Hour = styled.div`
   color: #ffffff;
 `;
 
-export const ContentAboutText = styled.div`
-  margin-left: 22px;
-  width: 400px;
-  height: 29px;
+export const ContentDescription = styled.div`
+  width: 250px;
 `;
 
-export const AboutText = styled.div`
+export const Description = styled.text`
+  width: 200px;
+  height: 29px;
   font-family: "Lato";
   font-style: normal;
   font-weight: 400;
@@ -146,27 +157,18 @@ export const AboutText = styled.div`
   color: #aaaaaa;
 `;
 
-export const ContentButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const ContentButton = styled.div``;
+
+export const Button = styled.button`
   width: 74px;
   height: 48px;
-  background: #803888;
-  border-radius: 8px;
-  boder: none;
-  cursor: pointer;
-  margin-left: 150px;
-`;
-
-export const Button = styled.div`
-  width: 26px;
-  height: 19px;
   font-family: "Mulish";
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
-  line-height: 120%;
-  text-align: center;
+  background: #803888;
+  border-radius: 8px;
   color: #ffffff;
+  border: none;
+  cursor: pointer;
 `;

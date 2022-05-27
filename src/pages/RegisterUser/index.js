@@ -70,7 +70,7 @@ function RegisterUser() {
         ],
       };
 
-      navigate("/payment", { state: toSend });
+      // navigate("/payment", { state: toSend });
       const resp = await fetch(
         "https://api.mercadopago.com/checkout/preferences?access_token=TEST-839873972326160-051700-d50edb93763bcf54c251226707e01692-146149588",
         {
@@ -110,15 +110,15 @@ function RegisterUser() {
       });
       const res = await resp.json();
 
-      if (res.message === "User created") {
-        navigate("/", {
-          state: {
-            path,
-          },
-        });
-      } else if (res.message === "User already exists") {
-        toast.warn("Usuário já cadastrado");
-      }
+      // if (res.message === "User created") {
+      //   navigate("/", {
+      //     state: {
+      //       path,
+      //     },
+      //   });
+      // } else if (res.message === "User already exists") {
+      //   toast.warn("Usuário já cadastrado");
+      // }
     } catch (err) {
       console.log(err);
     }

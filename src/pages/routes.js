@@ -15,6 +15,10 @@ import Anamnese from "./Anamnese";
 import ToViewAnamnese from "./ToViewAnamnese";
 // import Pacientes from "./Pacientes";
 import PaymentUser from "./PaymentUser";
+import DoctorExercises from "./DoctorExercises";
+import DoctorWeeks from "./DoctorWeeks";
+import CreateWeeks from "./CreateWeeks";
+import CreateExercises from "./CreateExercises";
 
 export function AppRoutes() {
   return (
@@ -35,6 +39,10 @@ export function AppRoutes() {
         <Route path="/toviewanamnese" element={<ToViewAnamnese />} />
         {/* <Route path="/pacientes" element={<Pacientes />} /> */}
         <Route path="/payment" element={<PaymentUser />} />
+        <Route path="/doctorexercises" element={<DoctorExercises />} />
+        <Route path="/doctorweeks" element={<DoctorWeeks />} />
+        <Route path="/createweeks" element={<CreateWeeks />} />
+        <Route path="/createexercises" element={<CreateExercises />} />
       </Routes>
     </Router>
   );

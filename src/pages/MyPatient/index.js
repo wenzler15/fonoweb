@@ -90,11 +90,15 @@ function MyPatient() {
                       </User>
                     </ContentUser>
                     <ContentNewAnamneseEvolution>
-                      <AddAnamnese>Novo Anamnese</AddAnamnese>
+                      <AddAnamnese onClick={() => navigate("/newanamnese")}>
+                        Novo Anamnese
+                      </AddAnamnese>
                       <AddEvolution>Nova Evolução</AddEvolution>
                     </ContentNewAnamneseEvolution>
                     <ContentAddAssessment>
-                      <AddAssessment>Adicionar Nova Avaliação</AddAssessment>
+                      <AddAssessment onClick={() => navigate("/newavaliation")}>
+                        Adicionar Nova Avaliação
+                      </AddAssessment>
                     </ContentAddAssessment>
                     <ContentCheckUser>
                       <CheckUser>Ver</CheckUser>

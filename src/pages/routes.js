@@ -4,7 +4,7 @@ import Login from "./Login";
 import RegisterUser from "./RegisterUser";
 import SuccessfullyQuery from "./SuccessfullyQuery";
 import Schedule from "./Schedule";
-import ChangeSchedule from "./ChangeSchedule";
+// import ChangeSchedule from "./ChangeSchedule";
 import RegisterNewPatient from "./RegisterNewPatient";
 import MyPatient from "./MyPatient";
 import NewAnamnese from "./NewAnamnese";
@@ -29,7 +29,7 @@ export function AppRoutes() {
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/successfullyquery" element={<SuccessfullyQuery />} />
         <Route path="/schedule" element={<Schedule />} />
-        <Route path="/changeschedule" element={<ChangeSchedule />} />
+        {/* <Route path="/changeschedule" element={<ChangeSchedule />} /> */}
         <Route path="/registernewpatient" element={<RegisterNewPatient />} />
         <Route path="/newanamnese" element={<NewAnamnese />} />
         <Route path="/newavaliation" element={<NewAvaliation />} />

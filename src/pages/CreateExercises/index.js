@@ -29,7 +29,7 @@ export default function CreateExercises() {
         description,
         url,
       };
-      const resp = await fetch("http://localhost:3001/workouts", {
+      const resp = await fetch("http://18.215.217.253:3001/workouts", {
         method: "POST",
         headers: {
           Accept: "application/json",

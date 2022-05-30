@@ -34,7 +34,7 @@ export default function RegisterNewPatient() {
         password: "123456",
         // myDoctor: pegar do local storage,
       };
-      const resp = await fetch("http://localhost:3001/users/", {
+      const resp = await fetch("http://18.215.217.253:3001/users/", {
         method: "POST",
         headers: {
           Accept: "application/json",

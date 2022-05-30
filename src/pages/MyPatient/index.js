@@ -35,7 +35,7 @@ function MyPatient() {
 
   const getUsersPatients = async () => {
     try {
-      let resp = await fetch("http://localhost:3001/users/patients");
+      let resp = await fetch("http://18.215.217.253:3001/users/patients");
       resp = await resp.json();
       setGetPatients(resp);
     } catch (err) {

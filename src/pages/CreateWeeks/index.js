@@ -25,7 +25,7 @@ export default function CreateWeeks() {
         title,
         description,
       };
-      const resp = await fetch("http://localhost:3001/groups", {
+      const resp = await fetch("http://18.215.217.253:3001/groups", {
         method: "POST",
         headers: {
           Accept: "application/json",

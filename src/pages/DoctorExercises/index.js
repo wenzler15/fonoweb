@@ -30,7 +30,7 @@ export default function DoctorExercises() {
 
   const ExercisesWeeks = async () => {
     try {
-      let resp = await fetch("http://localhost:3001/groups");
+      let resp = await fetch("http://18.215.217.253:3001/groups");
       resp = await resp.json();
       setGetExercises(resp);
     } catch (err) {

@@ -43,7 +43,9 @@ export default function Schedule() {
 
   const getUsersPatientsPerDoctor = async () => {
     try {
-      let resp = await fetch(`http://localhost:3001/appointment/doctor/${id}`);
+      let resp = await fetch(
+        `http://18.215.217.253:3001/appointment/doctor/${id}`
+      );
       resp = await resp.json();
       console.log(resp);
       setGetPatientsPerDoctor(resp);

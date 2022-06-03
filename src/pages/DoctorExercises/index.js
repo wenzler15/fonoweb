@@ -33,6 +33,7 @@ export default function DoctorExercises() {
       let resp = await fetch("http://18.215.217.253:3001/groups");
       resp = await resp.json();
       setGetExercises(resp);
+      console.log(resp);
     } catch (err) {
       console.log("erro", err);
     }
@@ -51,7 +52,7 @@ export default function DoctorExercises() {
                 justifyContent: "space-between",
               }}
             >
-              <Title>Minhas semanas</Title>
+              <Title>Meus Exercicios</Title>
               <ButtonAdd onClick={() => navigate("/createweeks")}>
                 Adicionar Semana
               </ButtonAdd>
@@ -78,10 +79,26 @@ export default function DoctorExercises() {
                   </div>
                 </ContentTitleWeek>
                 <ContentButton>
-                  <Button onClick={() => navigate("/createexercises")}>
+                  <Button
+                    onClick={() =>
+                      navigate("/createexercises", {
+                        state: {
+                          id: item.id,
+                        },
+                      })
+                    }
+                  >
                     Adicionar exercicío
                   </Button>
-                  <ButtonToSee onClick={() => navigate("/doctorweeks")}>
+                  <ButtonToSee
+                    onClick={() =>
+                      navigate("/doctorweeks", {
+                        state: {
+                          id: item.id,
+                        },
+                      })
+                    }
+                  >
                     Ver
                   </ButtonToSee>
                 </ContentButton>

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import ResponsiveAppBar from "../../components/bar";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   MainContainer,
@@ -20,7 +21,14 @@ export default function CreateExercises() {
   const [title, setTtile] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
+  const [id, setId] = useState("");
   const navigate = useNavigate();
+  let location = useLocation();
+
+  useEffect(() => {
+    setId(location.state.id);
+    // console.log(location.state.id);
+  });
 
   const registerExercises = async () => {
     try {
@@ -28,6 +36,7 @@ export default function CreateExercises() {
         title,
         description,
         url,
+        groupId: id,
       };
       const resp = await fetch("http://18.215.217.253:3001/workouts", {
         method: "POST",

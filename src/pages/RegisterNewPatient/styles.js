@@ -61,6 +61,16 @@ export const Input = styled.input`
   padding-left: 20px;
 `;
 
+export const SelectGender = styled.select`
+  width: 300px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #1e3354;
+  padding-left: 20px;
+`;
+
+export const OptionGender = styled.option``;
+
 export const ContentButton = styled.div`
   display: flex;
   justify-content: flex-start;

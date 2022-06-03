@@ -11,6 +11,8 @@ import {
   ContentInputs,
   Label,
   Input,
+  SelectGender,
+  OptionGender,
   ContentButton,
   ButtonRegisterPatient,
 } from "./styles";
@@ -77,10 +79,11 @@ export default function RegisterNewPatient() {
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <Label>Genero do Paciente Biologico</Label>
-              <Input
-                onChange={(e) => setGender(e.target.value)}
-                placeholder="feminino"
-              />
+              <SelectGender onChange={(e) => setGender(e.target.value)}>
+                <OptionGender>Feminino</OptionGender>
+                <OptionGender>Masculino</OptionGender>
+                <OptionGender>Não definido</OptionGender>
+              </SelectGender>
             </div>
             <div
               style={{

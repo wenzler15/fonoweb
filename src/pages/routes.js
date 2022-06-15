@@ -25,8 +25,10 @@ export function AppRoutes() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/mypatient" element={<MyPatient />} />
         <Route path="/register" element={<RegisterUser />} />
+        <Route path="/payment" element={<PaymentUser />} />
+
+        <Route path="/mypatient" element={<MyPatient />} />
         <Route path="/successfullyquery" element={<SuccessfullyQuery />} />
         <Route path="/schedule" element={<Schedule />} />
         {/* <Route path="/changeschedule" element={<ChangeSchedule />} /> */}
@@ -38,7 +40,6 @@ export function AppRoutes() {
         <Route path="/anamnese" element={<Anamnese />} />
         <Route path="/toviewanamnese" element={<ToViewAnamnese />} />
         {/* <Route path="/pacientes" element={<Pacientes />} /> */}
-        <Route path="/payment" element={<PaymentUser />} />
         <Route path="/doctorexercises" element={<DoctorExercises />} />
         <Route path="/doctorweeks" element={<DoctorWeeks />} />
         <Route path="/createweeks" element={<CreateWeeks />} />

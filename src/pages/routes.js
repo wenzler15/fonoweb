@@ -20,6 +20,8 @@ import DoctorWeeks from "./DoctorWeeks";
 import CreateWeeks from "./CreateWeeks";
 import CreateExercises from "./CreateExercises";
 import Patient from "./Patient";
+import CoursesList from "./CoursesList";
+import Course from "./Course";
 
 export function AppRoutes() {
   return (
@@ -31,6 +33,8 @@ export function AppRoutes() {
 
         <Route path="/mypatient" element={<MyPatient />} />
         <Route path="/patient" element={<Patient />} />
+        <Route path="/courses" element={<CoursesList />} />
+        <Route path="/courses/:course_id" element={<Course />} />
 
         <Route path="/successfullyquery" element={<SuccessfullyQuery />} />
         <Route path="/schedule" element={<Schedule />} />

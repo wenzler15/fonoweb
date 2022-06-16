@@ -23,12 +23,14 @@ export default function NavBar() {
     <Container>
       <div className="navigationContainer">
         <TextNavBar onClick={() => navigate("/mypatient")}>Home</TextNavBar>
-        <TextNavBar onClick={() => navigate("/schedule")}>
-          Minha Agenda
+        <TextNavBar onClick={() => navigate("/dashboard")}>
+          Dashboard
         </TextNavBar>
-        <TextNavBar onClick={() => navigate("/doctorexercises")}>
-          Exercicios
+        <TextNavBar onClick={() => navigate("/mypatient")}>
+          Meus Pacientes
         </TextNavBar>
+        <TextNavBar onClick={() => navigate("/courses")}>Cursos</TextNavBar>
+        <TextNavBar onClick={() => navigate("/support")}>Suporte</TextNavBar>
       </div>
 
       <UserContainer>

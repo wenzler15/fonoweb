@@ -23,6 +23,10 @@ export const Container = styled.div`
 
     margin: 0 auto;
   }
+
+  @media (max-width: 500px) {
+    padding: 0.5rem;
+  }
 `;
 
 export const TextNavBar = styled.div`
@@ -34,6 +38,14 @@ export const TextNavBar = styled.div`
 
   & + div {
     margin-left: 2rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1rem;
+
+    & + div {
+      margin-left: 0.5rem;
+    }
   }
 `;
 

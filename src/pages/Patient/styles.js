@@ -47,7 +47,7 @@ export const ExportContainer = styled.div`
   @media (max-width: 500px) {
     flex-flow: column;
     padding: 1rem;
-    margin: 2rem;
+    margin: 1rem;
 
     > button {
       margin-top: 1rem;
@@ -101,7 +101,6 @@ export const RecordContainer = styled.div`
     font-size: 2.5rem;
     font-weight: 600;
     color: #803888;
-    margin-bottom: 1rem;
   }
 
   > h3,
@@ -123,7 +122,20 @@ export const RecordContainer = styled.div`
   @media (max-width: 500px) {
     flex-flow: column;
     padding: 1rem;
-    margin: 2rem;
+    margin: 1rem;
+
+    > h1 {
+      font-size: 1.5rem;
+    }
+
+    > h3,
+    h4 {
+      font-size: 1rem;
+    }
+
+    > p {
+      font-size: 0.75rem;
+    }
 
     > button {
       margin-top: 1rem;
@@ -157,6 +169,14 @@ export const AnamnesisContainer = styled.div`
     &:hover {
       color: #181818;
       transition: all 0.5s;
+    }
+  }
+
+  @media (max-width: 500px) {
+    margin-top: 1rem;
+
+    > h1 {
+      font-size: 1.5rem;
     }
   }
 `;
@@ -193,6 +213,16 @@ export const AppointmentContainer = styled.div`
       }
     }
   }
+
+  @media (max-width: 500px) {
+    margin-top: 1rem;
+
+    > div {
+      > h1 {
+        font-size: 1.5rem;
+      }
+    }
+  }
 `;
 
 export const Appointment = styled.div`
@@ -204,16 +234,22 @@ export const Appointment = styled.div`
 
   margin-top: 2rem;
 
-  > h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #000;
+  > span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-    > span {
+    > h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    > p {
       color: #fff;
       font-size: 0.75rem;
 
-      border-radius: 0.75rem;
+      border-radius: 1rem;
       margin-left: 1rem;
       padding: 0.5rem;
       background: #1e98d4;
@@ -244,7 +280,6 @@ export const Appointment = styled.div`
 
     display: flex;
     flex-flow: column !important;
-    align-items: flex-start !important;
     justify-content: flex-start !important;
 
     margin-top: 2rem;
@@ -254,16 +289,21 @@ export const Appointment = styled.div`
 
     border-left: 2px solid #1e98d4;
 
-    > h4 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #000;
+    > span {
+      display: flex;
+      align-items: center;
 
-      > span {
+      > h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #000;
+      }
+
+      > p {
         color: #fff;
         font-size: 0.75rem;
 
-        border-radius: 0.75rem;
+        border-radius: 1rem;
         margin-left: 1rem;
         padding: 0.5rem;
         background: #1e98d4;
@@ -280,6 +320,52 @@ export const Appointment = styled.div`
         color: #aaa;
         font-size: 1rem;
         max-width: 75%;
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    margin-top: 1rem;
+
+    > span {
+      > h3 {
+        font-size: 1rem;
+      }
+
+      > p {
+        font-size: 0.75rem;
+        margin-bottom: 0;
+      }
+    }
+
+    > h3,
+    p {
+      font-size: 1rem;
+    }
+
+    .exercise {
+      padding-left: 2rem;
+
+      > span {
+        > h3 {
+          font-size: 1rem;
+        }
+        > p {
+          font-size: 0.75rem;
+          margin-bottom: 0;
+        }
+      }
+
+      > div {
+        align-items: center !important;
+        > p {
+          font-size: 0.75rem;
+          max-width: 50%;
+        }
+
+        > button {
+          height: 40px;
+        }
       }
     }
   }

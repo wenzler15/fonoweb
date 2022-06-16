@@ -60,7 +60,10 @@ const Patient = () => {
         <div>
           <UserContainer>
             <UserContainerButton>
-              <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
+              <img
+                src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000"
+                alt="Imagem do Usuário"
+              />
             </UserContainerButton>
           </UserContainer>
 
@@ -98,9 +101,10 @@ const Patient = () => {
           </div>
 
           <Appointment>
-            <h3>
-              Consulta 3 <span>23 de dezembro</span>
-            </h3>
+            <span>
+              <h3>Consulta 3</h3>
+              <p>23 de dezembro</p>
+            </span>
 
             <p>
               <b>Evolução: </b>Lorem Ipsum is simply dummy text of the printing
@@ -109,41 +113,10 @@ const Patient = () => {
             </p>
 
             <div className="exercise">
-              <h4>
-                Exercício semana 1 <span>23 de dezembro</span>
-              </h4>
-
-              <div>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s
-                </p>
-
-                <Button>Baixar arquivo</Button>
-              </div>
-            </div>
-
-            <div className="exercise">
-              <h4>
-                Exercício semana 1 <span>23 de dezembro</span>
-              </h4>
-
-              <div>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s
-                </p>
-
-                <Button>Baixar arquivo</Button>
-              </div>
-            </div>
-
-            <div className="exercise">
-              <h4>
-                Exercício semana 1 <span>23 de dezembro</span>
-              </h4>
+              <span>
+                <h3>Exercício semana 1</h3>
+                <p>23 de dezembro</p>
+              </span>
 
               <div>
                 <p>

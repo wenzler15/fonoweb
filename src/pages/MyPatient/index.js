@@ -27,6 +27,7 @@ import {
 
 function MyPatient() {
   const navigate = useNavigate();
+
   const [getPatients, setGetPatients] = useState("");
   const [searchPatients, setSearchPatients] = useState("");
   useEffect(() => {
@@ -96,12 +97,13 @@ function MyPatient() {
                       <AddEvolution>Nova Evolução</AddEvolution>
                     </ContentNewAnamneseEvolution>
                     <ContentAddAssessment>
-                      <AddAssessment onClick={() => navigate("/newavaliation")}>
+                      <AddAssessment onClick={() => navigate("/newavaliation", { patient: item })}>
                         Adicionar Nova Avaliação
                       </AddAssessment>
                     </ContentAddAssessment>
+
                     <ContentCheckUser>
-                      <CheckUser>Ver</CheckUser>
+                      <CheckUser onClick={() => navigate('/patient', { state: { patient: item }})}>Ver</CheckUser>
                     </ContentCheckUser>
                   </>
                 ))}

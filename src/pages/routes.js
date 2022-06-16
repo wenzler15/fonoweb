@@ -19,6 +19,7 @@ import DoctorExercises from "./DoctorExercises";
 import DoctorWeeks from "./DoctorWeeks";
 import CreateWeeks from "./CreateWeeks";
 import CreateExercises from "./CreateExercises";
+import Patient from "./Patient";
 
 export function AppRoutes() {
   return (
@@ -29,6 +30,8 @@ export function AppRoutes() {
         <Route path="/payment" element={<PaymentUser />} />
 
         <Route path="/mypatient" element={<MyPatient />} />
+        <Route path="/patient" element={<Patient />} />
+
         <Route path="/successfullyquery" element={<SuccessfullyQuery />} />
         <Route path="/schedule" element={<Schedule />} />
         {/* <Route path="/changeschedule" element={<ChangeSchedule />} /> */}

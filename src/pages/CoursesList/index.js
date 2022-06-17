@@ -1,4 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Button, LinearProgress, Tabs } from "@mui/material";
 
 import NavBar from "../../components/navBar";
@@ -12,6 +14,7 @@ import {
 
 const coursesList = [
   {
+    id: 1,
     title: "Fonoaudiologia #3 - Exercícios Diários",
     image:
       "https://www.puc-campinas.edu.br/wp-content/uploads/2016/05/foto-curso-fono.jpg",
@@ -21,6 +24,7 @@ const coursesList = [
     status: 1,
   },
   {
+    id: 2,
     title: "Fonoaudiologia #3 - Exercícios Diários",
     image:
       "https://www.puc-campinas.edu.br/wp-content/uploads/2016/05/foto-curso-fono.jpg",
@@ -33,10 +37,16 @@ const coursesList = [
 
 function CoursesList() {
   const [tabValue, setTabValue] = useState(1);
+  const navigate = useNavigate();
 
-  const handleChangeTab = useCallback((value) => {
-    setTabValue(value);
-  }, []);
+  const handleChangeTab = useCallback((value) => setTabValue(value), []);
+
+  const handleNavigateToCoursePage = useCallback(
+    (course) => {
+      navigate(`/courses/${course.id}`);
+    },
+    [navigate]
+  );
 
   const inProgressCourses = useMemo(() => {
     const filteredCourses = coursesList.filter((course) => course.status === 1);
@@ -50,7 +60,7 @@ function CoursesList() {
     return filteredCourses;
   }, []);
 
-  const displayedCourses = useCallback(() => {
+  const displayedCourses = useMemo(() => {
     const courses = {
       1: coursesList,
       2: inProgressCourses,
@@ -58,7 +68,7 @@ function CoursesList() {
     };
 
     return courses[tabValue];
-  }, [inProgressCourses, completedCourses, tabValue])();
+  }, [inProgressCourses, completedCourses, tabValue]);
 
   return (
     <>
@@ -110,7 +120,9 @@ function CoursesList() {
               </div>
             </div>
 
-            <Button>Ver curso</Button>
+            <Button onClick={() => handleNavigateToCoursePage(course)}>
+              Ver curso
+            </Button>
           </CourseContainer>
         ))}
       </Container>

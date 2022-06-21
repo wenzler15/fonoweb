@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { Button, LinearProgress, Tabs } from "@mui/material";
+import { Button, LinearProgress } from "@mui/material";
 
 import NavBar from "../../components/navBar";
 

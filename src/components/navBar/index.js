@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LogoImg from "../../assets/logo.svg";
 
-import { Box, Button, Drawer } from "@material-ui/core";
+import { Button, Menu, MenuItem } from "@material-ui/core";
 
 import {
   Container,
@@ -11,16 +12,20 @@ import {
 } from "./styles";
 
 export default function NavBar() {
+  const [anchorEl, setAnchorEl] = useState(null);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleToggleDrawer = useCallback(() => {
+  const handleToggleDrawer = useCallback((event) => {
     setIsDrawerVisible((state) => !state);
+    setAnchorEl(event.currentTarget);
   }, []);
 
   return (
     <Container>
+      <img src={LogoImg} alt="Logo" />
+
       <div className="navigationContainer">
         <TextNavBar onClick={() => navigate("/mypatient")}>Home</TextNavBar>
         <TextNavBar onClick={() => navigate("/dashboard")}>
@@ -38,14 +43,23 @@ export default function NavBar() {
           <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
         </UserContainerButton>
 
-        <Drawer
-          anchor="top"
+        <Menu
+          anchorEl={anchorEl}
           open={isDrawerVisible}
           onClose={handleToggleDrawer}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
         >
-          <Button onClick={() => navigate("/mypatient")}>Meu Perfil</Button>
-          <Button onClick={() => navigate("/")}>Sair</Button>
-        </Drawer>
+          <MenuItem>
+            <Button onClick={() => navigate("/doctorprofile")}>
+              Meu Perfil
+            </Button>
+          </MenuItem>
+          <MenuItem>
+            <Button onClick={() => navigate("/")}>Sair</Button>
+          </MenuItem>
+        </Menu>
       </UserContainer>
     </Container>
   );

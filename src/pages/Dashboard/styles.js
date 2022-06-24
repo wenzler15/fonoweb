@@ -41,6 +41,19 @@ export const Container = styled.div`
       }
     }
   }
+
+  @media (max-width: 500px) {
+    padding: 1rem;
+    height: 100vh;
+
+    .analyticsContainer {
+      flex-direction: column;
+
+      > div {
+        margin-top: 1rem;
+      }
+    }
+  }
 `;
 
 export const AnalyticsLabel = styled.p`
@@ -65,6 +78,14 @@ export const ChartContainer = styled.div`
 
     > input {
       padding: 1rem;
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding: 1rem;
+
+    > div {
+      flex-direction: column;
     }
   }
 `;

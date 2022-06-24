@@ -6,6 +6,7 @@ import Patient from "./Patient";
 import CoursesList from "./CoursesList";
 import Course from "./Course";
 import Dashboard from "./Dashboard";
+import DoctorProfile from "./DoctorProfile";
 
 export function AppRoutes() {
   return (
@@ -15,10 +16,12 @@ export function AppRoutes() {
 
         <Route path="/mypatient" element={<MyPatient />} />
         <Route path="/patient" element={<Patient />} />
+
         <Route path="/courses" element={<CoursesList />} />
         <Route path="/courses/:course_id" element={<Course />} />
-
         <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/doctorprofile" element={<DoctorProfile />} />
       </Routes>
     </Router>
   );

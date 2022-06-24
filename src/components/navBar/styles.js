@@ -4,24 +4,25 @@ import { Button } from "@material-ui/core";
 
 export const Container = styled.div`
   width: 100%;
-  padding: 1rem 2rem;
-  background: linear-gradient(
-    270deg,
-    #1e98d4 20.3%,
-    rgba(128, 56, 136, 0.83) 100.4%
-  );
+  padding: 1rem 4rem;
+  background: #1e98d4;
 
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
 
+  > img {
+    width: 64px;
+    height: 100%;
+
+    margin-right: 3rem;
+  }
+
   .navigationContainer {
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
-
-    margin: 0 auto;
   }
 
   @media (max-width: 500px) {

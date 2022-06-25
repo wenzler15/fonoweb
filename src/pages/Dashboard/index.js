@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FiArrowDown, FiArrowUp } from "react-icons/fi";
-import { Chart as ChartJS } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
+import api from "../../services";
 
 import NavBar from "../../components/navBar";
 
@@ -9,6 +9,10 @@ import { Container, AnalyticsLabel, ChartContainer } from "./styles";
 import { InputLabel, MenuItem, Select } from "@material-ui/core";
 
 function Dashboard() {
+  const [schedules, setSchedules] = useState(0);
+  const [users, setUsers] = useState(0);
+  const [appointments, setAppointments] = useState(0);
+
   const months = Array.from({ length: 12 }, (e, i) => {
     return new Date(null, i + 1, null).toLocaleDateString("pt-BR", {
       month: "long",
@@ -35,6 +39,18 @@ function Dashboard() {
     ];
   }, []);
 
+  useEffect(() => {
+    async function loadDashboardData() {
+      const { data } = await api.get("/dashboard");
+
+      setSchedules(data.schedules);
+      setAppointments(data.appointments);
+      setUsers(data.users);
+    }
+
+    loadDashboardData();
+  }, []);
+
   return (
     <>
       <NavBar />
@@ -59,7 +75,7 @@ function Dashboard() {
             )}
 
             <span>
-              <strong>4,660.00</strong>
+              <strong>{schedules}</strong>
               <p>Consultas</p>
             </span>
 
@@ -84,7 +100,7 @@ function Dashboard() {
             )}
 
             <span>
-              <strong>4,660.00</strong>
+              <strong>{users}</strong>
               <p>Pacientes</p>
             </span>
 
@@ -109,7 +125,7 @@ function Dashboard() {
             )}
 
             <span>
-              <strong>4,660.00</strong>
+              <strong>{appointments}</strong>
               <p>Consultas</p>
             </span>
 

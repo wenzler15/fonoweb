@@ -1,7 +1,9 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { getYear } from "date-fns";
+
+import api from "../../services";
 
 import Header from "../../components/navBar";
 
@@ -20,37 +22,57 @@ const Patient = () => {
   const { state } = useLocation();
   const patient = state?.patient;
 
+  const [patientData, setPatientData] = useState({});
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    async function loadPatientPronctuary() {
+      const { data } = await api.get(`/prontuary/${patient.id}`);
+
+      setPatientData(data.userData);
+      setAppointments(data.appointments);
+    }
+
+    loadPatientPronctuary();
+  }, [patient]);
+
   const patientAge = useMemo(() => {
-    return getYear(new Date()) - patient?.birthDate.split("-")[0];
-  }, [patient?.birthDate]);
+    if (patientData?.birthDate) {
+      return `- ${
+        getYear(new Date()) - patientData?.birthDate?.split("-")[0]
+      } Anos`;
+    }
+
+    return "";
+  }, [patientData?.birthDate]);
 
   const phoneFormatted = useMemo(() => {
     const regexp = new RegExp(
       /^(\(?[0-9]{2}\)?)? ?([0-9]{4,5})-?([0-9]{4})$/gm
     );
 
-    const formattedPhone = regexp.exec(patient?.phone);
+    const formattedPhone = regexp.exec(patientData?.phone);
 
     if (formattedPhone) {
       return `(${formattedPhone[1]}) ${formattedPhone[2]}-${formattedPhone[3]}`;
     }
 
     return `Nenhum telefone cadastrado`;
-  }, [patient]);
+  }, [patientData]);
 
   const addressFormatted = useMemo(() => {
     if (
-      patient?.streetName &&
-      patient?.houseNumber &&
-      patient?.district &&
-      patient?.city &&
-      patient?.state
+      patientData?.streetName &&
+      patientData?.houseNumber &&
+      patientData?.district &&
+      patientData?.city &&
+      patientData?.state
     ) {
-      return `${patient?.streetName}, ${patient?.houseNumber} - ${patient?.district}, ${patient?.city}, ${patient?.state}`;
+      return `${patientData?.streetName}, ${patientData?.houseNumber} - ${patientData?.district}, ${patientData?.city}, ${patientData?.state}`;
     }
 
     return "Nenhum endereço cadastrado";
-  }, [patient]);
+  }, [patientData]);
 
   return (
     <Container>
@@ -67,13 +89,13 @@ const Patient = () => {
             </UserContainerButton>
           </UserContainer>
 
-          <h1>{patient?.name}</h1>
+          <h1>{patientData?.name}</h1>
         </div>
         <Button variant="contained">Exportar completo</Button>
       </ExportContainer>
 
       <RecordContainer>
-        <h1>{`${patient?.name} ${patient?.lastName} - ${patientAge} anos`}</h1>
+        <h1>{`${patientData?.name} ${patientData?.lastName} ${patientAge}`}</h1>
 
         <h3>1,82 - 70kg</h3>
         <h3>Telefone: {phoneFormatted}</h3>
@@ -100,35 +122,38 @@ const Patient = () => {
             <Button>Exportar</Button>
           </div>
 
-          <Appointment>
-            <span>
-              <h3>Consulta 3</h3>
-              <p>23 de dezembro</p>
-            </span>
-
-            <p>
-              <b>Evolução: </b>Lorem Ipsum is simply dummy text of the printing
-              and typesetting industry. Lorem Ipsum has been the industry's
-              standard dummy text ever since the 1500s
-            </p>
-
-            <div className="exercise">
+          {appointments.map((appointment) => (
+            <Appointment key={appointment?.id}>
               <span>
-                <h3>Exercício semana 1</h3>
-                <p>23 de dezembro</p>
+                <h3>Consulta {appointment?.id}</h3>
+                <p>{appointment?.date}</p>
               </span>
 
-              <div>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s
-                </p>
+              <p>
+                <b>Evolução: </b>
+                {appointment?.description}
+              </p>
 
-                <Button>Baixar arquivo</Button>
-              </div>
-            </div>
-          </Appointment>
+              {appointment?.exercises?.map((exercise) => (
+                <div className="exercise">
+                  <span>
+                    <h3>Exercício semana 1</h3>
+                    <p>23 de dezembro</p>
+                  </span>
+
+                  <div>
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s
+                    </p>
+
+                    <Button>Baixar arquivo</Button>
+                  </div>
+                </div>
+              ))}
+            </Appointment>
+          ))}
         </AppointmentContainer>
       </RecordContainer>
     </Container>

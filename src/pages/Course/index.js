@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   FiArrowDownCircle,
@@ -9,6 +9,7 @@ import {
 
 import NavBar from "../../components/navBar";
 import Accordion from "../../components/Accordion";
+import api from "../../services";
 
 import {
   Container,
@@ -20,26 +21,45 @@ import {
 
 const Course = () => {
   const { course_id } = useParams();
+
+  const [courseDetails, setCourseDetails] = useState({});
+  const [selectedCourse, setSelectedCourse] = useState({});
   const [watched, setWatched] = useState(false);
 
   const handleWatched = useCallback(() => {
     setWatched((state) => !state);
   }, []);
 
+  const handleChangeClass = useCallback((data) => {
+    setSelectedCourse(data);
+  }, []);
+
+  useEffect(() => {
+    async function loadCourseDetail() {
+      const {
+        data: { course },
+      } = await api.get(`/courses/${course_id}`);
+
+      setCourseDetails(course);
+      setSelectedCourse(course?.course);
+    }
+
+    loadCourseDetail();
+  }, [course_id]);
+
   return (
     <>
       <NavBar />
 
       <Container>
-        <h1>Fonoaudiologia #3 - Exercícios Diários</h1>
-        <h2>Fonoaudiologia #3 - Exercícios Diários</h2>
+        <h1>{courseDetails?.course?.title}</h1>
+        <h2>{courseDetails?.course?.title}</h2>
 
         <div className="classContainer">
           <PlayerContainer>
-            {/* @TODO - Validar Player */}
             <iframe
               width="100%"
-              src={`https://www.youtube.com/embed/rokGy0huYEA`}
+              src={selectedCourse?.url || courseDetails?.course?.url}
               frameBorder="0"
               allow="accelerometer; autoplay; picture-in-picture"
               allowFullScreen
@@ -47,7 +67,7 @@ const Course = () => {
             />
 
             <span>
-              <h1>Fonoaudiologia #3 - Exercícios Diarios</h1>
+              <h1>{selectedCourse?.name || courseDetails?.course?.title}</h1>
 
               <span>
                 <button onClick={handleWatched}>
@@ -63,26 +83,31 @@ const Course = () => {
                 Criado por <b>Ana Barbara</b>
               </p>
 
-              <button className="downloadMaterial">
-                Baixar Material
-                <FiArrowDownCircle color="#000" />
-              </button>
+              {courseDetails?.course?.hasDownload && (
+                <button className="downloadMaterial">
+                  Baixar Material
+                  <FiArrowDownCircle color="#000" />
+                </button>
+              )}
             </span>
           </PlayerContainer>
 
           <ClassesSelectionContainer>
             <h1>Aulas do curso</h1>
 
-            {/* @TODO - Implementar o Backend para apresentar os links das aulas de forma dinâmica */}
-            <Accordion title="Introdução">
-              <Button>
-                <p>
-                  <FiPlayCircle />
-                  Fonoaudiologia #3 - Exercícios Diários
-                </p>
-                <span>06:22</span>
-              </Button>
-            </Accordion>
+            {courseDetails?.modules?.map((module) => (
+              <Accordion key={module?.id} title={module?.name}>
+                {module?.coursesClasses[0]?.map((data) => (
+                  <Button key={data.id} onClick={() => handleChangeClass(data)}>
+                    <p>
+                      <FiPlayCircle />
+                      {data?.name}
+                    </p>
+                    <span>{data?.time}</span>
+                  </Button>
+                ))}
+              </Accordion>
+            ))}
           </ClassesSelectionContainer>
         </div>
 

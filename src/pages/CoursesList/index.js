@@ -1,6 +1,7 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, LinearProgress } from "@mui/material";
+import api from "../../services";
 
 import NavBar from "../../components/navBar";
 
@@ -36,6 +37,7 @@ const coursesList = [
 
 function CoursesList() {
   const [tabValue, setTabValue] = useState(1);
+  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
 
   const handleChangeTab = useCallback((value) => setTabValue(value), []);
@@ -47,27 +49,37 @@ function CoursesList() {
     [navigate]
   );
 
+  useEffect(() => {
+    async function loadCourseList() {
+      const { data } = await api.get("/courses");
+
+      setCourses(data);
+    }
+
+    loadCourseList();
+  }, []);
+
   const inProgressCourses = useMemo(() => {
-    const filteredCourses = coursesList.filter((course) => course.status === 1);
+    const filteredCourses = courses.filter((course) => course.status === 1);
 
     return filteredCourses;
-  }, []);
+  }, [courses]);
 
   const completedCourses = useMemo(() => {
-    const filteredCourses = coursesList.filter((course) => course.status === 2);
+    const filteredCourses = courses.filter((course) => course.status === 2);
 
     return filteredCourses;
-  }, []);
+  }, [courses]);
 
   const displayedCourses = useMemo(() => {
-    const courses = {
-      1: coursesList,
+    const typesOfCourses = {
+      1: courses,
       2: inProgressCourses,
       3: completedCourses,
     };
 
-    return courses[tabValue];
-  }, [inProgressCourses, completedCourses, tabValue]);
+    return typesOfCourses[tabValue];
+  }, [courses, inProgressCourses, completedCourses, tabValue]);
 
   return (
     <>
@@ -98,17 +110,22 @@ function CoursesList() {
         </FilterCoursesContainer>
 
         {displayedCourses.map((course, index) => (
-          <CourseContainer key={index}>
-            <img src={course.image} alt={course.title} />
+          <CourseContainer key={course.id}>
+            {console.log(course)}
+            <img src={course.thumb} alt={course.title} />
 
             <div>
               <span>
                 <h1>{course.title}</h1>
-                <p>{`${course.currentClass}. Fonoaudiologia • Casule Saúde e Bem-estar`}</p>
+                <p>{`${
+                  course.currentClass || ""
+                }. Fonoaudiologia • Casule Saúde e Bem-estar`}</p>
               </span>
 
               <div>
-                <h3>{`${course.currentClass}/${course.totalClasses} Aulas`}</h3>
+                <h3>{`${course.currentClass || ""}/${
+                  course.totalClasses || ""
+                } Aulas`}</h3>
 
                 <LinearProgress
                   value={(course.currentClass / course.totalClasses) * 100}

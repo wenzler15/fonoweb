@@ -1,3 +1,5 @@
+import { Chart as ChartJS } from "chart.js/auto";
+
 import React, { useEffect, useMemo, useState } from "react";
 import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 import { Chart } from "react-chartjs-2";
@@ -6,7 +8,6 @@ import api from "../../services";
 import NavBar from "../../components/navBar";
 
 import { Container, AnalyticsLabel, ChartContainer } from "./styles";
-import { InputLabel, MenuItem, Select } from "@material-ui/core";
 
 function Dashboard() {
   const [schedules, setSchedules] = useState(0);

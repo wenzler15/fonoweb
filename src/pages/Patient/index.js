@@ -89,13 +89,15 @@ const Patient = () => {
             </UserContainerButton>
           </UserContainer>
 
-          <h1>{patientData?.name}</h1>
+          <h1>{patientData?.name || ""}</h1>
         </div>
         <Button variant="contained">Exportar completo</Button>
       </ExportContainer>
 
       <RecordContainer>
-        <h1>{`${patientData?.name} ${patientData?.lastName} ${patientAge}`}</h1>
+        <h1>{`${patientData?.name || ""} ${
+          patientData?.lastName || ""
+        } ${patientAge}`}</h1>
 
         <h3>1,82 - 70kg</h3>
         <h3>Telefone: {phoneFormatted}</h3>

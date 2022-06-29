@@ -97,13 +97,23 @@ function MyPatient() {
                       <AddEvolution>Nova Evolução</AddEvolution>
                     </ContentNewAnamneseEvolution>
                     <ContentAddAssessment>
-                      <AddAssessment onClick={() => navigate("/newavaliation", { patient: item })}>
+                      <AddAssessment
+                        onClick={() =>
+                          navigate("/newavaliation", { patient: item })
+                        }
+                      >
                         Adicionar Nova Avaliação
                       </AddAssessment>
                     </ContentAddAssessment>
 
                     <ContentCheckUser>
-                      <CheckUser onClick={() => navigate('/patient', { state: { patient: item }})}>Ver</CheckUser>
+                      <CheckUser
+                        onClick={() =>
+                          navigate("/patient", { state: { patient: item } })
+                        }
+                      >
+                        Ver
+                      </CheckUser>
                     </ContentCheckUser>
                   </>
                 ))}

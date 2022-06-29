@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../hooks/auth";
+
+import api from "../../services";
 
 import TextInput from "../../components/TextInput";
 import NavBar from "../../components/navBar";
 
 import { ButtonContainer, Card, CardSelector, Container } from "./styles";
-import { useNavigate } from "react-router-dom";
-import { Radio, RadioGroup } from "@material-ui/core";
 
 function DoctorProfile() {
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const userCards = [
@@ -40,17 +44,24 @@ function DoctorProfile() {
               disabled
               title="Nome Completo"
               placeholder="Nome completo"
+              value={user.name}
             />
             <TextInput
               disabled
               type="email"
               title="Email"
               placeholder="email@exemplo.com"
+              value={user.email}
             />
           </span>
 
           <span>
-            <TextInput disabled title="CPF" placeholder="000.000.000-00" />
+            <TextInput
+              disabled
+              title="CPF"
+              placeholder="000.000.000-00"
+              value={user.cpf}
+            />
             <TextInput
               disabled
               type="file"
@@ -73,22 +84,39 @@ function DoctorProfile() {
             <TextInput
               disabled
               title="Endereço completo"
-              placeholder="rua das avenidas"
+              placeholder="Sua rua"
+              value={user?.streetName}
             />
-            <TextInput disabled title="Número" placeholder="333" />
+            <TextInput
+              disabled
+              title="Número"
+              placeholder="Seu número"
+              value={user.houseNumber}
+            />
           </span>
 
           <span>
-            <TextInput disabled title="Bairro" placeholder="bairro" />
+            <TextInput
+              disabled
+              title="Bairro"
+              placeholder="Seu bairro"
+              value={user?.district}
+            />
             <TextInput
               disabled
               title="Complemento"
-              placeholder="Apartamento 23"
+              placeholder="Seu complemento"
+              value={user.complement}
             />
           </span>
 
           <span>
-            <TextInput disabled title="CEP:" placeholder="****" />
+            <TextInput
+              disabled
+              title="CEP:"
+              placeholder="****"
+              value={user.zipcode}
+            />
           </span>
         </div>
 

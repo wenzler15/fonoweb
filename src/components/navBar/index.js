@@ -10,12 +10,19 @@ import {
   UserContainer,
   UserContainerButton,
 } from "./styles";
+import { useAuth } from "../../hooks/auth";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleSignOut = useCallback(() => {
+    signOut();
+    navigate("/");
+  }, [navigate, signOut]);
 
   const handleToggleDrawer = useCallback((event) => {
     setIsDrawerVisible((state) => !state);
@@ -57,7 +64,7 @@ export default function NavBar() {
             </Button>
           </MenuItem>
           <MenuItem>
-            <Button onClick={() => navigate("/")}>Sair</Button>
+            <Button onClick={handleSignOut}>Sair</Button>
           </MenuItem>
         </Menu>
       </UserContainer>

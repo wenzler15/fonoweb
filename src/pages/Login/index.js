@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../../hooks/auth";
 
 import {
   MainContainer,
@@ -17,52 +18,22 @@ import {
 } from "./styles";
 
 function Login() {
-  const [path, setPath] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
 
+  const { signIn } = useAuth();
+
   const loginFunc = async () => {
-    try {
-      const toSend = {
-        email,
-        password,
-      };
+    const toSend = {
+      email,
+      password,
+    };
 
-      const resp = await fetch("http://18.215.217.253:3001/auth/", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(toSend),
-      });
-      const res = await resp.json();
-      console.log(res.message);
-      if (res.message === "User Logged") {
-        localStorage.setItem("userId", res.user.id);
-        localStorage.setItem("token", res.token);
-        navigate("/mypatient", {
-          state: {
-            path,
-          },
-        });
-      } else if (res.message === "User not found") {
-        toast.warn("Usuário não encontrado");
-      } else if (res.message === "Please send the email and the password") {
-        toast.warn("Favor enviar e-mail e senha");
-      } else if (res.message === "User or password not found") {
-        toast.warn("Usuário ou senha incorretos");
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    await signIn(toSend);
+    navigate("/mypatient");
   };
-
-  // useEffect(() => {
-  //   setPath(params.state.path);
-  // }, []);
 
   return (
     <MainContainer>
@@ -86,16 +57,7 @@ function Login() {
         </ContainerButton>
         <SmallTextContainerButton>
           <SmallText>Ainda não tem cadastro?</SmallText>
-          <SmallText
-            blue
-            onClick={() =>
-              navigate("/register", {
-                state: {
-                  path,
-                },
-              })
-            }
-          >
+          <SmallText blue onClick={() => navigate("/register")}>
             Faça agora mesmo
           </SmallText>
         </SmallTextContainerButton>

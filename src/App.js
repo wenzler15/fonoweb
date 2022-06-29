@@ -1,11 +1,15 @@
-import { AppRoutes } from "./pages/routes";
+import Routes from "./routes";
+
+import ContextProvider from "./context";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./global.css";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <ToastContainer
         autoClose={5000}
         position="top-right"
@@ -17,8 +21,11 @@ function App() {
         draggable
         pauseOnHover
       />
-      <AppRoutes />
-    </div>
+
+      <ContextProvider>
+        <Routes />
+      </ContextProvider>
+    </BrowserRouter>
   );
 }
 

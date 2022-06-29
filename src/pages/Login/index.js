@@ -74,16 +74,7 @@ function Login() {
           </ContainerButton>
           <SmallTextContainerButton>
             <SmallText>Ainda não tem cadastro?</SmallText>
-            <SmallText
-              blue
-              onClick={() =>
-                navigate("/register", {
-                  state: {
-                    path,
-                  },
-                })
-              }
-            >
+            <SmallText blue onClick={() => navigate("/register")}>
               Faça agora mesmo
             </SmallText>
           </SmallTextContainerButton>

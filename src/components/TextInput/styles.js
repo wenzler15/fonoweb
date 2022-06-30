@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-flow: column;
 
-  > strong {
+  > label {
     font-size: 1.2rem;
     font-weight: 600;
   }
@@ -17,5 +17,21 @@ export const Container = styled.div`
 
     font-family: "Lato";
     padding: 0.75rem 1rem;
+  }
+
+  > div {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+
+    > svg {
+      color: #ea3a3d;
+    }
+
+    > strong {
+      color: #ea3a3d;
+      margin-left: 0.25rem;
+      font-size: 0.75rem;
+    }
   }
 `;

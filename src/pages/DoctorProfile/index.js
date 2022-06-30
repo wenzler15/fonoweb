@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useAuth } from "../../hooks/auth";
-
 import api from "../../services";
-
 import NavBar from "../../components/navBar";
+import TextInput from "../../components/TextInput";
 
 import { ButtonContainer, Card, CardSelector, Container } from "./styles";
 import { useForm } from "react-hook-form";
@@ -23,19 +24,48 @@ const userCards = [
   },
 ];
 
+const schema = Yup.object({
+  name: Yup.string().required("Nome é obrigatório"),
+  email: Yup.string().email("Email incorreto").required("Email é obrigatório"),
+  cpf: Yup.string().max(11).required("CPF é obrigatório"),
+  streetName: Yup.string().required("Rua é obrigatório"),
+  houseNumber: Yup.string().required("Número de casa/apt é obrigatório"),
+  complement: Yup.string(),
+  district: Yup.string().required("Bairro é obrigatório"),
+  cep: Yup.string().max(8).required("CEP é obrigatório"),
+});
+
 function DoctorProfile() {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
 
-  const { user, signOut } = useAuth();
   const navigate = useNavigate();
-
-  const { register, handleSubmit } = useForm();
+  const { user, setUser, signOut } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const handleToggleIsEditing = () => setIsEditing((state) => !state);
 
-  const handleSubmitUpdate = useCallback((formData) => {
-    console.log(formData);
-  }, []);
+  const handleSubmitUpdate = useCallback(
+    async (formData) => {
+      try {
+        const { data } = await api.patch(`/users/${user?.id}`, formData);
+
+        if (data?.user) {
+          setUser(data?.user);
+          localStorage.setItem("@auth/user", JSON.stringify(data.user));
+          handleToggleIsEditing();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [setUser, user?.id]
+  );
 
   const handleSignOut = useCallback(async () => {
     await signOut();
@@ -58,36 +88,46 @@ function DoctorProfile() {
             </div>
 
             <span>
-              <input
+              <TextInput
                 disabled={isEditing}
                 title="Nome Completo"
                 placeholder="Nome completo"
+                name="name"
+                register={register}
                 defaultValue={user.name}
-                {...register("fullName")}
+                error={errors?.name}
               />
 
-              <input
+              <TextInput
                 disabled={isEditing}
                 title="Email"
+                name="email"
                 placeholder="email@exemplo.com"
                 defaultValue={user.email}
-                {...register("email")}
+                register={register}
+                error={errors?.email}
               />
             </span>
 
             <span>
-              <input
+              <TextInput
                 disabled={isEditing}
                 title="CPF"
+                name="cpf"
                 placeholder="000.000.000-00"
                 defaultValue={user.cpf}
-                {...register("cpf")}
+                error={errors?.cpf}
+                maxLength={11}
+                register={register}
               />
-              <input
+
+              <TextInput
                 disabled={isEditing}
                 type="file"
+                name="file"
                 title="Anexar CRFA ou Comprovante da faculdade"
                 placeholder="PDF, PNG e JPEG"
+                register={register}
               />
             </span>
           </div>
@@ -104,42 +144,58 @@ function DoctorProfile() {
             </div>
 
             <span>
-              <input
+              <TextInput
                 disabled={isEditing}
                 title="Endereço completo"
                 placeholder="Sua rua"
+                name="streetName"
                 defaultValue={user.streetName}
+                error={errors?.streetName}
+                register={register}
               />
-              <input
+              <TextInput
                 disabled={isEditing}
                 title="Número"
                 placeholder="Número da casa"
+                name="houseNumber"
                 defaultValue={user.houseNumber}
+                error={errors?.houseNumber}
+                register={register}
               />
             </span>
 
             <span>
-              <input
+              <TextInput
                 disabled={isEditing}
                 title="Bairro"
                 placeholder="Seu bairro"
+                name="district"
                 defaultValue={user.district}
+                error={errors?.district}
+                register={register}
               />
-              <input
+              <TextInput
                 disabled={isEditing}
                 title="Complemento"
                 placeholder="Seu complemento"
+                name="complement"
                 defaultValue={user.complement}
+                error={errors?.complement}
+                register={register}
               />
             </span>
 
             <span>
-              <input
+              <TextInput
                 disabled={isEditing}
                 title="CEP:"
                 placeholder="Seu CEP"
                 className="lastChild"
+                name="cep"
                 defaultValue={user.cep}
+                maxLength={8}
+                error={errors?.cep}
+                register={register}
               />
             </span>
           </div>
@@ -154,8 +210,8 @@ function DoctorProfile() {
             </div>
 
             <div className="CardsContainer">
-              {userCards.map((card) => (
-                <>
+              {userCards.map((card, index) => (
+                <div key={index}>
                   <CardSelector
                     isSelected={card.isSelected}
                     onClick={() => console.log(card)}
@@ -176,13 +232,15 @@ function DoctorProfile() {
                       </p>
                     </Card>
                   )}
-                </>
+                </div>
               ))}
             </div>
           </div>
 
           <ButtonContainer>
-            <button type="submit">Salvar alterações</button>
+            <button type="submit" disabled={isEditing}>
+              Salvar alterações
+            </button>
 
             <button className="logoutButton" onClick={handleSignOut}>
               Sair da conta

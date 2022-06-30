@@ -40,18 +40,12 @@ export const Container = styled.div`
         display: flex;
         width: 100%;
 
-        > input {
-          border-radius: 0.25rem;
-          border: 1px solid #1e3354;
-          background: #fff;
-
-          font-family: "Lato";
-          padding: 0.75rem 1rem;
+        > div {
           margin-top: 1rem;
           width: 50%;
         }
 
-        > input + input {
+        > div + div {
           margin-left: 4rem;
         }
 
@@ -208,6 +202,10 @@ export const ButtonContainer = styled.div`
     border-radius: 0.5rem;
     background: #1e98d4;
     color: #fff;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   .logoutButton {

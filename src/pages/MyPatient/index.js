@@ -72,7 +72,7 @@ function MyPatient() {
             {getPatients &&
               getPatients
                 .filter((item) => {
-                  if (searchPatients == "") {
+                  if (searchPatients === "") {
                     return item;
                   } else if (
                     item.name

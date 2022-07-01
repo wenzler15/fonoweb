@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/auth";
 
-import logo from "../../assets/logo.svg"
+import logo from "../../assets/logo.svg";
 
 import {
   MainContainer,
@@ -44,8 +44,9 @@ function Login() {
   return (
     <MainContainer>
       <BgGradient />
+
       <ContainerContent>
-        <LogoFonoweb src={logo}/>
+        <LogoFonoweb src={logo} />
         <ContentTitles>
           <InitialText>Seja bem vindo</InitialText>
           <NormalText>Insira seu email e senha de acesso.</NormalText>
@@ -63,11 +64,7 @@ function Login() {
           <ContainerRedeem>
             <TextRedeem>Esqueceu a senha?</TextRedeem>
             <TextRedeem>&nbsp;&nbsp;&nbsp;</TextRedeem>
-            <TextRedeem
-              blue
-              >
-                Clique aqui
-              </TextRedeem>
+            <TextRedeem blue>Clique aqui</TextRedeem>
           </ContainerRedeem>
           <ContainerButton onClick={() => loginFunc()} disabled={true}>
             <ContainerButtonText>Entrar</ContainerButtonText>

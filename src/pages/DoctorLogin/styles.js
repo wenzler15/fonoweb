@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ImgBg from "../../assets/loginBackground.png";
-import logo from "../../assets/logo.svg"
+import logo from "../../assets/logo.svg";
 
 export const MainContainer = styled.div`
   width: 100vw;
@@ -15,12 +15,16 @@ export const MainContainer = styled.div`
 `;
 
 export const BgGradient = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: absolute;
-  background: linear-gradient(182deg, rgba(30,152,212,.5), rgba(30,152,212,0) 25%),
-              linear-gradient(62deg, rgba(35,54,136,.9), rgba(35,54,136,0) 100%),
-              linear-gradient(304deg, rgba(128,56,136,.9), rgba(128,56,136,0) 100%);
+  background: linear-gradient(
+      182deg,
+      rgba(30, 152, 212, 0.5),
+      rgba(30, 152, 212, 0) 25%
+    ),
+    linear-gradient(62deg, rgba(35, 54, 136, 0.9), rgba(35, 54, 136, 0) 100%),
+    linear-gradient(304deg, rgba(128, 56, 136, 0.9), rgba(128, 56, 136, 0) 100%);
 `;
 
 export const ContainerContent = styled.div`
@@ -123,5 +127,4 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-
 `;

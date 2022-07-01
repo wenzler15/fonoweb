@@ -1,24 +1,43 @@
+import { useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import _ from "lodash";
 import { useAuth } from "../hooks/auth";
 
 import RequireAuth from "./RequireAuth";
 
-import Login from "../pages/Login";
+import DoctorLogin from "../pages/DoctorLogin";
 import Patient from "../pages/Patient";
-import Home from "../pages/MyPatient";
+import Home from "../pages/Home";
 import MyPatient from "../pages/MyPatient";
 import CoursesList from "../pages/CoursesList";
 import Course from "../pages/Course";
 import Dashboard from "../pages/Dashboard";
 import DoctorProfile from "../pages/DoctorProfile";
 
+import { DOCTOR, PACIENT } from "../constants";
+
 const AppRoutes = () => {
-  const { user } = useAuth();
+  const { user, userType } = useAuth();
+
+  const initialRoute = useMemo(() => {
+    if (!_.isEmpty(user)) {
+      return <MyPatient />;
+    } else {
+      switch (userType) {
+        case PACIENT:
+          return <DoctorLogin />;
+        case DOCTOR:
+          return <DoctorLogin />;
+        default:
+          return <Home />;
+      }
+    }
+  }, [user, userType]);
 
   return (
     <Routes>
-      <Route path="/" element={!_.isEmpty(user) ? <Home /> : <Login />} />
+      <Route path="/" element={initialRoute} />
+      <Route path="/login" element={<DoctorLogin />} />
 
       <Route
         path="/mypatient"

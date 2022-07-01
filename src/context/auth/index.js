@@ -6,6 +6,7 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [userType, setUserType] = useState(0);
 
   const signIn = useCallback(async (formData) => {
     try {
@@ -43,7 +44,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, setUser, userType, setUserType, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );

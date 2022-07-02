@@ -1,14 +1,14 @@
 import React from "react";
 import { FiAlertCircle } from "react-icons/fi";
 
-import { Container } from "./styles";
+import { Container, Input } from "./styles";
 
 function TextInput({ title = "", name = "", register, error = null, ...rest }) {
   return (
     <Container>
       <label>{title}</label>
 
-      <input {...register(name)} {...rest} />
+      <Input error={!!error} {...register(name)} {...rest} />
 
       {error && (
         <div>

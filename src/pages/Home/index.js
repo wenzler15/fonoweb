@@ -1,6 +1,6 @@
 import React from "react";
 
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import { PACIENT, DOCTOR } from "../../constants";
 import { useAuth } from "../../hooks/auth";
 import { Container, LinearBackground } from "./styles";

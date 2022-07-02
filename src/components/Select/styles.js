@@ -26,7 +26,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Input = styled.input`
+export const StyledSelect = styled.select`
   border-radius: 0.25rem;
   border: ${({ error }) => (error ? "1px solid #ea3a3d" : "1px solid #1e3354")};
   background: #fff;

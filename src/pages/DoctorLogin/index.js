@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/auth";
 
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 
 import {
   MainContainer,

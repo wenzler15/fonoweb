@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import ImgBg from "../../assets/loginBackground.png";
-import logo from "../../assets/logo.svg";
 
 export const MainContainer = styled.div`
   width: 100vw;

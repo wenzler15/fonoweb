@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import { createContext, useCallback, useEffect, useState } from "react";
 
 import api from "../../services";
@@ -23,8 +24,6 @@ export const AuthProvider = ({ children }) => {
 
   const signOut = useCallback(async () => {
     try {
-      // await api.delete("/auth");
-
       setUser({});
       localStorage.removeItem("@auth/user");
       localStorage.removeItem("@auth/token");
@@ -36,9 +35,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const foundUser = localStorage.getItem("@auth/user");
 
-    if (foundUser) {
+    if (!isEmpty(foundUser)) {
       const parsedUser = JSON.parse(foundUser);
-
       setUser(parsedUser);
     }
   }, []);

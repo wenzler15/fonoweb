@@ -1,6 +1,9 @@
 import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LogoImg from "../../assets/logo.svg";
+import { isEmpty } from "lodash";
+
+import LogoImg from "../../assets/logo.png";
+import { useAuth } from "../../hooks/auth";
 
 import { Button, Menu, MenuItem } from "@material-ui/core";
 
@@ -9,15 +12,15 @@ import {
   TextNavBar,
   UserContainer,
   UserContainerButton,
+  ButtonContainer,
 } from "./styles";
-import { useAuth } from "../../hooks/auth";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   const handleSignOut = useCallback(() => {
     signOut();
@@ -45,29 +48,39 @@ export default function NavBar() {
         <TextNavBar onClick={() => navigate("/support")}>Suporte</TextNavBar>
       </div>
 
-      <UserContainer>
-        <UserContainerButton onClick={handleToggleDrawer}>
-          <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
-        </UserContainerButton>
+      {!isEmpty(user) ? (
+        <UserContainer>
+          <UserContainerButton onClick={handleToggleDrawer}>
+            <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
+          </UserContainerButton>
 
-        <Menu
-          anchorEl={anchorEl}
-          open={isDrawerVisible}
-          onClose={handleToggleDrawer}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem>
-            <Button onClick={() => navigate("/doctorprofile")}>
-              Meu Perfil
-            </Button>
-          </MenuItem>
-          <MenuItem>
-            <Button onClick={handleSignOut}>Sair</Button>
-          </MenuItem>
-        </Menu>
-      </UserContainer>
+          <Menu
+            anchorEl={anchorEl}
+            open={isDrawerVisible}
+            onClose={handleToggleDrawer}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem>
+              <Button onClick={() => navigate("/doctorprofile")}>
+                Meu Perfil
+              </Button>
+            </MenuItem>
+            <MenuItem>
+              <Button onClick={handleSignOut}>Sair</Button>
+            </MenuItem>
+          </Menu>
+        </UserContainer>
+      ) : (
+        <ButtonContainer>
+          <button onClick={() => navigate("/login")}>Login</button>
+
+          <button onClick={() => navigate("/register")} className="register">
+            Cadastre-se
+          </button>
+        </ButtonContainer>
+      )}
     </Container>
   );
 }

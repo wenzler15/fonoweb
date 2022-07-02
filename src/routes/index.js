@@ -15,6 +15,7 @@ import Dashboard from "../pages/Dashboard";
 import DoctorProfile from "../pages/DoctorProfile";
 
 import { DOCTOR, PACIENT } from "../constants";
+import DoctorRegister from "../pages/DoctorRegister";
 
 const AppRoutes = () => {
   const { user, userType } = useAuth();
@@ -38,6 +39,8 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={initialRoute} />
       <Route path="/login" element={<DoctorLogin />} />
+
+      <Route path="/register" element={<DoctorRegister />} />
 
       <Route
         path="/mypatient"

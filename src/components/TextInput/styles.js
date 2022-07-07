@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import InputMask from "react-input-mask";
 
 export const Container = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Input = styled.input`
+const inputStyle = css`
   border-radius: 0.25rem;
   border: ${({ error }) => (error ? "1px solid #ea3a3d" : "1px solid #1e3354")};
   background: #fff;
@@ -34,4 +35,12 @@ export const Input = styled.input`
 
   font-family: "Lato";
   padding: 0.75rem 1rem;
+`;
+
+export const MaskedInput = styled(InputMask)`
+  ${inputStyle}
+`;
+
+export const Input = styled.input`
+  ${inputStyle}
 `;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   form {
-    margin: 4rem;
+    margin: 2rem 4rem;
 
     h1 {
       font-size: 2rem;
@@ -15,19 +15,6 @@ export const Container = styled.div`
       margin-top: 1rem;
       font-weight: 700;
       font-family: "Poppins";
-    }
-
-    section {
-      display: flex;
-      margin-top: 1rem;
-
-      > div {
-        width: 50%;
-
-        & + div {
-          margin-left: 4rem;
-        }
-      }
     }
 
     button {

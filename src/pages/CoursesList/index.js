@@ -111,7 +111,6 @@ function CoursesList() {
 
         {displayedCourses.map((course, index) => (
           <CourseContainer key={course.id}>
-            {console.log(course)}
             <img src={course.thumb} alt={course.title} />
 
             <div>

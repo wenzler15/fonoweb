@@ -40,7 +40,6 @@ function MyPatient() {
       resp = await resp.json();
       setGetPatients(resp);
     } catch (err) {
-      console.log("erro", err);
     }
   };
 

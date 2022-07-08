@@ -61,7 +61,6 @@ function DoctorProfile() {
           handleToggleIsEditing();
         }
       } catch (err) {
-        console.log(err);
       }
     },
     [setUser, user?.id]

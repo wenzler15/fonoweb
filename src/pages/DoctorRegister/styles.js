@@ -23,10 +23,10 @@ export const Container = styled.div`
 
       width: 250px;
 
-      padding: 0.5rem 1rem;
-      margin-top: 2rem;
-      border-radius: 2rem;
       border: 0;
+      border-radius: 2rem;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
     }
   }
 `;

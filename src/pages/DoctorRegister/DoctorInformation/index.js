@@ -1,5 +1,5 @@
-import React from "react";
 import { useFormState } from "react-hook-form";
+
 import Select from "../../../components/Select";
 import TextInput from "../../../components/TextInput";
 
@@ -35,7 +35,7 @@ const states = [
   { value: "TO", name: "Tocantins" },
 ];
 
-function DoctorInformationRegister({ register, control, handleNextStep }) {
+function DoctorInformation({ register, control, handleNextStep }) {
   const { errors } = useFormState({
     control,
   });
@@ -163,4 +163,4 @@ function DoctorInformationRegister({ register, control, handleNextStep }) {
   );
 }
 
-export default DoctorInformationRegister;
+export default DoctorInformation;

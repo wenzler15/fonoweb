@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("@auth/user", JSON.stringify(data.user));
       localStorage.setItem("@auth/token", JSON.stringify(data.token));
     } catch (err) {
-      console.log(err);
     }
   }, []);
 
@@ -28,7 +27,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("@auth/user");
       localStorage.removeItem("@auth/token");
     } catch (err) {
-      console.log(err);
     }
   }, []);
 

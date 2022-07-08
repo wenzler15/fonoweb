@@ -1,47 +1,69 @@
 import { useState, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 
-import DoctorInformationRegister from "./DoctorInformationRegister";
-import PaymentRegister from "./PaymentRegister";
+import { isValid } from "date-fns";
+import valid from "card-validator";
+import { cpf } from "cpf-cnpj-validator";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { string, object, ref, boolean } from "yup";
+
 import NavBar from "../../components/navBar";
+import PaymentMethod from "./PaymentMethod";
+import DoctorInformation from "./DoctorInformation";
 
 import { Container } from "./styles";
 
-const doctorSchema = Yup.object({
-  name: Yup.string().required("Nome é obrigatório"),
-  email: Yup.string().email("Email incorreto").required("Email é obrigatório"),
-  cpf: Yup.string().required("CPF é obrigatório"),
-  cep: Yup.string().required("CEP é obrigatório"),
-  password: Yup.string().required("Senha obrigatória"),
-  confirmPassword: Yup.string()
+const doctorSchema = object({
+  name: string().required("Nome é obrigatório"),
+  email: string().email("Email incorreto").required("Email é obrigatório"),
+  cpf: string()
+    .test("test_cpf", "CPF é invalido", (value) => cpf.isValid(value))
+    .required("CPF é obrigatório"),
+  cep: string().required("CEP é obrigatório"),
+  password: string().required("Senha obrigatória"),
+  confirmPassword: string()
     .required("Confirmação de senha obrigatória")
-    .oneOf([Yup.ref("password"), null], "Senhas devem ser iguaís"),
-  streetName: Yup.string().required("Nome da rua obrigatório"),
-  houseNumber: Yup.string().required("Número da casa é obrigatório"),
-  district: Yup.string().required("Bairro é obrigatório"),
-  city: Yup.string().required("Cidade é obrigatório"),
-  state: Yup.string().required("Você deve escolher um estado"),
-  complement: Yup.string(),
-  method: Yup.string(),
-  paymentMethod: Yup.object({
-    // card_name: Yup.string().when("method", {
-    //   is: "card",
-    //   then: Yup.string().required(),
-    // }),
-    // card_number: Yup.string().when("method", {
-    //   is: "card",
-    //   then: Yup.string().required(),
-    // }),
-    // expiration_date: Yup.string().when("method", {
-    //   is: "card",
-    //   then: Yup.string().required(),
-    // }),
-    // cvv: Yup.string().when("method", {
-    //   is: "card",
-    //   then: Yup.string().required(),
-    // }),
+    .oneOf([ref("password"), null], "Senhas devem ser iguaís"),
+  streetName: string().required("Nome da rua obrigatório"),
+  houseNumber: string().required("Número da casa é obrigatório"),
+  district: string().required("Bairro é obrigatório"),
+  city: string().required("Cidade é obrigatório"),
+  state: string().required("Você deve escolher um estado"),
+  complement: string(),
+  method: string(),
+  accepted_terms: boolean().test(
+    "test_terms",
+    "Termos devem ser aceitos",
+    (value) => value === true
+  ),
+  paymentMethod: object({
+    card_name: string(),
+    card_number: string(),
+    expiration_date: string(),
+    cvv: string(),
+  }).when("method", {
+    is: (method) => method === "card",
+    then: () =>
+      object({
+        card_name: string().required("Nome no Cartão é obrigatório"),
+        card_number: string()
+          .test("test_number", "Número do cartão é invalido", (value) => {
+            const cardNumber = Number(value.replaceAll("-", ""));
+
+            const cardResponse = valid.number(cardNumber);
+
+            return cardResponse.isValid;
+          })
+          .required("Número do cartão é obrigatório"),
+        expiration_date: string()
+          .test(
+            "test_expiration_date",
+            "Data de expiração é invalida",
+            (value) => isValid(new Date(value))
+          )
+          .required("Data de expiração é obrigatória"),
+        cvv: string().required("CVV é obrigatório"),
+      }),
   }),
 });
 
@@ -63,16 +85,16 @@ function DoctorRegister() {
   const handleNextStep = useCallback(async () => {
     const isValid = await trigger();
 
-    // if (isValid) {
-    setStep(2);
-    // }
+    if (isValid) {
+      setStep(2);
+    }
   }, [trigger]);
 
   const renderedStep = useMemo(() => {
     switch (step) {
       case 2:
         return (
-          <PaymentRegister
+          <PaymentMethod
             control={control}
             register={register}
             setStep={setStep}
@@ -81,7 +103,7 @@ function DoctorRegister() {
         );
       default:
         return (
-          <DoctorInformationRegister
+          <DoctorInformation
             control={control}
             register={register}
             handleNextStep={handleNextStep}

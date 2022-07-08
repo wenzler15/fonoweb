@@ -11,7 +11,7 @@ export const Container = styled.div`
       flex-flow: column;
       width: 45%;
 
-      strong {
+      > strong {
         color: #fff;
         background: #803888;
         padding: 1rem;
@@ -20,7 +20,7 @@ export const Container = styled.div`
         text-align: center;
       }
 
-      p {
+      > p {
         color: #1e3354;
         font-size: 1.15rem;
 
@@ -28,16 +28,19 @@ export const Container = styled.div`
         margin-bottom: 0;
       }
 
-      .editButton {
-        background: transparent;
-        color: #1e98d4;
+      .inLineButton {
         padding: 0;
         margin: 0;
 
         text-align: start;
+
+        width: auto;
+        background: transparent;
+        color: #1e98d4;
+        font-weight: 700;
       }
 
-      span {
+      > span {
         display: flex;
         align-items: center;
         margin-top: 2rem;
@@ -53,7 +56,7 @@ export const Container = styled.div`
         border-radius: 50%;
       }
 
-      h4 {
+      > h4 {
         margin: 0;
         margin-left: 1rem;
         font-size: 0.95rem;
@@ -99,20 +102,65 @@ export const AddPaymentContainer = styled.div`
   div {
     margin-top: 1rem;
 
-    label {
+    > label {
       font-size: 1rem;
     }
+
+    > div {
+      strong {
+        font-size: 1rem;
+        padding: 0;
+      }
+    }
+  }
+
+  .uppercase {
+    text-transform: uppercase;
   }
 
   .row {
     display: flex;
 
     > div {
-      width: 80%;
+      width: 70%;
 
       & + div {
-        width: 20%;
+        width: 30%;
       }
     }
+  }
+`;
+
+export const TermsContainer = styled.div`
+  margin: 2rem;
+
+  > span {
+    display: flex;
+    align-items: center;
+
+    > button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin: 0;
+
+      height: 48px !important;
+      width: 48px !important;
+      border-radius: 50% !important;
+      margin-right: 1rem !important;
+    }
+
+    > h1 {
+      margin: 0;
+    }
+  }
+
+  > p {
+    font-family: "Lato";
+    font-size: 1rem;
+
+    color: #1e3354;
+    margin-top: 1rem;
   }
 `;

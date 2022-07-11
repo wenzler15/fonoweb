@@ -9,6 +9,7 @@ import { string, object, ref, boolean } from "yup";
 
 import NavBar from "../../components/navBar";
 import PaymentMethod from "./PaymentMethod";
+import FinishedPayment from "./FinishedPayment";
 import DoctorInformation from "./DoctorInformation";
 
 import { Container } from "./styles";
@@ -80,6 +81,7 @@ function DoctorRegister() {
 
   const handleSubmitRegistration = useCallback((formData) => {
     console.log(formData);
+    setStep(3);
   }, []);
 
   const handleNextStep = useCallback(async () => {
@@ -92,6 +94,8 @@ function DoctorRegister() {
 
   const renderedStep = useMemo(() => {
     switch (step) {
+      case 3:
+        return <FinishedPayment setStep={setStep} />;
       case 2:
         return (
           <PaymentMethod

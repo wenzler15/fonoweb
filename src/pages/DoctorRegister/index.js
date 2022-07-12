@@ -80,7 +80,6 @@ function DoctorRegister() {
   const [step, setStep] = useState(1);
 
   const handleSubmitRegistration = useCallback((formData) => {
-    console.log(formData);
     setStep(3);
   }, []);
 

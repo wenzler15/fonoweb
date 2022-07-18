@@ -15,14 +15,9 @@ function TextInput({
       <label>{title}</label>
 
       {mask ? (
-        <MaskedInput
-          error={!!error}
-          {...register(name)}
-          mask={mask}
-          {...rest}
-        />
+        <MaskedInput error={error} {...register(name)} mask={mask} {...rest} />
       ) : (
-        <Input error={!!error} {...register(name)} {...rest} />
+        <Input error={error} {...register(name)} {...rest} />
       )}
 
       {!!error && (

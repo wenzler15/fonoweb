@@ -20,16 +20,18 @@ export const Container = styled.div`
     }
 
     > strong {
-      color: #ea3a3d;
-      margin-left: 0.25rem;
-      font-size: 0.75rem;
+      color: #ea3a3d !important;
+      background: transparent !important;
+      margin-left: 0.25rem !important;
+      font-size: 0.75rem !important;
     }
   }
 `;
 
 const inputStyle = css`
+  border: ${({ error }) =>
+    !!error ? "1px solid #ea3a3d" : "1px solid #1e3354"};
   border-radius: 0.25rem;
-  border: ${({ error }) => (error ? "1px solid #ea3a3d" : "1px solid #1e3354")};
   background: #fff;
   margin-top: 0.5rem;
 

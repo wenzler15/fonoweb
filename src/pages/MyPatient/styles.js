@@ -1,25 +1,15 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: #e5e5e5;
-  overflow: hidden;
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-`;
-
-export const ContentRight = styled.div`
-  width: 90vw;
-  height: 100vh;
-  border: 1px solid #ffffff;
-  border-radius: 8px;
-  margin-top: 10px;
-  background-color: #ffffff;
 `;
 
 export const ContentPacientes = styled.div`
@@ -202,4 +192,60 @@ export const CheckUser = styled.button`
   color: #ffffff;
   border: none;
   cursor: pointer;
+`;
+
+export const Content = styled.section`
+  display: flex;
+  flex-flow: column;
+
+  padding: 2rem;
+  margin: 1rem;
+
+  border-radius: 4px;
+  border: 1px solid #ffffff;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  font-family: "Lato";
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    > h1 {
+      font-size: 2rem;
+    }
+  }
+
+  > strong {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0 auto;
+
+    > button {
+      color: #0090ff;
+      font-weight: 700;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+    }
+  }
+
+  .patientList {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 100%;
+  }
+`;
+
+export const PatientData = styled.div`
+  width: 100%;
+  padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

@@ -17,6 +17,10 @@ import DoctorProfile from "../pages/DoctorProfile";
 import { DOCTOR, PACIENT } from "../constants";
 import DoctorRegister from "../pages/DoctorRegister";
 
+import PatientExercises from "../pages/PatientExercises";
+import PatientDocuments from "../pages/PatientDocuments";
+import PatientHome from "../pages/PatientHome";
+
 const AppRoutes = () => {
   const { user, userType } = useAuth();
 
@@ -92,6 +96,34 @@ const AppRoutes = () => {
           </RequireAuth>
         }
       />
+
+      <Route
+        path="/patienthome"
+        element={
+          <RequireAuth>
+            <PatientHome />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientexercises"
+        element={
+          <RequireAuth>
+            <PatientExercises />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientdocuments"
+        element={
+          <RequireAuth>
+            <PatientDocuments />
+          </RequireAuth>
+        }
+      />
+
     </Routes>
   );
 };

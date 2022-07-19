@@ -14,13 +14,14 @@ import {
   UserContainerButton,
   ButtonContainer,
 } from "./styles";
+import { DOCTOR } from "../../constants";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
+  const { user, userType, signOut } = useAuth();
 
   const handleSignOut = useCallback(() => {
     signOut();
@@ -36,17 +37,25 @@ export default function NavBar() {
     <Container>
       <img src={LogoImg} alt="Logo" />
 
-      <div className="navigationContainer">
-        <TextNavBar onClick={() => navigate("/mypatient")}>Home</TextNavBar>
-        <TextNavBar onClick={() => navigate("/dashboard")}>
-          Dashboard
-        </TextNavBar>
-        <TextNavBar onClick={() => navigate("/mypatient")}>
-          Meus Pacientes
-        </TextNavBar>
-        <TextNavBar onClick={() => navigate("/courses")}>Cursos</TextNavBar>
-        <TextNavBar onClick={() => navigate("/support")}>Suporte</TextNavBar>
-      </div>
+      {userType === DOCTOR ? (
+        <div className="navigationContainer">
+          <TextNavBar onClick={() => navigate("/mypatient")}>Home</TextNavBar>
+          <TextNavBar onClick={() => navigate("/dashboard")}>
+            Dashboard
+          </TextNavBar>
+          <TextNavBar onClick={() => navigate("/mypatient")}>
+            Meus Pacientes
+          </TextNavBar>
+          <TextNavBar onClick={() => navigate("/courses")}>Cursos</TextNavBar>
+          <TextNavBar onClick={() => navigate("/support")}>Suporte</TextNavBar>
+        </div>
+      ) : (
+        <div className="navigationContainer">
+          <TextNavBar onClick={() => navigate("/")}>Home</TextNavBar>
+          <TextNavBar onClick={() => navigate("/about")}>Sobre</TextNavBar>
+          <TextNavBar onClick={() => navigate("/contact")}>Contato</TextNavBar>
+        </div>
+      )}
 
       {!isEmpty(user) ? (
         <UserContainer>

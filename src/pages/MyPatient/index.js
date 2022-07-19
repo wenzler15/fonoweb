@@ -92,8 +92,8 @@ const PatientList = () => {
 
             {!isEmpty(patientList) ? (
               <div className="patientList">
-                {patientList.map((item) => (
-                  <PatientData>
+                {patientList.map((item, index) => (
+                  <PatientData key={index}>
                     <ContentUser>
                       <BiUserCircle color="#803888" size={60} />
                       <User>
@@ -102,13 +102,14 @@ const PatientList = () => {
                     </ContentUser>
 
                     <ContentNewAnamneseEvolution>
-                      <AddAnamnese onClick={() => navigate("/newanamnese")}>
+                      <AddAnamnese
+                        onClick={() =>
+                          navigate("/anamnesis", { state: { patient: item } })
+                        }
+                      >
                         Novo Anamnese
                       </AddAnamnese>
-                      <AddEvolution>Nova Evolução</AddEvolution>
-                    </ContentNewAnamneseEvolution>
 
-                    <ContentAddAssessment>
                       <AddAssessment
                         onClick={() =>
                           navigate("/newavaliation", { patient: item })
@@ -116,9 +117,7 @@ const PatientList = () => {
                       >
                         Adicionar Nova Avaliação
                       </AddAssessment>
-                    </ContentAddAssessment>
 
-                    <ContentCheckUser>
                       <CheckUser
                         onClick={() =>
                           navigate("/patient", { state: { patient: item } })
@@ -126,7 +125,7 @@ const PatientList = () => {
                       >
                         Ver
                       </CheckUser>
-                    </ContentCheckUser>
+                    </ContentNewAnamneseEvolution>
                   </PatientData>
                 ))}
               </div>

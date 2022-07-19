@@ -16,6 +16,7 @@ import DoctorProfile from "../pages/DoctorProfile";
 
 import { DOCTOR, PACIENT } from "../constants";
 import DoctorRegister from "../pages/DoctorRegister";
+import Anamnesis from "../pages/Anamnesis";
 
 const AppRoutes = () => {
   const { user, userType } = useAuth();
@@ -39,7 +40,6 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={initialRoute} />
       <Route path="/login" element={<DoctorLogin />} />
-
       <Route path="/register" element={<DoctorRegister />} />
 
       <Route
@@ -55,6 +55,15 @@ const AppRoutes = () => {
         element={
           <RequireAuth>
             <Patient />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/anamnesis"
+        element={
+          <RequireAuth>
+            <Anamnesis />
           </RequireAuth>
         }
       />

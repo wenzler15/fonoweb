@@ -74,6 +74,8 @@ const Patient = () => {
     return "Nenhum endereço cadastrado";
   }, [patientData]);
 
+  console.log(patientData);
+
   return (
     <Container>
       <Header />
@@ -99,17 +101,12 @@ const Patient = () => {
           patientData?.lastName || ""
         } ${patientAge}`}</h1>
 
-        <h3>1,82 - 70kg</h3>
         <h3>Telefone: {phoneFormatted}</h3>
         <h3>{addressFormatted}</h3>
 
         <h4>Resumo do paciente</h4>
 
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s
-        </p>
+        <p>...</p>
 
         <AnamnesisContainer>
           <h1>Anamnese do paciente</h1>

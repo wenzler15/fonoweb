@@ -1,16 +1,14 @@
-import React from "react";
+import { isEmpty } from "lodash";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/auth";
-import _ from "lodash";
 
-function RequireAuth({ children }) {
-  const { user } = useAuth();
+const RequireAuth = ({ children }) => {
+  const userFound = localStorage.getItem("@auth/user");
 
-  if (_.isEmpty(user)) {
-    return <Navigate to="/" replace />;
-  } else {
+  if (!isEmpty(userFound)) {
     return children;
+  } else {
+    return <Navigate to="/" replace />;
   }
-}
+};
 
 export default RequireAuth;

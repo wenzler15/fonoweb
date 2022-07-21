@@ -11,6 +11,7 @@ import Home from "../pages/Home";
 import MyPatient from "../pages/MyPatient";
 import CoursesList from "../pages/CoursesList";
 import Course from "../pages/Course";
+import Schedule from "../pages/Schedule";
 import Dashboard from "../pages/Dashboard";
 import DoctorProfile from "../pages/DoctorProfile";
 
@@ -55,6 +56,15 @@ const AppRoutes = () => {
         element={
           <RequireAuth>
             <Patient />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/schedule"
+        element={
+          <RequireAuth>
+            <Schedule />
           </RequireAuth>
         }
       />

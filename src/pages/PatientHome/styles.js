@@ -15,7 +15,7 @@ export const ContentContainer = styled.div`
 
 export const ContentRight = styled.div`
     width: 49vw;
-    max-height: 79vh;
+    height: 79vh;
     border: 1px solid #ffffff;
     border-radius: 8px;
     margin-top: 10px;
@@ -25,7 +25,7 @@ export const ContentRight = styled.div`
 
 export const ContentLeft = styled.div`
     width: 49vw;
-    max-height: 79vh;
+    height: 79vh;
     border: 1px solid #ffffff;
     border-radius: 8px;
     margin-top: 10px;
@@ -226,7 +226,6 @@ export const Description = styled.div`
   font-weight: 400;
   font-size: 14px;
   color: #aaaaaa;
-  margin-left: -30px;
 `;
 
 export const ConsultationLocation = styled.div`
@@ -234,7 +233,7 @@ export const ConsultationLocation = styled.div`
   flex-direction: row;
   align-items: center;
   margin-top: 5px;
-  margin-right: 150px;
+  margin-right: 244px;
   font-family: "Lato";
   font-style: normal;
   font-weight: 400;
@@ -478,4 +477,11 @@ export const ButtonResumeLastQuery = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const ContentResultEmpty = styled.div`
+  text-align: center;
+  margin-top: 30px;
+  font-family: "Roboto Condensed";
+  font-weight: 700;
 `;

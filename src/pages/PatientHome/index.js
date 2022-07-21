@@ -54,8 +54,7 @@ import {
     LastDateQuery,
     ResumeLastQuery,
     ContentResumeLastQuery,
-    OpacityResumeLastQuery,
-    ButtonResumeLastQuery,
+    ContentResultEmpty
 } from "./styles";
 
 const doctorList = [
@@ -105,7 +104,56 @@ const doctorList = [
 
 function PatientHome() {
     const navigate = useNavigate();
-    let params = useLocation();
+
+    const [getStateDoctors, setStateDoctors] = useState({});
+    const [getDoctors, setDoctors] = useState({});
+    const [getSpecialty, setSpecialty] = useState({});
+    const [selected, setSelected] = useState(0);
+
+    const getUsersDoctor = async (id) => {
+        try {
+            let resDoctor;
+
+            (id == 0) ? resDoctor = await fetch("http://18.215.217.253:3001/professionals")
+                : resDoctor = await fetch("http://18.215.217.253:3001/professionals?specialty=" + id);
+
+            resDoctor = await resDoctor.json();
+            setDoctors(resDoctor);
+        } catch (err) { }
+    };
+
+    const getSpecialtyDoctor = async () => {
+        try {
+            let resSpec = await fetch("http://18.215.217.253:3001/specialtys");
+            resSpec = await resSpec.json();
+            setSpecialty(resSpec);
+        } catch (err) { }
+    };
+
+    const getStateDoctor = async () => {
+        try {
+            let resState = await fetch("http://18.215.217.253:3001/users-addresses");
+            resState = await resState.json();
+            let tempStateList = [];
+            resState.map((state) => {
+                if (tempStateList.includes(state.state) || state.state == null || state.state == '') { return false }
+                else { tempStateList.push(state.state); }
+            })
+            console.log(tempStateList)
+            //setStateDoctors(resState);
+        } catch (err) { }
+    };
+
+    const filterDoctor = async event => {
+        setSelected(event.target.value);
+        getUsersDoctor(event.target.value);
+    }
+
+    useEffect(() => {
+        getUsersDoctor(0);
+        getSpecialtyDoctor();
+        getStateDoctor();
+    }, []);
 
     return (
         <MainContainer>
@@ -133,38 +181,43 @@ function PatientHome() {
 
                     <ContentSelect>
                         <ContentTextSelect>Escolha uma especialidade</ContentTextSelect>
-                        <Select>
-                            <Option>Especialista 1</Option>
-                            <Option>Especialista 2</Option>
-                            <Option>Especialista 3</Option>
+                        <Select value={selected} onChange={filterDoctor}>
+                            <Option value='0'>Especialidade</Option>
+                            {getSpecialty.length > 1 ? (
+                                getSpecialty?.map((specialty, index) =>
+                                    <Option key={index} value={specialty.id}>{specialty.name}</Option>
+                                )) : (false)
+                            }
                         </Select>
                     </ContentSelect>
 
                     <ContentResultFilter>
-                        <TextResultFilter>Resultador de pesquisa (20)</TextResultFilter>
+                        <TextResultFilter>Resultador de pesquisa ({(getDoctors?.length) ? getDoctors?.length : '0'})</TextResultFilter>
                     </ContentResultFilter>
-                    {doctorList.map((doc, index) =>
-                        <ContentResult key={index}>
-                            <Contenthigher>
-                                <ContentPhotoHigher>
-                                    <PhotoHigher></PhotoHigher>
-                                </ContentPhotoHigher>
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }} >
-                                    <NameDoctor>{doc.name}</NameDoctor>
-                                    <ButtonContactDoctor>Contatar</ButtonContactDoctor>
-                                </div>
-                                <div style={{ marginTop: "5px" }} >
-                                    <ContentResumeHigher>
-                                        <Description>{doc.description}</Description>
-                                        <ConsultationLocation>
-                                            <FiMapPin color="#1E98D4" size={10} style={{ marginRight: 10 }} />{" "}
-                                            {doc.end}
-                                        </ConsultationLocation>
-                                    </ContentResumeHigher>
-                                </div>
-                            </Contenthigher>
-                        </ContentResult>
-                    )}
+                    {getDoctors.length ? (
+                        getDoctors?.map((doc, index) =>
+                            <ContentResult key={index}>
+                                <Contenthigher>
+                                    <ContentPhotoHigher>
+                                        <PhotoHigher></PhotoHigher>
+                                    </ContentPhotoHigher>
+                                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }} >
+                                        <NameDoctor>{doc.name}</NameDoctor>
+                                        <ButtonContactDoctor>Contatar</ButtonContactDoctor>
+                                    </div>
+                                    <div style={{ marginTop: "5px" }} >
+                                        <ContentResumeHigher>
+                                            <Description>{doc.specialty}</Description>
+                                            <ConsultationLocation>
+                                                <FiMapPin color="#1E98D4" size={10} style={{ marginRight: 10 }} />{" "}
+                                                {doc.streetName} - {doc.city}
+                                            </ConsultationLocation>
+                                        </ContentResumeHigher>
+                                    </div>
+                                </Contenthigher>
+                            </ContentResult>
+                        )
+                    ) : (<ContentResultEmpty>Nenhum doutor encontrado.</ContentResultEmpty>)}
                 </ContentRight>
 
                 <ContentLeft>

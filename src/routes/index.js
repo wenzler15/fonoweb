@@ -20,6 +20,8 @@ import DoctorRegister from "../pages/DoctorRegister";
 import PatientExercises from "../pages/PatientExercises";
 import PatientDocuments from "../pages/PatientDocuments";
 import PatientHome from "../pages/PatientHome";
+import PatientAppointments from "../pages/PatientAppointments";
+import PatientInfoDoctor from "../pages/PatientInfoDoctor";
 
 const AppRoutes = () => {
   const { user, userType } = useAuth();
@@ -123,6 +125,25 @@ const AppRoutes = () => {
           </RequireAuth>
         }
       />
+
+      <Route
+        path="/patientappointments"
+        element={
+          <RequireAuth>
+            <PatientAppointments />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientinfodoctor"
+        element={
+          <RequireAuth>
+            <PatientInfoDoctor />
+          </RequireAuth>
+        }
+      />
+
 
     </Routes>
   );

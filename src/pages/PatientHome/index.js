@@ -234,11 +234,6 @@ function PatientHome() {
                                     Sobre a consulta medica, resumo de como foi o atendimento do
                                     paciente aqui .
                                 </ResumeLastQuery>
-                                <OpacityResumeLastQuery>
-                                    <ButtonResumeLastQuery>
-                                        <FiArrowRight color="#D3CECE" size={20} />
-                                    </ButtonResumeLastQuery>
-                                </OpacityResumeLastQuery>
                             </ContentResumeLastQuery>
                         </div>{" "}
                     </ContentLastQuery>

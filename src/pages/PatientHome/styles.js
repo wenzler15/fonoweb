@@ -383,6 +383,7 @@ export const ContentTitleLastQuery = styled.div`
   justify-content: space-around;
   aling-items: center;
   margin-top: 30px;
+  width: 100%;
 `;
 
 export const TitleLastQuery = styled.div`
@@ -455,8 +456,7 @@ export const ResumeLastQuery = styled.div`
 export const ContentResumeLastQuery = styled.div`
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
-  margin-left: 40px;
+  margin-left: -90px;
 `;
 
 export const OpacityResumeLastQuery = styled.button`

@@ -17,8 +17,7 @@ export const AuthProvider = ({ children }) => {
 
       localStorage.setItem("@auth/user", JSON.stringify(data.user));
       localStorage.setItem("@auth/token", JSON.stringify(data.token));
-    } catch (err) {
-    }
+    } catch (err) {}
   }, []);
 
   const signOut = useCallback(async () => {
@@ -26,17 +25,22 @@ export const AuthProvider = ({ children }) => {
       setUser({});
       localStorage.removeItem("@auth/user");
       localStorage.removeItem("@auth/token");
-    } catch (err) {
-    }
+    } catch (err) {}
   }, []);
 
   useEffect(() => {
-    const foundUser = localStorage.getItem("@auth/user");
+    async function loadUserInStorage() {
+      try {
+        const foundUser = await localStorage.getItem("@auth/user");
 
-    if (!isEmpty(foundUser)) {
-      const parsedUser = JSON.parse(foundUser);
-      setUser(parsedUser);
+        if (!isEmpty(foundUser)) {
+          const parsedUser = JSON.parse(foundUser);
+          setUser(parsedUser);
+        }
+      } catch (err) {}
     }
+
+    loadUserInStorage();
   }, []);
 
   return (

@@ -79,8 +79,6 @@ function Dashboard() {
               <strong>{schedules}</strong>
               <p>Consultas</p>
             </span>
-
-            <AnalyticsLabel positive={0 < -10.9}>-10,78%</AnalyticsLabel>
           </div>
 
           <div>
@@ -104,8 +102,6 @@ function Dashboard() {
               <strong>{users}</strong>
               <p>Pacientes</p>
             </span>
-
-            <AnalyticsLabel positive={0 < 10.9}>-10,78%</AnalyticsLabel>
           </div>
 
           <div>
@@ -129,8 +125,6 @@ function Dashboard() {
               <strong>{appointments}</strong>
               <p>Consultas</p>
             </span>
-
-            <AnalyticsLabel positive={0 < 10.9}>-10,78%</AnalyticsLabel>
           </div>
         </div>
 

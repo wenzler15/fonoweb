@@ -35,7 +35,7 @@ export const ButtonMySchedule = styled.button`
   height: 64px;
   margin-right: 20px;
   background: #1e98d4;
-  border-radius: 50px;
+  border-radius: 0.5rem;
   border: none;
   font-family: "Lato";
   font-style: normal;
@@ -56,14 +56,14 @@ export const Input = styled.input`
   width: 469px;
   height: 64px;
   background: #803888;
-  border-radius: 50px;
+  border-radius: 0.5rem;
   border: none;
   font-family: "Lato";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
   color: #ffffff;
-  padding-left: 50px;
+  padding-left: 0.5rem;
   ::placeholder,
   ::-webkit-input-placeholder {
     font-family: "Lato";
@@ -163,7 +163,7 @@ export const ContentAddAssessment = styled.div`
 export const AddAssessment = styled.button`
   width: 246px;
   height: 48px;
-  background: #233688;
+  background: #3a36db;
   border-radius: 8px;
   font-family: "Mulish";
   font-style: normal;
@@ -181,9 +181,10 @@ export const ContentCheckUser = styled.div`
 `;
 
 export const CheckUser = styled.button`
+  margin-left: 1rem;
   width: 74px;
   height: 48px;
-  background: #803888;
+  background: #3a36db;
   border-radius: 8px;
   font-family: "Mulish";
   font-style: normal;

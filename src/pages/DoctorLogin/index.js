@@ -61,11 +61,6 @@ function Login() {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <ContainerRedeem>
-            <TextRedeem>Esqueceu a senha?</TextRedeem>
-            <TextRedeem>&nbsp;&nbsp;&nbsp;</TextRedeem>
-            <TextRedeem blue>Clique aqui</TextRedeem>
-          </ContainerRedeem>
           <ContainerButton onClick={() => loginFunc()} disabled={true}>
             <ContainerButtonText>Entrar</ContainerButtonText>
           </ContainerButton>

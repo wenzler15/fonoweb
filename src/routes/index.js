@@ -20,6 +20,9 @@ import DoctorRegister from "../pages/DoctorRegister";
 import Anamnesis from "../pages/Anamnesis";
 import AnamnesisOfPatient from "../pages/AnamnesisOfPatient";
 import AnamnesisOfPatientEdit from "../pages/AnamnesisOfPatientEdit";
+import EvaluationList from "../pages/EvaluationList";
+import EvaluationModels from "../pages/EvaluationModels";
+import EvaluationNew from "../pages/EvaluationNew";
 
 const AppRoutes = () => {
   const { user, userType } = useAuth();
@@ -128,6 +131,33 @@ const AppRoutes = () => {
         element={
           <RequireAuth>
             <AnamnesisOfPatientEdit />
+          </RequireAuth>
+        }
+      />
+   
+      <Route
+        path="/evaluationlist"
+        element={
+          <RequireAuth>
+            <EvaluationList />
+          </RequireAuth>
+        }
+      />
+   
+      <Route
+        path="/evaluationmodels"
+        element={
+          <RequireAuth>
+            <EvaluationModels />
+          </RequireAuth>
+        }
+      />
+   
+      <Route
+        path="/evaluationnew"
+        element={
+          <RequireAuth>
+            <EvaluationNew />
           </RequireAuth>
         }
       />

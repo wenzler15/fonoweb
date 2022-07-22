@@ -21,11 +21,13 @@ import {
   ContainerButton,
   SmallTextContainerButton,
   ContentTitles,
+  ContentErrorLogin
 } from "./styles";
 
 function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
 
   const navigate = useNavigate();
 
@@ -38,7 +40,10 @@ function Login() {
     };
 
     await signIn(toSend);
-    navigate("/mypatient");
+    if (localStorage.getItem('@auth/user') !== 'undefined') {
+      let user = JSON.parse(localStorage.getItem('@auth/user'));
+      (user.userType == 1) ? navigate("/patienthome") : navigate("/mypatient");
+    } else { setCurrentUser('undefined') }
   };
 
   return (
@@ -64,6 +69,9 @@ function Login() {
           <ContainerButton onClick={() => loginFunc()} disabled={true}>
             <ContainerButtonText>Entrar</ContainerButtonText>
           </ContainerButton>
+          {currentUser == 'undefined' ? (
+            <ContentErrorLogin>Usuário ou senha incorretos. Tente novamente!</ContentErrorLogin>
+          ) : (false)}
           <SmallTextContainerButton>
             <SmallText>Ainda não tem cadastro?</SmallText>
             <SmallText blue onClick={() => navigate("/register")}>

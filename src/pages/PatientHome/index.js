@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../../components/navBar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FiSearch, FiMapPin, FiClock, FiArrowRight } from "react-icons/fi";
+import { isEmpty } from "lodash";
 
 import {
     MainContainer,
@@ -57,65 +58,22 @@ import {
     ContentResultEmpty
 } from "./styles";
 
-const doctorList = [
-    {
-        id: 1,
-        name: 'Dra. Adriana Mendes',
-        description: 'Vamos descrever o resumo do profissional para que os usuarios possam entender mais da sua expecialidade.',
-        end: 'Rua consultorio da consulta - Bairro'
-    },
-    {
-        id: 1,
-        name: 'Dra. Adriana Mendes',
-        description: 'Vamos descrever o resumo do profissional para que os usuarios possam entender mais da sua expecialidade.',
-        end: 'Rua consultorio da consulta - Bairro'
-    },
-    {
-        id: 1,
-        name: 'Dra. Adriana Mendes',
-        description: 'Vamos descrever o resumo do profissional para que os usuarios possam entender mais da sua expecialidade.',
-        end: 'Rua consultorio da consulta - Bairro'
-    },
-    {
-        id: 1,
-        name: 'Dra. Adriana Mendes',
-        description: 'Vamos descrever o resumo do profissional para que os usuarios possam entender mais da sua expecialidade.',
-        end: 'Rua consultorio da consulta - Bairro'
-    },
-    {
-        id: 1,
-        name: 'Dra. Adriana Mendes',
-        description: 'Vamos descrever o resumo do profissional para que os usuarios possam entender mais da sua expecialidade.',
-        end: 'Rua consultorio da consulta - Bairro'
-    },
-    {
-        id: 1,
-        name: 'Dra. Adriana Mendes',
-        description: 'Vamos descrever o resumo do profissional para que os usuarios possam entender mais da sua expecialidade.',
-        end: 'Rua consultorio da consulta - Bairro'
-    },
-    {
-        id: 1,
-        name: 'Dra. Adriana Mendes',
-        description: 'Vamos descrever o resumo do profissional para que os usuarios possam entender mais da sua expecialidade.',
-        end: 'Rua consultorio da consulta - Bairro'
-    }
-]
-
 function PatientHome() {
     const navigate = useNavigate();
 
-    const [getStateDoctors, setStateDoctors] = useState({});
+    const [getCityDoctors, setCityDoctors] = useState({});
     const [getDoctors, setDoctors] = useState({});
     const [getSpecialty, setSpecialty] = useState({});
     const [selected, setSelected] = useState(0);
+    const [getAppointments, setAppointments] = useState({});
+    const [getLastAppointments, setLastAppointments] = useState({});
 
     const getUsersDoctor = async (id) => {
         try {
             let resDoctor;
 
-            (id == 0) ? resDoctor = await fetch("http://18.215.217.253:3001/professionals")
-                : resDoctor = await fetch("http://18.215.217.253:3001/professionals?specialty=" + id);
+            if (id == 0) { resDoctor = await fetch("http://18.215.217.253:3001/professionals") }
+            else { resDoctor = await fetch("http://18.215.217.253:3001/professionals?specialty=" + id); }
 
             resDoctor = await resDoctor.json();
             setDoctors(resDoctor);
@@ -130,17 +88,16 @@ function PatientHome() {
         } catch (err) { }
     };
 
-    const getStateDoctor = async () => {
+    const getCityDoctor = async () => {
         try {
-            let resState = await fetch("http://18.215.217.253:3001/users-addresses");
-            resState = await resState.json();
-            let tempStateList = [];
-            resState.map((state) => {
-                if (tempStateList.includes(state.state) || state.state == null || state.state == '') { return false }
-                else { tempStateList.push(state.state); }
+            let resCity = await fetch("http://18.215.217.253:3001/users-addresses");
+            resCity = await resCity.json();
+            let tempCityList = [];
+            resCity.map((city) => {
+                if (tempCityList.includes(city.city) || city.city == null || city.city == '') { return false }
+                else { tempCityList.push(city.city); }
             })
-            console.log(tempStateList)
-            //setStateDoctors(resState);
+            setCityDoctors(tempCityList);
         } catch (err) { }
     };
 
@@ -149,10 +106,32 @@ function PatientHome() {
         getUsersDoctor(event.target.value);
     }
 
+    const getPatientAppointments = async () => {
+        try {
+            let resAppoint = await fetch("http://18.215.217.253:3001/appointment");
+            resAppoint = await resAppoint.json();
+            let tempAppointList = [];
+            resAppoint.map(async (ap) => {
+                if (ap.professionalId > 10) {
+                    let res = await fetch("http://18.215.217.253:3001/users/" + ap.professionalId);
+                    res = await res.json();
+                    tempAppointList.push({ appointment: ap, professional: res });
+
+                    if (ap.status == "Aguardando") {
+                        let tempLast = { appointment: ap, professional: res };
+                        setLastAppointments(tempLast)
+                    }
+                }
+            });
+            setAppointments(tempAppointList)
+        } catch (err) { }
+    }
+
     useEffect(() => {
         getUsersDoctor(0);
         getSpecialtyDoctor();
-        getStateDoctor();
+        getCityDoctor();
+        getPatientAppointments();
     }, []);
 
     return (
@@ -168,11 +147,13 @@ function PatientHome() {
                         </SubTitle>
                     </ContentTitle>
                     <ContentSelectCity>
-                        <SelectCity>
+                        <SelectCity value={selected}>
                             <OptionCity>Busque sua cidade</OptionCity>
-                            <OptionCity>Brasilia</OptionCity>
-                            <OptionCity>São Paulo</OptionCity>
-                            <OptionCity>Rio de Janeiro</OptionCity>
+                            {getCityDoctors.length > 0 ? (
+                                getCityDoctors?.map((city, index) =>
+                                    <Option key={index} value={city}>{city}</Option>
+                                )) : (false)
+                            }
                         </SelectCity>
                         <IconShearch>
                             <FiSearch color="#D3CECE" size={20} />
@@ -203,7 +184,7 @@ function PatientHome() {
                                     </ContentPhotoHigher>
                                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }} >
                                         <NameDoctor>{doc.name}</NameDoctor>
-                                        <ButtonContactDoctor>Contatar</ButtonContactDoctor>
+                                        <ButtonContactDoctor onClick={() => navigate("/patientinfodoctor")}>Contatar</ButtonContactDoctor>
                                     </div>
                                     <div style={{ marginTop: "5px" }} >
                                         <ContentResumeHigher>
@@ -227,69 +208,74 @@ function PatientHome() {
                     </ContentTitle>
 
                     <ContentCard>
-                        <Card>
-                            <ContentDayMonth>
-                                <DayMonth>04 de Julho</DayMonth>
-                            </ContentDayMonth>
+                        {!isEmpty(getLastAppointments) ? (
+                            <Card key={getLastAppointments.appointment.id}>
+                                <ContentDayMonth>
+                                    <DayMonth>{getLastAppointments.appointment.date}</DayMonth>
+                                </ContentDayMonth>
 
-                            <ContentNameDoctorCard>
-                                <NameDoctorCard>DRA.GABRIELA</NameDoctorCard>
-                            </ContentNameDoctorCard>
-                            <div style={{ display: "flex", flexDirection: "row" }}>
-                                <div>
-                                    <ConsultationLocationCard>
-                                        <FiMapPin color="#1E98D4" size={10} style={{ marginRight: 10 }} />{" "}
-                                        Rua consultorio da consulta - Bairro{" "}
-                                    </ConsultationLocationCard>
+                                <ContentNameDoctorCard>
+                                    <NameDoctorCard>{getLastAppointments.professional.name}</NameDoctorCard>
+                                </ContentNameDoctorCard>
+                                <div style={{ display: "flex", flexDirection: "row" }}>
+                                    <div style={{ width: "227px" }}>
+                                        <ConsultationLocationCard>
+                                            <FiMapPin color="#1E98D4" size={10} style={{ marginRight: 10 }} />{" "}
+                                            {getLastAppointments.professional.streetName} - {getLastAppointments.professional.city}{" "}
+                                        </ConsultationLocationCard>
 
-                                    <TimeCard>
-                                        <FiClock color="#fff" size={10} style={{ marginRight: 10 }} />
-                                        15H
-                                    </TimeCard>
+                                        <TimeCard>
+                                            <FiClock color="#fff" size={10} style={{ marginRight: 10 }} />
+                                            {getLastAppointments.appointment.hour}
+                                        </TimeCard>
+                                    </div>
+                                    <ContentButtonCard>
+                                        <OpacityButtonCard>
+                                            <ButtonCard>
+                                                <FiArrowRight color="#fff" size={30} />
+                                            </ButtonCard>
+                                        </OpacityButtonCard>
+                                    </ContentButtonCard>
                                 </div>
-                                <ContentButtonCard>
-                                    <OpacityButtonCard>
-                                        <ButtonCard>
-                                            <FiArrowRight color="#fff" size={30} />
-                                        </ButtonCard>
-                                    </OpacityButtonCard>
-                                </ContentButtonCard>
-                            </div>
-                        </Card>
+                            </Card>
+                        ) : (<TitleQuery>Nenhuma consulta em aberto</TitleQuery>)}
                     </ContentCard>
                     <ContentTitleLastQuery>
                         <TitleLastQuery>Ultimas consultas</TitleLastQuery>
                         <ArrowRight
                             style={{ cursor: "pointer" }}
-                            onClick={() => navigate("/schedulequery")}
+                            onClick={() => navigate("/patientappointments")}
                         >
                             <FiArrowRight color="#1E98D4" size={30} />
                         </ArrowRight>
                     </ContentTitleLastQuery>
+                    {getAppointments.length > 0 ? (
+                        getAppointments.map((ap, i) =>
+                            <ContentLastQuery key={i}>
+                                <ContentPhotoLastQuery>
+                                    <PhotoLastQuery></PhotoLastQuery>
+                                </ContentPhotoLastQuery>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: "space-evenly",
+                                    }}
+                                >
+                                    <NameDoctorLastQuery>{ap.professional.name}</NameDoctorLastQuery>
+                                    <LastDateQuery>{ap.appointment.date}</LastDateQuery>
+                                </div>
+                                <div style={{ marginTop: "5px" }}>
+                                    <ContentResumeLastQuery>
+                                        <ResumeLastQuery>
+                                            {ap.appointment.description}
+                                        </ResumeLastQuery>
+                                    </ContentResumeLastQuery>
+                                </div>{" "}
+                            </ContentLastQuery>
+                        )
+                    ) : (<TitleQuery>Nenhum histórico de consulta</TitleQuery>)}
 
-                    <ContentLastQuery>
-                        <ContentPhotoLastQuery>
-                            <PhotoLastQuery></PhotoLastQuery>
-                        </ContentPhotoLastQuery>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-evenly",
-                            }}
-                        >
-                            <NameDoctorLastQuery>Dr. Emiliano</NameDoctorLastQuery>
-                            <LastDateQuery>23 de Dezembro</LastDateQuery>
-                        </div>
-                        <div style={{ marginTop: "5px" }}>
-                            <ContentResumeLastQuery>
-                                <ResumeLastQuery>
-                                    Sobre a consulta medica, resumo de como foi o atendimento do
-                                    paciente aqui .
-                                </ResumeLastQuery>
-                            </ContentResumeLastQuery>
-                        </div>{" "}
-                    </ContentLastQuery>
                 </ContentLeft>
             </ContentContainer>
         </MainContainer>

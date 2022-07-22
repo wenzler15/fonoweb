@@ -127,3 +127,11 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
 `;
+
+export const ContentErrorLogin = styled.div`
+  color: #e71b1b;
+  background: #fff;
+  border-radius: 12px;
+  width: 415px;
+  margin: 10px auto -20px auto;
+`;

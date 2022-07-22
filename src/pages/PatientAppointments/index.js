@@ -33,6 +33,29 @@ import {
 function PatientAppointments() {
     const navigate = useNavigate();
 
+    const [getAppointments, setAppointments] = useState({});
+
+    const getPatientAppointments = async () => {
+        try {
+            let resAppoint = await fetch("http://18.215.217.253:3001/appointment");
+            resAppoint = await resAppoint.json();
+            let tempAppointList = [];
+            resAppoint.map(async (ap) => {
+                if (ap.professionalId > 10) {
+                    let res = await fetch("http://18.215.217.253:3001/users/" + ap.professionalId);
+                    res = await res.json();
+                    tempAppointList.push({ appointment: ap, professional: res });
+                }
+            });
+            setAppointments(tempAppointList)
+            console.log(getAppointments)
+        } catch (err) { }
+    }
+
+    useEffect(() => {
+        getPatientAppointments();
+    }, []);
+
     return (
         <MainContainer>
             <NavBar />
@@ -58,33 +81,35 @@ function PatientAppointments() {
                         </ContentCalendar>
                     </ContentFilter>
                     <ContentResult>
-                        Consultas encontradas (20)
+                        Consultas encontradas ({getAppointments.length})
                     </ContentResult>
 
-                    <ContentLastQuery>
-                        <ContentPhotoLastQuery>
-                            <PhotoLastQuery></PhotoLastQuery>
-                        </ContentPhotoLastQuery>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-evenly",
-                            }}
-                        >
-                            <NameDoctorLastQuery>Dr. Emiliano</NameDoctorLastQuery>
-                            <LastDateQuery>23 de Dezembro</LastDateQuery>
-                        </div>
-                        <div style={{ marginTop: "5px" }}>
-                            <ContentResumeLastQuery>
-                                <ResumeLastQuery>
-                                    Sobre a consulta medica, resumo de como foi o atendimento do
-                                    paciente aqui .
-                                </ResumeLastQuery>
-                            </ContentResumeLastQuery>
-                        </div>{" "}
-                    </ContentLastQuery>
-
+                    {getAppointments.length > 0 ? (
+                        getAppointments.map((ap, i) =>
+                            <ContentLastQuery key={i}>
+                                <ContentPhotoLastQuery>
+                                    <PhotoLastQuery></PhotoLastQuery>
+                                </ContentPhotoLastQuery>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: "space-evenly",
+                                    }}
+                                >
+                                    <NameDoctorLastQuery>{ap.professional.name}</NameDoctorLastQuery>
+                                    <LastDateQuery>{ap.appointment.date}</LastDateQuery>
+                                </div>
+                                <div style={{ marginTop: "5px" }}>
+                                    <ContentResumeLastQuery>
+                                        <ResumeLastQuery>
+                                            {ap.appointment.description}
+                                        </ResumeLastQuery>
+                                    </ContentResumeLastQuery>
+                                </div>{" "}
+                            </ContentLastQuery>
+                        )
+                    ) : (<FilterLabel>Nenhum histórico de consulta</FilterLabel>)}
                 </ContentRight>
             </ContentContainer>
         </MainContainer>

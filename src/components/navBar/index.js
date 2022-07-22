@@ -51,16 +51,18 @@ export default function NavBar() {
         </div>
       ) : (
         <div className="navigationContainer">
-          <TextNavBar onClick={() => navigate("/")}>Home</TextNavBar>
-          <TextNavBar onClick={() => navigate("/about")}>Sobre</TextNavBar>
-          <TextNavBar onClick={() => navigate("/contact")}>Contato</TextNavBar>
+          <TextNavBar onClick={() => navigate("/patienthome")}>Home</TextNavBar>
+          <TextNavBar onClick={() => navigate("/patientexercises")}>Exercícios</TextNavBar>
+          <TextNavBar onClick={() => navigate("/patientdocuments")}>Documentos</TextNavBar>
         </div>
       )}
 
       {!isEmpty(user) ? (
         <UserContainer>
           <UserContainerButton onClick={handleToggleDrawer}>
-            <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
+            {userType === DOCTOR ? (
+              <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
+            ) : (<img src="https://cdn-icons-png.flaticon.com/512/219/219969.png" />)}
           </UserContainerButton>
 
           <Menu
@@ -72,9 +74,11 @@ export default function NavBar() {
             }}
           >
             <MenuItem>
-              <Button onClick={() => navigate("/doctorprofile")}>
-                Meu Perfil
-              </Button>
+              {userType === DOCTOR ? (
+                <Button onClick={() => navigate("/doctorprofile")}>
+                  Meu Perfil
+                </Button>
+              ) : (false)}
             </MenuItem>
             <MenuItem>
               <Button onClick={handleSignOut}>Sair</Button>

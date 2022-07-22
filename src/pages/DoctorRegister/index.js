@@ -14,6 +14,8 @@ import DoctorInformation from "./DoctorInformation";
 
 import { Container } from "./styles";
 import { DOCTOR } from "../../constants";
+import api from "../../services";
+import Swal from "sweetalert2";
 
 function DoctorRegister() {
   const doctorSchema = object({
@@ -92,15 +94,26 @@ function DoctorRegister() {
   });
   const [step, setStep] = useState(1);
 
-  const handleSubmitRegistration = useCallback((formData) => {
-    console.log(formData);
-    setStep(3);
+  const handleSubmitRegistration = useCallback(async (formData) => {
+    try {
+      const response = await api.post("/users", formData);
+
+      if (response.data.message === "User already exists") {
+        await Swal.fire({
+          icon: "error",
+          title: "Usuário já existe, tente um novo email/cpf",
+        });
+        return;
+      }
+
+      setStep(3);
+    } catch (err) {
+      throw new Error(err);
+    }
   }, []);
 
   const handleNextStep = useCallback(async () => {
     const isValid = await trigger();
-
-    console.log(isValid);
 
     if (isValid) {
       setStep(2);

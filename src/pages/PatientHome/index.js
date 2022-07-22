@@ -184,7 +184,7 @@ function PatientHome() {
                                     </ContentPhotoHigher>
                                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }} >
                                         <NameDoctor>{doc.name}</NameDoctor>
-                                        <ButtonContactDoctor onClick={() => navigate("/patientinfodoctor")}>Contatar</ButtonContactDoctor>
+                                        <ButtonContactDoctor onClick={() => navigate("/patientinfodoctor/" + doc.id)}>Contatar</ButtonContactDoctor>
                                     </div>
                                     <div style={{ marginTop: "5px" }} >
                                         <ContentResumeHigher>

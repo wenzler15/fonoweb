@@ -54,6 +54,7 @@ export default function NavBar() {
           <TextNavBar onClick={() => navigate("/patienthome")}>Home</TextNavBar>
           <TextNavBar onClick={() => navigate("/patientexercises")}>Exercícios</TextNavBar>
           <TextNavBar onClick={() => navigate("/patientdocuments")}>Documentos</TextNavBar>
+          <TextNavBar onClick={() => navigate("/patientanamnese")}>Minhas Anamneses</TextNavBar>
         </div>
       )}
 

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../../components/navBar";
 import { FiClock, FiMapPin } from "react-icons/fi";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { isEmpty } from "lodash";
 
 import {
     MainContainer,
@@ -24,50 +25,66 @@ import {
 
 function PatientInfoDoctor() {
     const navigate = useNavigate();
-    let params = useLocation();
+    const { id } = useParams();
+    const [getDoctor, setDoctor] = useState({});
+
+    const getUserDoctor = async () => {
+        try {
+            let res = await fetch("http://18.215.217.253:3001/users/" + id);
+            res = await res.json();
+            setDoctor(res);
+        } catch (err) { }
+    };
+
+    useEffect(() => {
+        getUserDoctor();
+    }, []);
 
     return (
         <MainContainer>
             <NavBar />
             <ContentContainer>
                 <ContentRight>
-                    <ContentScheduleQuery>
-                        <div style={{ display: "flex", flexDirection: "row" }}>
-                            <div>
-                                <DoctorPhoto />
+                    {!isEmpty(getDoctor) ? (
+                        <ContentScheduleQuery>
+                            <div style={{ display: "flex", flexDirection: "row" }}>
+                                <div>
+                                    <DoctorPhoto />
+                                </div>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
+                                    marginLeft: '350px',
+                                    alignItems: 'flex-start',
+                                    marginBottom: '50px'
+                                }}>
+
+                                    <Content>
+                                        <NameDoctor>{getDoctor.name}</NameDoctor>
+                                        <ScheduleOpen>Agenda aberta</ScheduleOpen>
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                marginTop: "30px",
+                                            }}
+                                        >
+                                            <FiClock color="#ffffff" size={20} />
+                                            <TimeQuery>40 à 60 min</TimeQuery>
+                                        </div>
+                                    </Content>
+                                    <ContentDown>
+                                        <OfficeAddress>
+                                            <FiMapPin color="#ffffff" size={20} />
+                                            {getDoctor.streetName} - {getDoctor.city}{" "}{" "}
+                                        </OfficeAddress>
+                                        <Specialty>{getDoctor.specialty}</Specialty>
+                                    </ContentDown>
+                                </div>
                             </div>
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                width: '100%',
-                                marginLeft: '350px',
-                                alignItems: 'flex-start',
-                                marginBottom: '50px'
-                            }}>
-                                <Content>
-                                    <NameDoctor>Dra. Adriana</NameDoctor>
-                                    <ScheduleOpen>Agenda aberta</ScheduleOpen>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            marginTop: "30px",
-                                        }}
-                                    >
-                                        <FiClock color="#ffffff" size={20} />
-                                        <TimeQuery>40 à 60 min</TimeQuery>
-                                    </div>
-                                </Content>
-                                <ContentDown>
-                                    <OfficeAddress>
-                                        <FiMapPin color="#ffffff" size={20} />
-                                        Rua consultorio da consulta - Bairro{" "}
-                                    </OfficeAddress>
-                                    <Specialty>Fonodiologo especialista</Specialty>
-                                </ContentDown>
-                            </div>
-                        </div>
-                    </ContentScheduleQuery>
+                        </ContentScheduleQuery>
+                    ) : (false)}
                     <ContentText>
                         <Text>
                             Aqui será todas suas especialidades, aqui vou so preencher com
@@ -81,7 +98,7 @@ function PatientInfoDoctor() {
                         </Text>
                     </ContentText>
 
-                    <ContentButton onClick={() => navigate("/booktime")}>
+                    <ContentButton onClick={() => navigate("/patientscheduleappointment/" + id)}>
                         <Button>Agendar consulta</Button>
                     </ContentButton>
                 </ContentRight>

@@ -24,6 +24,10 @@ import PatientDocuments from "../pages/PatientDocuments";
 import PatientHome from "../pages/PatientHome";
 import PatientAppointments from "../pages/PatientAppointments";
 import PatientInfoDoctor from "../pages/PatientInfoDoctor";
+import PatientScheduleAppointment from "../pages/PatientScheduleAppointment";
+import PatientConfirmAppointment from "../pages/PatientConfirmAppointment";
+import PatientSuccessAppointment from "../pages/PatientSucessAppointment";
+import PatientAnamnese from "../pages/PatientAnamnese";
 
 const AppRoutes = () => {
   const { user, userType } = useAuth();
@@ -155,13 +159,50 @@ const AppRoutes = () => {
       />
 
       <Route
-        path="/patientinfodoctor"
+        path="/patientinfodoctor/:id"
         element={
           <RequireAuth>
             <PatientInfoDoctor />
           </RequireAuth>
         }
       />
+
+      <Route
+        path="/patientscheduleappointment/:id"
+        element={
+          <RequireAuth>
+            <PatientScheduleAppointment />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientconfirmappointment/:id/:month/:day/:hour"
+        element={
+          <RequireAuth>
+            <PatientConfirmAppointment />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientsuccessappointment/:id/:month/:day/:hour"
+        element={
+          <RequireAuth>
+            <PatientSuccessAppointment />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientanamnese"
+        element={
+          <RequireAuth>
+            <PatientAnamnese />
+          </RequireAuth>
+        }
+      />
+
 
 
     </Routes>

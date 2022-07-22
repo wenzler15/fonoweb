@@ -26,12 +26,11 @@ export const ContentScheduleQuery = styled.div`
   margin-top: 60px;
 `;
 
-export const DoctorPhoto = styled.img`
+export const DoctorPhoto = styled.div`
   width: 168px;
   height: 168px;
   border-radius: 168px;
-  background-image: url(${PhotoDoctor});
-  background-repeat: no-repeat;
+  background-color: #000;
   margin-left: 90px;
   position: absolute;
 `;

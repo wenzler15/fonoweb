@@ -5,7 +5,10 @@ import NavBar from "../../components/navBar";
 import { Container } from "./styles";
 
 function AnamnesisOfPatientEdit() {
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState([
+    {title: 'Pergunta',response: ['Resposta 01', 'Resposta 02', 'Resposta 03']},
+    {title: 'Pergunta 02',response: ['Resposta 02']},
+  ]);
 
   // useEffect(() => {
   //   // get API

@@ -34,7 +34,7 @@ export const ContainerContent = styled.div`
   align-items: center;
   justify-content: space-around;
   height: 100%;
-  z-index: 1100;
+  z-index: 2;
 `;
 
 export const InitialText = styled.text`

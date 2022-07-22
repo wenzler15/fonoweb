@@ -38,7 +38,6 @@ function Login() {
     };
 
     await signIn(toSend);
-    navigate("/mypatient");
   };
 
   return (

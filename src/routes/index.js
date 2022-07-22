@@ -30,6 +30,7 @@ import PatientScheduleAppointment from "../pages/PatientScheduleAppointment";
 import PatientConfirmAppointment from "../pages/PatientConfirmAppointment";
 import PatientSuccessAppointment from "../pages/PatientSucessAppointment";
 import PatientAnamnese from "../pages/PatientAnamnese";
+import PatientAnswerAnamnese from "../pages/PatientAnswerAnamnese";
 
 const AppRoutes = () => {
   const { user, userType } = useAuth();
@@ -201,6 +202,15 @@ const AppRoutes = () => {
         element={
           <RequireAuth>
             <PatientAnamnese />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientansweranamnese/:id"
+        element={
+          <RequireAuth>
+            <PatientAnswerAnamnese />
           </RequireAuth>
         }
       />

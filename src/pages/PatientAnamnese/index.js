@@ -21,6 +21,7 @@ import {
 function PatientAnamnese() {
     const navigate = useNavigate();
     const [getAnamneses, setAnamneses] = useState({});
+    const [getInfoDoc, setInfoDoc] = useState({});
 
     const getUserAnamneses = async () => {
         let user = JSON.parse(localStorage.getItem('@auth/user'));
@@ -28,21 +29,22 @@ function PatientAnamnese() {
         try {
             let res = await fetch("http://18.215.217.253:3001/anamnesis?id=" + user.id);
             res = await res.json();
-            let tempAnamnese = [];
-
-            res.map((res) => {
-                let resDoc = fetch("http://18.215.217.253:3001/users/" + res.professionalId);
-                resDoc = resDoc.json();
-                tempAnamnese.push({ anamnese: res, doctor: resDoc })
-            })
-            setAnamneses(tempAnamnese)
-
+            setAnamneses(res)
         } catch (err) { }
 
     }
 
+    const getUserInfo = async () => {
+        try {
+            let resDoc = await fetch("http://18.215.217.253:3001/users/12");
+            resDoc = await resDoc.json();
+            setInfoDoc(resDoc)
+        } catch (err) { }
+    }
+
     useEffect(() => {
         getUserAnamneses();
+        getUserInfo();
     }, []);
 
     return (
@@ -59,13 +61,13 @@ function PatientAnamnese() {
                             <Content key={i}>
                                 <FiFileText color="#1E98D4" size={40} style={{ position: "relative", top: "3px" }} />
                                 <ContentTitle>
-                                    <Title>{anamnese.doctor.specialty}</Title>
-                                    <Description>{anamnese.doctor.name}</Description>
+                                    <Title>{getInfoDoc.specialty}</Title>
+                                    <Description>{getInfoDoc.name}</Description>
                                 </ContentTitle>
                                 <ContentButtons>
                                     <div style={{ marginLeft: "30px", display: "flex", flexDirection: "row", }} >
                                         <FiEdit color="#1E98D4" size={20} style={{ position: "relative", top: "3px" }} />
-                                        <ButtonDown>Responder</ButtonDown>
+                                        <ButtonDown onClick={() => navigate("/patientansweranamnese/" + anamnese.id)}>Responder</ButtonDown>
                                     </div>
                                 </ContentButtons>
                             </Content>

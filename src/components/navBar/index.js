@@ -29,6 +29,7 @@ export default function NavBar() {
   }, [navigate, signOut]);
 
   const handleToggleDrawer = useCallback((event) => {
+    console.log(user, userType)
     setIsDrawerVisible((state) => !state);
     setAnchorEl(event.currentTarget);
   }, []);
@@ -37,7 +38,7 @@ export default function NavBar() {
     <Container>
       <img src={LogoImg} alt="Logo" />
 
-      {userType === DOCTOR ? (
+      {user.userType === 2 ? (
         <div className="navigationContainer">
           <TextNavBar onClick={() => navigate("/mypatient")}>Home</TextNavBar>
           <TextNavBar onClick={() => navigate("/dashboard")}>
@@ -61,7 +62,7 @@ export default function NavBar() {
       {!isEmpty(user) ? (
         <UserContainer>
           <UserContainerButton onClick={handleToggleDrawer}>
-            {userType === DOCTOR ? (
+            {user.userType === 2 ? (
               <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
             ) : (<img src="https://cdn-icons-png.flaticon.com/512/219/219969.png" />)}
           </UserContainerButton>

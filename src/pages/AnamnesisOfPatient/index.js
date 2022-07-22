@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import NavBar from "../../components/navBar";
 
@@ -8,12 +8,12 @@ function AnamnesisOfPatient() {
   return (
     <Container>
       <NavBar />
-      
+
       <section className="info">
         <div className="info-top">
           <div>
             <h1>Anamnese do paciente</h1>
-            <h2>Escreva livremente abaixo. Se preferir,<br/> importre modelos favoritos. </h2>
+            <h2>Escreva livremente abaixo. Se preferir,<br /> importre modelos favoritos. </h2>
           </div>
 
           <button type="button">Editar</button>

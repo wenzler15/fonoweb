@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { getYear } from "date-fns";
+import Pdf from "react-to-pdf";
 
 import api from "../../services";
 
@@ -21,9 +22,11 @@ import {
 const Patient = () => {
   const { state } = useLocation();
   const patient = state?.patient;
+  const ref = React.createRef();
 
   const [patientData, setPatientData] = useState({});
   const [appointments, setAppointments] = useState([]);
+  const [anamnese, setAnamnese] = useState([]);
 
   useEffect(() => {
     async function loadPatientPronctuary() {
@@ -34,13 +37,13 @@ const Patient = () => {
     }
 
     loadPatientPronctuary();
+    downloadAnamnese();
   }, [patient]);
 
   const patientAge = useMemo(() => {
     if (patientData?.birthDate) {
-      return `- ${
-        getYear(new Date()) - patientData?.birthDate?.split("-")[0]
-      } Anos`;
+      return `- ${getYear(new Date()) - patientData?.birthDate?.split("-")[0]
+        } Anos`;
     }
 
     return "";
@@ -74,7 +77,17 @@ const Patient = () => {
     return "Nenhum endereço cadastrado";
   }, [patientData]);
 
-  console.log(patientData);
+  const downloadAnamnese = async () => {
+    try {
+      let res = await fetch("http://18.215.217.253:3001/anamnesis");
+      res = await res.json();
+      res.map((res) => {
+        if (res.id === 3) { setAnamnese(res) }
+
+      })
+    } catch (err) { }
+  }
+
 
   return (
     <Container>
@@ -97,9 +110,8 @@ const Patient = () => {
       </ExportContainer>
 
       <RecordContainer>
-        <h1>{`${patientData?.name || ""} ${
-          patientData?.lastName || ""
-        } ${patientAge}`}</h1>
+        <h1>{`${patientData?.name || ""} ${patientData?.lastName || ""
+          } ${patientAge}`}</h1>
 
         <h3>Telefone: {phoneFormatted}</h3>
         <h3>{addressFormatted}</h3>
@@ -110,8 +122,10 @@ const Patient = () => {
 
         <AnamnesisContainer>
           <h1>Anamnese do paciente</h1>
+          <Pdf targetRef={ref} filename="Anamnese.pdf">
+            {({ toPdf }) => <Button onClick={toPdf}>Baixar Anamnese</Button>}
+          </Pdf>
 
-          <Button>Baixar Anamnese</Button>
         </AnamnesisContainer>
 
         <AppointmentContainer>
@@ -155,6 +169,27 @@ const Patient = () => {
           ))}
         </AppointmentContainer>
       </RecordContainer>
+      <div ref={ref} style={{ padding: "40px" }}>
+        <div style={{ color: "#803888", fontSize: "36px", fontFamily: "Lato", fontWeight: "700", marginBottom: "10px" }}>Anamnese do paciente</div>
+        <div style={{
+          fontWeight: 300,
+          fontSize: "23px",
+          lineHeight: "100%",
+          letterSpacing: "0.24px",
+          color: "#2D2D2D"
+        }}>Escreva livremente abaixo. Se preferir, importre modelos favoritos.</div>
+
+        {anamnese.anamnesis.map((a) =>
+          <div style={{
+            fontWeight: 700,
+            fontSize: "20px",
+            lineHeight: "100%",
+            letterSpacing: "0.24px",
+            color: "#2D2D2D",
+            marginTop: "20px"
+          }}>{a.pergunta}</div>
+        )}
+      </div>
     </Container>
   );
 };

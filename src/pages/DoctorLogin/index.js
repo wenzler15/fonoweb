@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/auth";
 
 import logo from "../../assets/logo.png";
+import { DOCTOR } from "../../constants";
 
 import {
   MainContainer,
@@ -28,6 +29,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [currentUser, setCurrentUser] = useState("");
+  const { userType } = useAuth();
 
   const navigate = useNavigate();
 
@@ -72,12 +74,13 @@ function Login() {
           {currentUser == 'undefined' ? (
             <ContentErrorLogin>Usuário ou senha incorretos. Tente novamente!</ContentErrorLogin>
           ) : (false)}
-          <SmallTextContainerButton>
-            <SmallText>Ainda não tem cadastro?</SmallText>
-            <SmallText blue onClick={() => navigate("/register")}>
-              Faça agora mesmo
-            </SmallText>
-          </SmallTextContainerButton>
+          {userType === DOCTOR ? (
+            <SmallTextContainerButton>
+              <SmallText>Ainda não tem cadastro?</SmallText>
+              <SmallText blue onClick={() => navigate("/register")}>
+                Faça agora mesmo
+              </SmallText>
+            </SmallTextContainerButton>) : (false)}
         </Wrapper>
       </ContainerContent>
     </MainContainer>

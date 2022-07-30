@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/auth";
 
 import logo from "../../assets/logo.png";
+import { DOCTOR } from "../../constants";
 
 import {
   MainContainer,
@@ -28,22 +29,23 @@ function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [currentUser, setCurrentUser] = useState("");
+  const { userType } = useAuth();
 
   const navigate = useNavigate();
 
   const { signIn } = useAuth();
 
   const loginFunc = async () => {
-    const toSend = {
-      email,
-      password,
-    };
+    const user = await signIn({ email, password });
 
-    await signIn(toSend);
+    user ? setCurrentUser(user) : setCurrentUser('undefined')
+
+    if(localStorage.getItem('@auth/user') !== 'undefined') await signIn()
+
     if (localStorage.getItem('@auth/user') !== 'undefined') {
       let user = JSON.parse(localStorage.getItem('@auth/user'));
       (user.userType == 1) ? navigate("/patienthome") : navigate("/mypatient");
-    } else { setCurrentUser('undefined') }
+    }
   };
 
   return (
@@ -72,12 +74,13 @@ function Login() {
           {currentUser == 'undefined' ? (
             <ContentErrorLogin>Usuário ou senha incorretos. Tente novamente!</ContentErrorLogin>
           ) : (false)}
-          <SmallTextContainerButton>
-            <SmallText>Ainda não tem cadastro?</SmallText>
-            <SmallText blue onClick={() => navigate("/register")}>
-              Faça agora mesmo
-            </SmallText>
-          </SmallTextContainerButton>
+          {userType === DOCTOR ? (
+            <SmallTextContainerButton>
+              <SmallText>Ainda não tem cadastro?</SmallText>
+              <SmallText blue onClick={() => navigate("/register")}>
+                Faça agora mesmo
+              </SmallText>
+            </SmallTextContainerButton>) : (false)}
         </Wrapper>
       </ContainerContent>
     </MainContainer>

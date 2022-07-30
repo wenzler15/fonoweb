@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../../components/navBar";
 import { BiUserCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import api from "../../services";
 
 import {
   MainContainer,
@@ -33,10 +34,9 @@ const PatientList = () => {
 
   const getUsersPatients = async () => {
     try {
-      let resp = await fetch("http://18.215.217.253:3001/users/patients");
-      resp = await resp.json();
-      setGetPatients(resp);
-    } catch (err) {}
+      const { data } = await api.get("/users/patients");
+      setGetPatients(data);
+    } catch (err) { }
   };
 
   const handleToggleIsRegisteringNewPatient = () =>

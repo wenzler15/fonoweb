@@ -109,20 +109,9 @@ function PatientHome() {
     try {
       let user = JSON.parse(localStorage.getItem('@auth/user'));
 
-      const { data } = await api.get("/appointment/" + user.id);
-      let tempAppointList = [];
-      data.map(async (ap) => {
-        if (ap.professionalId > 10) {
-          const { data } = await api.get("/users/" + ap.professionalId);
-          tempAppointList.push({ appointment: ap, professional: data });
-
-          if (ap.status == "Aguardando") {
-            let tempLast = { appointment: ap, professional: data };
-            setLastAppointments(tempLast)
-          }
-        }
-      });
-      setAppointments(tempAppointList)
+      const { data } = await api.get("/appointment/" + 1);
+      console.log(data);
+      setAppointments(data)
     } catch (err) { }
   }
 
@@ -261,13 +250,13 @@ function PatientHome() {
                     justifyContent: "space-evenly",
                   }}
                 >
-                  <NameDoctorLastQuery>{ap.professional.name}</NameDoctorLastQuery>
-                  <LastDateQuery>{ap.appointment.date}</LastDateQuery>
+                  <NameDoctorLastQuery>{ap.doctorName}</NameDoctorLastQuery>
+                  <LastDateQuery>{ap.date}</LastDateQuery>
                 </div>
                 <div style={{ marginTop: "5px" }}>
                   <ContentResumeLastQuery>
                     <ResumeLastQuery>
-                      {ap.appointment.description}
+                      {ap.description}
                     </ResumeLastQuery>
                   </ContentResumeLastQuery>
                 </div>{" "}

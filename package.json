@@ -2,6 +2,48 @@
   "name": "fonoweb",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": ">=8.7.0"
+  },
+  "overrides": {
+    "react": "$react"
+  },
+  "author": {
+    "name": "Douglas Wenzler Santos"
+  },
+  "contributors": [
+    {
+      "name": "Rityelle",
+      "url": "https://bitbucket.org/Rityelle/"
+    },
+    {
+      "name": "Guilherme Eloi"
+    },
+    {
+      "name": "Amanda Rafaela Barreto"
+    },
+    {
+      "name": "Igor Alves Bezerra",
+      "url": "https://bitbucket.org/Corvoloso/"
+    },
+    {
+      "name": "Igor Santos",
+      "url": "https://bitbucket.org/igorsantosweb/"
+    },
+    {
+      "name": "Luis Fellype Rodrigues Machado",
+      "url": "https://bitbucket.org/loisfe/"
+    },
+    {
+      "name": "Iago Ferreira",
+      "email": "iago-ferreira@outlook.com",
+      "url": "https://github.com/iagxferreira"
+    },
+    {
+      "name": "Pedro Vitor",
+      "url": "https://github.com/pedrovitorrs"
+    }
+  ],
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",

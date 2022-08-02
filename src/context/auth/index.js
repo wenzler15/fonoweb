@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         navigate("/mypatient");
-      } catch (err) {}
+      } catch (err) { }
     },
     [navigate]
   );
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
       setUser({});
       localStorage.removeItem("@auth/user");
       localStorage.removeItem("@auth/token");
-    } catch (err) {}
+    } catch (err) { }
   }, []);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
           const parsedUser = JSON.parse(foundUser);
           setUser(parsedUser);
         }
-      } catch (err) {}
+      } catch (err) { }
     }
 
     loadUserInStorage();

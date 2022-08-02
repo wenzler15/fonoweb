@@ -29,6 +29,7 @@ export default function NavBar() {
   }, [navigate, signOut]);
 
   const handleToggleDrawer = useCallback((event) => {
+    console.log(user, userType)
     setIsDrawerVisible((state) => !state);
     setAnchorEl(event.currentTarget);
   }, []);
@@ -37,7 +38,7 @@ export default function NavBar() {
     <Container>
       <img src={LogoImg} alt="Logo" />
 
-      {userType === DOCTOR ? (
+      {user.userType === 2 ? (
         <div className="navigationContainer">
           <TextNavBar onClick={() => navigate("/mypatient")}>Home</TextNavBar>
           <TextNavBar onClick={() => navigate("/dashboard")}>
@@ -51,16 +52,19 @@ export default function NavBar() {
         </div>
       ) : (
         <div className="navigationContainer">
-          <TextNavBar onClick={() => navigate("/")}>Home</TextNavBar>
-          <TextNavBar onClick={() => navigate("/about")}>Sobre</TextNavBar>
-          <TextNavBar onClick={() => navigate("/contact")}>Contato</TextNavBar>
+          <TextNavBar onClick={() => navigate("/patienthome")}>Home</TextNavBar>
+          <TextNavBar onClick={() => navigate("/patientexercises")}>Exercícios</TextNavBar>
+          <TextNavBar onClick={() => navigate("/patientdocuments")}>Documentos</TextNavBar>
+          <TextNavBar onClick={() => navigate("/patientanamnese")}>Minhas Anamneses</TextNavBar>
         </div>
       )}
 
       {!isEmpty(user) ? (
         <UserContainer>
           <UserContainerButton onClick={handleToggleDrawer}>
-            <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
+            {user.userType === 2 ? (
+              <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000" />
+            ) : (<img src="https://cdn-icons-png.flaticon.com/512/219/219969.png" />)}
           </UserContainerButton>
 
           <Menu
@@ -72,9 +76,11 @@ export default function NavBar() {
             }}
           >
             <MenuItem>
-              <Button onClick={() => navigate("/doctorprofile")}>
-                Meu Perfil
-              </Button>
+              {userType === DOCTOR ? (
+                <Button onClick={() => navigate("/doctorprofile")}>
+                  Meu Perfil
+                </Button>
+              ) : (false)}
             </MenuItem>
             <MenuItem>
               <Button onClick={handleSignOut}>Sair</Button>

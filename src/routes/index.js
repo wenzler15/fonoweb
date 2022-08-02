@@ -18,6 +18,22 @@ import DoctorProfile from "../pages/DoctorProfile";
 import { DOCTOR, PACIENT } from "../constants";
 import DoctorRegister from "../pages/DoctorRegister";
 import Anamnesis from "../pages/Anamnesis";
+import AnamnesisOfPatient from "../pages/AnamnesisOfPatient";
+import AnamnesisOfPatientEdit from "../pages/AnamnesisOfPatientEdit";
+import EvaluationList from "../pages/EvaluationList";
+import EvaluationModels from "../pages/EvaluationModels";
+import EvaluationNew from "../pages/EvaluationNew";
+
+import PatientExercises from "../pages/PatientExercises";
+import PatientDocuments from "../pages/PatientDocuments";
+import PatientHome from "../pages/PatientHome";
+import PatientAppointments from "../pages/PatientAppointments";
+import PatientInfoDoctor from "../pages/PatientInfoDoctor";
+import PatientScheduleAppointment from "../pages/PatientScheduleAppointment";
+import PatientConfirmAppointment from "../pages/PatientConfirmAppointment";
+import PatientSuccessAppointment from "../pages/PatientSucessAppointment";
+import PatientAnamnese from "../pages/PatientAnamnese";
+import PatientAnswerAnamnese from "../pages/PatientAnswerAnamnese";
 
 const AppRoutes = () => {
   const { user, userType } = useAuth();
@@ -108,6 +124,141 @@ const AppRoutes = () => {
         element={
           <RequireAuth>
             <DoctorProfile />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patienthome"
+        element={
+          <RequireAuth>
+            <PatientHome />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientexercises"
+        element={
+          <RequireAuth>
+            <PatientExercises />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientdocuments"
+        element={
+          <RequireAuth>
+            <PatientDocuments />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientappointments"
+        element={
+          <RequireAuth>
+            <PatientAppointments />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientinfodoctor/:id"
+        element={
+          <RequireAuth>
+            <PatientInfoDoctor />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientscheduleappointment/:id"
+        element={
+          <RequireAuth>
+            <PatientScheduleAppointment />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientconfirmappointment/:id/:month/:day/:hour"
+        element={
+          <RequireAuth>
+            <PatientConfirmAppointment />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientsuccessappointment/:id/:month/:day/:hour"
+        element={
+          <RequireAuth>
+            <PatientSuccessAppointment />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientanamnese"
+        element={
+          <RequireAuth>
+            <PatientAnamnese />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/patientansweranamnese/:id"
+        element={
+          <RequireAuth>
+            <PatientAnswerAnamnese />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/anamnesispatient"
+        element={
+          <RequireAuth>
+            <AnamnesisOfPatient />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/anamnesispatientedit"
+        element={
+          <RequireAuth>
+            <AnamnesisOfPatientEdit />
+          </RequireAuth>
+        }
+      />
+   
+      <Route
+        path="/evaluationlist"
+        element={
+          <RequireAuth>
+            <EvaluationList />
+          </RequireAuth>
+        }
+      />
+   
+      <Route
+        path="/evaluationmodels"
+        element={
+          <RequireAuth>
+            <EvaluationModels />
+          </RequireAuth>
+        }
+      />
+   
+      <Route
+        path="/evaluationnew"
+        element={
+          <RequireAuth>
+            <EvaluationNew />
           </RequireAuth>
         }
       />

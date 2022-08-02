@@ -24,6 +24,7 @@ function DoctorRegister() {
     cpf: string()
       .test("test_cpf", "CPF é invalido", (value) => cpf.isValid(value))
       .required("CPF é obrigatório"),
+    specialty: string().required("Você deve escolher uma especialidade"),
     cep: string().required("CEP é obrigatório"),
     password: string().required("Senha obrigatória"),
     confirmPassword: string()

@@ -5,6 +5,8 @@ import TextInput from "../../../components/TextInput";
 
 import { Container } from "./styles";
 
+import { EXPERTISE_LIST } from "../../../constants";
+
 const states = [
   { value: "AC", name: "Acre" },
   { value: "AL", name: "Alagoas" },
@@ -63,22 +65,6 @@ function DoctorInformation({ register, control, handleNextStep }) {
       <section>
         <TextInput
           register={register}
-          name="cpf"
-          title="CPF"
-          placeholder="Digite seu cpf"
-          mask="999.999.999-99"
-          error={errors.cpf}
-        />
-        <TextInput
-          register={register}
-          type="file"
-          name="file"
-          title="Anexar CRFA ou Comprovante da faculdade"
-        />
-      </section>
-      <section>
-        <TextInput
-          register={register}
           type="password"
           name="password"
           title="Senha"
@@ -93,6 +79,31 @@ function DoctorInformation({ register, control, handleNextStep }) {
           title="Confirmar senha"
           placeholder="Confirme sua senha"
           error={errors.confirmPassword}
+        />
+      </section>
+      <section>
+        <TextInput
+          register={register}
+          name="cpf"
+          title="CPF"
+          placeholder="Digite seu cpf"
+          mask="999.999.999-99"
+          error={errors.cpf}
+        />
+        <TextInput
+          register={register}
+          type="file"
+          name="file"
+          title="Anexar CRFA ou Comprovante da faculdade"
+
+        />
+        <Select
+          options={EXPERTISE_LIST}
+          register={register}
+          placeholder="Escolha sua especialidade"
+          name="specialty"
+          title="Especialidade"
+          error={errors.specialty}
         />
       </section>
 

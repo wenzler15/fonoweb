@@ -34,6 +34,7 @@ import PatientConfirmAppointment from "../pages/PatientConfirmAppointment";
 import PatientSuccessAppointment from "../pages/PatientSucessAppointment";
 import PatientAnamnese from "../pages/PatientAnamnese";
 import PatientAnswerAnamnese from "../pages/PatientAnswerAnamnese";
+import PatientEditAppointment from "../pages/PatientEditAppointment";
 
 const AppRoutes = () => {
   const { user, userType } = useAuth();
@@ -174,6 +175,15 @@ const AppRoutes = () => {
       />
 
       <Route
+        path="/patienteditappointment/:id"
+        element={
+          <RequireAuth>
+            <PatientEditAppointment />
+          </RequireAuth>
+        }
+      />
+
+      <Route
         path="/patientscheduleappointment/:id"
         element={
           <RequireAuth>
@@ -235,7 +245,7 @@ const AppRoutes = () => {
           </RequireAuth>
         }
       />
-   
+
       <Route
         path="/evaluationlist"
         element={
@@ -244,7 +254,7 @@ const AppRoutes = () => {
           </RequireAuth>
         }
       />
-   
+
       <Route
         path="/evaluationmodels"
         element={
@@ -253,7 +263,7 @@ const AppRoutes = () => {
           </RequireAuth>
         }
       />
-   
+
       <Route
         path="/evaluationnew"
         element={

@@ -79,9 +79,8 @@ const Patient = () => {
 
   const downloadAnamnese = async () => {
     try {
-      let res = await fetch("http://18.215.217.253:3001/anamnesis");
-      res = await res.json();
-      res.map((res) => {
+      const { data } = await api.get("/anamnesis");
+      data.map((res) => {
         if (res.id === 3) { setAnamnese(res) }
 
       })

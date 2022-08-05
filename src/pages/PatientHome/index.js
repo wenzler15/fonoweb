@@ -109,8 +109,26 @@ function PatientHome() {
     try {
       const user = JSON.parse(localStorage.getItem('@auth/user'));
       const { data } = await api.get("/appointment/" + user.id);
+      const lastAppointment = data.filter((appointment) => appointment.status === "Aguardando").pop()
+      if(lastAppointment) {
+        const { data } = await api.get("/users/" + lastAppointment.professionalId);
+        setLastAppointments({ appointment: lastAppointment, professional: data })
+      }
       setAppointments(data)
-    } catch (err) { }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const changeRedirectPage = (doc) => {
+    const resultFilter = getAppointments.filter((appointment) => appointment.status === "Aguardando" && appointment.professionalId === doc.professionalId)
+    if(!isEmpty(resultFilter)){
+      const [day, month, year] = resultFilter[0].date.split('/');
+      const date = new Date(year, month, day);
+      navigate(`/patienteditappointment/${doc.id}/${date.getMonth()}/${date.getDate()}/${resultFilter[0].hour}/${resultFilter[0].id}`);
+    }else{
+      navigate("/patientinfodoctor/" + doc.id);
+    }
   }
 
   useEffect(async () => {
@@ -172,7 +190,7 @@ function PatientHome() {
                   </ContentPhotoHigher>
                   <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }} >
                     <NameDoctor>{doc.name}</NameDoctor>
-                    <ButtonContactDoctor onClick={() => navigate("/patientinfodoctor/" + doc.id)}>Contatar</ButtonContactDoctor>
+                    <ButtonContactDoctor onClick={() => changeRedirectPage(doc)}>Contatar</ButtonContactDoctor>
                   </div>
                   <div style={{ marginTop: "5px" }} >
                     <ContentResumeHigher>

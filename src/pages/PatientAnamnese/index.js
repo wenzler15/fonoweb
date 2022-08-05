@@ -3,6 +3,8 @@ import NavBar from "../../components/navBar";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiFileText, FiEdit } from "react-icons/fi";
 
+import api from "../../services";
+
 import {
     MainContainer,
     ContentContainer,
@@ -27,18 +29,16 @@ function PatientAnamnese() {
         let user = JSON.parse(localStorage.getItem('@auth/user'));
 
         try {
-            let res = await fetch("http://18.215.217.253:3001/anamnesis?id=" + user.id);
-            res = await res.json();
-            setAnamneses(res)
+            const { data } = await api.get("/anamnesis?id=" + user.id);
+            setAnamneses(data)
         } catch (err) { }
 
     }
 
     const getUserInfo = async () => {
         try {
-            let resDoc = await fetch("http://18.215.217.253:3001/users/12");
-            resDoc = await resDoc.json();
-            setInfoDoc(resDoc)
+            const { data } = await fetch("/users/12");
+            setInfoDoc(data)
         } catch (err) { }
     }
 

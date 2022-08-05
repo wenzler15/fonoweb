@@ -79,8 +79,8 @@ const Patient = () => {
 
   const downloadAnamnese = async () => {
     try {
-      const res = await api.get('/anamnesis')
-      res.map((res) => {
+      const { data } = await api.get("/anamnesis");
+      data.map((res) => {
         if (res.id === 3) { setAnamnese(res) }
 
       })

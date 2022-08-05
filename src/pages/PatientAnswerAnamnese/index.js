@@ -15,9 +15,8 @@ function PatientAnswerAnamnese() {
         let user = JSON.parse(localStorage.getItem('@auth/user'));
 
         try {
-            let res = await fetch("http://18.215.217.253:3001/anamnesis?id=" + user.id);
-            res = await res.json();
-            res.map((res) => {
+            const { data } = await fetch("/anamnesis?id=" + user.id);
+            data.map((res) => {
                 if (res.id.toString() === id) { setAnamneses(res.anamnesis) }
             })
         } catch (err) { }

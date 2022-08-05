@@ -175,7 +175,7 @@ const AppRoutes = () => {
       />
 
       <Route
-        path="/patienteditappointment/:id"
+        path="/patienteditappointment/:idDoctor/:month/:day/:hour/:idAppointment"
         element={
           <RequireAuth>
             <PatientEditAppointment />

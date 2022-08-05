@@ -122,10 +122,11 @@ function PatientHome() {
   }
 
   const changeRedirectPage = (doc) => {
-    console.log(doc)
     const resultFilter = getAppointments.filter((appointment) => appointment.status === "Aguardando" && appointment.professionalId === doc.professionalId)
     if(!isEmpty(resultFilter)){
-      navigate("/patienteditappointment/" + doc.id);
+      const [day, month, year] = resultFilter[0].date.split('/');
+      const date = new Date(year, month, day);
+      navigate(`/patienteditappointment/${doc.id}/${date.getMonth()}/${date.getDate()}/${resultFilter[0].hour}/${resultFilter[0].id}`);
     }else{
       navigate("/patientinfodoctor/" + doc.id);
     }

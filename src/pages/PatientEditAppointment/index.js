@@ -23,7 +23,7 @@ import {
 
 function PatientEditAppointment() {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { idDoctor } = useParams();
   const { month } = useParams();
   const { day } = useParams();
   const { hour } = useParams();
@@ -32,21 +32,21 @@ function PatientEditAppointment() {
 
   const getUserDoctor = async () => {
     try {
-      const { data } = await api.get("/users/" + id);
+      const { data } = await api.get("/users/" + idDoctor);
       setDoctor(data);
     } catch (err) { }
   };
 
   const setLabelMonth = async () => {
-    if (month === '01') { setMonthLabel("Janeiro") }
-    if (month === '02') { setMonthLabel("Fevereiro") }
-    if (month === '03') { setMonthLabel("Março") }
-    if (month === '04') { setMonthLabel("Abril") }
-    if (month === '05') { setMonthLabel("Maio") }
-    if (month === '06') { setMonthLabel("Junho") }
-    if (month === '07') { setMonthLabel("Julho") }
-    if (month === '08') { setMonthLabel("Agosto") }
-    if (month === '09') { setMonthLabel("Setembro") }
+    if (month === '1') { setMonthLabel("Janeiro") }
+    if (month === '2') { setMonthLabel("Fevereiro") }
+    if (month === '3') { setMonthLabel("Março") }
+    if (month === '4') { setMonthLabel("Abril") }
+    if (month === '5') { setMonthLabel("Maio") }
+    if (month === '6') { setMonthLabel("Junho") }
+    if (month === '7') { setMonthLabel("Julho") }
+    if (month === '8') { setMonthLabel("Agosto") }
+    if (month === '9') { setMonthLabel("Setembro") }
     if (month === '10') { setMonthLabel("Outubro") }
     if (month === '11') { setMonthLabel("Novembro") }
     if (month === '12') { setMonthLabel("Dezembro") }
@@ -67,7 +67,7 @@ function PatientEditAppointment() {
               color="#ffffff"
               size={40}
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/patientscheduleappointment/" + id)}
+              onClick={() => navigate("/patientscheduleappointment/" + idDoctor)}
             />
           </ContentArrowLeft>
           <Content>
@@ -98,7 +98,7 @@ function PatientEditAppointment() {
               </div>
             </ContentDateHour>
           </Content>
-          <ContentButton onClick={() => navigate("/patientsuccessappointment/" + id + "/" + month + "/" + day + "/" + hour)}>
+          <ContentButton onClick={() => navigate("/patientsuccessappointment/" + idDoctor + "/" + month + "/" + day + "/" + hour)}>
             <div style={{ marginLeft: "30px", display: "flex", flexDirection: "row", }} >
               <ButtonReschedule>Reagendar</ButtonReschedule>
             </div>

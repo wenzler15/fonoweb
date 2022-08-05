@@ -35,7 +35,6 @@ function Anamnesis() {
   useEffect(async ()=>{
     const user = JSON.parse(localStorage.getItem('@auth/user'));
     const { data } = await api.get(`/users/doctor/${user.id}/anamnesis`);
-    console.log(data);
     setAnamnesis(data)
   }, [])
 
@@ -53,7 +52,7 @@ function Anamnesis() {
           </button>
         </span>
 
-        {anamneses.map((model) => (
+        {anamneses.length > 0 && anamneses.map((model) => (
           <ModelContainer key={model.id}>
             <span>
               <h1>{model.patientName}{model.lastName}</h1>

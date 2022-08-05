@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 
@@ -7,6 +7,7 @@ import NavBar from "../../components/navBar";
 import Select from "../../components/Select";
 
 import { Container, ModelContainer } from "./styles";
+import api from "../../services";
 
 const NewAnamnesis = () => {
   return (
@@ -23,15 +24,21 @@ function Anamnesis() {
   const { state } = useLocation();
   const patient = state?.patient;
 
+  const [anamneses, setAnamnesis] = useState([]);
+
   const handleToggleCreateNewAnamnesis = () => {};
 
-  const modelsList = useMemo(() => {
-    if (filterSelected > 0) {
-      return [];
-    }
+  function mapSpecialty(id){
+    return EXPERTISE_LIST.find((specialty) => specialty.value === id).name;
+  }
 
-    return [{}, {}];
-  }, [filterSelected]);
+  useEffect(async ()=>{
+    const user = JSON.parse(localStorage.getItem('@auth/user'));
+    const { data } = await api.get(`/users/doctor/${user.id}/anamnesis`);
+    console.log(data);
+    setAnamnesis(data)
+  }, [])
+
 
   return (
     <Container>
@@ -46,12 +53,12 @@ function Anamnesis() {
           </button>
         </span>
 
-        {modelsList.map((model) => (
-          <ModelContainer>
+        {anamneses.map((model) => (
+          <ModelContainer key={model.id}>
             <span>
-              <h1>Modelo predefinido 1</h1>
+              <h1>{model.patientName}{model.lastName}</h1>
 
-              <strong>Especialidade: X</strong>
+              <strong>Especialidade: {mapSpecialty(model.specialty)}</strong>
             </span>
 
             <p>

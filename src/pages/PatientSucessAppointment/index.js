@@ -23,18 +23,17 @@ function PatientSuccessAppointment() {
     const { hour } = useParams();
 
     const saveAppointment = async () => {
-        let user = JSON.parse(localStorage.getItem('@auth/user'));
+        const user = JSON.parse(localStorage.getItem('@auth/user'));
 
-        let appointment = {
-            "date": day + "/" + month + "/2022",
-            "hour": hour,
-            "clientId": user.id,
-            "professionalId": id,
-            "status": "Aguardando"
-        }
+        const appointment = await api.post("/appointment", {
+          date: `2022-${month}-${day}`,
+          hour,
+          clientId: user.id,
+          professionalId: id,
+          status: "Aguardando"
+        });
 
-        let ap = await api.post("/appointment", appointment);
-        console.log(ap)
+        console.log(appointment)
     }
 
     useEffect(() => {

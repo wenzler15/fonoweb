@@ -36,7 +36,7 @@ function PatientConfirmAppointment() {
     } catch (err) { }
   };
 
-  const setLabelMonth = async () => {
+  const setLabelMonth = () => {
     if (month === '01') { setMonthLabel("Janeiro") }
     if (month === '02') { setMonthLabel("Fevereiro") }
     if (month === '03') { setMonthLabel("Março") }
@@ -51,8 +51,8 @@ function PatientConfirmAppointment() {
     if (month === '12') { setMonthLabel("Dezembro") }
   }
 
-  useEffect(() => {
-    getUserDoctor();
+  useEffect(async () => {
+    await getUserDoctor();
     setLabelMonth();
   }, []);
 

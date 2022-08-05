@@ -102,24 +102,24 @@ function PatientHome() {
 
   const filterDoctor = async event => {
     setSelected(event.target.value);
-    getUsersDoctor(event.target.value);
+    await getUsersDoctor(event.target.value);
   }
 
   const getPatientAppointments = async () => {
     try {
-      let user = JSON.parse(localStorage.getItem('@auth/user'));
-
-      const { data } = await api.get("/appointment/" + 1);
-      console.log(data);
+      const user = JSON.parse(localStorage.getItem('@auth/user'));
+      const { data } = await api.get("/appointment/" + user.id);
       setAppointments(data)
     } catch (err) { }
   }
 
-  useEffect(() => {
-    getUsersDoctor(0);
-    getSpecialtyDoctor();
-    getCityDoctor();
-    getPatientAppointments();
+  useEffect(async () => {
+    await Promise.all([
+      getUsersDoctor(0),
+      getSpecialtyDoctor(),
+      getCityDoctor(),
+      getPatientAppointments(),
+    ])
   }, []);
 
   return (

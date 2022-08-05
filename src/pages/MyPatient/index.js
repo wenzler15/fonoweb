@@ -33,8 +33,9 @@ const PatientList = () => {
   const [isRegisterNewPatient, setIsRegisterNewPatient] = useState(false);
 
   const getUsersPatients = async () => {
+    const user = JSON.parse(localStorage.getItem("@auth/user"));
     try {
-      const { data } = await api.get("/users/patients");
+      const { data } = await api.get(`/users/doctor/${user.id}/patients`);
       setGetPatients(data);
     } catch (err) { }
   };
@@ -42,8 +43,8 @@ const PatientList = () => {
   const handleToggleIsRegisteringNewPatient = () =>
     setIsRegisterNewPatient((state) => !state);
 
-  useEffect(() => {
-    getUsersPatients();
+  useEffect(async () => {
+    await getUsersPatients();
   }, []);
 
   const patientList = useMemo(() => {

@@ -83,8 +83,8 @@ function PatientScheduleAppointment() {
   }
 
 
-  useEffect(() => {
-    getSchedule();
+  useEffect(async () => {
+    await getSchedule();
   }, []);
 
   return (

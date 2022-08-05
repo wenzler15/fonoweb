@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React from "react";
+import React, {useEffect} from "react";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,6 +10,7 @@ import "react-day-picker/dist/style.css";
 import NavBar from "../../components/navBar";
 
 import { Container, Calendar, DatesContainer } from "./styles";
+import api from "../../services";
 
 function Schedule() {
   const [showCalendar, setShowCalendar] = useState(false);
@@ -93,6 +94,7 @@ function Schedule() {
     },
   ]);
 
+  const [patients, setPatients] = useState([])
   const handleToggleCalendar = () => setShowCalendar((state) => !state);
 
   const handleMonthChange = () => {};
@@ -100,12 +102,15 @@ function Schedule() {
     setSelectedDay(data);
   };
 
-  console.log(new Date(2022, 6, 12));
-
+  useEffect(async ()=> {
+    const user = JSON.parse(localStorage.getItem('@auth/user'));
+    const  { data } = await api.get('/schedules/doctor/' + user.id);
+    console.log(data)
+    setPatients(data);
+  })
   return (
     <>
       <NavBar />
-
       <Container>
         {showCalendar ? (
           <form>
@@ -156,28 +161,31 @@ function Schedule() {
             <section>
               <strong>{`Agenda do dia 12 de Novembro á 24 de Dezembro`}</strong>
 
-              <div>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVMzgu-qlH_NEf26RmFCSuc5vQIbsz0cVCpA&usqp=CAU"
-                  alt="Pacient"
-                />
-
+              {patients.length > 0 && patients.map(patient => (
                 <div>
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVMzgu-qlH_NEf26RmFCSuc5vQIbsz0cVCpA&usqp=CAU"
+                    alt="Pacient"
+                  />
+
+                  <div>
                   <span>
-                    <h3>Paciente 23</h3>
+                    <h3>{patient.name}</h3>
 
                     <h4>23 de Dezembro</h4>
                     <h5>14H</h5>
                   </span>
 
-                  <p>
-                    Sobre a consulta medica, resumo de como foi o atendimento do
-                    paciente aqui.
-                  </p>
-                </div>
+                    <p>
+                      Sobre a consulta medica, resumo de como foi o atendimento do
+                      paciente aqui.
+                    </p>
+                  </div>
 
-                <button type="button">Ver</button>
-              </div>
+                  <button type="button">Ver</button>
+                </div>
+              ))}
+
             </section>
           </>
         )}

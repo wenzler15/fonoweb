@@ -8,6 +8,7 @@ import Select from "../../Select";
 import { Container } from "./styles";
 import { object, string } from "yup";
 import { isValid } from "date-fns";
+import api from "../../../services";
 
 const genderOptions = [
   {
@@ -21,7 +22,7 @@ const genderOptions = [
 ];
 
 const patientSchema = object({
-  full_name: string().required("Nome completo é obrigatório"),
+  name: string().required("Nome completo é obrigatório"),
   gender: string().required("Escolha 1 gênero"),
   birthDate: string()
     .test("test_expiration_date", "Data de nascimento é invalida", (value) => {
@@ -48,7 +49,8 @@ function AddNewPatient({ toggleNewPatient }) {
   });
 
   const handleSubmitForm = useCallback(
-    (formData) => {
+    async (formData) => {
+      await api.post('/users', { ...formData, password: formData.email, userType: 1 })
       toggleNewPatient();
     },
     [toggleNewPatient]
@@ -58,7 +60,7 @@ function AddNewPatient({ toggleNewPatient }) {
     <Container onSubmit={handleSubmit(handleSubmitForm)}>
       <section>
         <TextInput
-          name="full_name"
+          name="name"
           register={register}
           title="Nome completo"
           placeholder="Nome completo"

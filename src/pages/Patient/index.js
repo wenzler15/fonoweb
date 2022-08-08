@@ -22,6 +22,7 @@ import {
 const Patient = () => {
   const { state } = useLocation();
   const patient = state?.patient;
+  console.log(patient)
   const ref = React.createRef();
 
   const [patientData, setPatientData] = useState({});
@@ -31,13 +32,14 @@ const Patient = () => {
   useEffect(() => {
     async function loadPatientPronctuary() {
       const { data } = await api.get(`/prontuary/${patient.id}`);
+      console.log(data);
 
-      setPatientData(data.userData);
-      setAppointments(data.appointments);
+      // setPatientData(data.userData);
+      // setAppointments(data.appointments);
     }
 
     loadPatientPronctuary();
-    downloadAnamnese();
+    // downloadAnamnese();
   }, [patient]);
 
   const patientAge = useMemo(() => {
@@ -77,15 +79,14 @@ const Patient = () => {
     return "Nenhum endereço cadastrado";
   }, [patientData]);
 
-  const downloadAnamnese = async () => {
-    try {
-      const { data } = await api.get("/anamnesis");
-      data.map((res) => {
-        if (res.id === 3) { setAnamnese(res) }
-
-      })
-    } catch (err) { }
-  }
+  // const downloadAnamnese = async () => {
+  //   try {
+  //     const { data } = await api.get("/anamnesis");
+  //     data.map((res) => {
+  //       if (res.id === 3) { setAnamnese(res) }
+  //     })
+  //   } catch (err) { }
+  // }
 
 
   return (
@@ -134,7 +135,7 @@ const Patient = () => {
             <Button>Exportar</Button>
           </div>
 
-          {appointments.map((appointment) => (
+          {appointments && appointments.map((appointment) => (
             <Appointment key={appointment?.id}>
               <span>
                 <h3>Consulta {appointment?.id}</h3>
@@ -178,7 +179,7 @@ const Patient = () => {
           color: "#2D2D2D"
         }}>Escreva livremente abaixo. Se preferir, importre modelos favoritos.</div>
 
-        {anamnese.anamnesis.map((a) =>
+        {anamnese.anamnesis && anamnese.anamnesis.map((a) =>
           <div style={{
             fontWeight: 700,
             fontSize: "20px",

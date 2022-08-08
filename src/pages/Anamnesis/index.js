@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from "react";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import { EXPERTISE_LIST } from "../../constants";
 import NavBar from "../../components/navBar";
@@ -26,7 +26,7 @@ function Anamnesis() {
 
   const [anamneses, setAnamnesis] = useState([]);
 
-  const handleToggleCreateNewAnamnesis = () => {};
+  const navigate = useNavigate();
 
   function mapSpecialty(id){
     return EXPERTISE_LIST.find((specialty) => specialty.value === id).name;
@@ -47,7 +47,7 @@ function Anamnesis() {
         <span>
           <h1>Anamnese do paciente </h1>
 
-          <button type="button" onClick={handleToggleCreateNewAnamnesis}>
+          <button type="button" onClick={() => navigate('/anamnesispatientedit', { state: { id: null }})}>
             Criar uma nova Anamnese
           </button>
         </span>
@@ -66,11 +66,11 @@ function Anamnesis() {
             </p>
 
             <div>
-              <button type="button" className="violet">
+              <button type="button" className="violet" onClick={() => navigate('/anamnesispatient', { state: { id: model.id }})}>
                 Visualizar
               </button>
 
-              <button type="button" className="red">
+              <button type="button" className="red" onClick={() => navigate('/anamnesispatientedit', { state: { id: model.id }})}>
                 Editar
               </button>
 

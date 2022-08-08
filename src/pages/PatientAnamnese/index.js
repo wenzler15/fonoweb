@@ -42,9 +42,11 @@ function PatientAnamnese() {
         } catch (err) { }
     }
 
-    useEffect(() => {
-        getUserAnamneses();
-        getUserInfo();
+    useEffect(async () => {
+      await Promise.all([
+        getUserAnamneses(),
+        getUserInfo()
+      ])
     }, []);
 
     return (

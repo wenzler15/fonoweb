@@ -29,7 +29,6 @@ export default function NavBar() {
   }, [navigate, signOut]);
 
   const handleToggleDrawer = useCallback((event) => {
-    console.log(user, userType)
     setIsDrawerVisible((state) => !state);
     setAnchorEl(event.currentTarget);
   }, []);
@@ -49,6 +48,7 @@ export default function NavBar() {
           </TextNavBar>
           <TextNavBar onClick={() => navigate("/courses")}>Cursos</TextNavBar>
           <TextNavBar onClick={() => navigate("/support")}>Suporte</TextNavBar>
+          <TextNavBar onClick={() => navigate("/evaluationlist")}>Avaliações</TextNavBar>
         </div>
       ) : (
         <div className="navigationContainer">

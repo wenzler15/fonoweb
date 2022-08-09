@@ -94,7 +94,7 @@ function Schedule() {
     },
   ]);
 
-  const [patients, setPatients] = useState([])
+  const [items, setItems] = useState([])
   const handleToggleCalendar = () => setShowCalendar((state) => !state);
 
   const handleMonthChange = () => {};
@@ -105,8 +105,7 @@ function Schedule() {
   useEffect(async ()=> {
     const user = JSON.parse(localStorage.getItem('@auth/user'));
     const  { data } = await api.get('/schedules/doctor/' + user.id);
-    console.log(data)
-    setPatients(data);
+    setItems(data);
   })
   return (
     <>
@@ -159,9 +158,7 @@ function Schedule() {
             </div>
 
             <section>
-              <strong>{`Agenda do dia 12 de Novembro á 24 de Dezembro`}</strong>
-
-              {patients.length > 0 && patients.map(patient => (
+              {items.length > 0 && items.map(item => (
                 <div>
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVMzgu-qlH_NEf26RmFCSuc5vQIbsz0cVCpA&usqp=CAU"
@@ -170,22 +167,20 @@ function Schedule() {
 
                   <div>
                   <span>
-                    <h3>{patient.name}</h3>
+                    <h3>{item.name}</h3>
 
-                    <h4>23 de Dezembro</h4>
-                    <h5>14H</h5>
+                    <h4>{new Date(item.date).toLocaleDateString()}</h4>
+                    <h5>{item.hour ? `${item.hour}H`: '-'}</h5>
                   </span>
 
                     <p>
-                      Sobre a consulta medica, resumo de como foi o atendimento do
-                      paciente aqui.
+                      {item.description}
                     </p>
                   </div>
 
                   <button type="button">Ver</button>
                 </div>
               ))}
-
             </section>
           </>
         )}

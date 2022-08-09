@@ -113,7 +113,7 @@ const PatientList = () => {
 
                       <AddAssessment
                         onClick={() =>
-                          navigate("/newavaliation", { patient: item })
+                          navigate("/evaluationnew", { state: { patient: item } })
                         }
                       >
                         Adicionar Nova Avaliação

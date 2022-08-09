@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import NavBar from "../../components/navBar";
 
@@ -6,8 +6,24 @@ import { Container, DownloadIcon, ArrowIndicatorIcon } from "./styles";
 
 import downloadIcon from "../../assets/arrow-down-circle.png";
 import arrowIndicatorIcon from "../../assets/arrow-right-purple.png";
+import api from "../../services";
 
 function EvaluationNew() {
+  const [ evaluations, setEvaluations ] = useState([]);
+
+  const getEvaluations = async () => {
+    const user = JSON.parse(localStorage.getItem("@auth/user"));
+    const { data } = await api.get(`/users/doctor/${user.id}/assessments`);
+    setEvaluations(data);
+  }
+
+  const deleteEvaluation = async (id) => {
+    await api.delete(`/assessments/${id}`);
+  }
+
+  useEffect( () => {
+    getEvaluations()
+  } ,[])
   return (
     <Container>
       <NavBar />
@@ -23,34 +39,23 @@ function EvaluationNew() {
 
           <button type="button">Exportar</button>
         </div>
-
-        <div className="evaluation-model">
-          <h3>Avaliação AB</h3>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-          <div className="evaluation-model-actions">
-            <button className="download">
-              <DownloadIcon src={downloadIcon} />
-              Baixar
-            </button>
-            <button className="delete">
-              Excluir
-            </button>
-          </div>
-        </div>
-        
-        <div className="evaluation-model">
-          <h3>Avaliação AB</h3>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-          <div className="evaluation-model-actions">
-            <button className="download">
-              <DownloadIcon src={downloadIcon} />
-              Baixar
-            </button>
-            <button className="delete">
-              Excluir
-            </button>
-          </div>
-        </div>
+        {evaluations && evaluations.map(evaluation =>
+          (
+            <div className="evaluation-model" key={evaluation.assessmentId}>
+              <h3>{evaluation.title || "Avaliação sem título"}</h3>
+              <p>{evaluation.description}</p>
+              <div className="evaluation-model-actions">
+                <button className="download">
+                  <DownloadIcon src={downloadIcon} />
+                  Baixar
+                </button>
+                <button className="delete" onClick={() => deleteEvaluation(evaluation.assessmentId)}>
+                  Excluir
+                </button>
+              </div>
+            </div>
+          ))
+        }
 
         <div className="box-action">
           <button>Criar avaliação personalizada</button>

@@ -1,0 +1,37 @@
+.wrapper-class {
+	padding: 1rem;
+	border: 1px solid #ccc;
+}
+.editor-class {
+	background-color: white;
+	padding: 10px;
+	border: 1px solid #ccc;
+	height: 550px;
+}
+.toolbar-class {
+	border: 1px solid #ccc;
+}
+
+.rdw-dropdown-wrapper {
+	height: 30px;
+	width: 30px;
+}
+
+.rdw-option-wrapper {
+	height: 30px;
+	width: 30px;
+}
+
+.rdw-dropdown-wrapper a {
+	color: #333;
+	text-decoration: none;
+}
+
+.rdw-dropdown-wrapper[class*='dropdown'] {
+	width: 110px;
+}
+
+.public-DraftStyleDefault-block {
+	margin-top: 0;
+	margin-bottom: 0.7em;
+}

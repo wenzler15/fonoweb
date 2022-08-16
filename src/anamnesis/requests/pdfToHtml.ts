@@ -1,5 +1,5 @@
 import { Response } from 'anamnesis/types'
-import api from 'services'
+import { api } from 'services'
 
 export function pdfToHtml(file: File): Promise<Response<string>> {
 	const formData = new FormData()

@@ -1,5 +1,6 @@
 import { NavBar } from 'components/navBar'
 import { ReactElement, useEffect, useMemo, useState } from 'react'
+import Swal from 'sweetalert2'
 import { Container, Content } from './DoctorList.styles'
 import {
 	useReactTable,
@@ -10,6 +11,7 @@ import {
 	flexRender,
 	OnChangeFn,
 	PaginationState,
+	CellProps,
 } from '@tanstack/react-table'
 import { Doctor } from 'doctor/types'
 import { useDoctors } from 'doctor/queries'
@@ -24,9 +26,11 @@ import {
 	TableBody,
 	TableFooter,
 	TablePagination,
-	Button,
+	IconButton,
+	Tooltip,
 } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
+import { Download } from '@mui/icons-material'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
 import { useActivateDoctor } from 'doctor/mutations'
 // import TableHead from '@mui/material/TableHead'
@@ -167,8 +171,19 @@ export function DoctorList(): ReactElement {
 		onMutate(doctorId: number) {
 			setUserBeingActvated(doctorId)
 		},
-		onSettled() {
+		async onError() {
+			await Swal.fire({
+				icon: 'warning',
+				title: 'Não foi possivel ativar o usuário',
+			})
+		},
+		async onSettled() {
 			setUserBeingActvated(undefined)
+			await doctors.refetch()
+			await Swal.fire({
+				icon: 'success',
+				title: 'Médico ativado com sucesso',
+			})
 		},
 	})
 
@@ -186,6 +201,18 @@ export function DoctorList(): ReactElement {
 				header: 'Ativo',
 				accessorFn: (doctor: Doctor): string =>
 					doctor.isActive ? 'Sim' : 'Não',
+			},
+			{
+				header: '',
+				id: 'id',
+				// eslint-disable-next-line react/no-unstable-nested-components
+				cell: (): ReactElement => (
+					<Tooltip title="Baixar Anexo">
+						<IconButton size="small">
+							<Download />
+						</IconButton>
+					</Tooltip>
+				),
 			},
 		],
 		[],

@@ -5,8 +5,8 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 // @ts-expect-error
 import Routes from './routes'
 
-import 'react-toastify/dist/ReactToastify.css'
-import './global.css'
+// import 'react-toastify/dist/ReactToastify.css'
+// import './global.css'
 import { MasterProvider } from 'context/MasterProvider'
 import { ReactElement } from 'react'
 

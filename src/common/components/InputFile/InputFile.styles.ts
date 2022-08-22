@@ -1,11 +1,6 @@
 import styled from 'styled-components'
 
-export const Root = styled.label`
-	border: 2px solid lightgray;
-	border-radius: 5px;
-	width: 100%;
-	margin-bottom: 10px;
-`
+export const Root = styled.label``
 
 export const Input = styled.input`
 	width: 100%;

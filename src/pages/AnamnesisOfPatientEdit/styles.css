@@ -5,11 +5,13 @@
 .editor-class {
 	background-color: white;
 	padding: 10px;
-	border: 1px solid #ccc;
 	height: 550px;
+	border: 1px solid #eee;
+	border-radius: 5px;
 }
 .toolbar-class {
-	border: 1px solid #ccc;
+	border: 1px solid #eee;
+	border-radius: 5px;
 }
 
 .rdw-dropdown-wrapper {

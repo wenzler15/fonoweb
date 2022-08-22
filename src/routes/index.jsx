@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import _ from 'lodash'
-import { useAuth } from '../hooks'
+import { useAuth } from '../auth/hooks/useAuth'
 
-import RequireAuth from './RequireAuth'
+import { RequireAuth } from './RequireAuth'
 
 import DoctorLogin from '../pages/DoctorLogin/DoctorLogin'
 import Patient from '../pages/Patient'
@@ -36,6 +36,10 @@ import PatientAnamnese from '../pages/PatientAnamnese'
 import PatientAnswerAnamnese from '../pages/PatientAnswerAnamnese'
 import PatientEditAppointment from '../pages/PatientEditAppointment'
 import { DOCTOR_ROUTES } from '../doctor'
+import { TEMPLATE_ROUTES } from '../template'
+import { ANAMNESIS_ROUTES } from '../anamnesis'
+import { PATIENT_ROUTES } from '../patient'
+import { EVALUATION_ROUTES } from '../evaluation'
 
 function AppRoutes() {
 	const { user, userType } = useAuth()
@@ -272,17 +276,25 @@ function AppRoutes() {
 					</RequireAuth>
 				}
 			/>
-			{DOCTOR_ROUTES.map(({ element: Element, ...route }) => (
-				<Route
-					key={route.path}
-					path={route.path}
-					element={
-						<RequireAuth>
-							<Element />
-						</RequireAuth>
-					}
-				/>
-			))}
+			{[
+				DOCTOR_ROUTES,
+				TEMPLATE_ROUTES,
+				ANAMNESIS_ROUTES,
+				PATIENT_ROUTES,
+				EVALUATION_ROUTES,
+			]
+				.flat()
+				.map(({ element: Element, ...route }) => (
+					<Route
+						key={route.path}
+						path={route.path}
+						element={
+							<RequireAuth>
+								<Element />
+							</RequireAuth>
+						}
+					/>
+				))}
 		</Routes>
 	)
 }

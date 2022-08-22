@@ -1,24 +1,16 @@
-import { AxiosError, AxiosResponse } from 'axios'
-
-export type Response<T> = AxiosResponse<{
-	result: T
-}>
-
-export type Pagination = {
-	size?: number
-	page: number
+export type Anamnesis = {
+	id: string
+	numericId: number
+	patientId: string
+	doctorId: string
+	questions: Question[]
+	text: string | null
+	createdAt: Date
+	updatedAt: Date
+	deletedAt: Date | null
 }
 
-export type PaginatedResponse<T> = AxiosResponse<{
-	result: T[]
-	total: number
-	page: number
-	size: number
-	pages: number
-}>
-
-export type ErrorResponse = AxiosError<{
-	error?: string
-	message: string
-	errorCode: number
-}>
+export type Question = {
+	question: string
+	answer: string
+}

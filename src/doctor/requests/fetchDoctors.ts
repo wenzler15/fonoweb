@@ -1,17 +1,15 @@
-import { PaginatedResponse, Pagination } from 'anamnesis/types'
+import { client } from 'common/client'
+import { PaginatedResponse, Pagination } from 'common/types'
 import { Doctor } from 'doctor/types'
-import { api } from 'services'
 
-export function fetchDoctors({
+export const fetchDoctors = ({
 	size = 10,
 	page,
-}: Pagination): Promise<PaginatedResponse<Doctor>> {
-	return api.request({
+}: Pagination): Promise<PaginatedResponse<Doctor>> =>
+	client('doctors', {
 		method: 'get',
-		url: '/users/doctors',
-		params: {
+		searchParams: {
 			size,
 			page,
 		},
-	})
-}
+	}).json()

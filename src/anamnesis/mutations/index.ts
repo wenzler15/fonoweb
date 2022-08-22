@@ -1,1 +1,2 @@
-export * from './usePdfToHtml';
+export * from './usePdfToHtml'
+export * from './useCreateAnamnesis'

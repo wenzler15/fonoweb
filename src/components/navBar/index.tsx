@@ -2,7 +2,7 @@ import { MouseEvent, ReactElement, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import LogoImg from '../../assets/logo.png'
-import { useAuth } from 'hooks'
+import { useAuth } from 'auth/hooks/useAuth'
 
 import { Button, Menu, MenuItem } from '@mui/material'
 
@@ -20,12 +20,12 @@ export function NavBar(): ReactElement {
 	const [isDrawerVisible, setIsDrawerVisible] = useState(false)
 
 	const navigate = useNavigate()
-	const { user, userType, signOut } = useAuth()
+	const { user, logout } = useAuth()
 
 	const handleSignOut = useCallback(() => {
-		void signOut()
+		logout()
 		navigate('/')
-	}, [navigate, signOut])
+	}, [navigate, logout])
 
 	const handleToggleDrawer = useCallback((event: MouseEvent<HTMLElement>) => {
 		setIsDrawerVisible(state => !state)
@@ -36,24 +36,21 @@ export function NavBar(): ReactElement {
 		<Container>
 			<img src={LogoImg} alt="Logo" />
 
-			{user?.userType === 2 ? (
+			{user?.type === UserType.DOCTOR ? (
 				<div className="navigationContainer">
-					<TextNavBar onClick={(): void => navigate('/mypatient')}>
+					<TextNavBar onClick={(): void => navigate('/patients')}>
 						Home
 					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/dashboard')}>
-						Dashboard
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/mypatient')}>
+					<TextNavBar onClick={(): void => navigate('/patients')}>
 						Meus Pacientes
 					</TextNavBar>
 					<TextNavBar onClick={(): void => navigate('/courses')}>
 						Cursos
 					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/support')}>
-						Suporte
+					<TextNavBar onClick={(): void => navigate('/templates')}>
+						Modelos
 					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/evaluationlist')}>
+					<TextNavBar onClick={(): void => navigate('/evaluations')}>
 						Avaliações
 					</TextNavBar>
 				</div>
@@ -66,7 +63,7 @@ export function NavBar(): ReactElement {
 						Exercícios
 					</TextNavBar>
 					<TextNavBar onClick={(): void => navigate('/patientdocuments')}>
-						Documentos
+						Modelos
 					</TextNavBar>
 					<TextNavBar onClick={(): void => navigate('/patientanamnese')}>
 						Minhas Anamneses
@@ -77,7 +74,7 @@ export function NavBar(): ReactElement {
 			{user ? (
 				<UserContainer>
 					<UserContainerButton onClick={handleToggleDrawer}>
-						{user.userType === UserType.PATIENT ? (
+						{user.type === UserType.PATIENT ? (
 							<img
 								src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000"
 								alt="avatar"
@@ -98,12 +95,12 @@ export function NavBar(): ReactElement {
 							'aria-labelledby': 'basic-button',
 						}}
 					>
-						{user.role === UserRole.ADMIN && (
+						{user.isAdmin && (
 							<MenuItem onClick={(): void => navigate('/doctors/list')}>
 								Lista de Médicos
 							</MenuItem>
 						)}
-						{userType === UserType.DOCTOR && (
+						{user.type === UserType.DOCTOR && (
 							<MenuItem onClick={(): void => navigate('/doctorprofile')}>
 								Meu Perfil
 							</MenuItem>

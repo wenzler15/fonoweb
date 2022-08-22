@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useAuth } from '../../hooks'
+import { useAuth } from '../../auth/hooks/useAuth'
 import { api } from '../../services'
 import { NavBar } from '../../components/navBar'
 import TextInput from '../../components/TextInput'

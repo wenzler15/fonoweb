@@ -1,3 +1,5 @@
+import { UploadFile } from '@mui/icons-material'
+import { Button } from '@mui/material'
 import { ChangeEvent, ForwardedRef, forwardRef, ReactElement } from 'react'
 import { Input, Root } from './InputFile.styles'
 import { InputFileProps } from './InputFile.types'
@@ -13,7 +15,24 @@ export function BaseInputFile(
 
 	return (
 		<Root>
-			<Input ref={ref} type="file" onChange={handleChange} {...props} />
+			<Button
+				variant="contained"
+				component="label"
+				size="large"
+				color="secondary"
+				startIcon={<UploadFile />}
+			>
+				ENVIAR PDF
+				<input
+					ref={ref}
+					hidden
+					accept="image/*"
+					multiple
+					type="file"
+					onChange={handleChange}
+					{...props}
+				/>
+			</Button>
 		</Root>
 	)
 }

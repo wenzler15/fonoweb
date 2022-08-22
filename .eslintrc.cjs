@@ -56,6 +56,7 @@ const config = {
 			},
 		],
 		'no-void': 'off',
+		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/consistent-type-definitions': 'off',
 		'@typescript-eslint/promise-function-async': 'off',
 		'@typescript-eslint/padding-line-between-statements': 'off',
@@ -144,6 +145,15 @@ const config = {
 		'react/jsx-no-useless-fragment': 'error',
 		'import/prefer-default-export': 'off',
 		'import/no-default-export': 'error',
+		'react/require-default-props': 'off',
+		'@typescript-eslint/no-floating-promises': 'off',
+		'no-param-reassign': [
+			'error',
+			{
+				props: true,
+				ignorePropertyModificationsForRegex: ['^draft', 'draft', 'state'],
+			},
+		],
 		'unicorn/no-keyword-prefix': 'off',
 		'unicorn/prevent-abbreviations': 'off',
 		'unicorn/no-useless-undefined': 'off',

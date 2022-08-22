@@ -1,8 +1,5 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from 'hooks'
-import logo from '../../assets/logo.png'
-import { DOCTOR } from '../../constants'
+import logo from 'assets/logo.png'
 
 import {
 	MainContainer,
@@ -11,36 +8,37 @@ import {
 	InitialText,
 	NormalText,
 	LogoFonoweb,
-	Inputs,
 	Wrapper,
 	SmallText,
-	ContainerButtonText,
-	ContainerButton,
 	SmallTextContainerButton,
 	ContentTitles,
 	ContentErrorLogin,
 } from './styles'
+import { useAuth } from 'auth/hooks/useAuth'
+import { useAuthenticate } from 'auth/mutations'
+import { Field, Formik } from 'formik'
+import { TextField } from 'formik-mui'
+import { AuthenticateRequestParams } from 'auth/requests'
+import { AuthenticateSchema } from 'auth/schemas'
+import { LoadingButton } from '@mui/lab'
+import { Stack } from '@mui/material'
 
 function Login() {
-	const [password, setPassword] = useState('')
-	const [email, setEmail] = useState('')
-	const [currentUser, setCurrentUser] = useState('')
-	const { signIn, userType, setUser, setUserType } = useAuth()
 	const navigate = useNavigate()
+	const auth = useAuth()
+	const authenticate = useAuthenticate()
 
-	const loginFunc = async () => {
-		const user = await signIn({ email, password })
-
-		user ? setCurrentUser(user) : setCurrentUser('undefined')
-
-		if (!localStorage.getItem('@auth/user')) await signIn()
-
-		if (localStorage.getItem('@auth/user')) {
-			const user = JSON.parse(localStorage.getItem('@auth/user'))
-			setUser(user)
-			setUserType(user.userType)
-			user.userType === 1 ? navigate('/patienthome') : navigate('/mypatient')
-		}
+	const handleFormSubmit = (data: AuthenticateRequestParams) => {
+		authenticate
+			.mutateAsync(data)
+			.then(({ result }) => {
+				auth.setUser(result.user)
+				auth.setToken(result.token)
+				navigate('/mypatient')
+			})
+			.catch(error => {
+				console.error(error)
+			})
 	}
 
 	return (
@@ -53,37 +51,52 @@ function Login() {
 					<InitialText>Seja bem vindo</InitialText>
 					<NormalText>Insira seu email e senha de acesso.</NormalText>
 				</ContentTitles>
-				<Wrapper>
-					<Inputs
-						placeholder="E-mail"
-						onChange={e => setEmail(e.target.value)}
-					/>
-					<Inputs
-						placeholder="Senha"
-						type="password"
-						onChange={e => setPassword(e.target.value)}
-					/>
-					<ContainerButton onClick={() => loginFunc()} disabled>
-						<ContainerButtonText>Entrar</ContainerButtonText>
-					</ContainerButton>
-					{currentUser == 'undefined' ? (
-						<ContentErrorLogin>
-							Usuário ou senha incorretos. Tente novamente!
-						</ContentErrorLogin>
-					) : (
-						false
+				<Formik<AuthenticateRequestParams>
+					validationSchema={AuthenticateSchema}
+					initialValues={{
+						email: 'doctor.1@fonoweb.app.br',
+						password: 'fonoweb123',
+					}}
+					onSubmit={handleFormSubmit}
+				>
+					{({ handleSubmit }) => (
+						<Wrapper>
+							<Stack spacing={2}>
+								<Field
+									component={TextField}
+									color="white"
+									placeholder="Email"
+									name="email"
+								/>
+								<Field
+									color="white"
+									component={TextField}
+									placeholder="Senha"
+									name="password"
+								/>
+								<LoadingButton
+									variant="contained"
+									size="xlarge"
+									loading={authenticate.isLoading}
+									onClick={() => handleSubmit()}
+								>
+									{authenticate.isLoading ? 'Carregando...' : 'Entrar'}
+								</LoadingButton>
+							</Stack>
+							{authenticate.isError && (
+								<ContentErrorLogin>
+									Usuário ou senha incorretos. Tente novamente!
+								</ContentErrorLogin>
+							)}
+							<SmallTextContainerButton>
+								<SmallText>Ainda não tem cadastro?</SmallText>
+								<SmallText onClick={() => navigate('/register')}>
+									Faça agora mesmo
+								</SmallText>
+							</SmallTextContainerButton>
+						</Wrapper>
 					)}
-					{userType === DOCTOR ? (
-						<SmallTextContainerButton>
-							<SmallText>Ainda não tem cadastro?</SmallText>
-							<SmallText blue onClick={() => navigate('/register')}>
-								Faça agora mesmo
-							</SmallText>
-						</SmallTextContainerButton>
-					) : (
-						false
-					)}
-				</Wrapper>
+				</Formik>
 			</ContainerContent>
 		</MainContainer>
 	)

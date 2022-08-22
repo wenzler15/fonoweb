@@ -1,16 +1,10 @@
-import React from 'react'
-
-import logo from '../../assets/logo.png'
-import { PACIENT, DOCTOR } from '../../constants'
-import { useAuth } from '../../hooks'
+import logo from 'assets/logo.png'
+import { useNavigate } from 'react-router-dom'
+import { UserType } from 'user/types'
 import { Container, LinearBackground } from './styles'
 
 function Home() {
-	const { setUserType } = useAuth()
-
-	const handleSetUserTypePacient = () => setUserType(PACIENT)
-	const handleSetUserTypeDoctor = () => setUserType(DOCTOR)
-
+	const navigate = useNavigate()
 	return (
 		<Container>
 			<LinearBackground />
@@ -20,14 +14,17 @@ function Home() {
 				<strong>Faça seu login e acesse a plataforma</strong>
 
 				<div>
-					<button type="button" onClick={handleSetUserTypePacient}>
+					<button
+						type="button"
+						onClick={() => navigate(`login?type=${UserType.PATIENT}`)}
+					>
 						Sou Paciente
 					</button>
 
 					<button
 						type="button"
 						className="professionalButton"
-						onClick={handleSetUserTypeDoctor}
+						onClick={() => navigate(`login?type=${UserType.DOCTOR}`)}
 					>
 						Sou Profissional
 					</button>

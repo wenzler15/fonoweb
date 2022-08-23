@@ -4,7 +4,7 @@ import { Box, Typography, Card, CardContent } from '@mui/material'
 import { EvaluationForm } from 'evaluation/components'
 import { useCreateEvaluation } from 'evaluation/mutations'
 import { CreateEvaluationDto } from 'evaluation/schemas'
-import { Back } from 'common/components'
+import { Back, FloatingWhatsAppButton } from 'common/components'
 import { NavBar } from 'components/navBar'
 import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
@@ -40,52 +40,55 @@ export function EvaluationCreate() {
 	}
 
 	return (
-		<Formik<CreateEvaluationDto>
-			initialValues={{
-				text: '',
-				// @ts-expect-error null
-				patient: null,
-			}}
-			onSubmit={handleFormSubmit}
-		>
-			{({ handleSubmit }) => (
-				<>
-					<NavBar />
-					<Box sx={{ p: t => t.spacing(4) }}>
-						<Box
-							sx={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'space-between',
-							}}
-						>
-							<Typography
-								variant="h4"
-								component="h1"
-								color="secondary"
-								sx={{ mb: t => t.spacing(2) }}
-							>
-								Nova avaliação
-								<Back />
-							</Typography>
-							<LoadingButton
-								onClick={() => handleSubmit()}
-								variant="contained"
-								color="secondary"
-								size="large"
-								loading={createEvaluation.isLoading}
-							>
-								SALVAR
-							</LoadingButton>
-						</Box>
-						<Card>
-							<CardContent sx={{ p: t => t.spacing(4) }}>
-								<EvaluationForm />
-							</CardContent>
-						</Card>
-					</Box>
-				</>
-			)}
-		</Formik>
+    <>
+      <Formik<CreateEvaluationDto>
+        initialValues={{
+          text: '',
+          // @ts-expect-error null
+          patient: null,
+        }}
+        onSubmit={handleFormSubmit}
+      >
+        {({ handleSubmit }) => (
+          <>
+            <NavBar />
+            <Box sx={{ p: t => t.spacing(4) }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  component="h1"
+                  color="secondary"
+                  sx={{ mb: t => t.spacing(2) }}
+                >
+                  Nova avaliação
+                  <Back />
+                </Typography>
+                <LoadingButton
+                  onClick={() => handleSubmit()}
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  loading={createEvaluation.isLoading}
+                >
+                  SALVAR
+                </LoadingButton>
+              </Box>
+              <Card>
+                <CardContent sx={{ p: t => t.spacing(4) }}>
+                  <EvaluationForm />
+                </CardContent>
+              </Card>
+            </Box>
+          </>
+        )}
+      </Formik>
+      <FloatingWhatsAppButton />
+    </>
 	)
 }

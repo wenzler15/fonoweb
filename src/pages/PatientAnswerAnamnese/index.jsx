@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../services";
 
 import { Container } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function PatientAnswerAnamnese() {
 
@@ -85,6 +86,7 @@ function PatientAnswerAnamnese() {
                     <button onClick={() => saveAnswers()}>Enviar respostas</button>
                 </div>
             </section>
+            <FloatingWhatsAppButton />
         </Container>
     );
 }

@@ -24,6 +24,7 @@ import {
 import { isEmpty } from "lodash";
 import { useMemo } from "react";
 import AddNewPatient from "../../components/PatientPage/AddNewPatient";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 const PatientList = () => {
   const navigate = useNavigate();
@@ -37,7 +38,9 @@ const PatientList = () => {
     try {
       const { data } = await api.get(`/users/doctor/${user.id}/patients`);
       setGetPatients(data);
-    } catch (err) { }
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const handleToggleIsRegisteringNewPatient = () =>
@@ -147,6 +150,7 @@ const PatientList = () => {
           </>
         )}
       </Content>
+      <FloatingWhatsAppButton />
     </MainContainer>
   );
 };

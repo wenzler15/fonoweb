@@ -9,6 +9,7 @@ import arrowIndicatorIcon from '../../assets/arrow-right-purple.png'
 import { api } from '../../services'
 import { useEvaluations } from '../../evaluation/queries'
 import { useNavigate } from 'react-router-dom'
+import { FloatingWhatsAppButton } from '../../common/components'
 
 function EvaluationNew() {
 	const evaluations = useEvaluations({ page: 1, size: 9999 })
@@ -49,6 +50,7 @@ function EvaluationNew() {
 					</button>
 				</div>
 			</section>
+      <FloatingWhatsAppButton />
 		</Container>
 	)
 }

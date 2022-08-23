@@ -8,6 +8,7 @@ import { api } from '../../services'
 import { NavBar } from '../../components/navBar'
 
 import { Container, AnalyticsLabel, ChartContainer } from './styles'
+import { FloatingWhatsAppButton } from '../../common/components'
 
 function Dashboard() {
 	const [schedules, setSchedules] = useState(0)
@@ -142,6 +143,7 @@ function Dashboard() {
 					/>
 				</ChartContainer>
 			</Container>
+      <FloatingWhatsAppButton />
 		</>
 	)
 }

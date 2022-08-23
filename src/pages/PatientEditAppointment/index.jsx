@@ -20,6 +20,7 @@ import {
   ButtonCancel,
   ButtonReschedule
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function PatientEditAppointment() {
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ function PatientEditAppointment() {
           </ContentButton>
         </ContentRight>
       </ContentContainer>
+      <FloatingWhatsAppButton />
     </MainContainer>
   );
 }

@@ -58,6 +58,7 @@ import {
   ContentResumeLastQuery,
   ContentResultEmpty
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function PatientHome() {
   const navigate = useNavigate();
@@ -284,6 +285,7 @@ function PatientHome() {
 
         </ContentLeft>
       </ContentContainer>
+      <FloatingWhatsAppButton />
     </MainContainer>
   );
 }

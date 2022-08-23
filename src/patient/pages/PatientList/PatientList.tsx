@@ -1,6 +1,6 @@
 import { NavBar } from 'components/navBar'
 import { ReactElement, useMemo, useState } from 'react'
-import { LoadingOverlay, Table } from 'common/components'
+import { FloatingWhatsAppButton, LoadingOverlay, Table } from 'common/components'
 import { useNavigate } from 'react-router-dom'
 import { ColumnDef } from '@tanstack/react-table'
 import { usePatients } from 'patient/queries'
@@ -89,6 +89,7 @@ export function PatientList(): ReactElement {
 				Anamneses
 			</Fab>
 			<LoadingOverlay show={patients.isLoading} />
+      <FloatingWhatsAppButton />
 		</>
 	)
 }

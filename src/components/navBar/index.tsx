@@ -6,7 +6,7 @@ import { useAuth } from 'auth/hooks/useAuth'
 
 import { Button, Menu, MenuItem } from '@mui/material'
 
-import { UserRole, UserType } from 'user/types'
+import { UserType } from 'user/types'
 import {
 	ButtonContainer,
 	Container,
@@ -37,22 +37,27 @@ export function NavBar(): ReactElement {
 			<img src={LogoImg} alt="Logo" />
 
 			{user?.type === UserType.DOCTOR ? (
-				<div className="navigationContainer">
-					<TextNavBar onClick={(): void => navigate('/patients')}>
-						Home
-					</TextNavBar>
+        <div className="navigationContainer">
+          <TextNavBar onClick={() => navigate("/schedule")}>Minha Agenda</TextNavBar>
 					<TextNavBar onClick={(): void => navigate('/patients')}>
 						Meus Pacientes
 					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/courses')}>
-						Cursos
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/templates')}>
-						Modelos
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/evaluationlist')}>
+          <TextNavBar onClick={() => navigate("/anamnesis")}>Anamneses</TextNavBar>
+          <TextNavBar onClick={(): void => navigate('/evaluationlist')}>
 						Avaliações
 					</TextNavBar>
+          <TextNavBar onClick={(): void => navigate('/templates')}>
+						Modelos
+					</TextNavBar>
+          <TextNavBar onClick={(): void => navigate('/courses')}>
+						Cursos
+					</TextNavBar>
+					<TextNavBar onClick={(): void => navigate('/')}>
+						Dashboard
+					</TextNavBar>
+
+
+
 				</div>
 			) : (
 				<div className="navigationContainer">

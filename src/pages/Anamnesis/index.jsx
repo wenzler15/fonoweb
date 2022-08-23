@@ -8,7 +8,7 @@ import Select from "../../components/Select";
 
 import { Container, ModelContainer } from "./styles";
 import { api } from "../../services";
-
+import { FloatingWhatsAppButton } from '../../common/components'
 const NewAnamnesis = () => {
   return (
     <Container>
@@ -81,6 +81,7 @@ function Anamnesis() {
           </ModelContainer>
         ))}
       </section>
+      <FloatingWhatsAppButton />
     </Container>
   );
 }

@@ -1,6 +1,6 @@
 import { NavBar } from 'components/navBar'
 import { ReactElement, useEffect, useMemo, useState, MouseEvent } from 'react'
-import { LoadingOverlay } from 'common/components'
+import { FloatingWhatsAppButton, LoadingOverlay } from 'common/components'
 import { useQueryClient } from '@tanstack/react-query'
 import { Container } from './TemplateList.styles'
 import { useNavigate } from 'react-router-dom'
@@ -454,6 +454,7 @@ export function TemplateList(): ReactElement {
 				Novo Modelo
 			</Fab>
 			<LoadingOverlay show={templates.isLoading} />
+      <FloatingWhatsAppButton />
 		</Container>
 	)
 }

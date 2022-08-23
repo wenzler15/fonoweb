@@ -129,7 +129,7 @@ function DoctorInformation({ register, control, handleNextStep }) {
         <TextInput
           register={register}
           name="houseNumber"
-          title="Número da casa"
+          title="Número"
           placeholder="Digite o número da sua casa/apt"
           error={errors.houseNumber}
         />

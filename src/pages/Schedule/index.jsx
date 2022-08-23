@@ -11,6 +11,7 @@ import { NavBar } from "../../components/navBar";
 
 import { Container, Calendar, DatesContainer } from "./styles";
 import { api } from "../../services";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function Schedule() {
   const [showCalendar, setShowCalendar] = useState(false);
@@ -185,6 +186,7 @@ function Schedule() {
           </>
         )}
       </Container>
+      <FloatingWhatsAppButton />
     </>
   );
 }

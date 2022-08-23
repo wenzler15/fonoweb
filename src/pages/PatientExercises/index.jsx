@@ -25,6 +25,7 @@ import {
     TitleCardExercisesWeeks,
     DescriptionCardExercisesWeeks,
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 const weekList = [
     {
@@ -168,6 +169,7 @@ function PatientExercises() {
                     )}
                 </ContentLeft>
             </ContentContainer>
+            <FloatingWhatsAppButton />
         </MainContainer>
     );
 }

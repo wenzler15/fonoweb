@@ -1,4 +1,5 @@
 import React from "react";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 import { NavBar } from "../../components/navBar";
 
@@ -26,7 +27,7 @@ function EvaluationModels() {
             <button className="use">Usar</button>
           </div>
         </div>
-        
+
         <div className="evaluation-model-available">
           <div>
             <h3>Avaliação AB</h3>
@@ -42,6 +43,7 @@ function EvaluationModels() {
           <button>Criar avaliação personalizada</button>
         </div>
       </section>
+      <FloatingWhatsAppButton />
     </Container>
   );
 }

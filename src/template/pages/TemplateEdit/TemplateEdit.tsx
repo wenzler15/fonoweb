@@ -8,7 +8,7 @@ import { useUpdateTemplate } from 'template/mutations'
 import { useNavigate, useParams } from 'react-router-dom'
 import { TemplateForm } from 'template/components/TemplateForm/TemplateForm'
 import { useTemplateDetail } from 'template/queries'
-import { Back, LoadingOverlay } from 'common/components'
+import { Back, FloatingWhatsAppButton, LoadingOverlay } from 'common/components'
 import { useQueryClient } from '@tanstack/react-query'
 
 export function TemplateEdit(): ReactElement {
@@ -75,6 +75,7 @@ export function TemplateEdit(): ReactElement {
 				</Card>
 			</Box>
 			<LoadingOverlay show={templateDetail.isLoading} />
+      <FloatingWhatsAppButton />
 		</Container>
 	)
 }

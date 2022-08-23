@@ -23,6 +23,7 @@ import {
   ContentButton,
   Button,
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function PatientInfoDoctor() {
   const navigate = useNavigate();
@@ -103,6 +104,7 @@ function PatientInfoDoctor() {
           </ContentButton>
         </ContentRight>
       </ContentContainer>
+      <FloatingWhatsAppButton />
     </MainContainer>
   );
 }

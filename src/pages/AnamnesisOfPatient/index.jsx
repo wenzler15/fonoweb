@@ -5,6 +5,7 @@ import { NavBar } from "../../components/navBar";
 import { Container } from "./styles";
 import {useLocation} from "react-router-dom";
 import { api } from "../../services";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function AnamnesisOfPatient() {
   const { state } = useLocation();
@@ -40,6 +41,7 @@ function AnamnesisOfPatient() {
           <button>Usar</button>
         </div>
       </section>
+      <FloatingWhatsAppButton />
     </Container>
   );
 }

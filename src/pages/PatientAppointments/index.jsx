@@ -28,6 +28,7 @@ import {
   OpacityResumeLastQuery,
   ButtonResumeLastQuery,
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 
 
@@ -111,6 +112,7 @@ function PatientAppointments() {
           ) : (<FilterLabel>Nenhum histórico de consulta</FilterLabel>)}
         </ContentRight>
       </ContentContainer>
+      <FloatingWhatsAppButton />
     </MainContainer>
   );
 }

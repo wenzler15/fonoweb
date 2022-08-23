@@ -18,6 +18,7 @@ import {
   NoteContainer,
   Button,
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 const Course = () => {
   const { course_id } = useParams();
@@ -117,6 +118,7 @@ const Course = () => {
           <input placeholder="Escreva aqui..." />
         </NoteContainer>
       </Container>
+      <FloatingWhatsAppButton />
     </>
   );
 };

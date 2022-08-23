@@ -17,6 +17,7 @@ import {
     ButtonUp,
     ButtonDown,
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 const documentList = [
     {
@@ -79,6 +80,7 @@ function PatientDocuments() {
                     )}
                 </ContentRight>
             </ContentContainer>
+            <FloatingWhatsAppButton />
         </MainContainer>
     );
 }

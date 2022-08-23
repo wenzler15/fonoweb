@@ -16,6 +16,7 @@ import { Container } from "./styles";
 import { DOCTOR } from "../../constants";
 import { api } from "../../services";
 import Swal from "sweetalert2";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function DoctorRegister() {
   const doctorSchema = object({
@@ -152,6 +153,7 @@ function DoctorRegister() {
       <form onSubmit={handleSubmit(handleSubmitRegistration)}>
         {renderedStep}
       </form>
+      <FloatingWhatsAppButton />
     </Container>
   );
 }

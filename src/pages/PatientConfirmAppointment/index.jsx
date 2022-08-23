@@ -19,6 +19,7 @@ import {
   ContentButton,
   Button,
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function PatientConfirmAppointment() {
   const navigate = useNavigate();
@@ -102,6 +103,7 @@ function PatientConfirmAppointment() {
           </ContentButton>
         </ContentRight>
       </ContentContainer>
+      <FloatingWhatsAppButton />
     </MainContainer>
   );
 }

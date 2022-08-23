@@ -11,6 +11,7 @@ import {
   CustomButton,
   CourseContainer,
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 const coursesList = [
   {
@@ -141,6 +142,7 @@ function CoursesList() {
           </CourseContainer>
         ))}
       </Container>
+      <FloatingWhatsAppButton />
     </>
   );
 }

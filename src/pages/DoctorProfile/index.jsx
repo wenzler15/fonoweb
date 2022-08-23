@@ -10,6 +10,7 @@ import TextInput from '../../components/TextInput'
 
 import { ButtonContainer, Card, CardSelector, Container } from './styles'
 import { useForm } from 'react-hook-form'
+import { FloatingWhatsAppButton } from '../../common/components'
 
 const userCards = [
 	{
@@ -250,6 +251,7 @@ function DoctorProfile() {
 					Cancelar minha assinatura
 				</button>
 			</Container>
+      <FloatingWhatsAppButton />
 		</>
 	)
 }

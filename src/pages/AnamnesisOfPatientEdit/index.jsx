@@ -4,7 +4,7 @@ import { Editor } from 'react-draft-wysiwyg'
 import Swal from 'sweetalert2'
 import htmlToDraft from 'html-to-draftjs'
 import { convertToHTML } from 'draft-convert'
-import { InputFile } from '../../common/components'
+import { FloatingWhatsAppButton, InputFile } from '../../common/components'
 import { usePdfToHtml } from '../../anamnesis/mutations'
 import { NavBar } from '../../components/navBar'
 import { Container } from './styles'
@@ -237,6 +237,7 @@ function AnamnesisOfPatientEdit() {
 					</button>
 				</div>
 			</section>
+      <FloatingWhatsAppButton />
 		</Container>
 	)
 }

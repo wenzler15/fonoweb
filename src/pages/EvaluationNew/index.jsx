@@ -5,6 +5,7 @@ import { NavBar } from "../../components/navBar";
 import { Container } from "./styles";
 import {useLocation} from "react-router-dom";
 import { api } from "../../services";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function EvaluationModels() {
   const { state } = useLocation();
@@ -35,6 +36,7 @@ function EvaluationModels() {
           <button type="submit" onClick={handleSubmit}>Salvar</button>
         </form>
       </section>
+      <FloatingWhatsAppButton />
     </Container>
   );
 }

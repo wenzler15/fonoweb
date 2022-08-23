@@ -19,6 +19,7 @@ import {
     ButtonUp,
     ButtonDown,
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function PatientAnamnese() {
     const navigate = useNavigate();
@@ -79,6 +80,7 @@ function PatientAnamnese() {
                     </Content>)}
                 </ContentRight>
             </ContentContainer>
+            <FloatingWhatsAppButton />
         </MainContainer>
     );
 }

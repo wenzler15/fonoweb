@@ -33,6 +33,7 @@ import { LoadingButton } from '@mui/lab'
 import { Download } from '@mui/icons-material'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
 import { useActivateDoctor } from 'doctor/mutations'
+import { FloatingWhatsAppButton } from 'common/components'
 // import TableHead from '@mui/material/TableHead'
 
 function Table<Data extends object>({
@@ -245,6 +246,7 @@ export function DoctorList(): ReactElement {
 					)}
 				/>
 			</Content>
+      <FloatingWhatsAppButton />
 		</Container>
 	)
 }

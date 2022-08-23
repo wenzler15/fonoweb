@@ -23,6 +23,7 @@ import {
   ContentMonths,
   Month
 } from "./styles";
+import { FloatingWhatsAppButton } from "../../common/components";
 
 function PatientScheduleAppointment() {
   const navigate = useNavigate();
@@ -177,6 +178,7 @@ function PatientScheduleAppointment() {
           </ContentText>
         </ContentRight>
       </ContentContainer>
+      <FloatingWhatsAppButton />
     </MainContainer>
   );
 }

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import { useCreateTemplate } from 'template/mutations'
 import { useNavigate } from 'react-router-dom'
 import { TemplateForm } from 'template/components/TemplateForm/TemplateForm'
-import { Back } from 'common/components'
+import { Back, FloatingWhatsAppButton } from 'common/components'
 
 export function TemplateCreate(): ReactElement {
 	const theme = useTheme()
@@ -65,6 +65,7 @@ export function TemplateCreate(): ReactElement {
 					</CardContent>
 				</Card>
 			</Box>
+      <FloatingWhatsAppButton />
 		</>
 	)
 }

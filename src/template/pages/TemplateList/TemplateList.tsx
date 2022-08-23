@@ -14,10 +14,10 @@ import {
 	PaginationState,
 } from '@tanstack/react-table'
 import Swal from 'sweetalert2'
-import { Template } from 'template/types'
+import { TemplateType, TemplateWithSpecialty } from 'template/types'
 import { useTemplates } from 'template/queries'
 import { useUpdateTemplate } from 'template/mutations'
-import { Pagination } from 'anamnesis/types'
+import { Pagination } from 'common/types'
 import {
 	useTheme,
 	Menu,
@@ -39,9 +39,16 @@ import {
 	TablePagination,
 	Typography,
 	IconButton,
+	FormControl,
+	Stack,
+	Select,
+	InputLabel,
 } from '@mui/material'
 import { Add, MoreVert, Close } from '@mui/icons-material'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
+import { translateTemplateType } from 'template/utils'
+import { useSpecialties } from 'specialty/queries'
+import { useVisible } from 'common/hooks'
 
 function Table<Data extends object>({
 	data,
@@ -199,28 +206,10 @@ function Table<Data extends object>({
 	)
 }
 
-function useVisible({
-	initialState = false,
-}: { initialState?: boolean } = {}): {
-	visible: boolean
-	show: () => void
-	hide: () => void
-} {
-	const [visible, setVisible] = useState(initialState)
-	return useMemo(
-		() => ({
-			visible,
-			show: (): void => setVisible(true),
-			hide: (): void => setVisible(false),
-		}),
-		[visible, setVisible],
-	)
-}
-
 function TemplateActionsComponent({
 	original: template,
 }: {
-	original: Template
+	original: TemplateWithSpecialty
 }) {
 	const theme = useTheme()
 	const navigate = useNavigate()
@@ -265,6 +254,7 @@ function TemplateActionsComponent({
 		updateTemplate.mutate({
 			id: template.id,
 			isActive: !template.isActive,
+			specialtyId: template.specialtyId,
 		})
 		setAnchorEl(null)
 	}
@@ -346,20 +336,42 @@ export function TemplateList(): ReactElement {
 		size: 10,
 	})
 
+	const [specialty, setSpecialty] = useState<string>()
+	const [type, setType] = useState<TemplateType>()
+
 	const theme = useTheme()
 	const navigate = useNavigate()
-	const templates = useTemplates({ ...pagination, page: pagination.page + 1 })
+	const specialties = useSpecialties({
+		page: 1,
+		size: 9999,
+	})
+	const templates = useTemplates({
+		...pagination,
+		page: pagination.page + 1,
+		type,
+		specialtyId: specialty,
+	})
 
 	const columns = useMemo(
-		(): ColumnDef<Template>[] => [
+		(): ColumnDef<TemplateWithSpecialty>[] => [
 			{
 				header: 'Nome',
 				accessorKey: 'title',
 			},
 			{
+				header: 'Tipo',
+				accessorFn: (template: TemplateWithSpecialty) =>
+					translateTemplateType(template.type),
+			},
+			{
+				header: 'Especialidade',
+				accessorFn: (template: TemplateWithSpecialty) =>
+					template.specialty.name,
+			},
+			{
 				size: 10,
 				header: 'Ativo',
-				accessorFn: (template: Template): string =>
+				accessorFn: (template: TemplateWithSpecialty): string =>
 					template.isActive ? 'Sim' : 'Não',
 			},
 		],
@@ -378,7 +390,48 @@ export function TemplateList(): ReactElement {
 				>
 					Modelos
 				</Typography>
-				<Table
+				<Paper
+					elevation={3}
+					sx={{ p: t => t.spacing(2), mb: t => t.spacing(2) }}
+				>
+					<Typography
+						variant="h6"
+						component="h1"
+						color="secondary"
+						sx={{ mb: theme.spacing(2) }}
+					>
+						Filtros
+					</Typography>
+					<Stack spacing={2} direction="row">
+						<FormControl fullWidth>
+							<InputLabel>Especialidade</InputLabel>
+							<Select
+								label="Especialidade"
+								onChange={({ target }) => setSpecialty(target.value)}
+							>
+								{specialties.data?.result.map(specialty => (
+									<MenuItem key={specialty.id} value={specialty.id}>
+										{specialty.name}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+						<FormControl fullWidth>
+							<InputLabel>Tipo</InputLabel>
+							<Select
+								label="Tipo"
+								onChange={({ target }) => setType(target.value)}
+							>
+								{Object.keys(TemplateType).map(key => (
+									<MenuItem key={key} value={key}>
+										{translateTemplateType(TemplateType[key as TemplateType])}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+					</Stack>
+				</Paper>
+				<Table<TemplateWithSpecialty>
 					data={templates.data?.result ?? []}
 					columns={columns}
 					count={templates.data?.total ?? 0}

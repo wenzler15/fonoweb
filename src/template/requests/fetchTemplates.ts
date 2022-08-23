@@ -1,12 +1,20 @@
 import { client } from 'common/client'
 import { PaginatedResponse, Pagination } from 'common/types'
-import { Template } from 'template/types'
+import { TemplateType, TemplateWithSpecialty } from 'template/types'
 
 export const fetchTemplates = ({
 	size = 10,
 	page,
-}: Pagination): Promise<PaginatedResponse<Template>> =>
+	...filters
+}: Pagination & { type?: TemplateType; specialtyId?: string }): Promise<
+	PaginatedResponse<TemplateWithSpecialty>
+> =>
 	client('templates', {
 		method: 'get',
-		searchParams: { size, page },
+		searchParams: {
+			size,
+			page,
+			...(filters.type && { type: filters.type }),
+			...(filters.specialtyId && { specialtyId: filters.specialtyId }),
+		},
 	}).json()

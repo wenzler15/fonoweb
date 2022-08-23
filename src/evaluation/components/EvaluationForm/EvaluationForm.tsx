@@ -4,6 +4,7 @@ import {
 	Grid,
 	AutocompleteRenderInputParams,
 	TextField as MTextField,
+  Button,
 } from '@mui/material'
 import { Autocomplete } from 'formik-mui'
 import { Field, useFormikContext } from 'formik'
@@ -11,11 +12,13 @@ import { WithCuid } from 'common/types'
 import { useTemplates } from 'template/queries'
 import { usePatients } from 'patient/queries'
 import { UserWithPatient } from 'user/types'
-import { Template } from 'template'
+import { Template, TemplateType } from 'template'
 import { ContentState, EditorState } from 'draft-js'
 import htmlToDraft from 'html-to-draftjs'
 import Swal from 'sweetalert2'
 import { useEffect, useState } from 'react'
+import {useVisible} from 'common/hooks'
+import {TemplateSelector} from 'template/components/TemplateSelector/TemplateSelector'
 
 export function EvaluationForm() {
 	const {
@@ -66,6 +69,8 @@ export function EvaluationForm() {
 		return undefined
 	}
 
+	const modalTemplates = useVisible()
+
 	useEffect(() => {
 		if (template) {
 			handleTemplateChange(template)
@@ -96,28 +101,26 @@ export function EvaluationForm() {
 						)}
 					/>
 				</Grid>
-				<Grid item xs={6}>
-					<Field
-						fullWidth
-						name="template"
-						component={Autocomplete}
-						options={templates.data?.result ?? []}
-						getOptionLabel={(option: Template) => option.title}
-						renderInput={(params: AutocompleteRenderInputParams) => (
-							<MTextField
-								{...params}
-								name="template-search"
-								error={touched.template && !!errors.template}
-								helperText={errors.template}
-								label="Template"
-								variant="outlined"
-							/>
-						)}
-					/>
+				<Grid item xs={6} sx={{ textAlign: 'right' }}>
+					<Button
+						onClick={() => modalTemplates.show()}
+						variant="contained"
+						size="large"
+						color="secondary"
+					>
+						Selecionar Modelo
+					</Button>
 				</Grid>
 			</Grid>
 			<Editor name="text" editorState={editorState} />
 			<LoadingOverlay show={templates.isLoading || patients.isLoading} />
+			<TemplateSelector
+				type={TemplateType.EVALUATION}
+				visible={modalTemplates.visible}
+				onClose={modalTemplates.hide}
+				onSelect={handleTemplateChange}
+			/>
+
 		</Stack>
 	)
 }

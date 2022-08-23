@@ -5,11 +5,15 @@ import {
 } from '@tanstack/react-query'
 import { Response } from 'common/types'
 import { HTTPError } from 'ky'
-import { createTemplate } from 'template/requests'
-import { CreateTemplateDto } from 'template/schemas'
+import { createTemplate, CreateTemplateRequestData } from 'template/requests'
+import { Template } from 'template/types'
 
 export function useCreateTemplate(
-	options?: UseMutationOptions<Response<string>, HTTPError, CreateTemplateDto>,
-): UseMutationResult<Response<string>, HTTPError, CreateTemplateDto> {
+	options?: UseMutationOptions<
+		Response<Template>,
+		HTTPError,
+		CreateTemplateRequestData
+	>,
+): UseMutationResult<Response<Template>, HTTPError, CreateTemplateRequestData> {
 	return useMutation(createTemplate, options)
 }

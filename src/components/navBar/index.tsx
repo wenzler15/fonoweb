@@ -50,7 +50,7 @@ export function NavBar(): ReactElement {
 					<TextNavBar onClick={(): void => navigate('/templates')}>
 						Modelos
 					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/evaluations')}>
+					<TextNavBar onClick={(): void => navigate('/evaluationlist')}>
 						Avaliações
 					</TextNavBar>
 				</div>

@@ -30,10 +30,14 @@ export function TemplateEdit(): ReactElement {
 		},
 	})
 
-	const handleFormSubmit = async (values: Partial<UpdateTemplateDto>) => {
+	const handleFormSubmit = async ({
+		specialty,
+		...values
+	}: Partial<UpdateTemplateDto>) => {
 		await createTemplate
 			.mutateAsync({
 				...values,
+				specialtyId: specialty?.id as string,
 				id: params.id as string,
 			})
 			.catch(console.error)
@@ -62,6 +66,8 @@ export function TemplateEdit(): ReactElement {
 								initialValues={{
 									title: templateDetail.data.result.title,
 									html: templateDetail.data.result.html,
+									type: templateDetail.data.result.type,
+									specialty: templateDetail.data.result.specialty,
 								}}
 							/>
 						)}

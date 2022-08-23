@@ -75,6 +75,19 @@ export function PatientList(): ReactElement {
 				<Add sx={{ mr: 1 }} />
 				Novo Paciente
 			</Fab>
+			<Fab
+				onClick={() => navigate('/evaluationlist')}
+				variant="extended"
+				size="large"
+				color="secondary"
+				sx={{
+					position: 'fixed',
+					bottom: theme.spacing(4),
+					right: 250,
+				}}
+			>
+				Anamneses
+			</Fab>
 			<LoadingOverlay show={patients.isLoading} />
 		</>
 	)

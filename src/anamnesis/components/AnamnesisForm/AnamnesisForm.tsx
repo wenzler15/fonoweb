@@ -17,14 +17,15 @@ import { Autocomplete, TextField } from 'formik-mui'
 import { Field, FieldArray, useFormikContext } from 'formik'
 import { WithCuid } from 'common/types'
 import { Question } from 'anamnesis/types'
-import { useTemplates } from 'template/queries'
 import { usePatients } from 'patient/queries'
 import { UserWithPatient } from 'user/types'
-import { Template } from 'template'
+import { Template, TemplateType } from 'template'
 import { ContentState, EditorState } from 'draft-js'
 import htmlToDraft from 'html-to-draftjs'
 import Swal from 'sweetalert2'
 import { useEffect, useState } from 'react'
+import { useVisible } from 'common/hooks'
+import { TemplateSelector } from 'template/components/TemplateSelector/TemplateSelector'
 
 const handleAddQuestion = (push: (data: WithCuid<Question>) => void) => () =>
 	push({
@@ -35,7 +36,7 @@ const handleAddQuestion = (push: (data: WithCuid<Question>) => void) => () =>
 
 export function AnamnesisForm() {
 	const {
-		values: { questions, template, ...a },
+		values: { questions, template },
 		errors,
 		touched,
 		setFieldValue,
@@ -49,23 +50,16 @@ export function AnamnesisForm() {
 		EditorState.createEmpty(),
 	)
 
+	const modalTemplates = useVisible()
+
 	const patients = usePatients({
 		page: 1,
 		size: 9999,
 	})
 
-	const templates = useTemplates({
-		page: 1,
-		size: 9999,
-	})
-
-	useEffect(() => {
-		if (template) {
-			handleTemplateChange(template)
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [template])
+	const handleTemplateSelect = () => {
+		modalTemplates.show()
+	}
 
 	const handleTemplateChange = async ({ html }: Template) => {
 		try {
@@ -78,6 +72,7 @@ export function AnamnesisForm() {
 			const newEditorState = EditorState.createWithContent(contentState)
 			setEditorState(newEditorState)
 			setFieldValue('text', html)
+			modalTemplates.hide()
 		} catch (error) {
 			console.error(error)
 			return Swal.fire({
@@ -90,6 +85,14 @@ export function AnamnesisForm() {
 
 		return undefined
 	}
+
+	useEffect(() => {
+		if (template) {
+			handleTemplateChange(template)
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [template])
 
 	return (
 		<Stack spacing={2}>
@@ -185,28 +188,25 @@ export function AnamnesisForm() {
 						)}
 					/>
 				</Grid>
-				<Grid item xs={6}>
-					<Field
-						fullWidth
-						name="template"
-						component={Autocomplete}
-						options={templates.data?.result ?? []}
-						getOptionLabel={(option: Template) => option.title}
-						renderInput={(params: AutocompleteRenderInputParams) => (
-							<MTextField
-								{...params}
-								name="template-search"
-								error={touched.template && !!errors.template}
-								helperText={errors.template}
-								label="Template"
-								variant="outlined"
-							/>
-						)}
-					/>
+				<Grid item xs={6} sx={{ textAlign: 'right' }}>
+					<Button
+						onClick={handleTemplateSelect}
+						variant="contained"
+						size="large"
+						color="secondary"
+					>
+						Selecionar Modelo
+					</Button>
 				</Grid>
 			</Grid>
 			<Editor name="text" editorState={editorState} />
-			<LoadingOverlay show={templates.isLoading || patients.isLoading} />
+			<LoadingOverlay show={patients.isLoading} />
+			<TemplateSelector
+				type={TemplateType.ANAMNESIS}
+				visible={modalTemplates.visible}
+				onClose={modalTemplates.hide}
+				onSelect={handleTemplateChange}
+			/>
 		</Stack>
 	)
 }

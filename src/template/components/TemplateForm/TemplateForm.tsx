@@ -6,13 +6,17 @@ import {
 	CardContent,
 	Typography,
 	useTheme,
+	TextField as MTextField,
+	AutocompleteRenderInputParams,
+	Grid,
+	MenuItem,
 } from '@mui/material'
 import { InputFile } from 'common/components'
 import DOMPurify from 'dompurify'
 import { convertToHTML } from 'draft-convert'
 import { ContentState, EditorState } from 'draft-js'
 import { Field, Formik } from 'formik'
-import { TextField } from 'formik-mui'
+import { TextField, Autocomplete, Select } from 'formik-mui'
 import htmlToDraft from 'html-to-draftjs'
 import { ReactElement, useLayoutEffect, useState } from 'react'
 import Swal from 'sweetalert2'
@@ -20,11 +24,16 @@ import { TemplateFormProps } from 'template/components/TemplateForm/TemplateForm
 import { CreateTemplateDto, UpdateTemplateDto } from 'template/schemas'
 import { usePdfToHtml } from 'template/mutations'
 import { Editor } from 'react-draft-wysiwyg'
+import { useSpecialties } from 'specialty/queries'
+import { Specialty } from 'specialty'
+import { TemplateType } from 'template/types'
+import { translateTemplateType } from 'template/utils'
 
 export function TemplateForm<
 	T extends CreateTemplateDto | Partial<UpdateTemplateDto> | UpdateTemplateDto,
 >({ onSubmit, schema, initialValues }: TemplateFormProps<T>): ReactElement {
 	const pdfToHtml = usePdfToHtml()
+	const specialties = useSpecialties({ page: 1, size: 9999 })
 	const theme = useTheme()
 
 	const [editorState, setEditorState] = useState<EditorState>(() =>
@@ -117,29 +126,77 @@ export function TemplateForm<
 							justifyContent: 'space-between',
 						}}
 					>
-						<Field
-							component={TextField}
-							name="title"
-							label="Título"
-							sx={{ width: '300px' }}
-						/>
-						<Stack direction="row" spacing={2}>
-							<InputFile
-								accept="application/pdf"
-								onChange={files => {
-									void handleFileChange(files)
-								}}
-							/>
-							<LoadingButton
-								size="large"
-								variant="contained"
-								color="primary"
-								loading={isSubmitting}
-								onClick={() => handleSubmit()}
+						<Grid container spacing={2}>
+							<Grid item xs={4}>
+								<Field
+									fullWidth
+									component={TextField}
+									name="title"
+									label="Título"
+								/>
+							</Grid>
+							<Grid
+								item
+								xs={4}
+								sx={{ '& .MuiFormControl-root': { width: '100%' } }}
 							>
-								SALVAR
-							</LoadingButton>
-						</Stack>
+								<Field
+									component={Select}
+									name="type"
+									label="Tipo"
+									sx={{ width: '100%' }}
+									style={{ width: '100%' }}
+								>
+									{Object.keys(TemplateType).map(key => (
+										<MenuItem key={key} value={key}>
+											{translateTemplateType(TemplateType[key as TemplateType])}
+										</MenuItem>
+									))}
+								</Field>
+							</Grid>
+							<Grid item xs={4}>
+								<Field
+									fullWidth
+									name="specialty"
+									component={Autocomplete}
+									options={specialties.data?.result ?? []}
+									getOptionLabel={(option: Specialty) => option.name}
+									renderInput={(params: AutocompleteRenderInputParams) => (
+										<MTextField
+											{...params}
+											name="template-search"
+											error={touched.specialty && !!errors.specialty}
+											helperText={errors.specialty as string}
+											label="Especialidade"
+											variant="outlined"
+										/>
+									)}
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<Stack
+									direction="row"
+									spacing={2}
+									sx={{ justifyContent: 'flex-end', width: '100%' }}
+								>
+									<InputFile
+										accept="application/pdf"
+										onChange={files => {
+											void handleFileChange(files)
+										}}
+									/>
+									<LoadingButton
+										size="large"
+										variant="contained"
+										color="primary"
+										loading={isSubmitting}
+										onClick={() => handleSubmit()}
+									>
+										SALVAR
+									</LoadingButton>
+								</Stack>
+							</Grid>
+						</Grid>
 					</Box>
 					<Card
 						sx={{

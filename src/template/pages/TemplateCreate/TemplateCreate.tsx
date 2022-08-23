@@ -22,8 +22,16 @@ export function TemplateCreate(): ReactElement {
 		},
 	})
 
-	const handleFormSubmit = async (values: CreateTemplateDto) => {
-		await createTemplate.mutateAsync(values).catch(console.error)
+	const handleFormSubmit = async ({
+		specialty,
+		...values
+	}: CreateTemplateDto) => {
+		await createTemplate
+			.mutateAsync({
+				...values,
+				specialtyId: specialty.id,
+			})
+			.catch(console.error)
 	}
 
 	return (
@@ -48,6 +56,10 @@ export function TemplateCreate(): ReactElement {
 							initialValues={{
 								title: '',
 								html: '',
+								// @ts-expect-error null
+								type: null,
+								// @ts-expect-error null
+								specialty: null,
 							}}
 						/>
 					</CardContent>

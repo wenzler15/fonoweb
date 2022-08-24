@@ -4,12 +4,15 @@ import { ReactElement } from 'react'
 import { CreateTemplateDto, CreateTemplateSchema } from 'template/schemas'
 import Swal from 'sweetalert2'
 import { useCreateTemplate } from 'template/mutations'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { TemplateForm } from 'template/components/TemplateForm/TemplateForm'
 import { Back, FloatingWhatsAppButton } from 'common/components'
 
 export function TemplateCreate(): ReactElement {
 	const theme = useTheme()
+  const [searchParams] = useSearchParams();
+  const specialty = searchParams.get('specialty');
+
 	const navigate = useNavigate()
 	const createTemplate = useCreateTemplate({
 		onSuccess: () => {
@@ -59,7 +62,7 @@ export function TemplateCreate(): ReactElement {
 								// @ts-expect-error null
 								type: null,
 								// @ts-expect-error null
-								specialty: null,
+								specialty: specialty,
 							}}
 						/>
 					</CardContent>

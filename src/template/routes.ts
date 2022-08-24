@@ -1,4 +1,4 @@
-import { TemplateCreate, TemplateEdit, TemplateList } from 'template/pages'
+import { TemplateCreate, TemplateEdit, TemplateList, TemplateAvaliableList } from 'template/pages'
 
 export const TEMPLATE_ROUTES = [
 	{
@@ -16,4 +16,9 @@ export const TEMPLATE_ROUTES = [
 		path: '/templates/:id',
 		element: TemplateEdit,
 	},
+  {
+    auth: true,
+		path: '/templates/:type/avaliable',
+		element: TemplateAvaliableList,
+  }
 ]

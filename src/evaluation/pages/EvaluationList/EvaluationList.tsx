@@ -1,18 +1,12 @@
 import { NavBar } from 'components/navBar'
-import { ReactElement, useMemo, useState } from 'react'
-import { FloatingWhatsAppButton, LoadingOverlay, Table } from 'common/components'
-import { useNavigate } from 'react-router-dom'
-import { ColumnDef } from '@tanstack/react-table'
-import { usePatients } from 'patient/queries'
+import { ReactElement, useState } from 'react'
+import { FloatingWhatsAppButton } from 'common/components'
+import { Link, useNavigate } from 'react-router-dom'
 import { Pagination } from 'common/types'
-import { useTheme, Fab, Box, Typography } from '@mui/material'
-import { Add } from '@mui/icons-material'
-import { UserWithPatient } from 'user/types'
-import { PatientListActions } from 'patient/pages/PatientList/PatientListActions'
+import { useTheme } from '@mui/material'
 import arrowIndicatorIcon from 'assets/arrow-right-purple.png'
 import downloadIcon from 'assets/arrow-down-circle.png'
-import {  DownloadIcon, ArrowIndicatorIcon, Container } from './styles'
-import { fetchEvaluations } from 'evaluation/requests'
+import {  Container } from './styles'
 import { useEvaluations } from 'evaluation/queries'
 
 export function EvaluationList(): ReactElement {
@@ -25,7 +19,6 @@ export function EvaluationList(): ReactElement {
 	const navigate = useNavigate()
 	const evaluations = useEvaluations({ ...pagination, page: pagination.page + 1 })
 
-
 	return (
 		<>
 			<Container>
@@ -35,10 +28,10 @@ export function EvaluationList(): ReactElement {
             <div>
               <h1>Avaliações</h1>
               <span>Avaliações personalizadas</span>
-              <a href="/evaluationmodels">
+              <Link to='/templates/evaluation/avaliable'>
                 Buscar modelos de avaliações disponiveis
                 <img src={arrowIndicatorIcon} />
-              </a>
+              </Link>
             </div>
 
             <button type="button">Exportar</button>

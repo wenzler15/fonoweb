@@ -33,7 +33,7 @@ export function PatientListActions({
 				<MenuItem
 					onClick={() => navigate(`/evaluations/create?patient=${patient.id}`)}
 				>
-					Nova Availiação
+					Nova Avaliação
 				</MenuItem>
 			</Menu>
 		</>

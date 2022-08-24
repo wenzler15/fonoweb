@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { Pagination } from 'common/types'
 import arrowIndicatorIcon from 'assets/arrow-right-purple.png'
 import downloadIcon from 'assets/arrow-down-circle.png'
-import {  Container } from './styles'
+import { Container } from './styles'
 import { useAnamnesis } from 'anamnesis/queries'
+import { Link } from "react-router-dom";
 
 export function AnamnesisList(): ReactElement {
 	const [pagination, setPagination] = useState<Required<Pagination>>({
@@ -25,10 +26,10 @@ export function AnamnesisList(): ReactElement {
           <div className="info-top">
             <div>
               <h1>Anamnesis</h1>
-              <a href="/evaluationmodels">
+              <Link to='/templates/anamnesis/avaliable'>
                 Buscar modelos de avaliações disponiveis
                 <img src={arrowIndicatorIcon} />
-              </a>
+              </Link>
             </div>
 
             <button type="button">Exportar</button>

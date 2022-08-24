@@ -1,6 +1,4 @@
-import { MoreVert } from '@mui/icons-material'
-import { IconButton, Menu, MenuItem } from '@mui/material'
-import { useState, MouseEvent } from 'react'
+import { Button, Stack } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { UserWithPatient } from 'user/types'
 
@@ -10,32 +8,39 @@ export function PatientListActions({
 	original: UserWithPatient
 }) {
 	const navigate = useNavigate()
-	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-	const open = Boolean(anchorEl)
-	const handleClick = (event: MouseEvent<HTMLElement>) => {
-		setAnchorEl(event.currentTarget)
-	}
-	const handleClose = () => {
-		setAnchorEl(null)
-	}
 
 	return (
-		<>
-			<IconButton onClick={handleClick} size="small">
-				<MoreVert />
-			</IconButton>
-			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-				<MenuItem
-					onClick={() => navigate(`/anamnesis/create?patient=${patient.id}`)}
-				>
-					Nova Anamnese
-				</MenuItem>
-				<MenuItem
-					onClick={() => navigate(`/evaluations/create?patient=${patient.id}`)}
-				>
-					Nova Avaliação
-				</MenuItem>
-			</Menu>
-		</>
+      <Stack
+        spacing={2}
+        justifyContent="flex-end"
+        direction={{ xs: 'column', sm: 'row' }}
+        width={400}
+      >
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          sx={{ borderRadius: 0 }}
+          onClick={() => navigate(`/anamnesis/create?patient=${patient.id}`)}
+        >
+          Nova Anamnese
+        </Button>
+        <Button
+           variant="contained"
+           size="small"
+           color="secondary"
+           sx={{ borderRadius: 0 }}
+        >
+          Nova Avaliação
+        </Button>
+        <Button
+           variant="contained"
+           size="small"
+           color="inherit"
+           sx={{ borderRadius: 0 }}
+        >
+          Nova Consulta
+        </Button>
+      </Stack>
 	)
 }

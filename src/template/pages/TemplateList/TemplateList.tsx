@@ -1,5 +1,5 @@
 import { NavBar } from 'components/navBar'
-import { ReactElement, useEffect, useMemo, useState, MouseEvent } from 'react'
+import { ReactElement, useEffect, useMemo, useState, ComponentType } from 'react'
 import { FloatingWhatsAppButton, LoadingOverlay } from 'common/components'
 import { useQueryClient } from '@tanstack/react-query'
 import { Container } from './TemplateList.styles'

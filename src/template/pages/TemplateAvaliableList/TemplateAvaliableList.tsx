@@ -22,7 +22,7 @@ import {
 	IconButton,
 	Modal,
 } from '@mui/material'
-import { Template, TemplateType, TemplateWithSpecialty } from 'template/types'
+import { TemplateType, TemplateWithSpecialty } from 'template/types'
 import { useSpecialties } from 'specialty/queries'
 import { Close } from '@mui/icons-material'
 import { useVisible } from 'common/hooks'

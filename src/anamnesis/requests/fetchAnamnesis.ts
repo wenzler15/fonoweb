@@ -5,8 +5,15 @@ import { Anamnesis } from 'anamnesis/types'
 export const fetchAnamnesis = ({
 	size = 10,
 	page,
-}: Pagination): Promise<PaginatedResponse<Anamnesis>> =>
+	...filters
+}: Pagination & { specialtyId?: string }): Promise<
+  PaginatedResponse<Anamnesis
+>> =>
 	client('anamnesis', {
 		method: 'get',
-		searchParams: { size, page },
+		searchParams: {
+			size,
+			page,
+			...(filters.specialtyId && { specialtyId: filters.specialtyId }),
+		},
 	}).json()

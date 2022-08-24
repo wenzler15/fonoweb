@@ -4,7 +4,7 @@ import { fetchAnamnesis } from 'anamnesis/requests'
 import { Anamnesis } from 'anamnesis/types'
 
 export function useAnamnesis(
-	pagination: Pagination,
+	pagination: Pagination & { specialtyId?: string },
 ): UseQueryResult<PaginatedResponse<Anamnesis>> {
 	return useQuery(
 		['fetchAnamnesis', pagination],

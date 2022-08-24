@@ -27,6 +27,7 @@ export const ButtonContent = styled('div')(({ theme }) => ({
 
 export const Label = styled('label')(({ theme }) => ({
   fontWeight: 700,
+  fontSize: '12px',
   color: '#333',
   textTransform: 'uppercase',
   position: 'relative',

@@ -167,7 +167,7 @@ export function DoctorList(): ReactElement {
 		size: 10,
 	})
 	const [userBeingActvated, setUserBeingActvated] = useState<number>()
-	const doctors = useDoctors({ ...pagination, page: pagination.page + 1 })
+	const doctors = useDoctors({ ...pagination, page: pagination.page + 1 }) || []
 	const activateDoctor = useActivateDoctor({
 		onMutate(doctorId: number) {
 			setUserBeingActvated(doctorId)
@@ -204,7 +204,7 @@ export function DoctorList(): ReactElement {
 					doctor.isActive ? 'Sim' : 'Não',
 			},
 			{
-				header: '',
+				header: 'CRFA',
 				id: 'id',
 				// eslint-disable-next-line react/no-unstable-nested-components
 				cell: (): ReactElement => (
@@ -224,9 +224,9 @@ export function DoctorList(): ReactElement {
 			<NavBar />
 			<Content>
 				<Table
-					data={doctors.data?.data.result ?? []}
+					data={doctors.data?.result ?? []}
 					columns={columns}
-					count={doctors.data?.data.total ?? 0}
+					count={doctors.data?.total ?? 0}
 					onPaginationChange={setPagination}
 					// eslint-disable-next-line react/no-unstable-nested-components
 					actions={(doctor: Doctor): ReactElement => (

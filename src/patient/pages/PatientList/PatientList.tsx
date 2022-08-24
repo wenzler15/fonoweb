@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { ColumnDef } from '@tanstack/react-table'
 import { usePatients } from 'patient/queries'
 import { Pagination } from 'common/types'
-import { useTheme, Fab, Box, Typography } from '@mui/material'
-import { Add } from '@mui/icons-material'
+import { useTheme, Fab, Box, Typography, Grid, Button } from '@mui/material'
 import { UserWithPatient } from 'user/types'
 import { PatientListActions } from 'patient/pages/PatientList/PatientListActions'
 
@@ -42,14 +41,30 @@ export function PatientList(): ReactElement {
 		<>
 			<NavBar />
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
-				<Typography
-					variant="h4"
-					component="h1"
-					color="secondary"
-					sx={{ mb: theme.spacing(4) }}
-				>
-					Pacientes
-				</Typography>
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography
+              variant="h4"
+              component="h1"
+              color="secondary"
+              sx={{ mb: theme.spacing(4) }}
+            >
+              Pacientes
+            </Typography>
+          </Grid>
+          <Grid item xs={2} sx={{ textAlign: 'right'}}>
+            <Button
+            sx={{ borderRadius: 0 }}
+              variant="contained"
+              size="large"
+              color="primary"
+              onClick={() => navigate('/patients/create')}
+            >
+              Novo Paciente
+            </Button>
+          </Grid>
+        </Grid>
+
 				<Table<UserWithPatient>
 					data={patients.data?.result ?? []}
 					columns={columns}
@@ -61,33 +76,6 @@ export function PatientList(): ReactElement {
 					}}
 				/>
 			</Box>
-			<Fab
-				onClick={() => navigate('/patients/create')}
-				variant="extended"
-				size="large"
-				color="primary"
-				sx={{
-					position: 'fixed',
-					bottom: theme.spacing(4),
-					right: theme.spacing(4),
-				}}
-			>
-				<Add sx={{ mr: 1 }} />
-				Novo Paciente
-			</Fab>
-			<Fab
-				onClick={() => navigate('/evaluationlist')}
-				variant="extended"
-				size="large"
-				color="secondary"
-				sx={{
-					position: 'fixed',
-					bottom: theme.spacing(4),
-					right: 250,
-				}}
-			>
-				Anamneses
-			</Fab>
 			<LoadingOverlay show={patients.isLoading} />
       <FloatingWhatsAppButton />
 		</>

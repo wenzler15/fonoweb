@@ -1,3 +1,7 @@
+import { Patient } from "patient"
+import { Specialty } from "specialty"
+import { User } from "user/types"
+
 export type Evaluation = {
 	id: string
 	numericId: number
@@ -7,4 +11,8 @@ export type Evaluation = {
 	createdAt: Date
 	updatedAt: Date
 	deletedAt: Date | null
+  patient: Patient & {
+    user: User
+  }
+  specialty: Specialty
 }

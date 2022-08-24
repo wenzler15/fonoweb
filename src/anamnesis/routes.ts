@@ -1,10 +1,10 @@
-import { AnamnesisCreate } from 'anamnesis/pages'
+import { AnamnesisCreate, AnamnesisList } from 'anamnesis/pages'
 
 export const ANAMNESIS_ROUTES = [
 	{
 		auth: true,
 		path: '/anamnesis',
-		element: null,
+		element: AnamnesisList,
 	},
 	{
 		auth: true,

@@ -91,15 +91,6 @@ function AppRoutes() {
 			/>
 
 			<Route
-				path="/anamnesis"
-				element={
-					<RequireAuth>
-						<Anamnesis />
-					</RequireAuth>
-				}
-			/>
-
-			<Route
 				path="/courses"
 				element={
 					<RequireAuth>

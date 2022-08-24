@@ -43,7 +43,7 @@ export function NavBar(): ReactElement {
 						Meus Pacientes
 					</TextNavBar>
           <TextNavBar onClick={() => navigate("/anamnesis")}>Anamneses</TextNavBar>
-          <TextNavBar onClick={(): void => navigate('/evaluationlist')}>
+          <TextNavBar onClick={(): void => navigate('/evaluations')}>
 						Avaliações
 					</TextNavBar>
           <TextNavBar onClick={(): void => navigate('/templates')}>

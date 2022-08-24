@@ -85,7 +85,7 @@ export function EvaluationList(): ReactElement {
               <CustomButton
                 onClick={() => navigate("/templates/evaluation/avaliable")}
               >
-                Buscar modelos de avaliações disponiveis
+                Buscar modelos de avaliações disponíveis
                 <CustomArrowRight />
               </CustomButton>
             </Grid>

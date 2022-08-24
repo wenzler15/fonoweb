@@ -78,7 +78,7 @@ export function AnamnesisList(): ReactElement {
               <CustomButton
                 onClick={() => navigate("/templates/anamnesis/avaliable")}
               >
-                Buscar modelos de anamneses disponiveis
+                Buscar modelos de anamneses disponíveis
                 <CustomArrowRight />
               </CustomButton>
             </Grid>

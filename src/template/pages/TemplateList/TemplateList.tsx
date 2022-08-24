@@ -43,6 +43,8 @@ import {
 	Stack,
 	Select,
 	InputLabel,
+  Grid,
+  Button,
 } from '@mui/material'
 import { Add, MoreVert, Close } from '@mui/icons-material'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
@@ -235,19 +237,10 @@ function TemplateActionsComponent({
 			})
 		},
 	})
-	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 	const modal = useVisible()
-	const open = Boolean(anchorEl)
-	const handleClick = (event: MouseEvent<HTMLElement>) => {
-		setAnchorEl(event.currentTarget)
-	}
-	const handleClose = () => {
-		setAnchorEl(null)
-	}
 
 	const handleOpenTemplate = () => {
 		modal.show()
-		setAnchorEl(null)
 	}
 
 	const handleToggleTemplateActivation = () => {
@@ -256,27 +249,49 @@ function TemplateActionsComponent({
 			isActive: !template.isActive,
 			specialtyId: template.specialtyId,
 		})
-		setAnchorEl(null)
 	}
 
 	const handleEdit = () => {
-		setAnchorEl(null)
 		navigate(`/templates/${template.id}`)
 	}
 
-	return (
-		<>
-			<IconButton onClick={handleClick}>
-				<MoreVert />
-			</IconButton>
-			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-				<MenuItem onClick={handleOpenTemplate}>Abrir</MenuItem>
-				<MenuItem onClick={handleEdit}>Editar</MenuItem>
-				<MenuItem onClick={handleToggleTemplateActivation}>
-					{template.isActive ? 'Desativar' : 'Ativar'}
-				</MenuItem>
-			</Menu>
-			<Modal
+  return (
+    <>
+      <Stack
+        spacing={2}
+        justifyContent="flex-end"
+        direction={{ xs: 'column', sm: 'row' }}
+        width={400}
+      >
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          sx={{ borderRadius: 0 }}
+          onClick={handleOpenTemplate}
+        >
+          Visualizar
+        </Button>
+        <Button
+           variant="contained"
+           size="small"
+           color="secondary"
+           sx={{ borderRadius: 0 }}
+           onClick={handleEdit}
+        >
+          Editar
+        </Button>
+        <Button
+           variant="contained"
+           size="small"
+           color="inherit"
+           sx={{ borderRadius: 0 }}
+           onClick={handleToggleTemplateActivation}
+        >
+          {template.isActive ? 'Desativar' : 'Ativar'}
+        </Button>
+      </Stack>
+      <Modal
 				open={modal.visible}
 				onClose={modal.hide}
 				closeAfterTransition
@@ -326,8 +341,8 @@ function TemplateActionsComponent({
 				</Fade>
 			</Modal>
 			<LoadingOverlay show={updateTemplate.isLoading} />
-		</>
-	)
+    </>
+  )
 }
 
 export function TemplateList(): ReactElement {
@@ -382,14 +397,30 @@ export function TemplateList(): ReactElement {
 		<Container>
 			<NavBar />
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
-				<Typography
-					variant="h4"
-					component="h1"
-					color="secondary"
-					sx={{ mb: theme.spacing(4) }}
-				>
-					Modelos
-				</Typography>
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography
+              variant="h4"
+              component="h1"
+              color="secondary"
+              sx={{ mb: theme.spacing(4) }}
+            >
+              Modelos
+            </Typography>
+          </Grid>
+          <Grid item xs={2} sx={{ textAlign: 'right'}}>
+            <Button
+            sx={{ borderRadius: 0 }}
+              variant="contained"
+              size="large"
+              color="secondary"
+              onClick={() => navigate('/templates/create')}
+            >
+              Novo Modelo
+            </Button>
+          </Grid>
+        </Grid>
+
 				<Paper
 					elevation={3}
 					sx={{ p: t => t.spacing(2), mb: t => t.spacing(2) }}
@@ -439,20 +470,6 @@ export function TemplateList(): ReactElement {
 					actionsComponent={TemplateActionsComponent}
 				/>
 			</Box>
-			<Fab
-				onClick={() => navigate('/templates/create')}
-				variant="extended"
-				size="large"
-				color="primary"
-				sx={{
-					position: 'absolute',
-					bottom: theme.spacing(4),
-					right: theme.spacing(4),
-				}}
-			>
-				<Add sx={{ mr: 1 }} />
-				Novo Modelo
-			</Fab>
 			<LoadingOverlay show={templates.isLoading} />
       <FloatingWhatsAppButton />
 		</Container>

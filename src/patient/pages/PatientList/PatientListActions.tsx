@@ -30,6 +30,7 @@ export function PatientListActions({
            size="small"
            color="secondary"
            sx={{ borderRadius: 0 }}
+           onClick={() => navigate(`/evaluations/create?patient=${patient.id}`)}
         >
           Nova Avaliação
         </Button>

@@ -22,12 +22,12 @@ import {
 	IconButton,
 	Modal,
 } from '@mui/material'
-import { Template, TemplateType } from 'template/types'
+import { Template, TemplateType, TemplateWithSpecialty } from 'template/types'
 import { useSpecialties } from 'specialty/queries'
 import { Close } from '@mui/icons-material'
 import { useVisible } from 'common/hooks'
 
-function Row({ template }: { template: Template }): ReactElement {
+function Row({ template }: { template: TemplateWithSpecialty }): ReactElement {
 	const modal = useVisible()
 
 	return (
@@ -35,6 +35,9 @@ function Row({ template }: { template: Template }): ReactElement {
 			<Grid item xs={10}>
 				<Typography variant="h5" component="h2">
 					{template.title}
+				</Typography>
+				<Typography variant="body1" component="p">
+					{template.specialty.name}
 				</Typography>
 			</Grid>
 			<Grid item xs={2}>
@@ -44,7 +47,12 @@ function Row({ template }: { template: Template }): ReactElement {
 					alignItems="flex-end"
 					direction="row"
 				>
-					<Button sx={{ borderRadius: 0 }} variant="contained" size="medium">
+					<Button
+						sx={{ borderRadius: 0 }}
+						variant="contained"
+						size="medium"
+						onClick={modal.show}
+					>
 						Visualizar
 					</Button>
 					<Button
@@ -165,9 +173,9 @@ export function TemplateAvaliableList(): ReactElement {
 								label="Especialidade"
 								onChange={({ target }) => setSpecialty(target.value as string)}
 							>
-								{specialties.data?.result.map(specialty => (
-									<MenuItem key={specialty.id} value={specialty.id}>
-										{specialty.name}
+								{specialties.data?.result.map(s => (
+									<MenuItem key={s.id} value={s.id}>
+										{s.name}
 									</MenuItem>
 								))}
 							</Select>

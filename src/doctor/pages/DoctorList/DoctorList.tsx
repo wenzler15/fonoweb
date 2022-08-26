@@ -9,13 +9,11 @@ import {
 	getPaginationRowModel,
 	ColumnDef,
 	flexRender,
-	OnChangeFn,
 	PaginationState,
-	CellProps,
 } from '@tanstack/react-table'
 import { Doctor } from 'doctor/types'
 import { useDoctors } from 'doctor/queries'
-import { Pagination } from 'anamnesis/types'
+import { Pagination } from 'common/types'
 import {
 	Paper,
 	TableContainer,
@@ -34,6 +32,7 @@ import { Download } from '@mui/icons-material'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
 import { useActivateDoctor } from 'doctor/mutations'
 import { FloatingWhatsAppButton } from 'common/components'
+import { UserWithDoctor } from 'user/types'
 // import TableHead from '@mui/material/TableHead'
 
 function Table<Data extends object>({
@@ -150,7 +149,6 @@ function Table<Data extends object>({
 								onRowsPerPageChange={(event): void =>
 									table.setPageSize(Number(event.target.value))
 								}
-								// @ts-expect-error aaa
 								ActionsComponent={TablePaginationActions}
 							/>
 						</TableRow>
@@ -166,10 +164,10 @@ export function DoctorList(): ReactElement {
 		page: 0,
 		size: 10,
 	})
-	const [userBeingActvated, setUserBeingActvated] = useState<number>()
-	const doctors = useDoctors({ ...pagination, page: pagination.page + 1 }) || []
+	const [userBeingActvated, setUserBeingActvated] = useState<string>()
+	const doctors = useDoctors({ ...pagination, page: pagination.page + 1 })
 	const activateDoctor = useActivateDoctor({
-		onMutate(doctorId: number) {
+		onMutate(doctorId: string) {
 			setUserBeingActvated(doctorId)
 		},
 		async onError() {
@@ -178,18 +176,20 @@ export function DoctorList(): ReactElement {
 				title: 'Não foi possivel ativar o usuário',
 			})
 		},
-		async onSettled() {
-			setUserBeingActvated(undefined)
-			await doctors.refetch()
+		async onSuccess() {
 			await Swal.fire({
 				icon: 'success',
 				title: 'Médico ativado com sucesso',
 			})
 		},
+		async onSettled() {
+			setUserBeingActvated(undefined)
+			await doctors.refetch()
+		},
 	})
 
 	const columns = useMemo(
-		(): ColumnDef<Doctor>[] => [
+		(): ColumnDef<UserWithDoctor>[] => [
 			{
 				header: 'Nome',
 				accessorKey: 'name',
@@ -200,8 +200,8 @@ export function DoctorList(): ReactElement {
 			},
 			{
 				header: 'Ativo',
-				accessorFn: (doctor: Doctor): string =>
-					doctor.isActive ? 'Sim' : 'Não',
+				accessorFn: (user: UserWithDoctor): string =>
+					user.isActive ? 'Sim' : 'Não',
 			},
 			{
 				header: 'CRFA',
@@ -223,30 +223,29 @@ export function DoctorList(): ReactElement {
 		<Container>
 			<NavBar />
 			<Content>
-				<Table
+				<Table<UserWithDoctor>
 					data={doctors.data?.result ?? []}
 					columns={columns}
 					count={doctors.data?.total ?? 0}
 					onPaginationChange={setPagination}
 					// eslint-disable-next-line react/no-unstable-nested-components
-					actions={(doctor: Doctor): ReactElement => (
+					actions={(u: UserWithDoctor): ReactElement => (
 						<LoadingButton
 							variant="contained"
 							color="primary"
 							size="small"
-							loading={userBeingActvated === doctor.id}
+							loading={userBeingActvated === u.id}
 							loadingIndicator="Enviando..."
-							disabled={doctor.isActive}
 							onClick={(): void => {
-								activateDoctor.mutateAsync(doctor.id).catch(console.error)
+								activateDoctor.mutate(u.doctorData.id)
 							}}
 						>
-							{!doctor.isActive ? 'Ativar Médico' : 'Médico Ativo'}
+							{!u.isActive ? 'Ativar Médico' : 'Médico Ativo'}
 						</LoadingButton>
 					)}
 				/>
 			</Content>
-      <FloatingWhatsAppButton />
+			<FloatingWhatsAppButton />
 		</Container>
 	)
 }

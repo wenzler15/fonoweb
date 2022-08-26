@@ -4,12 +4,11 @@ import {
 	Grid,
 	AutocompleteRenderInputParams,
 	TextField as MTextField,
-  Button,
+	Button,
 } from '@mui/material'
 import { Autocomplete } from 'formik-mui'
 import { Field, useFormikContext } from 'formik'
-import { WithCuid } from 'common/types'
-import { useTemplates } from 'template/queries'
+import { useTemplateDetail, useTemplates } from 'template/queries'
 import { usePatients } from 'patient/queries'
 import { UserWithPatient } from 'user/types'
 import { Template, TemplateType } from 'template'
@@ -17,8 +16,9 @@ import { ContentState, EditorState } from 'draft-js'
 import htmlToDraft from 'html-to-draftjs'
 import Swal from 'sweetalert2'
 import { useEffect, useState } from 'react'
-import {useVisible} from 'common/hooks'
-import {TemplateSelector} from 'template/components/TemplateSelector/TemplateSelector'
+import { useVisible } from 'common/hooks'
+import { TemplateSelector } from 'template/components/TemplateSelector/TemplateSelector'
+import { useSearchParams } from 'react-router-dom'
 
 export function EvaluationForm() {
 	const {
@@ -31,6 +31,7 @@ export function EvaluationForm() {
 		template: Template | null
 	}>()
 
+	const [searchParams] = useSearchParams()
 	const [editorState, setEditorState] = useState<EditorState>(() =>
 		EditorState.createEmpty(),
 	)
@@ -79,6 +80,13 @@ export function EvaluationForm() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [template])
 
+	useTemplateDetail(searchParams.get('template') as string, {
+		enabled: !!searchParams.get('template'),
+		onSuccess: ({ result }) => {
+			handleTemplateChange(result)
+		},
+	})
+
 	return (
 		<Stack spacing={2}>
 			<Grid container spacing={2}>
@@ -120,7 +128,6 @@ export function EvaluationForm() {
 				onClose={modalTemplates.hide}
 				onSelect={handleTemplateChange}
 			/>
-
 		</Stack>
 	)
 }

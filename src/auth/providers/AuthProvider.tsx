@@ -1,15 +1,9 @@
-import {
-	createContext,
-	PropsWithChildren,
-	ReactElement,
-	useEffect,
-} from 'react'
+import { createContext, PropsWithChildren, ReactElement } from 'react'
 import create from 'zustand'
 import createVanilla from 'zustand/vanilla'
 import { immer } from 'zustand/middleware/immer'
 import { persist } from 'zustand/middleware'
 import { User } from 'user/types'
-import { useNavigate } from 'react-router-dom'
 
 // @ts-expect-error context don't need initial state
 export const AuthContext = createContext<AuthStoreState>({})
@@ -54,15 +48,6 @@ const useAuthStore = create(AuthStore)
 
 export function AuthProvider({ children }: PropsWithChildren): ReactElement {
 	const store = useAuthStore()
-	const navigate = useNavigate()
-
-	useEffect(() => {
-		if (store.token) {
-			navigate('/mypatient')
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
 
 	return <AuthContext.Provider value={store}>{children}</AuthContext.Provider>
 }

@@ -55,6 +55,7 @@
 		"@mui/lab": "5.0.0-alpha.94",
 		"@mui/material": "^5.10.0",
 		"@mui/styled-engine-sc": "^5.8.0",
+		"@mui/system": "^5.10.2",
 		"@nestjs-modules/mailer": "^1.8.1",
 		"@tanstack/react-query": "^4.1.0",
 		"@tanstack/react-table": "^8.5.11",

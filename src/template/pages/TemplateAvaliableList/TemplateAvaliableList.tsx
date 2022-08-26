@@ -63,7 +63,7 @@ function Row({ template }: { template: TemplateWithSpecialty }): ReactElement {
 						type="button"
 					>
 						<Link
-							to={`/templates/create?specialty=${template.specialtyId}`}
+							to={`/anamnesis/create?specialty=${template.specialtyId}`}
 							style={{ color: 'white', textDecoration: 'none' }}
 						>
 							Usar

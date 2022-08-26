@@ -22,11 +22,19 @@ import { AuthenticateRequestParams } from 'auth/requests'
 import { AuthenticateSchema } from 'auth/schemas'
 import { LoadingButton } from '@mui/lab'
 import { Stack } from '@mui/material'
+import { useEffect } from 'react'
 
 function Login() {
 	const navigate = useNavigate()
 	const auth = useAuth()
 	const authenticate = useAuthenticate()
+
+	useEffect(() => {
+		if (auth.token && auth.user) {
+			navigate('/patients')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const handleFormSubmit = (data: AuthenticateRequestParams) => {
 		authenticate

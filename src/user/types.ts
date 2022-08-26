@@ -1,3 +1,4 @@
+import { DoctorWithSpecialty } from 'doctor/types'
 import { Patient } from 'patient/types'
 import { Merge } from 'type-fest'
 
@@ -16,6 +17,7 @@ export type User = {
 	passwordResetToken: string | null
 	passwordResetExpires: Date | null
 	isAdmin: boolean
+	isActive: boolean
 	createdAt: Date
 	updatedAt: Date
 	deletedAt: Date | null
@@ -27,3 +29,4 @@ export enum UserType {
 }
 
 export type UserWithPatient = Merge<User, { patientData: Patient }>
+export type UserWithDoctor = Merge<User, { doctorData: DoctorWithSpecialty }>

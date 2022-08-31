@@ -128,7 +128,9 @@
 	"scripts": {
 		"start": "vite --port 3000",
 		"build": "vite build",
-		"serve": "vite preview"
+		"serve": "vite preview",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "yarn lint -- --fix"
 	},
 	"browserslist": {
 		"production": [

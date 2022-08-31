@@ -1,12 +1,12 @@
-import { api } from 'services'
-import { Response } from 'anamnesis/types'
+import { Response } from 'common/types'
+import { client } from 'common/client'
+import { UserWithDoctor } from 'user/types'
 
 export function activateDoctor(
-	doctorId: number,
-): Promise<Response<{ doctorId: number }>> {
-	return api.request({
+	doctorId: string,
+): Promise<Response<UserWithDoctor>> {
+	return client('doctors/activate', {
 		method: 'post',
-		url: '/users/doctors/activate',
-		data: { doctorId },
-	})
+		json: { doctorId },
+	}).json()
 }

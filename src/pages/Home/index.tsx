@@ -1,10 +1,21 @@
 import logo from 'assets/logo.png'
+import { useAuth } from 'auth/hooks/useAuth'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserType } from 'user/types'
 import { Container, LinearBackground } from './styles'
 
 function Home() {
 	const navigate = useNavigate()
+	const auth = useAuth()
+
+	useEffect(() => {
+		if (auth.token && auth.user) {
+			navigate('/patients')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
 	return (
 		<Container>
 			<LinearBackground />

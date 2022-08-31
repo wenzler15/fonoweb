@@ -7,7 +7,7 @@ import { CreateAnamnesisDto } from 'anamnesis/schemas'
 import { Back, FloatingWhatsAppButton } from 'common/components'
 import { NavBar } from 'components/navBar'
 import { Formik } from 'formik'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 export function AnamnesisCreate() {
@@ -40,56 +40,56 @@ export function AnamnesisCreate() {
 	}
 
 	return (
-    <>
-      <Formik<CreateAnamnesisDto>
-        initialValues={{
-          questions: [],
-          text: '',
-          // @ts-expect-error null
-          patient: null,
-        }}
-        onSubmit={handleFormSubmit}
-      >
-        {({ handleSubmit }) => (
-          <>
-            <NavBar />
-            <Box sx={{ p: t => t.spacing(4) }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography
-                  variant="h4"
-                  component="h1"
-                  color="secondary"
-                  sx={{ mb: t => t.spacing(2) }}
-                >
-                  Criar anamnese
-                  <Back />
-                </Typography>
-                <LoadingButton
-                  onClick={() => handleSubmit()}
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  loading={createAnamnesis.isLoading}
-                >
-                  SALVAR
-                </LoadingButton>
-              </Box>
-              <Card>
-                <CardContent sx={{ p: t => t.spacing(4) }}>
-                  <AnamnesisForm />
-                </CardContent>
-              </Card>
-            </Box>
-          </>
-        )}
-      </Formik>
-      <FloatingWhatsAppButton />
-    </>
+		<>
+			<Formik<CreateAnamnesisDto>
+				initialValues={{
+					questions: [],
+					text: '',
+					// @ts-expect-error null
+					patient: null,
+				}}
+				onSubmit={handleFormSubmit}
+			>
+				{({ handleSubmit }) => (
+					<>
+						<NavBar />
+						<Box sx={{ p: t => t.spacing(4) }}>
+							<Box
+								sx={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'space-between',
+								}}
+							>
+								<Typography
+									variant="h4"
+									component="h1"
+									color="secondary"
+									sx={{ mb: t => t.spacing(2) }}
+								>
+									Criar anamnese
+									<Back />
+								</Typography>
+								<LoadingButton
+									onClick={() => handleSubmit()}
+									variant="contained"
+									color="secondary"
+									size="large"
+									loading={createAnamnesis.isLoading}
+								>
+									SALVAR
+								</LoadingButton>
+							</Box>
+							<Card>
+								<CardContent sx={{ p: t => t.spacing(4) }}>
+									<AnamnesisForm />
+								</CardContent>
+							</Card>
+						</Box>
+					</>
+				)}
+			</Formik>
+			<FloatingWhatsAppButton />
+		</>
 	)
 }

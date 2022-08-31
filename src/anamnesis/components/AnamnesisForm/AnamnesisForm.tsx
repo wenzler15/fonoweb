@@ -26,6 +26,8 @@ import Swal from 'sweetalert2'
 import { useEffect, useState } from 'react'
 import { useVisible } from 'common/hooks'
 import { TemplateSelector } from 'template/components/TemplateSelector/TemplateSelector'
+import { useTemplateDetail } from 'template/queries'
+import { useSearchParams } from 'react-router-dom'
 
 const handleAddQuestion = (push: (data: WithCuid<Question>) => void) => () =>
 	push({
@@ -35,6 +37,7 @@ const handleAddQuestion = (push: (data: WithCuid<Question>) => void) => () =>
 	})
 
 export function AnamnesisForm() {
+	const [searchParams] = useSearchParams()
 	const {
 		values: { questions, template },
 		errors,
@@ -85,6 +88,13 @@ export function AnamnesisForm() {
 
 		return undefined
 	}
+
+	useTemplateDetail(searchParams.get('template') as string, {
+		enabled: !!searchParams.get('template'),
+		onSuccess: ({ result }) => {
+			handleTemplateChange(result)
+		},
+	})
 
 	useEffect(() => {
 		if (template) {

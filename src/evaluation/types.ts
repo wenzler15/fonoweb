@@ -1,6 +1,6 @@
-import { Patient } from "patient"
-import { Specialty } from "specialty"
-import { User } from "user/types"
+import { Patient } from 'patient'
+import { Specialty } from 'specialty'
+import { User } from 'user/types'
 
 export type Evaluation = {
 	id: string
@@ -15,4 +15,12 @@ export type Evaluation = {
     user: User
   }
   specialty: Specialty
+  questions?: Question[]
+}
+
+
+export type Question = {
+	question: string
+	answer: string
+  cuid: string
 }

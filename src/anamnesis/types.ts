@@ -1,12 +1,12 @@
-import { Doctor } from "doctor/types"
-import { Specialty } from "specialty"
+import { Doctor } from 'doctor/types'
+import { Specialty } from 'specialty'
 
 export type Anamnesis = {
 	id: string
 	numericId: number
 	patientId: string
 	doctorId: string
-	questions: Question[]
+	questions?: Question[]
 	text: string | null
 	createdAt: Date
 	updatedAt: Date
@@ -19,4 +19,5 @@ export type Anamnesis = {
 export type Question = {
 	question: string
 	answer: string
+  cuid: string
 }

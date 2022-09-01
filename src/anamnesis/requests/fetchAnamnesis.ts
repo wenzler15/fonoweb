@@ -6,7 +6,7 @@ export const fetchAnamnesis = ({
 	size = 10,
 	page,
 	...filters
-}: Pagination & { specialtyId?: string }): Promise<
+}: Pagination & { specialtyId?: string, patientId?: string }): Promise<
   PaginatedResponse<Anamnesis
 >> =>
 	client('anamnesis', {
@@ -15,5 +15,6 @@ export const fetchAnamnesis = ({
 			size,
 			page,
 			...(filters.specialtyId && { specialtyId: filters.specialtyId }),
+			...(filters.patientId && { patientId: filters.patientId }),
 		},
 	}).json()

@@ -4,7 +4,7 @@ import { fetchEvaluations } from 'evaluation/requests'
 import { Evaluation } from 'evaluation/types'
 
 export function useEvaluations(
-	pagination: Pagination & { specialtyId?: string },
+	pagination: Pagination & { specialtyId?: string, patientId?: string },
 ): UseQueryResult<PaginatedResponse<Evaluation>> {
 	return useQuery(
 		['fetchEvaluations', pagination],

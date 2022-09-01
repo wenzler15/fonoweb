@@ -60,7 +60,6 @@ export function PatientChartInfo({ type, data }: PatientChartInfoProps) {
               >
                 {question.question}
               </Typography>
-              <Chip label="23 de Dezembro" color="primary" size='small' />
             </Stack>
             <Typography
               variant="body1"

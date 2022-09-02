@@ -1,4 +1,5 @@
-import { Select, TextField, styled } from '@mui/material';
+import { styled } from '@mui/material';
+import { Select, TextField } from 'formik-mui';
 import InputMask from 'react-input-mask';
 
 export const TextFieldWrapper = styled(TextField)`

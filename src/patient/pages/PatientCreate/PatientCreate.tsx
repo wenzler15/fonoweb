@@ -37,7 +37,7 @@ export function PatientCreate() {
       <Formik<CreatePatientDto>
         initialValues={{
           name: '',
-          gender: 'feminino',
+          gender: '',
           birthday: '',
           email:'',
         }}

@@ -6,6 +6,7 @@ import { UserWithPatient } from 'user/types'
 export type CreateEvaluationDto = {
 	patient: UserWithPatient
 	text?: string
+	title: string
 }
 
 export const QuestionSchema: Yup.SchemaOf<Question> = Yup.object({
@@ -16,5 +17,6 @@ export const QuestionSchema: Yup.SchemaOf<Question> = Yup.object({
 export const CreateEvaluationSchema: Yup.SchemaOf<CreateEvaluationDto> =
 	Yup.object().shape({
 		text: Yup.string().trim(),
+		title: Yup.string().trim().required(),
 		patient: UserWithPatientSchema.nullable(),
 	})

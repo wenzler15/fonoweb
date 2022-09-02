@@ -6,7 +6,7 @@ import {
 	TextField as MTextField,
 	Button,
 } from '@mui/material'
-import { Autocomplete } from 'formik-mui'
+import { Autocomplete, TextField } from 'formik-mui'
 import { Field, useFormikContext } from 'formik'
 import { useTemplateDetail, useTemplates } from 'template/queries'
 import { usePatients } from 'patient/queries'
@@ -90,6 +90,24 @@ export function EvaluationForm() {
 	return (
 		<Stack spacing={2}>
 			<Grid container spacing={2}>
+        <Grid item xs={12} sx={{ textAlign: 'right' }}>
+					<Button
+						onClick={() => modalTemplates.show()}
+						variant="contained"
+						size="large"
+						color="secondary"
+					>
+						Selecionar Modelo
+					</Button>
+				</Grid>
+        <Grid item xs={6}>
+          <Field
+            fullWidth
+            component={TextField}
+            name="title"
+            label="Título"
+          />
+        </Grid>
 				<Grid item xs={6}>
 					<Field
 						fullWidth
@@ -108,16 +126,6 @@ export function EvaluationForm() {
 							/>
 						)}
 					/>
-				</Grid>
-				<Grid item xs={6} sx={{ textAlign: 'right' }}>
-					<Button
-						onClick={() => modalTemplates.show()}
-						variant="contained"
-						size="large"
-						color="secondary"
-					>
-						Selecionar Modelo
-					</Button>
 				</Grid>
 			</Grid>
 			<Editor name="text" editorState={editorState} />

@@ -44,6 +44,7 @@ export function EvaluationCreate() {
       <Formik<CreateEvaluationDto>
         initialValues={{
           text: '',
+          title: '',
           // @ts-expect-error null
           patient: null,
         }}

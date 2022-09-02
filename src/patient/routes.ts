@@ -1,10 +1,15 @@
-import { PatientList, PatientChart } from 'patient/pages'
+import { PatientList, PatientChart, PatientCreate } from 'patient/pages'
 
 export const PATIENT_ROUTES = [
 	{
 		auth: true,
 		path: '/patients',
 		element: PatientList,
+	},
+  {
+		auth: true,
+		path: '/patients/create',
+		element: PatientCreate,
 	},
   {
 		auth: true,

@@ -3,7 +3,7 @@ import { Patient } from 'patient/types'
 
 export type CreatePatientDto = {
 	name: string;
-  natalSex: string;
+  gender: string;
   birthday: string;
   email?:string;
 }

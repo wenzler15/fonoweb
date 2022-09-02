@@ -8,7 +8,7 @@ import { Field, useFormikContext } from 'formik'
 import { Label, LabelInfo, SelectWrapper, TextFieldWrapper } from './PatientForm.styles'
 import InputMask from 'react-input-mask';
 
-const NATAL_SEX = [
+const GENDERS = [
   {
     id: 'masculino',
     label: 'Masculino'
@@ -21,13 +21,13 @@ const NATAL_SEX = [
 
 export function PatientForm() {
 	const {
-    values: { natalSex },
+    values: { gender },
 		errors,
 		touched,
     setFieldValue,
 	} = useFormikContext<{
 		name: string
-    natalSex: string;
+    gender: string;
     email: string;
     birthday: string;
 	}>()
@@ -56,12 +56,12 @@ export function PatientForm() {
           <LabelInfo>Opcional</LabelInfo>
           <Field
 						fullWidth
-						name="natalSex"
-            value={natalSex}
+						name="gender"
+            value={gender}
 						component={SelectWrapper}
-            onChange={(event: ChangeEvent<HTMLSelectElement>) => setFieldValue('natal_sex', event.target.value)}
+            onChange={(event: ChangeEvent<HTMLSelectElement>) => setFieldValue('GENDERS', event.target.value)}
 					>
-            {NATAL_SEX.map((option) => (
+            {GENDERS.map((option) => (
               <MenuItem key={option.id} value={option.id}>
                 {option.label}
               </MenuItem>

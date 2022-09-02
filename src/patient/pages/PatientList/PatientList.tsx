@@ -8,6 +8,8 @@ import { Pagination } from 'common/types'
 import { useTheme, Box, Typography, Grid, Button } from '@mui/material'
 import { UserWithPatient } from 'user/types'
 import { PatientListActions } from 'patient/pages/PatientList/PatientListActions'
+import { CustomLink } from './PatientList.styles'
+
 
 export function PatientList(): ReactElement {
 	const [pagination, setPagination] = useState<Required<Pagination>>({
@@ -24,6 +26,14 @@ export function PatientList(): ReactElement {
 			{
 				header: 'Nome',
 				accessorKey: 'name',
+        // eslint-disable-next-line react/no-unstable-nested-components
+        cell: ({ row }) => (
+          <CustomLink
+            to={`/patients/${row.original.patientData.id}`}
+          >
+            {row.original.name}
+          </CustomLink>
+        ),
 			},
 			{
 				header: 'Data de nascimento',

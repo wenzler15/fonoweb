@@ -57,7 +57,7 @@ export function PatientChart(): ReactElement {
               sx={{ display: 'flex', alignItems: 'center' }}
             >
               <Avatar
-                alt="Remy Sharp"
+                alt={patient.data?.name ?? 'avatar'}
                 src={patient.data?.avatar ?? ''}
                 sx={{ width: 56, height: 56, mr: theme.spacing(3) }}
               />

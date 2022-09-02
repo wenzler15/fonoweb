@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { ColumnDef } from '@tanstack/react-table'
 import { usePatients } from 'patient/queries'
 import { Pagination } from 'common/types'
-import { useTheme, Box, Typography, Grid, Button } from '@mui/material'
+import { useTheme, Box, Typography, Grid, Button, Avatar } from '@mui/material'
 import { UserWithPatient } from 'user/types'
 import { PatientListActions } from 'patient/pages/PatientList/PatientListActions'
 import { CustomLink } from './PatientList.styles'
@@ -23,6 +23,19 @@ export function PatientList(): ReactElement {
 
 	const columns = useMemo(
 		(): ColumnDef<UserWithPatient>[] => [
+      {
+        header: '',
+        accessorKey: 'avatar',
+        size: 1,
+        // eslint-disable-next-line react/no-unstable-nested-components
+        cell: ({ row }) => (
+          <Avatar
+            alt={row.original.name}
+            src={row.original.avatar ?? ''}
+            sx={{ width: 40, height: 40 }}
+          />
+        ),
+      },
 			{
 				header: 'Nome',
 				accessorKey: 'name',

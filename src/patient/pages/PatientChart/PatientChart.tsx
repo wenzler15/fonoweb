@@ -9,6 +9,7 @@ import { useEvaluations } from 'evaluation/queries'
 import { useAnamnesis } from 'anamnesis/queries'
 import { usePatientById } from 'patient/queries'
 import { NotFound } from './NotFound'
+import { calculateAge } from 'helpers/calculateAge'
 
 export function PatientChart(): ReactElement {
 	const theme = useTheme()
@@ -56,17 +57,16 @@ export function PatientChart(): ReactElement {
             <Grid item xs={9}
               sx={{ display: 'flex', alignItems: 'center' }}
             >
-              {/* TODO: GET FROM API */}
               <Avatar
                 alt="Remy Sharp"
-                src="https://i.picsum.photos/id/416/200/300.jpg?hmac=KIMUiPYQ0X2OQBuJIwtfL9ci1AGeu2OqrBH4GqpE7Bc"
+                src={patient.data?.avatar ?? ''}
                 sx={{ width: 56, height: 56, mr: theme.spacing(3) }}
               />
               <Typography
                 variant="h5"
                 component="h1"
               >
-                Rafael Cardoso
+                {patient.data?.name}
               </Typography>
             </Grid>
             <Grid item xs={3} sx={{ textAlign: 'right'}}>
@@ -92,13 +92,18 @@ export function PatientChart(): ReactElement {
                 color="secondary"
                 sx={{ mb: theme.spacing(2) }}
               >
-                Rafael Cardoso - 21 anos
+                {patient.data?.name} -
+                {patient.data?.birthDate ?
+                  `${calculateAge(patient.data.birthDate)} anos` :
+                  ''
+                }
               </Typography>
               <Typography
                 variant="h6"
                 component="h3"
                 sx={{ mb: theme.spacing(2) }}
               >
+                {/* TODO: GET FRO API */}
                 1,82 - 70kg
               </Typography>
               <Typography

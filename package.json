@@ -130,8 +130,8 @@
 		"start": "vite --port 3000",
 		"build": "vite build",
 		"serve": "vite preview",
-    "lint": "eslint src/**/*.{ts,tsx}",
-    "lint:fix": "yarn lint -- --fix"
+		"lint": "eslint src/**/*.{ts,tsx}",
+		"lint:fix": "yarn lint -- --fix"
 	},
 	"browserslist": {
 		"production": [

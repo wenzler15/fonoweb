@@ -17,8 +17,7 @@ export function PatientChart(): ReactElement {
   const [showEvaluation, setShowEvaluation] = useState<boolean>(true)
   const { id } = useParams();
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const patient = usePatientById(id!);
+  const patient = usePatientById(id as string);
 
   const evaluations = useEvaluations({
 		size: 999,

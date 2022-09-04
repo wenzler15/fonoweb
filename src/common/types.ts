@@ -1,5 +1,17 @@
 import { Yup } from 'common/yup'
+import { FieldInputProps, FormikContextType } from 'formik'
 import { Merge, Simplify } from 'type-fest'
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type FormikInputProps<T extends object = {}> = Simplify<
+	Merge<
+		T,
+		{
+			name: string
+			label: string
+		}
+	>
+>
 
 export type Response<T> = {
 	result: T

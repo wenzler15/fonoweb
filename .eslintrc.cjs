@@ -68,12 +68,9 @@ const config = {
 		'@typescript-eslint/no-magic-numbers': 'off',
 		'@typescript-eslint/no-unsafe-call': 'off',
 		'@typescript-eslint/no-unsafe-return': 'off',
+		'@typescript-eslint/no-confusing-void-expression': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
 		'@typescript-eslint/init-declarations': 'off',
-		'@typescript-eslint/no-confusing-void-expression': [
-			'error',
-			{ ignoreArrowShorthand: true },
-		],
 		'@typescript-eslint/non-nullable-type-assertion-style': 'off',
 		'@typescript-eslint/strict-boolean-expressions': 'off',
 		'@typescript-eslint/no-implicit-any-catch': 'off',

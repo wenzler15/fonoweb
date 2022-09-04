@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import LogoImg from '../../assets/logo.png'
 import { useAuth } from 'auth/hooks/useAuth'
 
-import { Button, Menu, MenuItem } from '@mui/material'
+import { Menu, MenuItem } from '@mui/material'
 
 import { UserType } from 'user/types'
 import {
@@ -37,43 +37,29 @@ export function NavBar(): ReactElement {
 			<img src={LogoImg} alt="Logo" />
 
 			{user?.type === UserType.DOCTOR ? (
-        <div className="navigationContainer">
-          <TextNavBar onClick={() => navigate("/schedule")}>Minha Agenda</TextNavBar>
+				<div className="navigationContainer">
+					<TextNavBar onClick={() => navigate('/schedule')}>
+						Minha Agenda
+					</TextNavBar>
 					<TextNavBar onClick={(): void => navigate('/patients')}>
 						Meus Pacientes
 					</TextNavBar>
-          <TextNavBar onClick={() => navigate("/anamnesis")}>Anamneses</TextNavBar>
-          <TextNavBar onClick={(): void => navigate('/evaluations')}>
+					<TextNavBar onClick={() => navigate('/anamnesis')}>
+						Anamneses
+					</TextNavBar>
+					<TextNavBar onClick={(): void => navigate('/evaluations')}>
 						Avaliações
 					</TextNavBar>
-          <TextNavBar onClick={(): void => navigate('/templates')}>
+					<TextNavBar onClick={(): void => navigate('/templates')}>
 						Modelos
 					</TextNavBar>
-          <TextNavBar onClick={(): void => navigate('/courses')}>
+					<TextNavBar onClick={(): void => navigate('/courses')}>
 						Cursos
 					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/')}>
-						Dashboard
-					</TextNavBar>
-
-
-
+					<TextNavBar onClick={(): void => navigate('/')}>Dashboard</TextNavBar>
 				</div>
 			) : (
-				<div className="navigationContainer">
-					<TextNavBar onClick={(): void => navigate('/patienthome')}>
-						Home
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/patientexercises')}>
-						Exercícios
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/patientdocuments')}>
-						Modelos
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/patientanamnese')}>
-						Minhas Anamneses
-					</TextNavBar>
-				</div>
+				<div className="navigationContainer" />
 			)}
 
 			{user ? (
@@ -115,12 +101,12 @@ export function NavBar(): ReactElement {
 				</UserContainer>
 			) : (
 				<ButtonContainer>
-					<button type="button" onClick={(): void => navigate('/login')}>
+					<button type="button" onClick={(): void => navigate('/')}>
 						Login
 					</button>
 					<button
 						type="button"
-						onClick={(): void => navigate('/register')}
+						onClick={(): void => navigate('/sign-up/doctor')}
 						className="register"
 					>
 						Cadastre-se

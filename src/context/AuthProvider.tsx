@@ -58,7 +58,7 @@ export function AuthProvider({ children }: PropsWithChildren): ReactElement {
 					localStorage.setItem('@auth/token', JSON.stringify(data.token))
 				}
 
-				navigate('/mypatient')
+				navigate('/patients')
 			} catch (error) {
 				console.error(error)
 				await Swal.fire({

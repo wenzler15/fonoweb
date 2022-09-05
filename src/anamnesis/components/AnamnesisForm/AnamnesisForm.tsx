@@ -39,7 +39,7 @@ const handleAddQuestion = (push: (data: WithCuid<Question>) => void) => () =>
 export function AnamnesisForm() {
 	const [searchParams] = useSearchParams()
 	const {
-		values: { questions, template },
+		values: { questions, template, patient },
 		errors,
 		touched,
 		setFieldValue,
@@ -59,6 +59,15 @@ export function AnamnesisForm() {
 		page: 1,
 		size: 9999,
 	})
+
+	useEffect(() => {
+		if (searchParams.get('patient') && !patient) {
+			setFieldValue(
+				'patient',
+				patients.data?.result.find(p => p.id === searchParams.get('patient')),
+			)
+		}
+	}, [searchParams, patient, patients.data?.result, setFieldValue])
 
 	const handleTemplateSelect = () => {
 		modalTemplates.show()

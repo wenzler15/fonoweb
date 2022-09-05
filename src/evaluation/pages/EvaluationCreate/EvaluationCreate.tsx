@@ -3,7 +3,7 @@ import { omit } from 'rambda'
 import { Box, Typography, Card, CardContent } from '@mui/material'
 import { EvaluationForm } from 'evaluation/components'
 import { useCreateEvaluation } from 'evaluation/mutations'
-import { CreateEvaluationDto } from 'evaluation/schemas'
+import { CreateEvaluationDto, CreateEvaluationSchema } from 'evaluation/schemas'
 import { Back, FloatingWhatsAppButton } from 'common/components'
 import { NavBar } from 'components/navBar'
 import { Formik } from 'formik'
@@ -25,71 +25,73 @@ export function EvaluationCreate() {
 
 	const handleFormSubmit = async ({
 		patient,
+		specialty,
 		...values
 	}: CreateEvaluationDto) => {
 		await createEvaluation
 			.mutateAsync({
 				...omit(['template'], values),
-				patient: {
-					connect: {
-						id: patient.patientData.id,
-					},
-				},
+				patientId: patient.patientData.id,
+				specialtyId: specialty.id,
 			})
 			.catch(console.error)
 	}
 
 	return (
-    <>
-      <Formik<CreateEvaluationDto>
-        initialValues={{
-          text: '',
-          title: '',
-          // @ts-expect-error null
-          patient: null,
-        }}
-        onSubmit={handleFormSubmit}
-      >
-        {({ handleSubmit }) => (
-          <>
-            <NavBar />
-            <Box sx={{ p: t => t.spacing(4) }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography
-                  variant="h4"
-                  component="h1"
-                  color="secondary"
-                  sx={{ mb: t => t.spacing(2) }}
-                >
-                  Nova avaliação
-                  <Back />
-                </Typography>
-                <LoadingButton
-                  onClick={() => handleSubmit()}
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  loading={createEvaluation.isLoading}
-                >
-                  SALVAR
-                </LoadingButton>
-              </Box>
-              <Card>
-                <CardContent sx={{ p: t => t.spacing(4) }}>
-                  <EvaluationForm />
-                </CardContent>
-              </Card>
-            </Box>
-          </>
-        )}
-      </Formik>
-      <FloatingWhatsAppButton />
-    </>
+		<>
+			<Formik<CreateEvaluationDto>
+				validationSchema={CreateEvaluationSchema}
+				initialValues={{
+					text: '',
+					title: '',
+					exercises: [],
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					patient: null as any,
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					specialty: null as any,
+				}}
+				onSubmit={handleFormSubmit}
+			>
+				{({ handleSubmit }) => (
+					<>
+						<NavBar />
+						<Box sx={{ p: t => t.spacing(4) }}>
+							<Box
+								sx={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'space-between',
+								}}
+							>
+								<Typography
+									variant="h4"
+									component="h1"
+									color="secondary"
+									sx={{ mb: t => t.spacing(2) }}
+								>
+									Nova avaliação
+									<Back />
+								</Typography>
+								<LoadingButton
+									onClick={() => handleSubmit()}
+									variant="contained"
+									color="secondary"
+									size="large"
+									loading={createEvaluation.isLoading}
+								>
+									SALVAR
+								</LoadingButton>
+							</Box>
+							<Card>
+								<CardContent sx={{ p: t => t.spacing(4) }}>
+									<EvaluationForm />
+								</CardContent>
+							</Card>
+						</Box>
+					</>
+				)}
+			</Formik>
+			<FloatingWhatsAppButton />
+		</>
 	)
 }

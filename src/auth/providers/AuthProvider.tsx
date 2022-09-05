@@ -3,15 +3,15 @@ import create from 'zustand'
 import createVanilla from 'zustand/vanilla'
 import { immer } from 'zustand/middleware/immer'
 import { persist } from 'zustand/middleware'
-import { User } from 'user/types'
+import { UserWithDoctor } from 'user/types'
 
 // @ts-expect-error context don't need initial state
 export const AuthContext = createContext<AuthStoreState>({})
 
 export type AuthStoreState = {
-	user?: User
+	user?: UserWithDoctor
 	token?: string
-	setUser: (user: User) => void
+	setUser: (user: UserWithDoctor) => void
 	setToken: (token: string) => void
 	logout: () => void
 }

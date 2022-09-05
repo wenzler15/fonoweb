@@ -1,13 +1,26 @@
 import { client } from 'common/client'
 import { Response } from 'common/types'
-import { CreatePatientDto } from 'patient/schemas'
 import { Patient } from 'patient/types'
+import { UserType } from 'user/types'
+import { parse } from 'date-fns/fp'
+
+export type CreatePatientRequestData = {
+	name: string
+	birthDate: Date
+	email: string
+	doctorId: string
+}
 
 export function createPatient(
-	data: CreatePatientDto,
+	data: CreatePatientRequestData,
 ): Promise<Response<Patient>> {
-	return client('patients', {
+	return client('auth/sign-up', {
 		method: 'post',
-		json: data,
+		json: {
+			...data,
+			birthDate: parse(new Date(), 'dd/MM/yyyy', data.birthDate),
+			type: UserType.PATIENT,
+			password: 'patient123',
+		},
 	}).json()
 }

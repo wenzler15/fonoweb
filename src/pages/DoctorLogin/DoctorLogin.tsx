@@ -42,7 +42,7 @@ function Login() {
 			.then(({ result }) => {
 				auth.setUser(result.user)
 				auth.setToken(result.token)
-				navigate('/mypatient')
+				navigate('/patients')
 			})
 			.catch(error => {
 				console.error(error)

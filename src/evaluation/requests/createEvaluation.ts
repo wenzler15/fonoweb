@@ -6,9 +6,10 @@ import { Merge, Simplify } from 'type-fest'
 
 export type CreateEvaluationRequestData = Simplify<
 	Merge<
-		Omit<CreateEvaluationDto, 'patientId'>,
+		Omit<CreateEvaluationDto, 'patient' | 'specialty'>,
 		{
-			patient: { connect: { id: string } }
+			patientId: string
+			specialtyId: string
 		}
 	>
 >

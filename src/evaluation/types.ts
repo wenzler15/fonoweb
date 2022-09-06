@@ -8,19 +8,21 @@ export type Evaluation = {
 	patientId: string
 	doctorId: string
 	text: string | null
-	createdAt: Date
-	updatedAt: Date
-	deletedAt: Date | null
-  patient: Patient & {
-    user: User
-  }
-  specialty: Specialty
-  questions?: Question[]
+	title: string | null
+	createdAt: string
+	appointmentDate: string
+	updatedAt: string
+	deletedAt: string | null
+	patient: Patient & {
+		user: User
+	}
+	specialty: Specialty
+	exercises: Exercise[]
 }
 
-
-export type Question = {
-	question: string
-	answer: string
-  cuid: string
+export type Exercise = {
+	cuid: string
+	title: string
+	description: string
+	links: string[]
 }

@@ -1,4 +1,6 @@
 import { PropsWithChildren, ReactElement } from 'react'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import {
 	GlobalStyles,
 	ThemeOptions,
@@ -7,6 +9,7 @@ import {
 	PaletteColorOptions,
 } from '@mui/material'
 import { AuthProvider } from 'auth/providers'
+import ptBrLocale from 'date-fns/locale/pt-BR'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Simplify } from 'type-fest'
 
@@ -113,15 +116,20 @@ const theme = createTheme(themeOptions)
 
 function MasterProvider({ children }: PropsWithChildren): ReactElement {
 	return (
-		<AuthProvider>
-			<ThemeProvider theme={theme}>
-				<GlobalStyles
-					styles={{ body: { backgroundColor: '#e5e5e5 !important' } }}
-				/>
-				<CssBaseline />
-				{children}
-			</ThemeProvider>
-		</AuthProvider>
+		<LocalizationProvider
+			dateAdapter={AdapterDateFns}
+			adapterLocale={ptBrLocale}
+		>
+			<AuthProvider>
+				<ThemeProvider theme={theme}>
+					<GlobalStyles
+						styles={{ body: { backgroundColor: '#e5e5e5 !important' } }}
+					/>
+					<CssBaseline />
+					{children}
+				</ThemeProvider>
+			</AuthProvider>
+		</LocalizationProvider>
 	)
 }
 

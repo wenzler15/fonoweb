@@ -27,7 +27,6 @@ export function Editor({ editorState, ...editorProps }: EditorProps) {
 	}, [meta.initialValue])
 
 	useLayoutEffect(() => {
-		console.log(editorState)
 		if (editorState) {
 			setLocalEditorState(editorState)
 		}
@@ -69,8 +68,7 @@ export function Editor({ editorState, ...editorProps }: EditorProps) {
 						variant="subtitle2"
 						sx={{ mt: t => t.spacing(1), mb: t => t.spacing(-1) }}
 					>
-						{/* @ts-expect-error normal */}
-						{errors.html}
+						{meta.error}
 					</Typography>
 				)}
 			</CardContent>

@@ -3,12 +3,13 @@ import { omit } from 'rambda'
 import { Box, Typography, Card, CardContent } from '@mui/material'
 import { EvaluationForm } from 'evaluation/components'
 import { useCreateEvaluation } from 'evaluation/mutations'
-import { CreateEvaluationDto, CreateEvaluationSchema } from 'evaluation/schemas'
+import { CreateEvaluationSchema } from 'evaluation/schemas'
 import { Back, FloatingWhatsAppButton } from 'common/components'
 import { NavBar } from 'components/navBar'
 import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { InferType } from 'yup'
 
 export function EvaluationCreate() {
 	const navigate = useNavigate()
@@ -27,24 +28,25 @@ export function EvaluationCreate() {
 		patient,
 		specialty,
 		...values
-	}: CreateEvaluationDto) => {
+	}: InferType<typeof CreateEvaluationSchema>) => {
 		await createEvaluation
 			.mutateAsync({
 				...omit(['template'], values),
-				patientId: patient.patientData.id,
-				specialtyId: specialty.id,
+				patientId: patient!.patientData.id,
+				specialtyId: specialty!.id,
 			})
 			.catch(console.error)
 	}
 
 	return (
 		<>
-			<Formik<CreateEvaluationDto>
+			<Formik<InferType<typeof CreateEvaluationSchema>>
 				validationSchema={CreateEvaluationSchema}
 				initialValues={{
 					text: '',
 					title: '',
 					exercises: [],
+					appointmentDate: new Date(),
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					patient: null as any,
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any

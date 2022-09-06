@@ -1,17 +1,14 @@
 import { client } from 'common/client'
 import { Response } from 'common/types'
-import { CreateAnamnesisDto } from 'anamnesis/schemas'
-import { Anamnesis } from 'anamnesis/types'
-import { Merge, Simplify } from 'type-fest'
+import { Anamnesis, Question } from 'anamnesis/types'
 
-export type CreateAnamnesisRequestData = Simplify<
-	Merge<
-		Omit<CreateAnamnesisDto, 'patientId'>,
-		{
-			patient: { connect: { id: string } }
-		}
-	>
->
+export type CreateAnamnesisRequestData = {
+	questions: Question[]
+	text: string
+	patientId: string
+	specialtyId: string
+	doctorId: string
+}
 
 export function createAnamnesis(
 	data: CreateAnamnesisRequestData,

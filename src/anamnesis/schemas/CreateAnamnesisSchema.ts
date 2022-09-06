@@ -1,22 +1,20 @@
-import { Question } from 'anamnesis/types'
 import { Yup } from 'common/yup'
-import { UserWithPatientSchema } from 'user/schemas'
+import { Specialty } from 'specialty'
 import { UserWithPatient } from 'user/types'
 
-export type CreateAnamnesisDto = {
-	questions: Question[]
-	patient: UserWithPatient
-	text?: string
-}
-
-export const QuestionSchema: Yup.SchemaOf<Question> = Yup.object({
+export const QuestionSchema = Yup.object({
+	cuid: Yup.string().trim().required(),
 	question: Yup.string().trim().required(),
-	answer: Yup.string().trim().required(),
+	answers: Yup.string().trim().required(),
 })
 
-export const CreateAnamnesisSchema: Yup.SchemaOf<CreateAnamnesisDto> =
-	Yup.object().shape({
-		questions: Yup.array(QuestionSchema).required(),
-		text: Yup.string().trim(),
-		patient: UserWithPatientSchema.nullable(),
-	})
+export const CreateAnamnesisSchema = Yup.object({
+	questions: Yup.array().of(QuestionSchema).required().ensure(),
+	text: Yup.string().trim().required(),
+	patient: Yup.mixed<UserWithPatient>()
+		.required()
+		.typeError('Paciente é obrigatório'),
+	specialty: Yup.mixed<Specialty>()
+		.required()
+		.typeError('Especialidade é obrigatória'),
+})

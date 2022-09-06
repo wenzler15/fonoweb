@@ -1,2 +1,2 @@
-export * from './PatientForm/PatientForm'
-export * from './PatientForm/PatientForm.types'
+export * from './PatientForm'
+export * from './PatientAppointmentModal'

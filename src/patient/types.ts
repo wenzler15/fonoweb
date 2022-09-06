@@ -10,14 +10,12 @@ export type Patient = {
 	id: string
 	numericId: number
 	userId: string
-	createdAt: Date
-	updatedAt: Date
-	deletedAt: Date | null
-  gender: GenderType
+	createdAt: string
+	updatedAt: string
+	deletedAt: string | null
+	gender: GenderType
 }
 
-export type PatientChartInfoProps = {
-  data: Anamnesis | Evaluation
-  type: 'anamnese' | 'evaluation'
-}
-
+export type PatientChartInfoProps =
+	| { type: 'anamnesis'; data: Anamnesis }
+	| { type: 'evaluation'; data: Evaluation }

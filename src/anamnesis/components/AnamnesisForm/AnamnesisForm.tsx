@@ -28,12 +28,14 @@ import { useVisible } from 'common/hooks'
 import { TemplateSelector } from 'template/components/TemplateSelector/TemplateSelector'
 import { useTemplateDetail } from 'template/queries'
 import { useSearchParams } from 'react-router-dom'
+import { useSpecialties } from 'specialty/queries'
+import { Specialty } from 'specialty'
 
 const handleAddQuestion = (push: (data: WithCuid<Question>) => void) => () =>
 	push({
 		cuid: cuid(),
 		question: '',
-		answer: '',
+		answers: '',
 	})
 
 export function AnamnesisForm() {
@@ -54,6 +56,11 @@ export function AnamnesisForm() {
 	)
 
 	const modalTemplates = useVisible()
+
+	const specialties = useSpecialties({
+		page: 1,
+		size: 9999,
+	})
 
 	const patients = usePatients({
 		page: 1,
@@ -188,7 +195,7 @@ export function AnamnesisForm() {
 				)}
 			/>
 			<Grid container spacing={2}>
-				<Grid item xs={6}>
+				<Grid item xs={5}>
 					<Field
 						fullWidth
 						name="patient"
@@ -207,7 +214,26 @@ export function AnamnesisForm() {
 						)}
 					/>
 				</Grid>
-				<Grid item xs={6} sx={{ textAlign: 'right' }}>
+				<Grid item xs={5}>
+					<Field
+						fullWidth
+						name="specialty"
+						component={Autocomplete}
+						options={specialties.data?.result ?? []}
+						getOptionLabel={(option: Specialty) => option.name}
+						renderInput={(params: AutocompleteRenderInputParams) => (
+							<MTextField
+								{...params}
+								name="specialty-search"
+								error={touched.patient && !!errors.patient}
+								helperText={errors.patient}
+								label="Especialidade"
+								variant="outlined"
+							/>
+						)}
+					/>
+				</Grid>
+				<Grid item xs={2} sx={{ textAlign: 'right' }}>
 					<Button
 						onClick={handleTemplateSelect}
 						variant="contained"

@@ -1,20 +1,23 @@
 import { LoadingButton } from '@mui/lab'
 import { omit } from 'rambda'
-import { Box, Typography, Card, CardContent, Button } from '@mui/material'
+import { Box, Typography, Card, CardContent } from '@mui/material'
 import { AnamnesisForm } from 'anamnesis/components'
 import { useCreateAnamnesis } from 'anamnesis/mutations'
-import { CreateAnamnesisDto } from 'anamnesis/schemas'
+import { CreateAnamnesisSchema } from 'anamnesis/schemas'
 import { Back, FloatingWhatsAppButton } from 'common/components'
 import { NavBar } from 'components/navBar'
 import { Formik } from 'formik'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { InferType } from 'yup'
+import { useAuth } from 'auth/hooks/useAuth'
 
 export function AnamnesisCreate() {
 	const navigate = useNavigate()
+	const { user } = useAuth()
 	const createAnamnesis = useCreateAnamnesis({
-		onSuccess: () => {
-			// navigate('/anamnesis')
+		onSuccess: response => {
+			navigate(`/patients/${response.result.patientId}`)
 			Swal.fire({
 				title: 'Success',
 				text: 'Anamnese criada com sucesso',
@@ -25,28 +28,28 @@ export function AnamnesisCreate() {
 
 	const handleFormSubmit = async ({
 		patient,
+		specialty,
 		...values
-	}: CreateAnamnesisDto) => {
-		await createAnamnesis
-			.mutateAsync({
-				...omit(['template'], values),
-				patient: {
-					connect: {
-						id: patient.patientData.id,
-					},
-				},
-			})
-			.catch(console.error)
+	}: InferType<typeof CreateAnamnesisSchema>) => {
+		createAnamnesis.mutate({
+			...omit(['template'], values),
+			patientId: patient.patientData.id,
+			specialtyId: specialty.id,
+			doctorId: user!.doctorData.id,
+		})
 	}
 
 	return (
 		<>
-			<Formik<CreateAnamnesisDto>
+			<Formik<InferType<typeof CreateAnamnesisSchema>>
+				validationSchema={CreateAnamnesisSchema}
 				initialValues={{
 					questions: [],
 					text: '',
 					// @ts-expect-error null
 					patient: null,
+					// @ts-expect-error null
+					specialty: null,
 				}}
 				onSubmit={handleFormSubmit}
 			>

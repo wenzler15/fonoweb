@@ -3,21 +3,22 @@ import { Specialty } from 'specialty'
 
 export type Anamnesis = {
 	id: string
+	title: string | null
 	numericId: number
 	patientId: string
 	doctorId: string
-	questions?: Question[]
+	questions: Question[]
 	text: string | null
-	createdAt: Date
-	updatedAt: Date
-	deletedAt: Date | null
-  doctor: Doctor & {
-    specialty: Specialty
-  }
+	createdAt: string
+	updatedAt: string
+	deletedAt: string | null
+	doctor: Doctor & {
+		specialty: Specialty
+	}
 }
 
 export type Question = {
 	question: string
-	answer: string
-  cuid: string
+	answers: string
+	cuid: string
 }

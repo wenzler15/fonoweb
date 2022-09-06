@@ -181,7 +181,13 @@ export function PatientChart(): ReactElement {
 					</Grid>
 				</Paper>
 			</Box>
-			<PatientAppointmentModal visible={modal.visible} onClose={modal.hide} />
+			<PatientAppointmentModal
+				visible={modal.visible}
+				onClose={() => {
+					modal.hide()
+					evaluations.refetch()
+				}}
+			/>
 			<FloatingWhatsAppButton />
 		</>
 	)

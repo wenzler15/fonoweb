@@ -1,15 +1,34 @@
 import { styled } from '@mui/system'
+import { ButtonBase } from '@mui/material';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-export const Title = styled('div')(({ theme }) => ({
-	border: 'none',
-	outline: 'none',
-	padding: 0,
-	fontSize: '30px',
-	color: theme.palette.secondary.main,
-	backgroundColor: 'transparent',
-	display: 'flex',
-	alignItems: 'center',
-	'&:hover': {
-		backgroundColor: 'transparent',
-	},
+export const CustomButton = styled(ButtonBase)(({ theme }) => ({
+  textDecoration: 'none',
+  fontSize: '22px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  color: theme.palette.secondary.main,
+  backgroundColor: 'transparent',
+  '&:hover': {
+    backgroundColor: 'transparent',
+  },
 }))
+
+export const CustomArrowRight = styled(ArrowRightIcon)`
+  height: 44px;
+  width: 44px;
+  height: 44px;
+`
+
+export const CustomArrowDown = styled(ArrowDropDownIcon)`
+  height: 44px;
+  width: 44px;
+  height: 44px;
+`
+
+export const Container = styled('div')`
+  background: #e5e5e5;
+  padding-bottom: 4rem;
+`;

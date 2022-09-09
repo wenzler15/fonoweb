@@ -1,5 +1,5 @@
 import { NavBar } from 'components/navBar'
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { FloatingWhatsAppButton } from 'common/components'
 import {
 	useTheme,
@@ -9,8 +9,9 @@ import {
 	Button,
 	Paper,
 	Avatar,
+  Collapse,
 } from '@mui/material'
-import { Title } from './PatientChart.styles'
+import { CustomArrowDown, CustomArrowRight, CustomButton } from './PatientChart.styles'
 import { PatientChartInfo } from './PatientChartInfo'
 import { useParams } from 'react-router-dom'
 import { useEvaluations } from 'evaluation/queries'
@@ -19,14 +20,21 @@ import { NotFound } from './NotFound'
 import { calculateAge } from 'helpers/calculateAge'
 import { useVisible } from 'common/hooks'
 import { PatientAppointmentModal } from 'patient/components'
+import { useAnamnesis } from 'anamnesis/queries'
 
 export function PatientChart(): ReactElement {
 	const theme = useTheme()
 	const { id } = useParams()
 	const modal = useVisible()
+  const [showAnamnesis, setShowAnamnesis] = useState(false);
+  const [showEvaluation, setShowEvaluation] = useState(false);
 
 	const patient = usePatientById(id as string)
-
+  const anamneses = useAnamnesis({
+    size: 999,
+    page: 1,
+    patientId: id,
+  })
 	const evaluations = useEvaluations({
 		size: 999,
 		page: 1,
@@ -41,6 +49,14 @@ export function PatientChart(): ReactElement {
 			</>
 		)
 	}
+
+  const handleShowAnamnesis = () => {
+    setShowAnamnesis(oldState => !oldState);
+  }
+
+  const handleShowEvaluation = () => {
+    setShowEvaluation(oldState => !oldState);
+  }
 
 	return (
 		<>
@@ -101,7 +117,14 @@ export function PatientChart(): ReactElement {
 					</Grid>
 					<Grid container sx={{ mb: theme.spacing(5) }}>
 						<Grid item xs={6}>
-							<Title>Anamnese do paciente</Title>
+              <CustomButton onClick={handleShowAnamnesis}>
+              Anamnese do paciente
+								{showAnamnesis ? (
+									<CustomArrowDown />
+								) : (
+									<CustomArrowRight />
+								)}
+							</CustomButton>
 						</Grid>
 						<Grid item xs={6} textAlign="right">
 							<Button
@@ -113,11 +136,43 @@ export function PatientChart(): ReactElement {
 								Baixar Anamnese
 							</Button>
 						</Grid>
+            <Grid item xs={12}>
+              <Collapse
+               in={showAnamnesis}
+               timeout="auto"
+               unmountOnExit
+              >
+                {anamneses.data?.result && anamneses.data.result.length > 0 ?
+                  anamneses.data.result.map((anamnese) => (
+                  <PatientChartInfo key={anamnese.id} data={anamnese} type="anamnesis" />
+                )) : (
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    sx={{
+                      mb: theme.spacing(2),
+                      ml: theme.spacing(1),
+                      color: '#AAAAAA',
+                      display: 'inline'
+                    }}
+                  >
+                    Não encontrado
+                  </Typography>
+                )}
+              </Collapse>
+            </Grid>
 					</Grid>
 					<Grid container sx={{ mb: theme.spacing(10) }}>
 						<Grid container>
 							<Grid item xs={6}>
-								<Title>Consultas</Title>
+              <CustomButton onClick={handleShowEvaluation}>
+                Avaliações
+								{showEvaluation ? (
+									<CustomArrowDown />
+								) : (
+									<CustomArrowRight />
+								)}
+							</CustomButton>
 							</Grid>
 							<Grid item xs={6} textAlign="right">
 								<Button
@@ -127,30 +182,36 @@ export function PatientChart(): ReactElement {
 									sx={{ borderRadius: 0 }}
 									onClick={modal.show}
 								>
-									Nova Consulta
+									Nova Avaliação
 								</Button>
 							</Grid>
 						</Grid>
-						{evaluations.data?.result.length ? (
-							evaluations.data.result.map(evaluation => (
-								<Grid item xs={12} key={evaluation.id}>
-									<PatientChartInfo data={evaluation} type="evaluation" />
-								</Grid>
-							))
-						) : (
-							<Typography
-								variant="body1"
-								component="p"
-								sx={{
-									mb: theme.spacing(2),
-									ml: theme.spacing(1),
-									color: '#AAAAAA',
-									display: 'inline',
-								}}
-							>
-								Nenhuma consulta cadastrada
-							</Typography>
-						)}
+            <Grid item xs={12}>
+              <Collapse
+                in={showEvaluation}
+                timeout="auto"
+                unmountOnExit
+              >
+                {evaluations.data?.result.length ? (
+                  evaluations.data.result.map(evaluation => (
+                    <PatientChartInfo key={evaluation.id} data={evaluation} type="evaluation" />
+                  ))
+                ) : (
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    sx={{
+                      mb: theme.spacing(2),
+                      ml: theme.spacing(1),
+                      color: '#AAAAAA',
+                      display: 'inline',
+                    }}
+                  >
+                    Nenhuma avaliação cadastrada
+                  </Typography>
+                )}
+              </Collapse>
+            </Grid>
 					</Grid>
 				</Paper>
 			</Box>

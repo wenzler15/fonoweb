@@ -85,9 +85,9 @@ export function PatientChart(): ReactElement {
 								color="secondary"
 								sx={{ mb: theme.spacing(2) }}
 							>
-								{patient.data?.name} -
+								{patient.data?.name}
 								{patient.data?.birthDate
-									? `${calculateAge(patient.data.birthDate)} anos`
+									? ` - ${calculateAge(patient.data.birthDate)} anos`
 									: ''}
 							</Typography>
 							<Typography
@@ -95,34 +95,7 @@ export function PatientChart(): ReactElement {
 								component="h3"
 								sx={{ mb: theme.spacing(2) }}
 							>
-								{/* TODO: GET FRO API */}
-								1,82 - 70kg
-							</Typography>
-							<Typography
-								variant="h6"
-								component="h3"
-								sx={{ mb: theme.spacing(2) }}
-							>
 								Telefone: (55) 3333-4444
-							</Typography>
-							<Typography
-								variant="h6"
-								component="h3"
-								sx={{ mb: theme.spacing(4) }}
-							>
-								Rua ficticia, bairro na Cidade DF
-							</Typography>
-							<Typography variant="h6" component="h3">
-								Resumo do paciente
-							</Typography>
-							<Typography
-								variant="body1"
-								component="p"
-								sx={{ mb: theme.spacing(2), color: '#AAAAAA' }}
-							>
-								Lorem Ipsum is simply dummy text of the printing and typesetting
-								industry. Lorem Ipsum has been the standard dummy text ever
-								since the 1500s
 							</Typography>
 						</Grid>
 					</Grid>

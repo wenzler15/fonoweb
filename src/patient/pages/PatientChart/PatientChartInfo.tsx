@@ -2,33 +2,42 @@ import { Box, Typography, Grid, Button, Paper, Stack } from '@mui/material'
 import { PatientChartInfoProps } from 'patient'
 import { Anamnesis } from 'anamnesis'
 import { Evaluation } from 'evaluation'
-import { len } from '@excelsia/general-helpers'
+import { len, download } from '@excelsia/general-helpers'
+import { client } from 'common/client'
 
-const patientAnamneseInfo = (anamnese: Anamnesis) => (
-	<Box mb={2} key={anamnese.numericId} mt={2}>
+const patientAnamneseInfo = (
+	anamnesis: Anamnesis,
+	handleDownload: () => void,
+) => (
+	<Box mb={2} key={anamnesis.numericId} mt={2}>
 		<Paper variant="outlined" sx={{ padding: '8px' }}>
 			<Grid container>
 				<Grid item xs={6}>
 					<Typography variant="h6" component="h3">
-						{anamnese.title && anamnese.title.length > 0 ? (
-							anamnese.title
+						{anamnesis.title && anamnesis.title.length > 0 ? (
+							anamnesis.title
 						) : (
 							<>
-								{`${'Anamnese'}`} {anamnese.numericId}
+								{`${'Anamnese'}`} {anamnesis.numericId}
 							</>
 						)}
 					</Typography>
 				</Grid>
 				<Grid item xs={6} sx={{ display: 'flex' }} justifyContent="flex-end">
-					<Button color="secondary" variant="outlined" size="small">
+					<Button
+						color="secondary"
+						variant="outlined"
+						size="small"
+						onClick={handleDownload}
+					>
 						Exportar
 					</Button>
 				</Grid>
 			</Grid>
 			<Typography variant="body1" component="p">
-				{anamnese.text ? (
+				{anamnesis.text ? (
 					// eslint-disable-next-line react/no-danger
-					<div dangerouslySetInnerHTML={{ __html: anamnese.text }} />
+					<div dangerouslySetInnerHTML={{ __html: anamnesis.text }} />
 				) : (
 					'Não informado'
 				)}
@@ -37,7 +46,10 @@ const patientAnamneseInfo = (anamnese: Anamnesis) => (
 	</Box>
 )
 
-const patientEvaluationInfo = (evaluation: Evaluation) => (
+const patientEvaluationInfo = (
+	evaluation: Evaluation,
+	download: () => void,
+) => (
 	<Box mb={2} key={evaluation.numericId} mt={2}>
 		<Paper variant="outlined" sx={{ padding: '8px' }}>
 			<Stack spacing={2}>
@@ -54,7 +66,12 @@ const patientEvaluationInfo = (evaluation: Evaluation) => (
 						</Typography>
 					</Grid>
 					<Grid item xs={6} sx={{ display: 'flex' }} justifyContent="flex-end">
-						<Button color="secondary" variant="outlined" size="small">
+						<Button
+							color="secondary"
+							variant="outlined"
+							size="small"
+							onClick={download}
+						>
 							Exportar
 						</Button>
 					</Grid>
@@ -78,9 +95,30 @@ const patientEvaluationInfo = (evaluation: Evaluation) => (
 )
 
 export function PatientChartInfo({ type, data }: PatientChartInfoProps) {
-	if (type === 'anamnesis') {
-		return patientAnamneseInfo(data)
+	// eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+	const handle = download.blob(`${data.id}.pdf`)
+
+	const downloadAnamnesis = () => {
+		client(`patients/${data.patientId}/anamnesis/${data.id}`)
+			.blob()
+			.then(handle)
+			.catch(error => {
+				console.error(error)
+			})
 	}
 
-	return patientEvaluationInfo(data)
+	const downloadEvaluation = () => {
+		client(`patients/${data.patientId}/evaluations/${data.id}`)
+			.blob()
+			.then(handle)
+			.catch(error => {
+				console.error(error)
+			})
+	}
+
+	if (type === 'anamnesis') {
+		return patientAnamneseInfo(data, downloadAnamnesis)
+	}
+
+	return patientEvaluationInfo(data, downloadEvaluation)
 }

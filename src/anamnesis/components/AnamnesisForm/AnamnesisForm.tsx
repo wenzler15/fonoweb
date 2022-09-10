@@ -162,7 +162,7 @@ export function AnamnesisForm() {
 													size="small"
 												/>
 												<Field
-													name={`questions.${index}.answer`}
+													name={`questions.${index}.answers`}
 													component={TextField}
 													fullWidth
 													multiline

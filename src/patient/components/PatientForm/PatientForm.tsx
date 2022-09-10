@@ -39,8 +39,10 @@ export function PatientForm() {
       setFieldValue('name', patient.data.name)
       setFieldValue('email', patient.data.email)
       setFieldValue('gender', patient.data.gender)
-      const dateFormated = format(utcToZonedTime(patient.data.birthDate as Date, 'UTC'), 'dd/MM/yyyy')
-      setFieldValue('birthDate', dateFormated)
+      if (patient.data.birthDate) {
+        const dateFormated = format(utcToZonedTime(patient.data.birthDate , 'UTC'), 'dd/MM/yyyy')
+        setFieldValue('birthDate', dateFormated)
+      }
 		}
 	}, [patientId, patient.data, setFieldValue])
 

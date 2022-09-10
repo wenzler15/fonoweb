@@ -15,6 +15,7 @@ import { CreatePatientSchema } from 'patient/schemas'
 import { PatientForm } from '../PatientForm/PatientForm'
 import { useUpdatePatient } from 'patient/mutations'
 import { useUniversalParam } from 'routes/hooks'
+import { usePatientById } from 'patient/queries'
 
 export function PatientFormModal({
 	visible,
@@ -33,12 +34,13 @@ export function PatientFormModal({
 
   const patientId = useUniversalParam('patient')
 
+  const patient = usePatientById(patientId as string);
 
 	const handleFormSubmit = ({
 		...values
 	}: InferType<typeof CreatePatientSchema>) => {
 		updatePatient.mutate({
-      id: patientId as string,
+      id: patient.data?.id as string,
 			...values,
 		})
 	}

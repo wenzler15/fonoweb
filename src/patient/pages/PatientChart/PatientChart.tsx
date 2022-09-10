@@ -25,24 +25,26 @@ import { calculateAge } from 'helpers/calculateAge'
 import { useVisible } from 'common/hooks'
 import { PatientAppointmentModal } from 'patient/components'
 import { useAnamnesis } from 'anamnesis/queries'
+import { client } from 'common/client'
+import { download } from '@excelsia/general-helpers'
 
 export function PatientChart(): ReactElement {
 	const theme = useTheme()
-	const { id } = useParams()
+	const { patient: patientId } = useParams()
 	const modal = useVisible()
 	const [showAnamnesis, setShowAnamnesis] = useState(false)
 	const [showEvaluation, setShowEvaluation] = useState(false)
 
-	const patient = usePatientById(id as string)
+	const patient = usePatientById(patientId as string)
 	const anamneses = useAnamnesis({
 		size: 999,
 		page: 1,
-		patientId: id,
+		patientId,
 	})
 	const evaluations = useEvaluations({
 		size: 999,
 		page: 1,
-		patientId: id,
+		patientId,
 	})
 
 	if (patient.isError) {
@@ -60,6 +62,32 @@ export function PatientChart(): ReactElement {
 
 	const handleShowEvaluation = () => {
 		setShowEvaluation(oldState => !oldState)
+	}
+
+	const handleEvolutionsDownload = () => {
+		if (patientId) {
+			const handle = download.blob(`${patientId}.pdf`)
+
+			client(`patients/${patientId}/evolutions`)
+				.blob()
+				.then(handle)
+				.catch(error => {
+					console.error(error)
+				})
+		}
+	}
+
+	const handleAnamnesisDownload = () => {
+		if (patientId) {
+			const handle = download.blob(`${patientId}.pdf`)
+
+			client(`patients/${patientId}/anamnesis`)
+				.blob()
+				.then(handle)
+				.catch(error => {
+					console.error(error)
+				})
+		}
 	}
 
 	return (
@@ -126,8 +154,13 @@ export function PatientChart(): ReactElement {
 							</CustomButton>
 						</Grid>
 						<Grid item xs={6} textAlign="right">
-							<Button color="primary" variant="contained" size="medium">
-								Baixar Anamnese
+							<Button
+								color="primary"
+								variant="contained"
+								size="medium"
+								onClick={handleAnamnesisDownload}
+							>
+								Exportar Anamneses
 							</Button>
 						</Grid>
 						<Grid item xs={12} sm={6}>

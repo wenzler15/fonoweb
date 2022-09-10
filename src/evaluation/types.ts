@@ -10,6 +10,7 @@ export type Evaluation = {
 	text: string | null
 	title: string | null
 	createdAt: string
+	comments: string | null
 	appointmentDate: string
 	updatedAt: string
 	deletedAt: string | null

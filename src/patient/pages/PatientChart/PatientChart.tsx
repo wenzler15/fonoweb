@@ -9,9 +9,13 @@ import {
 	Button,
 	Paper,
 	Avatar,
-  Collapse,
+	Collapse,
 } from '@mui/material'
-import { CustomArrowDown, CustomArrowRight, CustomButton } from './PatientChart.styles'
+import {
+	CustomArrowDown,
+	CustomArrowRight,
+	CustomButton,
+} from './PatientChart.styles'
 import { PatientChartInfo } from './PatientChartInfo'
 import { useParams } from 'react-router-dom'
 import { useEvaluations } from 'evaluation/queries'
@@ -26,15 +30,15 @@ export function PatientChart(): ReactElement {
 	const theme = useTheme()
 	const { id } = useParams()
 	const modal = useVisible()
-  const [showAnamnesis, setShowAnamnesis] = useState(false);
-  const [showEvaluation, setShowEvaluation] = useState(false);
+	const [showAnamnesis, setShowAnamnesis] = useState(false)
+	const [showEvaluation, setShowEvaluation] = useState(false)
 
 	const patient = usePatientById(id as string)
-  const anamneses = useAnamnesis({
-    size: 999,
-    page: 1,
-    patientId: id,
-  })
+	const anamneses = useAnamnesis({
+		size: 999,
+		page: 1,
+		patientId: id,
+	})
 	const evaluations = useEvaluations({
 		size: 999,
 		page: 1,
@@ -50,13 +54,13 @@ export function PatientChart(): ReactElement {
 		)
 	}
 
-  const handleShowAnamnesis = () => {
-    setShowAnamnesis(oldState => !oldState);
-  }
+	const handleShowAnamnesis = () => {
+		setShowAnamnesis(oldState => !oldState)
+	}
 
-  const handleShowEvaluation = () => {
-    setShowEvaluation(oldState => !oldState);
-  }
+	const handleShowEvaluation = () => {
+		setShowEvaluation(oldState => !oldState)
+	}
 
 	return (
 		<>
@@ -77,7 +81,6 @@ export function PatientChart(): ReactElement {
 						<Grid item xs={3} sx={{ textAlign: 'right' }}>
 							<Button
 								sx={{
-									borderRadius: 0,
 									pl: theme.spacing(6),
 									pr: theme.spacing(6),
 								}}
@@ -117,101 +120,88 @@ export function PatientChart(): ReactElement {
 					</Grid>
 					<Grid container sx={{ mb: theme.spacing(5) }}>
 						<Grid item xs={6}>
-              <CustomButton onClick={handleShowAnamnesis}>
-              Anamnese do paciente
-								{showAnamnesis ? (
-									<CustomArrowDown />
-								) : (
-									<CustomArrowRight />
-								)}
+							<CustomButton onClick={handleShowAnamnesis}>
+								Anamnese do paciente
+								{showAnamnesis ? <CustomArrowDown /> : <CustomArrowRight />}
 							</CustomButton>
 						</Grid>
 						<Grid item xs={6} textAlign="right">
-							<Button
-								color="primary"
-								variant="contained"
-								size="medium"
-								sx={{ borderRadius: 0 }}
-							>
+							<Button color="primary" variant="contained" size="medium">
 								Baixar Anamnese
 							</Button>
 						</Grid>
-            <Grid item xs={12}>
-              <Collapse
-               in={showAnamnesis}
-               timeout="auto"
-               unmountOnExit
-              >
-                {anamneses.data?.result && anamneses.data.result.length > 0 ?
-                  anamneses.data.result.map((anamnese) => (
-                  <PatientChartInfo key={anamnese.id} data={anamnese} type="anamnesis" />
-                )) : (
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    sx={{
-                      mb: theme.spacing(2),
-                      ml: theme.spacing(1),
-                      color: '#AAAAAA',
-                      display: 'inline'
-                    }}
-                  >
-                    Não encontrado
-                  </Typography>
-                )}
-              </Collapse>
-            </Grid>
+						<Grid item xs={12} sm={6}>
+							<Collapse in={showAnamnesis} timeout="auto" unmountOnExit>
+								{anamneses.data?.result && anamneses.data.result.length > 0 ? (
+									anamneses.data.result.map(anamnese => (
+										<PatientChartInfo
+											key={anamnese.id}
+											data={anamnese}
+											type="anamnesis"
+										/>
+									))
+								) : (
+									<Typography
+										variant="body1"
+										component="p"
+										sx={{
+											mb: theme.spacing(2),
+											ml: theme.spacing(1),
+											color: '#AAAAAA',
+											display: 'inline',
+										}}
+									>
+										Não encontrado
+									</Typography>
+								)}
+							</Collapse>
+						</Grid>
 					</Grid>
 					<Grid container sx={{ mb: theme.spacing(10) }}>
 						<Grid container>
 							<Grid item xs={6}>
-              <CustomButton onClick={handleShowEvaluation}>
-                Avaliações
-								{showEvaluation ? (
-									<CustomArrowDown />
-								) : (
-									<CustomArrowRight />
-								)}
-							</CustomButton>
+								<CustomButton onClick={handleShowEvaluation}>
+									Avaliações
+									{showEvaluation ? <CustomArrowDown /> : <CustomArrowRight />}
+								</CustomButton>
 							</Grid>
 							<Grid item xs={6} textAlign="right">
 								<Button
 									color="primary"
 									variant="contained"
 									size="medium"
-									sx={{ borderRadius: 0 }}
 									onClick={modal.show}
 								>
 									Nova Avaliação
 								</Button>
 							</Grid>
 						</Grid>
-            <Grid item xs={12}>
-              <Collapse
-                in={showEvaluation}
-                timeout="auto"
-                unmountOnExit
-              >
-                {evaluations.data?.result.length ? (
-                  evaluations.data.result.map(evaluation => (
-                    <PatientChartInfo key={evaluation.id} data={evaluation} type="evaluation" />
-                  ))
-                ) : (
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    sx={{
-                      mb: theme.spacing(2),
-                      ml: theme.spacing(1),
-                      color: '#AAAAAA',
-                      display: 'inline',
-                    }}
-                  >
-                    Nenhuma avaliação cadastrada
-                  </Typography>
-                )}
-              </Collapse>
-            </Grid>
+						<Grid item xs={12} sm={6}>
+							<Collapse in={showEvaluation} timeout="auto" unmountOnExit>
+								{evaluations.data?.result.length ? (
+									evaluations.data.result.map(evaluation => (
+										<PatientChartInfo
+											key={evaluation.id}
+											data={evaluation}
+											type="evaluation"
+										/>
+									))
+								) : (
+									<Typography
+										variant="body1"
+										component="p"
+										sx={{
+											mb: theme.spacing(2),
+											ml: theme.spacing(1),
+											color: '#AAAAAA',
+											display: 'inline',
+										}}
+									>
+										Nenhuma avaliação cadastrada
+									</Typography>
+								)}
+							</Collapse>
+						</Grid>
 					</Grid>
 				</Paper>
 			</Box>

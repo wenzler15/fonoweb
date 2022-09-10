@@ -1,5 +1,6 @@
 export type EvaluationFormProps = {
 	config?: {
-		canUseTemplate: boolean
+		canUseTemplate?: boolean
+		canChangeAppointmentDate?: boolean
 	}
 }

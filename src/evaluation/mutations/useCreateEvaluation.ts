@@ -2,6 +2,7 @@ import {
 	useMutation,
 	UseMutationOptions,
 	UseMutationResult,
+	useQueryClient,
 } from '@tanstack/react-query'
 import { Response } from 'common/types'
 import { HTTPError } from 'ky'
@@ -22,5 +23,12 @@ export function useCreateEvaluation(
 	HTTPError,
 	CreateEvaluationRequestData
 > {
-	return useMutation(createEvaluation, options)
+	const client = useQueryClient()
+	return useMutation(createEvaluation, {
+		...options,
+		onSuccess: (...args) => {
+			options?.onSuccess?.(...args)
+			client.invalidateQueries(['fetchEvaluations'])
+		},
+	})
 }

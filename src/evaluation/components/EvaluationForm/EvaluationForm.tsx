@@ -27,12 +27,13 @@ import Swal from 'sweetalert2'
 import { useEffect, useState } from 'react'
 import { useVisible } from 'common/hooks'
 import { TemplateSelector } from 'template/components/TemplateSelector/TemplateSelector'
-import { useParams, useSearchParams } from 'react-router-dom'
 import { Specialty } from 'specialty'
 import { useSpecialties } from 'specialty/queries'
 import { InferType } from 'yup'
 import { ExerciseSchema } from 'evaluation/schemas'
 import { EvaluationFormProps } from 'evaluation/components/EvaluationForm/EvaluationForm.types'
+import { useUniversalParam } from 'routes/hooks'
+import { format } from 'date-fns/fp'
 
 const handleAddExercise =
 	(push: (data: InferType<typeof ExerciseSchema>) => void) => () =>
@@ -43,25 +44,26 @@ const handleAddExercise =
 			links: [],
 		})
 
-const handleAddExerciseLink = (push: (data: '') => void) => () => push('')
-
 export function EvaluationForm({
-	config: { canUseTemplate = true } = {},
+	config: { canUseTemplate = true, canChangeAppointmentDate = true } = {},
 }: EvaluationFormProps) {
 	const {
-		values: { template, patient, exercises },
+		values: { template, patient, exercises, appointmentDate },
 		errors,
 		touched,
 		setFieldValue,
 	} = useFormikContext<{
+		appointmentDate: Date
 		patient: UserWithPatient | null
 		template: Template | null
 		specialty: Specialty | null
 		exercises: InferType<typeof ExerciseSchema>[]
 	}>()
 
-	const [searchParams] = useSearchParams()
-	const params = useParams()
+	const patientId = useUniversalParam('patient')
+	const templateId = useUniversalParam('template')
+	const commentInput = useVisible()
+
 	const [editorState, setEditorState] = useState<EditorState>(() =>
 		EditorState.createEmpty(),
 	)
@@ -82,22 +84,13 @@ export function EvaluationForm({
 	})
 
 	useEffect(() => {
-		if (searchParams.get('patient') && !patient) {
+		if (patientId && !patient) {
 			setFieldValue(
 				'patient',
-				patients.data?.result.find(p => p.id === searchParams.get('patient')),
+				patients.data?.result.find(p => p.patientData.id === patientId),
 			)
 		}
-	}, [searchParams, patient, patients.data?.result, setFieldValue])
-
-	useEffect(() => {
-		if (params.id && !patient) {
-			setFieldValue(
-				'patient',
-				patients.data?.result.find(p => p.patientData.id === params.id),
-			)
-		}
-	}, [params.id, patient, patients.data?.result, setFieldValue])
+	}, [patientId, patient, patients.data?.result, setFieldValue])
 
 	const handleTemplateChange = async ({ html }: Template) => {
 		try {
@@ -133,8 +126,8 @@ export function EvaluationForm({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [template])
 
-	useTemplateDetail(searchParams.get('template') as string, {
-		enabled: !!searchParams.get('template'),
+	useTemplateDetail(templateId as string, {
+		enabled: !!templateId,
 		onSuccess: ({ result }) => {
 			handleTemplateChange(result)
 		},
@@ -173,13 +166,25 @@ export function EvaluationForm({
 						</Grid>
 					)}
 					<Grid item xs={4}>
-						<Field
-							component={DesktopDatePicker}
-							textField={{ fullWidth: true }}
-							name="appointmentDate"
-							label="Data da consulta"
-							inputFormat="dd/MM/yyyy"
-						/>
+						{canChangeAppointmentDate && (
+							<Field
+								component={DesktopDatePicker}
+								textField={{
+									fullWidth: true,
+								}}
+								name="appointmentDate"
+								label="Data da consulta"
+								inputFormat="dd/MM/yyyy"
+							/>
+						)}
+						{!canChangeAppointmentDate && (
+							<MTextField
+								fullWidth
+								disabled
+								label="Data da consulta"
+								value={format('dd/MM/yyyy', appointmentDate)}
+							/>
+						)}
 					</Grid>
 					<Grid item xs={4}>
 						<Field
@@ -201,23 +206,37 @@ export function EvaluationForm({
 						/>
 					</Grid>
 					<Grid item xs={4}>
-						<Field
-							fullWidth
-							name="patient"
-							component={Autocomplete}
-							options={patients.data?.result ?? []}
-							getOptionLabel={(option: UserWithPatient) => option.name}
-							renderInput={(params: AutocompleteRenderInputParams) => (
-								<MTextField
-									{...params}
-									name="patient-search"
-									error={touched.patient && !!errors.patient}
-									helperText={errors.patient}
-									label="Paciente"
-									variant="outlined"
-								/>
-							)}
-						/>
+						{patientId && (
+							<MTextField
+								fullWidth
+								disabled
+								label="Paciente"
+								value={
+									patients.data?.result.find(
+										p => p.patientData.id === patientId,
+									)?.name
+								}
+							/>
+						)}
+						{!patientId && (
+							<Field
+								fullWidth
+								name="patient"
+								component={Autocomplete}
+								options={patients.data?.result ?? []}
+								getOptionLabel={(option: UserWithPatient) => option.name}
+								renderInput={(params: AutocompleteRenderInputParams) => (
+									<MTextField
+										{...params}
+										name="patient-search"
+										error={touched.patient && !!errors.patient}
+										helperText={errors.patient}
+										label="Paciente"
+										variant="outlined"
+									/>
+								)}
+							/>
+						)}
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
@@ -233,16 +252,43 @@ export function EvaluationForm({
 										Adicionar exercícios
 									</Typography>
 								</Grid>
-								<Grid item xs={6} sx={{ textAlign: 'right' }}>
-									<Button
-										variant="contained"
-										size="large"
-										color="secondary"
-										onClick={handleAddExercise(push)}
+								<Grid item xs={6}>
+									<Stack
+										direction="row"
+										spacing={2}
+										sx={{ justifyContent: 'flex-end' }}
 									>
-										Adicionar Exercicio
-									</Button>
+										{!commentInput.visible && (
+											<Button
+												size="large"
+												color="secondary"
+												onClick={commentInput.show}
+											>
+												Adicionar Comentário
+											</Button>
+										)}
+										<Button
+											variant="contained"
+											size="large"
+											color="secondary"
+											onClick={handleAddExercise(push)}
+										>
+											Adicionar Exercicio
+										</Button>
+									</Stack>
 								</Grid>
+								{commentInput.visible && (
+									<Grid item xs={12}>
+										<Field
+											fullWidth
+											component={TextField}
+											name="comments"
+											label="Comentário"
+											multiline
+											rows={4}
+										/>
+									</Grid>
+								)}
 								<Grid item xs={12}>
 									<Card sx={{ overflow: 'visible' }}>
 										<CardContent sx={{ p: t => t.spacing(2) }}>
@@ -287,7 +333,7 @@ export function EvaluationForm({
 														<Box sx={{ p: t => t.spacing(2), pt: 0 }}>
 															<FieldArray
 																name={`exercises.${index}.links`}
-																render={({ push, remove }) => (
+																render={linksField => (
 																	<Grid
 																		container
 																		item
@@ -312,7 +358,9 @@ export function EvaluationForm({
 																					/>
 																					{linkIndex > 0 && (
 																						<IconButton
-																							onClick={() => remove(linkIndex)}
+																							onClick={() =>
+																								linksField.remove(linkIndex)
+																							}
 																							color="error"
 																						>
 																							<Close />
@@ -321,7 +369,9 @@ export function EvaluationForm({
 																					{linkIndex ===
 																						exercise.links.length - 1 && (
 																						<IconButton
-																							onClick={() => push('')}
+																							onClick={() =>
+																								linksField.push('')
+																							}
 																							color="primary"
 																						>
 																							<Add />

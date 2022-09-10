@@ -6,14 +6,14 @@ export const PATIENT_ROUTES = [
 		path: '/patients',
 		element: PatientList,
 	},
-  {
+	{
 		auth: true,
 		path: '/patients/create',
 		element: PatientCreate,
 	},
-  {
+	{
 		auth: true,
-		path: '/patients/:id',
+		path: '/patients/:patient',
 		element: PatientChart,
 	},
 ]

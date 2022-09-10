@@ -113,7 +113,12 @@ export function PatientAppointmentModal({
 										Salvar
 									</Button>
 								</Stack>
-								<EvaluationForm config={{ canUseTemplate: false }} />
+								<EvaluationForm
+									config={{
+										canUseTemplate: false,
+										canChangeAppointmentDate: false,
+									}}
+								/>
 							</>
 						)}
 					</Formik>

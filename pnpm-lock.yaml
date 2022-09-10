@@ -4,6 +4,7 @@ specifiers:
   '@date-io/date-fns': ^2.15.0
   '@emotion/react': ^11.10.0
   '@emotion/styled': ^11.10.0
+  '@excelsia/general-helpers': ^1.0.1
   '@hookform/resolvers': ^2.9.3
   '@material-ui/core': ^4.12.4
   '@material-ui/pickers': ^3.3.10
@@ -124,6 +125,7 @@ dependencies:
   '@date-io/date-fns': 2.15.0_date-fns@2.29.1
   '@emotion/react': 11.10.0_gh2biedx6ksetc2zqvxaggi5qq
   '@emotion/styled': 11.10.0_mj7s74dfdpse3cmt5ww5dtf5fy
+  '@excelsia/general-helpers': 1.0.1
   '@hookform/resolvers': 2.9.7_react-hook-form@7.34.2
   '@material-ui/core': 4.12.4_x6vcehmdzjj6pm7ndhhuigqb3i
   '@material-ui/pickers': 3.3.10_vlgya2wa2xd4bffnh5z4fvvtsa
@@ -2015,6 +2017,10 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+
+  /@excelsia/general-helpers/1.0.1:
+    resolution: {integrity: sha512-izWFT7Ek5hWASLugDjcKbDINwi9YWp3ZgBtOipLsRmuZG0pvmtT+hjwYU0Tp/Fo8Gn9qjAqDPaK8oY8GRRseIw==}
+    dev: false
 
   /@hapi/address/4.1.0:
     resolution: {integrity: sha512-SkszZf13HVgGmChdHo/PxchnSaCJ6cetVqLzyciudzZRT0jcOouIF/Q93mgjw8cce+D+4F4C1Z/WrfFN+O3VHQ==}

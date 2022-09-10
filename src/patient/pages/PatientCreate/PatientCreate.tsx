@@ -31,6 +31,7 @@ export function PatientCreate() {
 		await createPatient
 			.mutateAsync({
 				...values,
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				doctorId: user!.doctorData.id,
 			})
 			.catch(console.error)
@@ -41,7 +42,7 @@ export function PatientCreate() {
 			<Formik<InferType<typeof CreatePatientSchema>>
 				initialValues={{
 					name: '',
-					birthDate: '',
+					birthDate: null,
 					email: '',
 					gender: '',
 				}}

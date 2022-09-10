@@ -10,6 +10,7 @@ import {
 	Paper,
 	Avatar,
 	Collapse,
+  Stack,
 } from '@mui/material'
 import {
 	CustomArrowDown,
@@ -23,7 +24,7 @@ import { usePatientById } from 'patient/queries'
 import { NotFound } from './NotFound'
 import { calculateAge } from 'helpers/calculateAge'
 import { useVisible } from 'common/hooks'
-import { PatientAppointmentModal } from 'patient/components'
+import { PatientAppointmentModal , PatientFormModal } from 'patient/components'
 import { useAnamnesis } from 'anamnesis/queries'
 import { client } from 'common/client'
 import { download } from '@excelsia/general-helpers'
@@ -32,6 +33,7 @@ export function PatientChart(): ReactElement {
 	const theme = useTheme()
 	const { patient: patientId } = useParams()
 	const modal = useVisible()
+	const patientCreateModal = useVisible()
 	const [showAnamnesis, setShowAnamnesis] = useState(false)
 	const [showEvaluation, setShowEvaluation] = useState(false)
 
@@ -96,7 +98,7 @@ export function PatientChart(): ReactElement {
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(2) }}>
 				<Paper elevation={2} sx={{ p: theme.spacing(4) }}>
 					<Grid container>
-						<Grid item xs={9} sx={{ display: 'flex', alignItems: 'center' }}>
+						<Grid item xs={8} sx={{ display: 'flex', alignItems: 'center' }}>
 							<Avatar
 								alt={patient.data?.name ?? 'avatar'}
 								src={patient.data?.avatar ?? ''}
@@ -106,18 +108,33 @@ export function PatientChart(): ReactElement {
 								{patient.data?.name}
 							</Typography>
 						</Grid>
-						<Grid item xs={3} sx={{ textAlign: 'right' }}>
-							<Button
-								sx={{
-									pl: theme.spacing(6),
-									pr: theme.spacing(6),
-								}}
-								variant="contained"
-								size="large"
-								color="secondary"
-							>
-								Exportar Completo
-							</Button>
+						<Grid item xs={4}>
+							<Stack direction="row" sx={{ display: 'flex', justifyContent: 'flex-end'}}>
+								<Button
+                  sx={{
+                    pl: theme.spacing(6),
+                    pr: theme.spacing(6),
+                    mr: theme.spacing(2)
+                  }}
+                  variant="contained"
+                  size="large"
+                  color="secondary"
+								>
+								  Exportar Completo
+								</Button>
+								<Button
+                  sx={{
+                    pl: theme.spacing(6),
+                    pr: theme.spacing(6),
+                  }}
+                  variant="contained"
+                  size="large"
+                  color="primary"
+                  onClick={patientCreateModal.show}
+								>
+								  Editar
+								</Button>
+							</Stack>
 						</Grid>
 					</Grid>
 				</Paper>
@@ -245,6 +262,13 @@ export function PatientChart(): ReactElement {
 					evaluations.refetch()
 				}}
 			/>
+      <PatientFormModal
+        visible={patientCreateModal.visible}
+				onClose={() => {
+					patientCreateModal.hide()
+					evaluations.refetch()
+				}}
+      />
 			<FloatingWhatsAppButton />
 		</>
 	)

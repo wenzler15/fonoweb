@@ -16,14 +16,33 @@ import InputMask from 'react-input-mask'
 import { GenderType } from 'patient'
 import { translateGenderType } from 'patient/utils'
 import { TextField } from 'formik-mui'
+import { useUniversalParam } from 'routes/hooks'
+import { usePatientById } from 'patient/queries'
+import { useEffect } from 'react'
+import { format } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
 
 export function PatientForm() {
-	const { errors, touched } = useFormikContext<{
+	const { errors, touched, setFieldValue } = useFormikContext<{
 		name: string
 		gender: string
 		email: string
-		birthDate: string
+		birthDate: Date | null
 	}>()
+
+  const patientId = useUniversalParam('patient')
+
+  const patient = usePatientById(patientId as string);
+
+  useEffect(() => {
+		if (patientId && patient.data) {
+      setFieldValue('name', patient.data.name)
+      setFieldValue('email', patient.data.email)
+      setFieldValue('gender', patient.data.gender)
+      const dateFormated = format(utcToZonedTime(patient.data.birthDate as Date, 'UTC'), 'dd/MM/yyyy')
+      setFieldValue('birthDate', dateFormated)
+		}
+	}, [patientId, patient.data, setFieldValue])
 
 	return (
 		<Stack spacing={2}>

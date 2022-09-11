@@ -15,7 +15,6 @@ export const client = ky.extend({
 		],
 		afterResponse: [
 			(_request, _options, response) => {
-				return
 				if (response.status === 401) {
 					AuthStore.getState().logout()
 					window.location.replace('/')

@@ -1,0 +1,274 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+generator client-front {
+  provider        = "prisma-client-js"
+  output          = "../../front-web-fonoweb-doctor/src/prisma/client"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+generator zod {
+  provider = "prisma-zod-generator"
+  output   = "./zod"
+}
+
+// generator yup {
+//   provider   = "prisma-yup-generator"
+//   output     = "./yup"
+// }
+
+generator zod-models {
+  provider              = "zod-prisma"
+  output                = "./zod"
+  relationModel         = false
+  modelCase             = "PascalCase"
+  modelSuffix           = ""
+  useDecimalJs          = true
+  prismaJsonNullability = true
+}
+
+generator zod-front {
+  provider = "prisma-zod-generator"
+  output   = "../../front-web-fonoweb-doctor/src/prisma"
+}
+
+generator zod-models-front {
+  provider              = "zod-prisma"
+  output                = "../../front-web-fonoweb-doctor/src/prisma/models"
+  relationModel         = false
+  modelCase             = "PascalCase"
+  modelSuffix           = ""
+  useDecimalJs          = true
+  prismaJsonNullability = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  DOCTOR
+  PATIENT
+}
+
+model User {
+  id                   String    @id() @unique @default(uuid()) @db.Uuid
+  numericId            Int       @default(autoincrement()) @map("numeric_id")
+  email                String
+  name                 String
+  gender               String?
+  cpf                  String?
+  birthDate            DateTime? @map("birth_date")
+  password             String
+  type                 UserType  @default(DOCTOR) @map("type")
+  avatar               String?
+  facebookToken        String?   @map("facebook_token")
+  passwordResetToken   String?   @map("password_reset_token")
+  passwordResetExpires DateTime? @map("password_reset_expires") @db.Timestamptz(6)
+  isAdmin              Boolean   @default(false) @map("is_admin")
+  isActive             Boolean   @default(false) @map("is_active")
+  createdAt            DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt            DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  patientData Patient?      @relation("PatientUserRelation")
+  doctorData  Doctor?       @relation("DoctorUserRelation")
+  addresses   UserAdress[]
+  contacts    UserContact[]
+
+  DoctorPatient DoctorPatient[]
+  @@map("users")
+}
+
+model UserAdress {
+  id         String    @id() @unique @default(uuid()) @db.Uuid
+  numericId  Int       @default(autoincrement()) @map("numeric_id")
+  userId     String    @db.Uuid
+  streetName String    @map("street_name")
+  zipCode    String    @map("zip_code")
+  district   String
+  state      String
+  city       String
+  number     String
+  complement String?
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamptz(6)
+  user       User      @relation(fields: [userId], references: [id])
+
+  @@map("user_adress")
+}
+
+model UserContact {
+  id        String    @id() @unique @default(uuid()) @db.Uuid
+  numericId Int       @default(autoincrement()) @map("numeric_id")
+  userId    String    @db.Uuid
+  email     String?
+  area      String
+  phone     String
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("users_contacts")
+}
+
+model Patient {
+  id        String    @id() @unique @default(uuid()) @db.Uuid
+  numericId Int       @default(autoincrement()) @map("numeric_id")
+  userId    String    @unique @map("user_id") @db.Uuid
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  user          User            @relation("PatientUserRelation", fields: [userId], references: [id])
+  anamnesis     Anamnesis[]
+  evaluations   Evaluation[]    @relation("EvaluationPatientRelation")
+  doctorPatient DoctorPatient[]
+  evolutions    Evolution[]     @relation("EvolutionPatientRelation")
+
+  @@map("patients")
+}
+
+model Doctor {
+  id          String    @id() @unique @default(uuid()) @db.Uuid
+  numericId   Int       @default(autoincrement()) @map("numeric_id")
+  userId      String    @unique @map("user_id") @db.Uuid
+  specialtyId String    @map("specialty_id") @db.Uuid
+  crfa        String?
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  specialty     Specialty       @relation(fields: [specialtyId], references: [id])
+  user          User            @relation("DoctorUserRelation", fields: [userId], references: [id])
+  anamnesis     Anamnesis[]
+  evaluations   Evaluation[]    @relation("EvaluationDoctorRelation")
+  doctorPatient DoctorPatient[]
+  templates     Template[]
+  evolutions    Evolution[]     @relation("EvolutionDoctorRelation")
+
+  @@map("doctors")
+}
+
+model DoctorPatient {
+  doctorId     String   @map("doctor_id") @db.Uuid
+  patientId    String   @map("patient_id") @db.Uuid
+  assignedById String   @map("created_by") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  active       Boolean  @default(true) @map("active")
+
+  doctor     Doctor  @relation(fields: [doctorId], references: [id])
+  patient    Patient @relation(fields: [patientId], references: [id])
+  assignedBy User    @relation(fields: [assignedById], references: [id])
+
+  @@id([doctorId, patientId])
+  @@map("doctor_patient")
+}
+
+model Specialty {
+  id        String   @id() @unique @default(uuid()) @db.Uuid
+  numericId Int      @default(autoincrement()) @map("numeric_id")
+  name      String
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  doctors     Doctor[]
+  templates   Template[]
+  evaluations Evaluation[]
+  anamnesis   Anamnesis[]
+
+  Evolution Evolution[]
+  @@map("specialties")
+}
+
+model Anamnesis {
+  id          String    @id() @unique @default(uuid()) @db.Uuid
+  numericId   Int       @default(autoincrement()) @map("numeric_id")
+  patientId   String    @map("patient_id") @db.Uuid
+  doctorId    String    @map("doctor_id") @db.Uuid
+  specialtyId String    @map("specialty_id") @db.Uuid
+  questions   Json      @default("[]") @db.Json
+  title       String?
+  text        String?   @db.Text
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  patient   Patient   @relation(fields: [patientId], references: [id])
+  doctor    Doctor    @relation(fields: [doctorId], references: [id])
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
+
+  @@map("anamnesis")
+}
+
+model Evolution {
+  id              String    @id() @unique @default(uuid()) @db.Uuid
+  numericId       Int       @default(autoincrement()) @map("numeric_id")
+  patientId       String    @map("patient_id") @db.Uuid
+  doctorId        String    @map("doctor_id") @db.Uuid
+  specialtyId     String    @map("specialty_id") @db.Uuid
+  exercises       Json      @default("[]") @db.Json
+  text            String?   @db.Text
+  title           String?
+  appointmentDate DateTime  @default(now()) @map("appointment_date") @db.Timestamptz(6)
+  comments        String?
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt       DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  patient   Patient   @relation(name: "EvolutionPatientRelation", fields: [patientId], references: [id])
+  doctor    Doctor    @relation(name: "EvolutionDoctorRelation", fields: [doctorId], references: [id])
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
+
+  @@map("evolutions")
+}
+
+model Evaluation {
+  id          String    @id() @unique @default(uuid()) @db.Uuid
+  numericId   Int       @default(autoincrement()) @map("numeric_id")
+  patientId   String    @map("patient_id") @db.Uuid
+  doctorId    String    @map("doctor_id") @db.Uuid
+  specialtyId String    @map("specialty_id") @db.Uuid
+  text        String?   @db.Text
+  title       String?
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  patient   Patient   @relation(name: "EvaluationPatientRelation", fields: [patientId], references: [id])
+  doctor    Doctor    @relation(name: "EvaluationDoctorRelation", fields: [doctorId], references: [id])
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
+
+  @@map("evaluations")
+}
+
+enum TemplateType {
+  ANAMNESIS
+  EVALUATION
+}
+
+model Template {
+  id          String       @id() @unique @default(uuid()) @db.Uuid
+  numericId   Int          @default(autoincrement()) @map("numeric_id")
+  doctorId    String       @map("doctor_id") @db.Uuid
+  type        TemplateType
+  specialtyId String       @map("specialty_id") @db.Uuid
+  title       String
+  html        String       @db.Text
+  isActive    Boolean      @default(true) @map("is_active")
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime     @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime?    @map("deleted_at") @db.Timestamptz(6)
+
+  doctor    Doctor    @relation(fields: [doctorId], references: [id])
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
+
+  @@map("templates")
+}

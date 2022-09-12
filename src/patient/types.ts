@@ -1,5 +1,6 @@
 import { Anamnesis } from 'anamnesis'
 import { Evaluation } from 'evaluation'
+import { Evolution } from 'evolution'
 
 export enum GenderType {
 	MALE = 'MALE',
@@ -19,3 +20,4 @@ export type Patient = {
 export type PatientChartInfoProps =
 	| { type: 'anamnesis'; data: Anamnesis }
 	| { type: 'evaluation'; data: Evaluation }
+	| { type: 'evolution'; data: Evolution }

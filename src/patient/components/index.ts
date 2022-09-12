@@ -1,3 +1,4 @@
 export * from './PatientForm'
-export * from './PatientAppointmentModal'
+export * from './PatientEvaluationModal'
+export * from './PatientEvolutionModal'
 export * from './PatientFormModal'

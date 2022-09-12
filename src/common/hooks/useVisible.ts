@@ -13,6 +13,7 @@ export function useVisible({
 			visible,
 			show: (): void => setVisible(true),
 			hide: (): void => setVisible(false),
+			toggle: (): void => setVisible(oldState => !oldState),
 		}),
 		[visible, setVisible],
 	)

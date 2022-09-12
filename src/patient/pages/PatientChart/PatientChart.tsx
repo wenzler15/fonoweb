@@ -10,7 +10,7 @@ import {
 	Paper,
 	Avatar,
 	Collapse,
-  Stack,
+	Stack,
 } from '@mui/material'
 import {
 	CustomArrowDown,
@@ -24,16 +24,23 @@ import { usePatientById } from 'patient/queries'
 import { NotFound } from './NotFound'
 import { calculateAge } from 'helpers/calculateAge'
 import { useVisible } from 'common/hooks'
-import { PatientAppointmentModal , PatientFormModal } from 'patient/components'
+import {
+	PatientEvaluationModal,
+	PatientEvolutionModal,
+	PatientFormModal,
+} from 'patient/components'
 import { useAnamnesis } from 'anamnesis/queries'
 import { client } from 'common/client'
-import { download } from '@excelsia/general-helpers'
+import { download, isListable } from '@excelsia/general-helpers'
+import { useEvolutions } from 'evolution/queries'
 
 export function PatientChart(): ReactElement {
 	const theme = useTheme()
 	const { patient: patientId } = useParams()
-	const modal = useVisible()
+	const evolutionModal = useVisible()
+	const evaluationModal = useVisible()
 	const patientCreateModal = useVisible()
+	const evolutionAccordion = useVisible()
 	const [showAnamnesis, setShowAnamnesis] = useState(false)
 	const [showEvaluation, setShowEvaluation] = useState(false)
 
@@ -47,6 +54,12 @@ export function PatientChart(): ReactElement {
 		size: 999,
 		page: 1,
 		patientId,
+	})
+
+	const evolutions = useEvolutions({
+		where: {
+			patientId,
+		},
 	})
 
 	if (patient.isError) {
@@ -66,7 +79,7 @@ export function PatientChart(): ReactElement {
 		setShowEvaluation(oldState => !oldState)
 	}
 
-	const handleEvolutionsDownload = () => {
+	const handleEvaluationsDownload = () => {
 		if (patientId) {
 			const handle = download.blob(`${patientId}.pdf`)
 
@@ -109,30 +122,33 @@ export function PatientChart(): ReactElement {
 							</Typography>
 						</Grid>
 						<Grid item xs={4}>
-							<Stack direction="row" sx={{ display: 'flex', justifyContent: 'flex-end'}}>
+							<Stack
+								direction="row"
+								sx={{ display: 'flex', justifyContent: 'flex-end' }}
+							>
 								<Button
-                  sx={{
-                    pl: theme.spacing(6),
-                    pr: theme.spacing(6),
-                    mr: theme.spacing(2)
-                  }}
-                  variant="contained"
-                  size="large"
-                  color="secondary"
+									sx={{
+										pl: theme.spacing(6),
+										pr: theme.spacing(6),
+										mr: theme.spacing(2),
+									}}
+									variant="contained"
+									size="large"
+									color="secondary"
 								>
-								  Exportar Completo
+									Exportar Completo
 								</Button>
 								<Button
-                  sx={{
-                    pl: theme.spacing(6),
-                    pr: theme.spacing(6),
-                  }}
-                  variant="contained"
-                  size="large"
-                  color="primary"
-                  onClick={patientCreateModal.show}
+									sx={{
+										pl: theme.spacing(6),
+										pr: theme.spacing(6),
+									}}
+									variant="contained"
+									size="large"
+									color="primary"
+									onClick={patientCreateModal.show}
 								>
-								  Editar
+									Editar
 								</Button>
 							</Stack>
 						</Grid>
@@ -166,7 +182,7 @@ export function PatientChart(): ReactElement {
 					<Grid container sx={{ mb: theme.spacing(5) }}>
 						<Grid item xs={6}>
 							<CustomButton onClick={handleShowAnamnesis}>
-								Anamnese do paciente
+								Anamneses do paciente
 								{showAnamnesis ? <CustomArrowDown /> : <CustomArrowRight />}
 							</CustomButton>
 						</Grid>
@@ -207,7 +223,7 @@ export function PatientChart(): ReactElement {
 							</Collapse>
 						</Grid>
 					</Grid>
-					<Grid container sx={{ mb: theme.spacing(10) }}>
+					<Grid container sx={{ mb: theme.spacing(5) }}>
 						<Grid container>
 							<Grid item xs={6}>
 								<CustomButton onClick={handleShowEvaluation}>
@@ -220,7 +236,7 @@ export function PatientChart(): ReactElement {
 									color="primary"
 									variant="contained"
 									size="medium"
-									onClick={modal.show}
+									onClick={evaluationModal.show}
 								>
 									Nova Avaliação
 								</Button>
@@ -253,22 +269,83 @@ export function PatientChart(): ReactElement {
 							</Collapse>
 						</Grid>
 					</Grid>
+					<Grid container sx={{ mb: theme.spacing(10) }}>
+						<Grid container>
+							<Grid item xs={6}>
+								<CustomButton onClick={evolutionAccordion.toggle}>
+									Consultas
+									{evolutionAccordion.visible ? (
+										<CustomArrowDown />
+									) : (
+										<CustomArrowRight />
+									)}
+								</CustomButton>
+							</Grid>
+							<Grid item xs={6} textAlign="right">
+								<Button
+									color="primary"
+									variant="contained"
+									size="medium"
+									onClick={evolutionModal.show}
+								>
+									Nova Consulta
+								</Button>
+							</Grid>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<Collapse
+								in={evolutionAccordion.visible}
+								timeout="auto"
+								unmountOnExit
+							>
+								{isListable(evolutions.data?.result) ? (
+									evolutions.data?.result.map(evolution => (
+										<PatientChartInfo
+											key={evolution.id}
+											data={evolution}
+											type="evolution"
+										/>
+									))
+								) : (
+									<Typography
+										variant="body1"
+										component="p"
+										sx={{
+											mb: theme.spacing(2),
+											ml: theme.spacing(1),
+											color: '#AAAAAA',
+											display: 'inline',
+										}}
+									>
+										Nenhuma avaliação cadastrada
+									</Typography>
+								)}
+							</Collapse>
+						</Grid>
+					</Grid>
 				</Paper>
 			</Box>
-			<PatientAppointmentModal
-				visible={modal.visible}
+			<PatientEvolutionModal
+				visible={evolutionModal.visible}
 				onClose={() => {
-					modal.hide()
+					evolutionModal.hide()
+					evolutions.refetch()
+				}}
+			/>
+			<PatientEvaluationModal
+				visible={evaluationModal.visible}
+				onClose={() => {
+					evaluationModal.hide()
 					evaluations.refetch()
 				}}
 			/>
-      <PatientFormModal
-        visible={patientCreateModal.visible}
+			<PatientFormModal
+				visible={patientCreateModal.visible}
 				onClose={() => {
 					patientCreateModal.hide()
 					evaluations.refetch()
 				}}
-      />
+			/>
 			<FloatingWhatsAppButton />
 		</>
 	)

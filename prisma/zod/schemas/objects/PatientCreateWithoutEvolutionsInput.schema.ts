@@ -1,0 +1,29 @@
+import { z } from 'zod'
+import { UserCreateNestedOneWithoutPatientDataInputObjectSchema } from './UserCreateNestedOneWithoutPatientDataInput.schema'
+import { AnamnesisCreateNestedManyWithoutPatientInputObjectSchema } from './AnamnesisCreateNestedManyWithoutPatientInput.schema'
+import { EvaluationCreateNestedManyWithoutPatientInputObjectSchema } from './EvaluationCreateNestedManyWithoutPatientInput.schema'
+import { DoctorPatientCreateNestedManyWithoutPatientInputObjectSchema } from './DoctorPatientCreateNestedManyWithoutPatientInput.schema'
+
+import type { Prisma } from '@prisma/client'
+
+const Schema: z.ZodType<Prisma.PatientCreateWithoutEvolutionsInput> = z
+	.object({
+		id: z.string().optional(),
+		numericId: z.number().optional(),
+		createdAt: z.date().optional(),
+		updatedAt: z.date().optional(),
+		deletedAt: z.date().optional().nullable(),
+		user: z.lazy(() => UserCreateNestedOneWithoutPatientDataInputObjectSchema),
+		anamnesis: z
+			.lazy(() => AnamnesisCreateNestedManyWithoutPatientInputObjectSchema)
+			.optional(),
+		evaluations: z
+			.lazy(() => EvaluationCreateNestedManyWithoutPatientInputObjectSchema)
+			.optional(),
+		doctorPatient: z
+			.lazy(() => DoctorPatientCreateNestedManyWithoutPatientInputObjectSchema)
+			.optional(),
+	})
+	.strict()
+
+export const PatientCreateWithoutEvolutionsInputObjectSchema = Schema

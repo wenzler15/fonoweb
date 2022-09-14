@@ -112,7 +112,7 @@ function PatientAppointments() {
           ) : (<FilterLabel>Nenhum histórico de consulta</FilterLabel>)}
         </ContentRight>
       </ContentContainer>
-      <FloatingWhatsAppButton />
+      
     </MainContainer>
   );
 }

@@ -9,6 +9,7 @@ import { AnamnesisListRelationFilterObjectSchema } from './AnamnesisListRelation
 import { EvaluationListRelationFilterObjectSchema } from './EvaluationListRelationFilter.schema'
 import { DoctorPatientListRelationFilterObjectSchema } from './DoctorPatientListRelationFilter.schema'
 import { EvolutionListRelationFilterObjectSchema } from './EvolutionListRelationFilter.schema'
+import { AppointmentListRelationFilterObjectSchema } from './AppointmentListRelationFilter.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -64,6 +65,9 @@ const Schema: z.ZodType<Prisma.PatientWhereInput> = z
 			.optional(),
 		evolutions: z
 			.lazy(() => EvolutionListRelationFilterObjectSchema)
+			.optional(),
+		appointment: z
+			.lazy(() => AppointmentListRelationFilterObjectSchema)
 			.optional(),
 	})
 	.strict()

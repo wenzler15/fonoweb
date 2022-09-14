@@ -11,6 +11,7 @@ import { DoctorUncheckedUpdateOneWithoutUserNestedInputObjectSchema } from './Do
 import { UserAdressUncheckedUpdateManyWithoutUserNestedInputObjectSchema } from './UserAdressUncheckedUpdateManyWithoutUserNestedInput.schema'
 import { UserContactUncheckedUpdateManyWithoutUserNestedInputObjectSchema } from './UserContactUncheckedUpdateManyWithoutUserNestedInput.schema'
 import { DoctorPatientUncheckedUpdateManyWithoutAssignedByNestedInputObjectSchema } from './DoctorPatientUncheckedUpdateManyWithoutAssignedByNestedInput.schema'
+import { ExerciseUncheckedUpdateManyWithoutCreatorNestedInputObjectSchema } from './ExerciseUncheckedUpdateManyWithoutCreatorNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -149,6 +150,11 @@ const Schema: z.ZodType<Prisma.UserUncheckedUpdateWithoutPatientDataInput> = z
 			.lazy(
 				() =>
 					DoctorPatientUncheckedUpdateManyWithoutAssignedByNestedInputObjectSchema,
+			)
+			.optional(),
+		exercises: z
+			.lazy(
+				() => ExerciseUncheckedUpdateManyWithoutCreatorNestedInputObjectSchema,
 			)
 			.optional(),
 	})

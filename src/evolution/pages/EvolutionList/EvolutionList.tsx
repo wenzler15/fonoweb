@@ -330,7 +330,7 @@ export function EvolutionList(): ReactElement {
 					</Button>
 				</Paper>
 			</Box>
-			<FloatingWhatsAppButton />
+			
 		</Container>
 	)
 }

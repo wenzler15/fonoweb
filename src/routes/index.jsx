@@ -11,6 +11,8 @@ import { TEMPLATE_ROUTES } from '../template'
 import { ANAMNESIS_ROUTES } from '../anamnesis'
 import { PATIENT_ROUTES } from '../patient'
 import { EVALUATION_ROUTES } from '../evaluation'
+import { EVOLUTION_ROUTES } from '../evolution'
+import { EXERCISE_ROUTES } from '../exercise'
 
 function AppRoutes() {
 	return (
@@ -24,6 +26,8 @@ function AppRoutes() {
 				ANAMNESIS_ROUTES,
 				PATIENT_ROUTES,
 				EVALUATION_ROUTES,
+				EVOLUTION_ROUTES,
+				EXERCISE_ROUTES,
 			]
 				.flat()
 				.map(({ element: Element, ...route }) => (

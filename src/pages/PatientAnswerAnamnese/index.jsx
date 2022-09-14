@@ -86,7 +86,7 @@ function PatientAnswerAnamnese() {
                     <button onClick={() => saveAnswers()}>Enviar respostas</button>
                 </div>
             </section>
-            <FloatingWhatsAppButton />
+            
         </Container>
     );
 }

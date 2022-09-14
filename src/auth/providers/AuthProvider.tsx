@@ -44,7 +44,7 @@ export const AuthStore = createVanilla<
 	),
 )
 
-const useAuthStore = create(AuthStore)
+export const useAuthStore = create(AuthStore)
 
 export function AuthProvider({ children }: PropsWithChildren): ReactElement {
 	const store = useAuthStore()

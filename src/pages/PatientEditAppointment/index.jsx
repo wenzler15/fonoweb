@@ -109,7 +109,7 @@ function PatientEditAppointment() {
           </ContentButton>
         </ContentRight>
       </ContentContainer>
-      <FloatingWhatsAppButton />
+      
     </MainContainer>
   );
 }

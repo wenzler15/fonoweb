@@ -68,7 +68,7 @@ export function TemplateCreate(): ReactElement {
 					</CardContent>
 				</Card>
 			</Box>
-      <FloatingWhatsAppButton />
+      
 		</>
 	)
 }

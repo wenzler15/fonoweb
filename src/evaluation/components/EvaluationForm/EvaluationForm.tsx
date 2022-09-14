@@ -4,6 +4,7 @@ import {
 	AutocompleteRenderInputParams,
 	TextField as MTextField,
 	Button,
+	Stack,
 } from '@mui/material'
 import { Autocomplete, TextField } from 'formik-mui'
 import { Field, useFormikContext } from 'formik'
@@ -120,27 +121,28 @@ export function EvaluationForm({
 					justifyContent="center"
 					alignItems="center"
 				>
-					<Grid item xs={canUseTemplate ? 6 : 12}>
-						<Field
-							fullWidth
-							component={TextField}
-							name="title"
-							label="Título"
-						/>
+					<Grid item xs={12}>
+						<Stack direction="row" spacing={2}>
+							<Field
+								fullWidth
+								component={TextField}
+								name="title"
+								label="Título"
+							/>
+							{canUseTemplate && (
+								<Button
+									sx={{ width: '20%' }}
+									onClick={() => modalTemplates.show()}
+									variant="contained"
+									size="large"
+									color="secondary"
+								>
+									Selecionar Modelo
+								</Button>
+							)}
+						</Stack>
 					</Grid>
-					{canUseTemplate && (
-						<Grid item xs={6} sx={{ textAlign: 'right' }}>
-							<Button
-								onClick={() => modalTemplates.show()}
-								variant="contained"
-								size="large"
-								color="secondary"
-							>
-								Selecionar Modelo
-							</Button>
-						</Grid>
-					)}
-					<Grid item xs={4}>
+					<Grid item xs={6}>
 						<Field
 							fullWidth
 							name="specialty"
@@ -159,7 +161,7 @@ export function EvaluationForm({
 							)}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={6}>
 						{patientId && (
 							<MTextField
 								fullWidth

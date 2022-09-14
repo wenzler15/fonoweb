@@ -43,7 +43,7 @@ function EvaluationModels() {
           <button>Criar avaliação personalizada</button>
         </div>
       </section>
-      <FloatingWhatsAppButton />
+      
     </Container>
   );
 }

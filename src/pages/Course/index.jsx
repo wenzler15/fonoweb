@@ -118,7 +118,7 @@ const Course = () => {
           <input placeholder="Escreva aqui..." />
         </NoteContainer>
       </Container>
-      <FloatingWhatsAppButton />
+      
     </>
   );
 };

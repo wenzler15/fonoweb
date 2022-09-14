@@ -7,6 +7,7 @@ import { UserUpdateOneRequiredWithoutPatientDataNestedInputObjectSchema } from '
 import { AnamnesisUpdateManyWithoutPatientNestedInputObjectSchema } from './AnamnesisUpdateManyWithoutPatientNestedInput.schema'
 import { EvaluationUpdateManyWithoutPatientNestedInputObjectSchema } from './EvaluationUpdateManyWithoutPatientNestedInput.schema'
 import { EvolutionUpdateManyWithoutPatientNestedInputObjectSchema } from './EvolutionUpdateManyWithoutPatientNestedInput.schema'
+import { AppointmentUpdateManyWithoutPatientNestedInputObjectSchema } from './AppointmentUpdateManyWithoutPatientNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -56,6 +57,9 @@ const Schema: z.ZodType<Prisma.PatientUpdateWithoutDoctorPatientInput> = z
 			.optional(),
 		evolutions: z
 			.lazy(() => EvolutionUpdateManyWithoutPatientNestedInputObjectSchema)
+			.optional(),
+		appointment: z
+			.lazy(() => AppointmentUpdateManyWithoutPatientNestedInputObjectSchema)
 			.optional(),
 	})
 	.strict()

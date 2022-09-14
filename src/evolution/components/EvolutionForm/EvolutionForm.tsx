@@ -20,13 +20,12 @@ import { Field, FieldArray, useFormikContext } from 'formik'
 import { useTemplateDetail, useTemplates } from 'template/queries'
 import { usePatients } from 'patient/queries'
 import { UserWithPatient } from 'user/types'
-import { Template, TemplateType } from 'template'
+import { Template } from 'template'
 import { ContentState, EditorState } from 'draft-js'
 import htmlToDraft from 'html-to-draftjs'
 import Swal from 'sweetalert2'
 import { useEffect, useState } from 'react'
 import { useVisible } from 'common/hooks'
-import { TemplateSelector } from 'template/components/TemplateSelector/TemplateSelector'
 import { Specialty } from 'specialty'
 import { useSpecialties } from 'specialty/queries'
 import { InferType } from 'yup'
@@ -45,10 +44,10 @@ const handleAddExercise =
 		})
 
 export function EvolutionForm({
-	config: { canUseTemplate = true, canChangeAppointmentDate = true } = {},
+	config: { canChangeAppointmentDate = true } = {},
 }: EvolutionFormProps) {
 	const {
-		values: { template, patient, exercises, appointmentDate, ...v },
+		values: { template, patient, exercises, appointmentDate },
 		errors,
 		touched,
 		setFieldValue,
@@ -116,8 +115,6 @@ export function EvolutionForm({
 		return undefined
 	}
 
-	const modalTemplates = useVisible()
-
 	useEffect(() => {
 		if (template) {
 			handleTemplateChange(template)
@@ -145,7 +142,7 @@ export function EvolutionForm({
 					justifyContent="center"
 					alignItems="center"
 				>
-					<Grid item xs={canUseTemplate ? 6 : 12}>
+					<Grid item xs={12}>
 						<Field
 							fullWidth
 							component={TextField}
@@ -153,18 +150,6 @@ export function EvolutionForm({
 							label="Título"
 						/>
 					</Grid>
-					{canUseTemplate && (
-						<Grid item xs={6} sx={{ textAlign: 'right' }}>
-							<Button
-								onClick={() => modalTemplates.show()}
-								variant="contained"
-								size="large"
-								color="secondary"
-							>
-								Selecionar Modelo
-							</Button>
-						</Grid>
-					)}
 					<Grid item xs={4}>
 						{canChangeAppointmentDate && (
 							<Field
@@ -396,12 +381,6 @@ export function EvolutionForm({
 				</Grid>
 			</Grid>
 			<LoadingOverlay show={templates.isLoading || patients.isLoading} />
-			<TemplateSelector
-				type={TemplateType.EVOLUTION}
-				visible={modalTemplates.visible}
-				onClose={modalTemplates.hide}
-				onSelect={handleTemplateChange}
-			/>
 		</>
 	)
 }

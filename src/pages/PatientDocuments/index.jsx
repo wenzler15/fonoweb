@@ -80,7 +80,7 @@ function PatientDocuments() {
                     )}
                 </ContentRight>
             </ContentContainer>
-            <FloatingWhatsAppButton />
+            
         </MainContainer>
     );
 }

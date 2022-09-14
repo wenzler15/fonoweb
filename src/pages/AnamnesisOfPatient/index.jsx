@@ -41,7 +41,7 @@ function AnamnesisOfPatient() {
           <button>Usar</button>
         </div>
       </section>
-      <FloatingWhatsAppButton />
+      
     </Container>
   );
 }

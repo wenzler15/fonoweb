@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema'
 import { IntWithAggregatesFilterObjectSchema } from './IntWithAggregatesFilter.schema'
 import { StringNullableWithAggregatesFilterObjectSchema } from './StringNullableWithAggregatesFilter.schema'
+import { JsonWithAggregatesFilterObjectSchema } from './JsonWithAggregatesFilter.schema'
 import { DateTimeWithAggregatesFilterObjectSchema } from './DateTimeWithAggregatesFilter.schema'
 import { DateTimeNullableWithAggregatesFilterObjectSchema } from './DateTimeNullableWithAggregatesFilter.schema'
 
@@ -44,6 +45,7 @@ const Schema: z.ZodType<Prisma.DoctorScalarWhereWithAggregatesInput> = z
 			])
 			.optional()
 			.nullable(),
+		availability: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.date()])
 			.optional(),

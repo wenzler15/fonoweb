@@ -60,7 +60,7 @@ function PatientSuccessAppointment() {
                     </ContentButton>
                 </ContentRight>
             </ContentContainer>
-            <FloatingWhatsAppButton />
+            
         </MainContainer>
     );
 }

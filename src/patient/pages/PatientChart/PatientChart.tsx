@@ -60,6 +60,9 @@ export function PatientChart(): ReactElement {
 		where: {
 			patientId,
 		},
+		orderBy: {
+			createdAt: 'desc',
+		},
 	})
 
 	if (patient.isError) {
@@ -317,7 +320,7 @@ export function PatientChart(): ReactElement {
 											display: 'inline',
 										}}
 									>
-										Nenhuma avaliação cadastrada
+										Nenhuma consulta cadastrada
 									</Typography>
 								)}
 							</Collapse>
@@ -346,7 +349,7 @@ export function PatientChart(): ReactElement {
 					evaluations.refetch()
 				}}
 			/>
-			<FloatingWhatsAppButton />
+			
 		</>
 	)
 }

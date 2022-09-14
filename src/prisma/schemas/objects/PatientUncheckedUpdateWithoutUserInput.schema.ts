@@ -7,6 +7,7 @@ import { AnamnesisUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } fro
 import { EvaluationUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } from './EvaluationUncheckedUpdateManyWithoutPatientNestedInput.schema'
 import { DoctorPatientUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } from './DoctorPatientUncheckedUpdateManyWithoutPatientNestedInput.schema'
 import { EvolutionUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } from './EvolutionUncheckedUpdateManyWithoutPatientNestedInput.schema'
+import { AppointmentUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } from './AppointmentUncheckedUpdateManyWithoutPatientNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -63,6 +64,12 @@ const Schema: z.ZodType<Prisma.PatientUncheckedUpdateWithoutUserInput> = z
 		evolutions: z
 			.lazy(
 				() => EvolutionUncheckedUpdateManyWithoutPatientNestedInputObjectSchema,
+			)
+			.optional(),
+		appointment: z
+			.lazy(
+				() =>
+					AppointmentUncheckedUpdateManyWithoutPatientNestedInputObjectSchema,
 			)
 			.optional(),
 	})

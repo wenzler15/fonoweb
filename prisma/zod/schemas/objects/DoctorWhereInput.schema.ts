@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { StringFilterObjectSchema } from './StringFilter.schema'
 import { IntFilterObjectSchema } from './IntFilter.schema'
 import { StringNullableFilterObjectSchema } from './StringNullableFilter.schema'
+import { JsonFilterObjectSchema } from './JsonFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema'
 import { SpecialtyRelationFilterObjectSchema } from './SpecialtyRelationFilter.schema'
@@ -13,6 +14,7 @@ import { EvaluationListRelationFilterObjectSchema } from './EvaluationListRelati
 import { DoctorPatientListRelationFilterObjectSchema } from './DoctorPatientListRelationFilter.schema'
 import { TemplateListRelationFilterObjectSchema } from './TemplateListRelationFilter.schema'
 import { EvolutionListRelationFilterObjectSchema } from './EvolutionListRelationFilter.schema'
+import { AppointmentListRelationFilterObjectSchema } from './AppointmentListRelationFilter.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -50,6 +52,7 @@ const Schema: z.ZodType<Prisma.DoctorWhereInput> = z
 			.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()])
 			.optional()
 			.nullable(),
+		availability: z.lazy(() => JsonFilterObjectSchema).optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
 			.optional(),
@@ -82,6 +85,9 @@ const Schema: z.ZodType<Prisma.DoctorWhereInput> = z
 		templates: z.lazy(() => TemplateListRelationFilterObjectSchema).optional(),
 		evolutions: z
 			.lazy(() => EvolutionListRelationFilterObjectSchema)
+			.optional(),
+		appointments: z
+			.lazy(() => AppointmentListRelationFilterObjectSchema)
 			.optional(),
 	})
 	.strict()

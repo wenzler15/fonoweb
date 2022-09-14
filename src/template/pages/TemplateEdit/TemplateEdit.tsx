@@ -75,7 +75,7 @@ export function TemplateEdit(): ReactElement {
 				</Card>
 			</Box>
 			<LoadingOverlay show={templateDetail.isLoading} />
-      <FloatingWhatsAppButton />
+      
 		</Container>
 	)
 }

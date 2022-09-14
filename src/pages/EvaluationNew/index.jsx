@@ -36,7 +36,7 @@ function EvaluationModels() {
           <button type="submit" onClick={handleSubmit}>Salvar</button>
         </form>
       </section>
-      <FloatingWhatsAppButton />
+      
     </Container>
   );
 }

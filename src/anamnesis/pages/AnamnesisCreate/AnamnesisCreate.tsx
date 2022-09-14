@@ -92,7 +92,7 @@ export function AnamnesisCreate() {
 					</>
 				)}
 			</Formik>
-			<FloatingWhatsAppButton />
+			
 		</>
 	)
 }

@@ -5,6 +5,7 @@ import { DoctorOrderByWithRelationInputObjectSchema } from './DoctorOrderByWithR
 import { UserAdressOrderByRelationAggregateInputObjectSchema } from './UserAdressOrderByRelationAggregateInput.schema'
 import { UserContactOrderByRelationAggregateInputObjectSchema } from './UserContactOrderByRelationAggregateInput.schema'
 import { DoctorPatientOrderByRelationAggregateInputObjectSchema } from './DoctorPatientOrderByRelationAggregateInput.schema'
+import { ExerciseOrderByRelationAggregateInputObjectSchema } from './ExerciseOrderByRelationAggregateInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -42,6 +43,9 @@ const Schema: z.ZodType<Prisma.UserOrderByWithRelationInput> = z
 			.optional(),
 		DoctorPatient: z
 			.lazy(() => DoctorPatientOrderByRelationAggregateInputObjectSchema)
+			.optional(),
+		exercises: z
+			.lazy(() => ExerciseOrderByRelationAggregateInputObjectSchema)
 			.optional(),
 	})
 	.strict()

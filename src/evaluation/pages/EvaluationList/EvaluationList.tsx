@@ -1,6 +1,5 @@
 import { NavBar } from 'components/navBar'
 import { ReactElement, useState } from 'react'
-import { FloatingWhatsAppButton } from 'common/components'
 import { useNavigate, Link } from 'react-router-dom'
 import { Pagination } from 'common/types'
 import {
@@ -330,7 +329,6 @@ export function EvaluationList(): ReactElement {
 					</Button>
 				</Paper>
 			</Box>
-			<FloatingWhatsAppButton />
 		</Container>
 	)
 }

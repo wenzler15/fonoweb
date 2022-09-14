@@ -169,7 +169,7 @@ function PatientExercises() {
                     )}
                 </ContentLeft>
             </ContentContainer>
-            <FloatingWhatsAppButton />
+            
         </MainContainer>
     );
 }

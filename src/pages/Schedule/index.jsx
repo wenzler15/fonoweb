@@ -186,7 +186,7 @@ function Schedule() {
           </>
         )}
       </Container>
-      <FloatingWhatsAppButton />
+      
     </>
   );
 }

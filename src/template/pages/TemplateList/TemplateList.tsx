@@ -471,7 +471,7 @@ export function TemplateList(): ReactElement {
 				/>
 			</Box>
 			<LoadingOverlay show={templates.isLoading} />
-      <FloatingWhatsAppButton />
+      
 		</Container>
 	)
 }

@@ -5,6 +5,7 @@ specifiers:
   '@emotion/react': ^11.10.0
   '@emotion/styled': ^11.10.0
   '@excelsia/general-helpers': ^1.2.0
+  '@fnando/cpf': ^1.0.2
   '@hookform/resolvers': ^2.9.3
   '@material-ui/core': ^4.12.4
   '@material-ui/pickers': ^3.3.10
@@ -132,6 +133,7 @@ dependencies:
   '@emotion/react': 11.10.4_pot6ztfn2od3imsmrb72ajpkqe
   '@emotion/styled': 11.10.4_63v2ckahfkh4rgmpdqazltma7e
   '@excelsia/general-helpers': 1.2.0
+  '@fnando/cpf': 1.0.2
   '@hookform/resolvers': 2.9.8_react-hook-form@7.35.0
   '@material-ui/core': 4.12.4_xr54tcmld2z2uxcxwin3peds4e
   '@material-ui/pickers': 3.3.10_vlgya2wa2xd4bffnh5z4fvvtsa
@@ -2157,6 +2159,10 @@ packages:
 
   /@excelsia/general-helpers/1.2.0:
     resolution: {integrity: sha512-7WOmkezpEeb/CYNmX0c0jIo3RU1poizA6MbpR3R7WAE+AjZxQmJH5WYk6MQwpZZhU16gEMXr4XGE6npPFwEvNA==}
+    dev: false
+
+  /@fnando/cpf/1.0.2:
+    resolution: {integrity: sha512-lfSfdONVQ/1aKvsA7PnawQjSoE5PXOyHich3WFIbAuYRMAw6Ax1FmIWxPxCfHP/Rh0R2cG/CxaimUW7NI6rgEQ==}
     dev: false
 
   /@hapi/address/4.1.0:

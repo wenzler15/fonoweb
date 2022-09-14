@@ -93,7 +93,7 @@ export function EvaluationCreate() {
 					</>
 				)}
 			</Formik>
-			<FloatingWhatsAppButton />
+			
 		</>
 	)
 }

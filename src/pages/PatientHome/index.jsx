@@ -285,7 +285,7 @@ function PatientHome() {
 
         </ContentLeft>
       </ContentContainer>
-      <FloatingWhatsAppButton />
+      
     </MainContainer>
   );
 }

@@ -15,6 +15,7 @@ const Schema: z.ZodType<Prisma.DoctorOrderByWithAggregationInput> = z
 		userId: z.lazy(() => SortOrderSchema).optional(),
 		specialtyId: z.lazy(() => SortOrderSchema).optional(),
 		crfa: z.lazy(() => SortOrderSchema).optional(),
+		availability: z.lazy(() => SortOrderSchema).optional(),
 		createdAt: z.lazy(() => SortOrderSchema).optional(),
 		updatedAt: z.lazy(() => SortOrderSchema).optional(),
 		deletedAt: z.lazy(() => SortOrderSchema).optional(),

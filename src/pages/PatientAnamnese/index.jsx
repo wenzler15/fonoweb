@@ -80,7 +80,7 @@ function PatientAnamnese() {
                     </Content>)}
                 </ContentRight>
             </ContentContainer>
-            <FloatingWhatsAppButton />
+            
         </MainContainer>
     );
 }

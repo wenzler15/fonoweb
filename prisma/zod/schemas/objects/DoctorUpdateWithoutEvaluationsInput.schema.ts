@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema'
 import { IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema'
 import { NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema'
+import { JsonNullValueInputSchema } from '../enums/JsonNullValueInput.schema'
 import { DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema'
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema'
 import { SpecialtyUpdateOneRequiredWithoutDoctorsNestedInputObjectSchema } from './SpecialtyUpdateOneRequiredWithoutDoctorsNestedInput.schema'
@@ -10,8 +11,18 @@ import { AnamnesisUpdateManyWithoutDoctorNestedInputObjectSchema } from './Anamn
 import { DoctorPatientUpdateManyWithoutDoctorNestedInputObjectSchema } from './DoctorPatientUpdateManyWithoutDoctorNestedInput.schema'
 import { TemplateUpdateManyWithoutDoctorNestedInputObjectSchema } from './TemplateUpdateManyWithoutDoctorNestedInput.schema'
 import { EvolutionUpdateManyWithoutDoctorNestedInputObjectSchema } from './EvolutionUpdateManyWithoutDoctorNestedInput.schema'
+import { AppointmentUpdateManyWithoutDoctorNestedInputObjectSchema } from './AppointmentUpdateManyWithoutDoctorNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
+
+const literalSchema = z.union([z.string(), z.number(), z.boolean()])
+const jsonSchema: z.ZodType<Prisma.InputJsonValue> = z.lazy(() =>
+	z.union([
+		literalSchema,
+		z.array(jsonSchema.nullable()),
+		z.record(jsonSchema.nullable()),
+	]),
+)
 
 const Schema: z.ZodType<Prisma.DoctorUpdateWithoutEvaluationsInput> = z
 	.object({
@@ -34,6 +45,9 @@ const Schema: z.ZodType<Prisma.DoctorUpdateWithoutEvaluationsInput> = z
 			])
 			.optional()
 			.nullable(),
+		availability: z
+			.union([z.lazy(() => JsonNullValueInputSchema), jsonSchema])
+			.optional(),
 		createdAt: z
 			.union([
 				z.date(),
@@ -72,6 +86,9 @@ const Schema: z.ZodType<Prisma.DoctorUpdateWithoutEvaluationsInput> = z
 			.optional(),
 		evolutions: z
 			.lazy(() => EvolutionUpdateManyWithoutDoctorNestedInputObjectSchema)
+			.optional(),
+		appointments: z
+			.lazy(() => AppointmentUpdateManyWithoutDoctorNestedInputObjectSchema)
 			.optional(),
 	})
 	.strict()

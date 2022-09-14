@@ -6,6 +6,7 @@ import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './Nullab
 import { AnamnesisUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } from './AnamnesisUncheckedUpdateManyWithoutPatientNestedInput.schema'
 import { EvaluationUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } from './EvaluationUncheckedUpdateManyWithoutPatientNestedInput.schema'
 import { DoctorPatientUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } from './DoctorPatientUncheckedUpdateManyWithoutPatientNestedInput.schema'
+import { AppointmentUncheckedUpdateManyWithoutPatientNestedInputObjectSchema } from './AppointmentUncheckedUpdateManyWithoutPatientNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -63,6 +64,12 @@ const Schema: z.ZodType<Prisma.PatientUncheckedUpdateWithoutEvolutionsInput> = z
 			.lazy(
 				() =>
 					DoctorPatientUncheckedUpdateManyWithoutPatientNestedInputObjectSchema,
+			)
+			.optional(),
+		appointment: z
+			.lazy(
+				() =>
+					AppointmentUncheckedUpdateManyWithoutPatientNestedInputObjectSchema,
 			)
 			.optional(),
 	})

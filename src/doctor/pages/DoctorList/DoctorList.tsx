@@ -245,7 +245,7 @@ export function DoctorList(): ReactElement {
 					)}
 				/>
 			</Content>
-			<FloatingWhatsAppButton />
+			
 		</Container>
 	)
 }

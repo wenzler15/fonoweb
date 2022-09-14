@@ -178,7 +178,7 @@ function PatientScheduleAppointment() {
           </ContentText>
         </ContentRight>
       </ContentContainer>
-      <FloatingWhatsAppButton />
+      
     </MainContainer>
   );
 }

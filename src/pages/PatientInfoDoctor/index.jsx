@@ -104,7 +104,7 @@ function PatientInfoDoctor() {
           </ContentButton>
         </ContentRight>
       </ContentContainer>
-      <FloatingWhatsAppButton />
+      
     </MainContainer>
   );
 }

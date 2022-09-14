@@ -142,7 +142,7 @@ function CoursesList() {
           </CourseContainer>
         ))}
       </Container>
-      <FloatingWhatsAppButton />
+      
     </>
   );
 }

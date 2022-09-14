@@ -35,12 +35,14 @@ export function Table<Data extends object>({
 	columns,
 	count,
 	onPaginationChange,
+	initialPageSize = 10,
 	actions,
 	texts,
 	actionsComponent: ActionsComponent,
 }: {
 	texts: { empty: string }
 	data: Data[]
+	initialPageSize?: number
 	columns: ColumnDef<Data>[]
 	count: number
 	onPaginationChange: (state: Required<Pagination>) => void
@@ -51,7 +53,7 @@ export function Table<Data extends object>({
 	// eslint-disable-next-line react/hook-use-state
 	const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
-		pageSize: 10,
+		pageSize: initialPageSize,
 	})
 
 	const pagination = useMemo(
@@ -76,6 +78,7 @@ export function Table<Data extends object>({
 		columns,
 		// Pipeline
 		manualPagination: true,
+		columnResizeMode: 'onChange',
 		getCoreRowModel: getCoreRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
@@ -100,6 +103,7 @@ export function Table<Data extends object>({
 										component="th"
 										key={header.id}
 										colSpan={header.colSpan}
+										style={{ width: header.getSize() }}
 									>
 										{header.isPlaceholder ? null : (
 											<div>
@@ -112,7 +116,7 @@ export function Table<Data extends object>({
 									</TableCell>
 								))}
 								{(actions || ActionsComponent) && (
-									<TableCell component="th" style={{ width: '15%' }} />
+									<TableCell component="th" style={{ maxWidth: '10%' }} />
 								)}
 							</TableRow>
 						))}

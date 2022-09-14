@@ -4,6 +4,7 @@ import { DoctorUncheckedCreateNestedOneWithoutUserInputObjectSchema } from './Do
 import { UserAdressUncheckedCreateNestedManyWithoutUserInputObjectSchema } from './UserAdressUncheckedCreateNestedManyWithoutUserInput.schema'
 import { UserContactUncheckedCreateNestedManyWithoutUserInputObjectSchema } from './UserContactUncheckedCreateNestedManyWithoutUserInput.schema'
 import { DoctorPatientUncheckedCreateNestedManyWithoutAssignedByInputObjectSchema } from './DoctorPatientUncheckedCreateNestedManyWithoutAssignedByInput.schema'
+import { ExerciseUncheckedCreateNestedManyWithoutCreatorInputObjectSchema } from './ExerciseUncheckedCreateNestedManyWithoutCreatorInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -44,6 +45,11 @@ const Schema: z.ZodType<Prisma.UserUncheckedCreateWithoutPatientDataInput> = z
 			.lazy(
 				() =>
 					DoctorPatientUncheckedCreateNestedManyWithoutAssignedByInputObjectSchema,
+			)
+			.optional(),
+		exercises: z
+			.lazy(
+				() => ExerciseUncheckedCreateNestedManyWithoutCreatorInputObjectSchema,
 			)
 			.optional(),
 	})

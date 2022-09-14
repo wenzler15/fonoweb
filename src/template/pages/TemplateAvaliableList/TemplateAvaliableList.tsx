@@ -213,7 +213,7 @@ export function TemplateAvaliableList(): ReactElement {
 					))}
 				</Paper>
 			</Box>
-			<FloatingWhatsAppButton />
+			
 		</Container>
 	)
 }

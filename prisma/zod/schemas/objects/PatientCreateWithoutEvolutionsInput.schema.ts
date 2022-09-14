@@ -3,6 +3,7 @@ import { UserCreateNestedOneWithoutPatientDataInputObjectSchema } from './UserCr
 import { AnamnesisCreateNestedManyWithoutPatientInputObjectSchema } from './AnamnesisCreateNestedManyWithoutPatientInput.schema'
 import { EvaluationCreateNestedManyWithoutPatientInputObjectSchema } from './EvaluationCreateNestedManyWithoutPatientInput.schema'
 import { DoctorPatientCreateNestedManyWithoutPatientInputObjectSchema } from './DoctorPatientCreateNestedManyWithoutPatientInput.schema'
+import { AppointmentCreateNestedManyWithoutPatientInputObjectSchema } from './AppointmentCreateNestedManyWithoutPatientInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -22,6 +23,9 @@ const Schema: z.ZodType<Prisma.PatientCreateWithoutEvolutionsInput> = z
 			.optional(),
 		doctorPatient: z
 			.lazy(() => DoctorPatientCreateNestedManyWithoutPatientInputObjectSchema)
+			.optional(),
+		appointment: z
+			.lazy(() => AppointmentCreateNestedManyWithoutPatientInputObjectSchema)
 			.optional(),
 	})
 	.strict()

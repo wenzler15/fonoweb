@@ -153,7 +153,7 @@ function DoctorRegister() {
       <form onSubmit={handleSubmit(handleSubmitRegistration)}>
         {renderedStep}
       </form>
-      <FloatingWhatsAppButton />
+      
     </Container>
   );
 }

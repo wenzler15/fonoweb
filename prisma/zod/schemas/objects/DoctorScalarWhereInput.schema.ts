@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { StringFilterObjectSchema } from './StringFilter.schema'
 import { IntFilterObjectSchema } from './IntFilter.schema'
 import { StringNullableFilterObjectSchema } from './StringNullableFilter.schema'
+import { JsonFilterObjectSchema } from './JsonFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema'
 
@@ -41,6 +42,7 @@ const Schema: z.ZodType<Prisma.DoctorScalarWhereInput> = z
 			.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()])
 			.optional()
 			.nullable(),
+		availability: z.lazy(() => JsonFilterObjectSchema).optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
 			.optional(),

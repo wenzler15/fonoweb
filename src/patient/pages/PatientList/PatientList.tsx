@@ -1,6 +1,11 @@
 import { NavBar } from 'components/navBar'
 import { ReactElement, useMemo, useState } from 'react'
-import { FloatingWhatsAppButton, LoadingOverlay, Table } from 'common/components'
+import * as cpf from '@fnando/cpf'
+import {
+	FloatingWhatsAppButton,
+	LoadingOverlay,
+	Table,
+} from 'common/components'
 import { useNavigate } from 'react-router-dom'
 import { ColumnDef } from '@tanstack/react-table'
 import { usePatients } from 'patient/queries'
@@ -9,7 +14,7 @@ import { useTheme, Box, Typography, Grid, Button, Avatar } from '@mui/material'
 import { UserWithPatient } from 'user/types'
 import { PatientListActions } from 'patient/pages/PatientList/PatientListActions'
 import { CustomLink } from './PatientList.styles'
-
+import { format } from 'date-fns/fp'
 
 export function PatientList(): ReactElement {
 	const [pagination, setPagination] = useState<Required<Pagination>>({
@@ -23,38 +28,36 @@ export function PatientList(): ReactElement {
 
 	const columns = useMemo(
 		(): ColumnDef<UserWithPatient>[] => [
-      {
-        header: '',
-        accessorKey: 'avatar',
-        size: 1,
-        // eslint-disable-next-line react/no-unstable-nested-components
-        cell: ({ row }) => (
-          <Avatar
-            alt={row.original.name}
-            src={row.original.avatar ?? ''}
-            sx={{ width: 40, height: 40 }}
-          />
-        ),
-      },
+			{
+				header: '',
+				accessorKey: 'avatar',
+				size: 1,
+				// eslint-disable-next-line react/no-unstable-nested-components
+				cell: ({ row }) => (
+					<Avatar
+						alt={row.original.name}
+						src={row.original.avatar ?? ''}
+						sx={{ width: 40, height: 40 }}
+					/>
+				),
+			},
 			{
 				header: 'Nome',
 				accessorKey: 'name',
-        // eslint-disable-next-line react/no-unstable-nested-components
-        cell: ({ row }) => (
-          <CustomLink
-            to={`/patients/${row.original.patientData.id}`}
-          >
-            {row.original.name}
-          </CustomLink>
-        ),
+				// eslint-disable-next-line react/no-unstable-nested-components
+				cell: ({ row }) => (
+					<CustomLink to={`/patients/${row.original.patientData.id}`}>
+						{row.original.name}
+					</CustomLink>
+				),
 			},
 			{
 				header: 'Data de nascimento',
-				accessorKey: 'birtDate',
+				accessorFn: row => format('dd/MM/yyyy', row.birthDate),
 			},
 			{
 				header: 'CPF',
-				accessorKey: 'cpf',
+				accessorFn: row => cpf.format(row.cpf),
 			},
 		],
 		[],
@@ -64,29 +67,29 @@ export function PatientList(): ReactElement {
 		<>
 			<NavBar />
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
-        <Grid container>
-          <Grid item xs={10}>
-            <Typography
-              variant="h4"
-              component="h1"
-              color="secondary"
-              sx={{ mb: theme.spacing(4) }}
-            >
-              Pacientes
-            </Typography>
-          </Grid>
-          <Grid item xs={2} sx={{ textAlign: 'right'}}>
-            <Button
-            sx={{ borderRadius: 0 }}
-              variant="contained"
-              size="large"
-              color="primary"
-              onClick={() => navigate('/patients/create')}
-            >
-              Novo Paciente
-            </Button>
-          </Grid>
-        </Grid>
+				<Grid container>
+					<Grid item xs={10}>
+						<Typography
+							variant="h4"
+							component="h1"
+							color="secondary"
+							sx={{ mb: theme.spacing(4) }}
+						>
+							Pacientes
+						</Typography>
+					</Grid>
+					<Grid item xs={2} sx={{ textAlign: 'right' }}>
+						<Button
+							sx={{ borderRadius: 0 }}
+							variant="contained"
+							size="large"
+							color="primary"
+							onClick={() => navigate('/patients/create')}
+						>
+							Novo Paciente
+						</Button>
+					</Grid>
+				</Grid>
 
 				<Table<UserWithPatient>
 					data={patients.data?.result ?? []}
@@ -100,7 +103,6 @@ export function PatientList(): ReactElement {
 				/>
 			</Box>
 			<LoadingOverlay show={patients.isLoading} />
-      <FloatingWhatsAppButton />
 		</>
 	)
 }

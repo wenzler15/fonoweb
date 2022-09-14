@@ -89,7 +89,7 @@ export function PatientCreate() {
 					</>
 				)}
 			</Formik>
-			<FloatingWhatsAppButton />
+			
 		</>
 	)
 }

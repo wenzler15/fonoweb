@@ -50,7 +50,7 @@ function EvaluationNew() {
 					</button>
 				</div>
 			</section>
-      <FloatingWhatsAppButton />
+      
 		</Container>
 	)
 }

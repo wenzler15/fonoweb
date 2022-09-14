@@ -81,7 +81,7 @@ function Anamnesis() {
           </ModelContainer>
         ))}
       </section>
-      <FloatingWhatsAppButton />
+      
     </Container>
   );
 }

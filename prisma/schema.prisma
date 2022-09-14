@@ -80,6 +80,7 @@ model User {
   contacts    UserContact[]
 
   DoctorPatient DoctorPatient[]
+  exercises     Exercise[]
   @@map("users")
 }
 
@@ -131,19 +132,45 @@ model Patient {
   evaluations   Evaluation[]    @relation("EvaluationPatientRelation")
   doctorPatient DoctorPatient[]
   evolutions    Evolution[]     @relation("EvolutionPatientRelation")
+  appointment   Appointment[]
 
   @@map("patients")
 }
 
+enum AppointmentStatus {
+  SCHEDULED
+  CONFIRMED
+  CANCELED
+  FINISHED
+}
+
+model Appointment {
+  id        String            @id() @unique @default(uuid()) @db.Uuid
+  numericId Int               @default(autoincrement()) @map("numeric_id")
+  doctorId  String            @map("doctor_id") @db.Uuid
+  patientId String            @map("patient_id") @db.Uuid
+  when      DateTime
+  createdAt DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime          @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime?         @map("deleted_at") @db.Timestamptz(6)
+  status    AppointmentStatus @default(SCHEDULED)
+
+  doctor  Doctor  @relation(fields: [doctorId], references: [id])
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@map("appointments")
+}
+
 model Doctor {
-  id          String    @id() @unique @default(uuid()) @db.Uuid
-  numericId   Int       @default(autoincrement()) @map("numeric_id")
-  userId      String    @unique @map("user_id") @db.Uuid
-  specialtyId String    @map("specialty_id") @db.Uuid
-  crfa        String?
-  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
-  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+  id           String    @id() @unique @default(uuid()) @db.Uuid
+  numericId    Int       @default(autoincrement()) @map("numeric_id")
+  userId       String    @unique @map("user_id") @db.Uuid
+  specialtyId  String    @map("specialty_id") @db.Uuid
+  crfa         String?
+  availability Json      @default("{ \"dates\": [], \"hours\": [] }") @db.Json
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt    DateTime? @map("deleted_at") @db.Timestamptz(6)
 
   specialty     Specialty       @relation(fields: [specialtyId], references: [id])
   user          User            @relation("DoctorUserRelation", fields: [userId], references: [id])
@@ -152,6 +179,7 @@ model Doctor {
   doctorPatient DoctorPatient[]
   templates     Template[]
   evolutions    Evolution[]     @relation("EvolutionDoctorRelation")
+  appointments Appointment[]
 
   @@map("doctors")
 }
@@ -252,6 +280,21 @@ model Evaluation {
 enum TemplateType {
   ANAMNESIS
   EVALUATION
+}
+
+model Exercise {
+  id          String   @id() @unique @default(uuid()) @db.Uuid
+  numericId   Int      @default(autoincrement()) @map("numeric_id")
+  title       String
+  description String   @db.Text
+  links       Json     @default("[]") @db.Json
+  creatorId   String   @map("creator_id") @db.Uuid
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  creator User @relation(fields: [creatorId], references: [id])
+
+  @@map("exercises")
 }
 
 model Template {

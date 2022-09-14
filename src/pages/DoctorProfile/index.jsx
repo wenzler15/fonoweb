@@ -251,7 +251,7 @@ function DoctorProfile() {
 					Cancelar minha assinatura
 				</button>
 			</Container>
-      <FloatingWhatsAppButton />
+      
 		</>
 	)
 }

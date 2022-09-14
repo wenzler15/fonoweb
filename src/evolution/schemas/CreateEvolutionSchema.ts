@@ -9,7 +9,7 @@ export const CreateEvolutionSchema = Yup.object({
 	exercises: Yup.array().of(ExerciseSchema).ensure(),
 	appointmentDate: Yup.date().required(),
 	// eslint-disable-next-line unicorn/no-null
-	comments: Yup.string().trim().default(null),
+	comments: Yup.string().nullable().default(null),
 	patient: Yup.mixed<UserWithPatient>()
 		.required()
 		.defined()

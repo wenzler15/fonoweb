@@ -328,7 +328,7 @@ export function AnamnesisList(): ReactElement {
 					</Button>
 				</Paper>
 			</Box>
-			<FloatingWhatsAppButton />
+			
 		</Container>
 	)
 }

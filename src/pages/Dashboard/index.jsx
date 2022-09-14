@@ -143,7 +143,7 @@ function Dashboard() {
 					/>
 				</ChartContainer>
 			</Container>
-      <FloatingWhatsAppButton />
+      
 		</>
 	)
 }

@@ -6,6 +6,7 @@ export const DoctorScalarFieldEnumSchema = z.enum([
 	'userId',
 	'specialtyId',
 	'crfa',
+	'availability',
 	'createdAt',
 	'updatedAt',
 	'deletedAt',

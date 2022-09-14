@@ -14,6 +14,7 @@ import { DoctorWhereInputObjectSchema } from './DoctorWhereInput.schema'
 import { UserAdressListRelationFilterObjectSchema } from './UserAdressListRelationFilter.schema'
 import { UserContactListRelationFilterObjectSchema } from './UserContactListRelationFilter.schema'
 import { DoctorPatientListRelationFilterObjectSchema } from './DoctorPatientListRelationFilter.schema'
+import { ExerciseListRelationFilterObjectSchema } from './ExerciseListRelationFilter.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -123,6 +124,7 @@ const Schema: z.ZodType<Prisma.UserWhereInput> = z
 		DoctorPatient: z
 			.lazy(() => DoctorPatientListRelationFilterObjectSchema)
 			.optional(),
+		exercises: z.lazy(() => ExerciseListRelationFilterObjectSchema).optional(),
 	})
 	.strict()
 

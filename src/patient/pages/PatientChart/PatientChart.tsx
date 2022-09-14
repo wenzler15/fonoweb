@@ -1,6 +1,5 @@
 import { NavBar } from 'components/navBar'
 import { ReactElement, useState } from 'react'
-import { FloatingWhatsAppButton } from 'common/components'
 import {
 	useTheme,
 	Box,
@@ -349,7 +348,6 @@ export function PatientChart(): ReactElement {
 					evaluations.refetch()
 				}}
 			/>
-			
 		</>
 	)
 }

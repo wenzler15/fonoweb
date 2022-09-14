@@ -14,7 +14,7 @@ import { useTheme, Box, Typography, Grid, Button, Avatar } from '@mui/material'
 import { UserWithPatient } from 'user/types'
 import { PatientListActions } from 'patient/pages/PatientList/PatientListActions'
 import { CustomLink } from './PatientList.styles'
-import { format } from 'date-fns/fp'
+import { format, parseISO } from 'date-fns/fp'
 
 export function PatientList(): ReactElement {
 	const [pagination, setPagination] = useState<Required<Pagination>>({
@@ -31,7 +31,7 @@ export function PatientList(): ReactElement {
 			{
 				header: '',
 				accessorKey: 'avatar',
-				size: 1,
+				size: 10,
 				// eslint-disable-next-line react/no-unstable-nested-components
 				cell: ({ row }) => (
 					<Avatar
@@ -53,7 +53,11 @@ export function PatientList(): ReactElement {
 			},
 			{
 				header: 'Data de nascimento',
-				accessorFn: row => format('dd/MM/yyyy', row.birthDate),
+				size: 200,
+				accessorFn: row =>
+					row.birthDate
+						? format('dd/MM/yyyy', parseISO(row.birthDate))
+						: 'Não informado',
 			},
 			{
 				header: 'CPF',

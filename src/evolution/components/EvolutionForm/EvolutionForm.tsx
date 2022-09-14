@@ -11,20 +11,17 @@ import {
 	Button,
 	IconButton,
 	Paper,
+	SelectChangeEvent,
+	Autocomplete as MAutocomplete,
 } from '@mui/material'
 import cuid from 'cuid'
 import { DesktopDatePicker } from 'formik-mui-x-date-pickers'
 import { Add, Close } from '@mui/icons-material'
 import { Autocomplete, TextField } from 'formik-mui'
 import { Field, FieldArray, useFormikContext } from 'formik'
-import { useTemplateDetail, useTemplates } from 'template/queries'
 import { usePatients } from 'patient/queries'
 import { UserWithPatient } from 'user/types'
-import { Template } from 'template'
-import { ContentState, EditorState } from 'draft-js'
-import htmlToDraft from 'html-to-draftjs'
-import Swal from 'sweetalert2'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useVisible } from 'common/hooks'
 import { Specialty } from 'specialty'
 import { useSpecialties } from 'specialty/queries'
@@ -33,6 +30,9 @@ import { ExerciseSchema } from 'evolution/schemas'
 import { EvolutionFormProps } from 'evolution/components/EvolutionForm/EvolutionForm.types'
 import { useUniversalParam } from 'routes/hooks'
 import { format } from 'date-fns/fp'
+import { useAuthStore } from 'auth/providers'
+import { useFindManyExercises } from 'exercise/queries'
+import { Exercise } from '@prisma/client'
 
 const handleAddExercise =
 	(push: (data: InferType<typeof ExerciseSchema>) => void) => () =>
@@ -47,25 +47,20 @@ export function EvolutionForm({
 	config: { canChangeAppointmentDate = true } = {},
 }: EvolutionFormProps) {
 	const {
-		values: { template, patient, exercises, appointmentDate },
+		values: { patient, exercises: formExercises, appointmentDate },
 		errors,
 		touched,
 		setFieldValue,
 	} = useFormikContext<{
 		appointmentDate: Date
 		patient: UserWithPatient | null
-		template: Template | null
 		specialty: Specialty | null
 		exercises: InferType<typeof ExerciseSchema>[]
 	}>()
 
 	const patientId = useUniversalParam('patient')
-	const templateId = useUniversalParam('template')
 	const commentInput = useVisible()
-
-	const [editorState, setEditorState] = useState<EditorState>(() =>
-		EditorState.createEmpty(),
-	)
+	const user = useAuthStore(state => state.user) as unknown as UserWithPatient
 
 	const specialties = useSpecialties({
 		page: 1,
@@ -73,11 +68,6 @@ export function EvolutionForm({
 	})
 
 	const patients = usePatients({
-		page: 1,
-		size: 9999,
-	})
-
-	const templates = useTemplates({
 		page: 1,
 		size: 9999,
 	})
@@ -91,44 +81,44 @@ export function EvolutionForm({
 		}
 	}, [patientId, patient, patients.data?.result, setFieldValue])
 
-	const handleTemplateChange = async ({ html }: Template) => {
-		try {
-			const blocksFromHtml = htmlToDraft(html)
-			const { contentBlocks, entityMap } = blocksFromHtml
-			const contentState = ContentState.createFromBlockArray(
-				contentBlocks,
-				entityMap,
-			)
-			const newEditorState = EditorState.createWithContent(contentState)
-			setEditorState(newEditorState)
-			setFieldValue('text', html)
-		} catch (error) {
-			console.error(error)
-			return Swal.fire({
-				title: 'Ops!',
-				text: 'Não foi possível utilizar o PDF para edição. Tente novamente.',
-				icon: 'error',
-				confirmButtonText: 'Voltar',
-			})
-		}
-
-		return undefined
-	}
-
-	useEffect(() => {
-		if (template) {
-			handleTemplateChange(template)
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [template])
-
-	useTemplateDetail(templateId as string, {
-		enabled: !!templateId,
-		onSuccess: ({ result }) => {
-			handleTemplateChange(result)
+	const exercises = useFindManyExercises({
+		where: {
+			creatorId: user.id,
+		},
+		orderBy: {
+			createdAt: 'desc',
 		},
 	})
+
+	const handleSelectOldExercise = (exercise: Exercise | null): void => {
+		if (!exercise) {
+			return
+		}
+
+		if (
+			formExercises.filter(e => e.links.some(l => l!.length > 0)).length === 0
+		) {
+			setFieldValue('exercises', [
+				{
+					cuid: cuid(),
+					title: exercise.title,
+					description: exercise.description,
+					links: exercise.links,
+				},
+			])
+			return
+		}
+
+		setFieldValue('exercises', [
+			...formExercises,
+			{
+				cuid: cuid(),
+				title: exercise.title,
+				description: exercise.description,
+				links: exercise.links,
+			},
+		])
+	}
 
 	return (
 		<>
@@ -225,7 +215,7 @@ export function EvolutionForm({
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
-					<Editor name="text" editorState={editorState} />
+					<Editor name="text" />
 				</Grid>
 				<Grid item xs={12}>
 					<FieldArray
@@ -277,8 +267,25 @@ export function EvolutionForm({
 								<Grid item xs={12}>
 									<Card sx={{ overflow: 'visible' }}>
 										<CardContent sx={{ p: t => t.spacing(2) }}>
+											<Box mb={2}>
+												<MAutocomplete<Exercise>
+													fullWidth
+													onChange={(_, e) => handleSelectOldExercise(e)}
+													autoHighlight
+													options={exercises.data?.result ?? []}
+													getOptionLabel={option => option.title}
+													renderOption={(props, option) => (
+														<Box component="li" {...props} key={option.id}>
+															{option.title}
+														</Box>
+													)}
+													renderInput={params => (
+														<MTextField {...params} label="Movie" />
+													)}
+												/>
+											</Box>
 											<Stack spacing={2}>
-												{exercises.map((exercise, index) => (
+												{formExercises.map((exercise, index) => (
 													<Paper variant="outlined" key={exercise.cuid}>
 														<Stack
 															direction="row"
@@ -380,7 +387,7 @@ export function EvolutionForm({
 					/>
 				</Grid>
 			</Grid>
-			<LoadingOverlay show={templates.isLoading || patients.isLoading} />
+			<LoadingOverlay show={exercises.isLoading || patients.isLoading} />
 		</>
 	)
 }

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import LogoImg from '../../assets/logo.png'
 import { useAuth } from 'auth/hooks/useAuth'
 
-import { Button, Menu, MenuItem } from '@mui/material'
+import { Menu, MenuItem } from '@mui/material'
 
 import { UserType } from 'user/types'
 import {
@@ -38,11 +38,11 @@ export function NavBar(): ReactElement {
 
 			{user?.type === UserType.DOCTOR ? (
         <div className="navigationContainer">
-          <TextNavBar onClick={() => navigate("/schedule")}>Minha Agenda</TextNavBar>
+          <TextNavBar onClick={() => navigate('/schedule')}>Minha Agenda</TextNavBar>
 					<TextNavBar onClick={(): void => navigate('/patients')}>
 						Meus Pacientes
 					</TextNavBar>
-          <TextNavBar onClick={() => navigate("/anamnesis")}>Anamneses</TextNavBar>
+          <TextNavBar onClick={() => navigate('/anamnesis')}>Anamneses</TextNavBar>
           <TextNavBar onClick={(): void => navigate('/evaluations')}>
 						Avaliações
 					</TextNavBar>
@@ -106,7 +106,7 @@ export function NavBar(): ReactElement {
 							</MenuItem>
 						)}
 						{user.type === UserType.DOCTOR && (
-							<MenuItem onClick={(): void => navigate('/doctorprofile')}>
+							<MenuItem onClick={(): void => navigate('/doctors/profile')}>
 								Meu Perfil
 							</MenuItem>
 						)}

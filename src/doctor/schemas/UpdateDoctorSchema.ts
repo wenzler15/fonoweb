@@ -4,16 +4,17 @@ export const UpdateDoctorSchema = Yup.object({
 	name: Yup.string().required(),
 	email: Yup.string().email().required(),
 	cpf: Yup.string().required(),
-	zipCode: Yup.string().required(),
-	streetName: Yup.string().required(),
-	district: Yup.string().required(),
-	number: Yup.string().required(),
-	city: Yup.string().required(),
-	state: Yup.string().required(),
-  workZipCode: Yup.string(),
-	workStreetName: Yup.string(),
-	workDistrict: Yup.string(),
-	workNumber: Yup.string(),
-	workCity: Yup.string(),
-	workState: Yup.string(),
-})
+  addresses: Yup.array().of(Yup.object().shape({
+    id: Yup.string(),
+    zipCode: Yup.string().ensure().required(),
+    streetName: Yup.string().ensure().required(),
+    district: Yup.string().ensure().required(),
+    number: Yup.string().ensure().required(),
+    city: Yup.string().ensure().required(),
+    state: Yup.string().ensure().required(),
+  }))
+    .min(1, 'É necessário preencher o endereço')
+    .required()
+});
+
+

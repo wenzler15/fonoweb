@@ -6,15 +6,17 @@ import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { InferType } from 'yup'
-import { useAuth } from 'auth/hooks/useAuth'
 import { DoctorForm } from 'doctor/components'
 import { UpdateDoctorSchema } from 'doctor/schemas'
 import { useUpdateDoctor } from 'doctor/mutations'
-import { pick } from 'rambda'
+import { isNil, pick } from 'rambda'
+import { useCurrentUser } from 'doctor/queries'
 
 export function DoctorProfile() {
 	const navigate = useNavigate()
-	const { user } = useAuth()
+  const { data } = useCurrentUser();
+  const user = data?.result;
+
 	const updateDoctor = useUpdateDoctor({
 		onSuccess: () => {
 			navigate('/doctors/profile')
@@ -29,40 +31,35 @@ export function DoctorProfile() {
 	const handleFormSubmit = async ({
 		...values
 	}: InferType<typeof UpdateDoctorSchema>) => {
-    const data = {
-        ...pick(['name', 'email', 'cpf'], values),
-        addresses:  [{
-         createOrConnect:  {
-           where:  {
-             id: 1,
-           },
-           create: {
-            zipCode: values.zipCode,
-            streetName: values.streetName,
-            district: values.district,
-            number: values.number,
-            city: values.city,
-            state: values.state,
-           }
-         }
-       }, {
-         createOrConnect:  {
-           where:  {
-             id: 2
-           },
-           create: {
-            zipCode: values.workZipCode,
-            streetName: values.workStreetName,
-            district: values.workDistrict,
-            number: values.workNumber,
-            city: values.workCity,
-            state: values.workState,
-           }
-         }
-       }]
-     }
+    const shouldUpdate = values.addresses.filter(address => address.id);
+    const shouldCreate = values.addresses.filter(address => isNil(address.id));
 
-     updateDoctor.mutate({ id: user?.id as string, ...data })
+    const normalizeData = {
+        ...pick(['name', 'email', 'cpf'], values),
+        addresses: {
+          ...(shouldCreate.length > 0 && {
+            createMany: {
+              data: [
+                ...shouldCreate,
+              ],
+            },
+          }),
+          ...(shouldUpdate.length > 0 && {
+            update: [
+              ...values.addresses.filter(address => address.id).map(address => ({
+                where: {
+                  id: address.id,
+                },
+                data: {
+                  ...pick(['zipCode', 'streetName', 'number', 'district', 'city', 'state'], address),
+                }
+              }))
+            ],
+          })
+        }
+    }
+
+    updateDoctor.mutate({ id: user?.id as string, ...normalizeData })
 	}
 
 	return (
@@ -70,7 +67,12 @@ export function DoctorProfile() {
 			<Formik<InferType<typeof UpdateDoctorSchema>>
 				validationSchema={UpdateDoctorSchema}
         // TODO: Get initial values from current user
-				initialValues={{ }}
+				initialValues={{
+          name: '',
+          cpf: '',
+          email: '',
+          addresses: user?.addresses || [],
+        }}
 				onSubmit={handleFormSubmit}
 			>
 				{({ handleSubmit }) => (
@@ -98,7 +100,7 @@ export function DoctorProfile() {
 									variant="contained"
 									color="secondary"
 									size="large"
-									// loading={createAnamnesis.isLoading}
+									loading={updateDoctor.isLoading}
 								>
 									Editar
 								</LoadingButton>

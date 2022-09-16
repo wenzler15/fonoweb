@@ -28,5 +28,15 @@ export enum UserType {
 	DOCTOR = 'DOCTOR',
 }
 
+export type Address = {
+  id: string;
+  zipCode: string;
+	streetName: string;
+	district: string;
+	number: string;
+	city: string;
+	state: string;
+}
+
 export type UserWithPatient = Merge<User, { patientData: Patient }>
-export type UserWithDoctor = Merge<User, { doctorData: DoctorWithSpecialty }>
+export type UserWithDoctor = Merge<User, { doctorData: DoctorWithSpecialty, addresses: Address[] }>

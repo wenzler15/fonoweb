@@ -58,7 +58,7 @@ function PatientAppointments() {
 
   return (
     <MainContainer>
-      <NavBar />
+      
       <ContentContainer>
         <ContentRight>
           <ContentDocuments>

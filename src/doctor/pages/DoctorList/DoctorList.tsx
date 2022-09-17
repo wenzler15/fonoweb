@@ -221,7 +221,7 @@ export function DoctorList(): ReactElement {
 
 	return (
 		<Container>
-			<NavBar />
+			
 			<Content>
 				<Table<UserWithDoctor>
 					data={doctors.data?.result ?? []}

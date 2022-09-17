@@ -50,7 +50,7 @@ const Course = () => {
 
   return (
     <>
-      <NavBar />
+      
 
       <Container>
         <h1>{courseDetails?.course?.title}</h1>

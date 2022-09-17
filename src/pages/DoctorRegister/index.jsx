@@ -148,7 +148,7 @@ function DoctorRegister() {
 
   return (
     <Container>
-      <NavBar />
+      
 
       <form onSubmit={handleSubmit(handleSubmitRegistration)}>
         {renderedStep}

@@ -176,7 +176,7 @@ export function EvaluationList(): ReactElement {
 
 	return (
 		<Container>
-			<NavBar />
+			
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
 				<Paper
 					elevation={3}

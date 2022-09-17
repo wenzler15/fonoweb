@@ -90,7 +90,7 @@ function PatientScheduleAppointment() {
 
   return (
     <MainContainer>
-      <NavBar />
+      
       <ContentContainer>
         <ContentRight>
           <ContentTitle>

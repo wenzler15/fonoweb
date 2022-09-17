@@ -59,7 +59,7 @@ function PatientConfirmAppointment() {
 
   return (
     <MainContainer>
-      <NavBar />
+      
       <ContentContainer>
         <ContentRight>
           <ContentArrowLeft>

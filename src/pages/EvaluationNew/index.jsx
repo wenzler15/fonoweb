@@ -26,7 +26,7 @@ function EvaluationModels() {
 
   return (
     <Container>
-      <NavBar />
+      
       <section className="info">
         <div className="info-top">
           <h1>Nova avaliação</h1>

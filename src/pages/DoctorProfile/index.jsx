@@ -73,7 +73,7 @@ function DoctorProfile() {
 
 	return (
 		<>
-			<NavBar />
+			
 
 			<Container>
 				<form onSubmit={handleSubmit(handleSubmitUpdate)}>

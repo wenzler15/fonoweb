@@ -60,7 +60,7 @@ function PatientEditAppointment() {
 
   return (
     <MainContainer>
-      <NavBar />
+      
       <ContentContainer>
         <ContentRight>
           <ContentArrowLeft>

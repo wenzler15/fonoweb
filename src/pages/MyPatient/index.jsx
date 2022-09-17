@@ -64,7 +64,7 @@ const PatientList = () => {
 
   return (
     <MainContainer>
-      <NavBar />
+      
 
       <Content>
         {isRegisterNewPatient ? (

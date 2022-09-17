@@ -70,7 +70,7 @@ export function ExerciseList(): ReactElement {
 
 	return (
 		<Container>
-			<NavBar />
+			
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
 				<Box
 					display="flex"

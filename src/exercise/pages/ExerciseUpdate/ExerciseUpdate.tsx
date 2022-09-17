@@ -57,7 +57,7 @@ export function ExerciseUpdate() {
 			>
 				{({ handleSubmit }) => (
 					<>
-						<NavBar />
+						
 						<Box sx={{ p: t => t.spacing(4) }}>
 							<Box
 								sx={{

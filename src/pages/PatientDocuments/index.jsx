@@ -52,7 +52,7 @@ function PatientDocuments() {
 
     return (
         <MainContainer>
-            <NavBar />
+            
             <ContentContainer>
                 <ContentRight>
                     <ContentDocuments>

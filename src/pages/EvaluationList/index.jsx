@@ -17,7 +17,7 @@ function EvaluationNew() {
 
 	return (
 		<Container>
-			<NavBar />
+			
 			<section className="info">
 				<div className="info-top">
 					<div>

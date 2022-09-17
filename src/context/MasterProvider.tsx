@@ -16,21 +16,28 @@ import { Simplify } from 'type-fest'
 declare module '@mui/material' {
 	interface TextFieldPropsColorOverrides {
 		white: true
+		gray: true
 	}
 	interface FormLabelPropsColorOverrides {
 		white: true
+		gray: true
 	}
 	interface InputBasePropsColorOverrides {
 		white: true
+	}
+	interface ButtonPropsColorOverrides {
+		gray: true
 	}
 	interface ButtonPropsSizeOverrides {
 		xlarge: true
 	}
 	interface Palette {
 		white: PaletteColorOptions
+		gray: PaletteColorOptions
 	}
 	interface PaletteOptions {
 		white: PaletteColorOptions
+		gray: PaletteColorOptions
 	}
 	interface OutlinedInputClasses {
 		colorWhite: true
@@ -39,6 +46,9 @@ declare module '@mui/material' {
 
 export const themeOptions: Simplify<ThemeOptions> = {
 	palette: {
+		gray: {
+			main: '#f5f5f5',
+		},
 		white: {
 			main: '#FFF',
 		},
@@ -105,6 +115,8 @@ export const themeOptions: Simplify<ThemeOptions> = {
 					style: {
 						fontSize: '1.5rem',
 						fontWight: 'bold',
+						borderRadius: '40px',
+						padding: '0.7rem 3rem',
 					},
 				},
 			],

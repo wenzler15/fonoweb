@@ -42,7 +42,7 @@ function PatientSuccessAppointment() {
     }, []);
     return (
         <MainContainer>
-            <NavBar />
+            
             <ContentContainer>
                 <ContentRight>
                     <ContentImgCheck>

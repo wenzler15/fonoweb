@@ -69,7 +69,7 @@ export function PatientList(): ReactElement {
 
 	return (
 		<>
-			<NavBar />
+			
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
 				<Grid container>
 					<Grid item xs={10}>

@@ -33,7 +33,7 @@ export const AuthStore = createVanilla<
 				set(state => {
 					state.token = token
 				}),
-			setUser: (user: User) =>
+			setUser: (user: UserWithDoctor) =>
 				set(state => {
 					state.user = user
 				}),

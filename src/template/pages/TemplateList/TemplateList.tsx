@@ -395,7 +395,7 @@ export function TemplateList(): ReactElement {
 
 	return (
 		<Container>
-			<NavBar />
+			
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
         <Grid container>
           <Grid item xs={10}>

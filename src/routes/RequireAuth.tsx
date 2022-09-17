@@ -1,4 +1,6 @@
 import { useAuth } from 'auth/hooks/useAuth'
+import { FloatingWhatsAppButton } from 'common/components'
+import { NavBar } from 'components/navBar'
 import { PropsWithChildren, ReactElement } from 'react'
 import { Navigate } from 'react-router-dom'
 
@@ -7,7 +9,13 @@ function RequireAuth({ children }: PropsWithChildren): ReactElement {
 
 	if (user && token) {
 		// eslint-disable-next-line react/jsx-no-useless-fragment
-		return <>{children}</>
+		return (
+			<>
+				<NavBar />
+				{children}
+				<FloatingWhatsAppButton />
+			</>
+		)
 	}
 
 	return <Navigate to="/" replace />

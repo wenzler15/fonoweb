@@ -45,7 +45,7 @@ export function TemplateEdit(): ReactElement {
 
 	return (
 		<Container>
-			<NavBar />
+			
 			<Box sx={{ p: theme.spacing(4) }}>
 				<Typography
 					variant="h4"

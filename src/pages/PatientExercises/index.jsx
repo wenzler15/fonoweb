@@ -107,7 +107,7 @@ function PatientExercises() {
 
     return (
         <MainContainer>
-            <NavBar />
+            
             <ContentContainer>
                 <ContentRight>
                     <ContentTitle>

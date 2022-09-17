@@ -8,7 +8,7 @@ import { Container } from "./styles";
 function EvaluationModels() {
   return (
     <Container>
-      <NavBar />
+      
       <section className="info">
         <div className="info-top">
           <div>

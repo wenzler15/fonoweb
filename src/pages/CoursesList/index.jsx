@@ -84,7 +84,7 @@ function CoursesList() {
 
   return (
     <>
-      <NavBar />
+      
       <Container>
         <h1>Cursos Disponiveis</h1>
         <h2>Atualizações e capacitação profissional completa</h2>

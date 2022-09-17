@@ -143,7 +143,7 @@ function PatientHome() {
 
   return (
     <MainContainer>
-      <NavBar />
+      
       <ContentContainer>
         <ContentRight>
           <ContentTitle>

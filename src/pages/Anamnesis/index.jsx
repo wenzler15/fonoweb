@@ -41,7 +41,7 @@ function Anamnesis() {
 
   return (
     <Container>
-      <NavBar />
+      
 
       <section>
         <span>

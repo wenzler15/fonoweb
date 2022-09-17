@@ -43,7 +43,7 @@ function PatientInfoDoctor() {
 
   return (
     <MainContainer>
-      <NavBar />
+      
       <ContentContainer>
         <ContentRight>
           {!isEmpty(getDoctor) ? (

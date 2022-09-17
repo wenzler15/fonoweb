@@ -55,7 +55,7 @@ function Dashboard() {
 
 	return (
 		<>
-			<NavBar />
+			
 
 			<Container>
 				<div className="analyticsContainer">

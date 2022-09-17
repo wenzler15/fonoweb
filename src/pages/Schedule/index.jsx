@@ -110,7 +110,7 @@ function Schedule() {
   })
   return (
     <>
-      <NavBar />
+      
       <Container>
         {showCalendar ? (
           <form>

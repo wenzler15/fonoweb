@@ -67,7 +67,7 @@ export function PatientChart(): ReactElement {
 	if (patient.isError) {
 		return (
 			<>
-				<NavBar />
+				
 				<NotFound />
 			</>
 		)
@@ -109,7 +109,7 @@ export function PatientChart(): ReactElement {
 
 	return (
 		<>
-			<NavBar />
+			
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(2) }}>
 				<Paper elevation={2} sx={{ p: theme.spacing(4) }}>
 					<Grid container>

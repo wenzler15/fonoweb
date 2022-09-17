@@ -204,7 +204,7 @@ function AnamnesisOfPatientEdit() {
 
 	return (
 		<Container>
-			<NavBar />
+			
 			<section className="info">
 				<div className="info-top">
 					<div>

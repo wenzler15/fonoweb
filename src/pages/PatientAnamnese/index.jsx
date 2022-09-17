@@ -52,7 +52,7 @@ function PatientAnamnese() {
 
     return (
         <MainContainer>
-            <NavBar />
+            
             <ContentContainer>
                 <ContentRight>
                     <ContentDocuments>

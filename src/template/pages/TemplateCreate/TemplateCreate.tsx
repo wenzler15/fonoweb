@@ -39,7 +39,7 @@ export function TemplateCreate(): ReactElement {
 
 	return (
 		<>
-			<NavBar />
+			
 			<Box sx={{ p: theme.spacing(4) }}>
 				<Typography
 					variant="h4"

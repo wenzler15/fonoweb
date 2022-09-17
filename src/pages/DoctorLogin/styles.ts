@@ -59,7 +59,7 @@ export const LogoFonoweb = styled('img')`
 export const SmallText = styled('p')`
 	font-size: 14px;
 	color: ${props => (props.blue ? '#1E98D4' : '#FFF')};
-	cursor: ${props => (props.blue ? 'pointer' : 'default')};
+	cursor: pointer;
 	margin-left: 10px;
 	font-family: 'Lato';
 `

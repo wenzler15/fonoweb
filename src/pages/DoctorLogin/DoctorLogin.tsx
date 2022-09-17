@@ -98,7 +98,7 @@ function Login() {
 							)}
 							<SmallTextContainerButton>
 								<SmallText>Ainda não tem cadastro?</SmallText>
-								<SmallText onClick={() => navigate('/register')}>
+								<SmallText onClick={() => navigate('/sign-up/doctor')}>
 									Faça agora mesmo
 								</SmallText>
 							</SmallTextContainerButton>

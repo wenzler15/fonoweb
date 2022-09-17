@@ -172,7 +172,7 @@ export function EvolutionForm({
 								<MTextField
 									{...params}
 									name="specialty-search"
-									error={touched.patient && !!errors.patient}
+									error={touched.specialty && !!errors.specialty}
 									helperText={errors.specialty}
 									label="Especialidade"
 									variant="outlined"

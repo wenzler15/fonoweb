@@ -61,20 +61,7 @@ export function NavBar(): ReactElement {
 					</TextNavBar>
 				</div>
 			) : (
-				<div className="navigationContainer">
-					<TextNavBar onClick={(): void => navigate('/patienthome')}>
-						Home
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/patientexercises')}>
-						Exercícios
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/patientdocuments')}>
-						Modelos
-					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/patientanamnese')}>
-						Minhas Anamneses
-					</TextNavBar>
-				</div>
+				<div className="navigationContainer" />
 			)}
 
 			{user ? (
@@ -121,7 +108,7 @@ export function NavBar(): ReactElement {
 					</button>
 					<button
 						type="button"
-						onClick={(): void => navigate('/register')}
+						onClick={(): void => navigate('/sign-up/doctor')}
 						className="register"
 					>
 						Cadastre-se

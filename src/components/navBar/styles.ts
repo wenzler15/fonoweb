@@ -90,6 +90,7 @@ export const ButtonContainer = styled.div`
 	margin-left: auto;
 
 	> button {
+		cursor: pointer;
 		background: transparent;
 		border: 0;
 		color: #fff;

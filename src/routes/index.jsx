@@ -13,6 +13,7 @@ import { PATIENT_ROUTES } from '../patient'
 import { EVALUATION_ROUTES } from '../evaluation'
 import { EVOLUTION_ROUTES } from '../evolution'
 import { EXERCISE_ROUTES } from '../exercise'
+import { AUTH_ROUTES } from '../auth'
 
 function AppRoutes() {
 	return (
@@ -28,16 +29,21 @@ function AppRoutes() {
 				EVALUATION_ROUTES,
 				EVOLUTION_ROUTES,
 				EXERCISE_ROUTES,
+				AUTH_ROUTES,
 			]
 				.flat()
-				.map(({ element: Element, ...route }) => (
+				.map(({ element: Element, auth, ...route }) => (
 					<Route
 						key={route.path}
 						path={route.path}
 						element={
-							<RequireAuth>
+							auth ? (
+								<RequireAuth>
+									<Element />
+								</RequireAuth>
+							) : (
 								<Element />
-							</RequireAuth>
+							)
 						}
 					/>
 				))}

@@ -26,7 +26,7 @@ import {
 import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { useLilius } from 'use-lilius'
 import { useCallback, useRef, useState, MouseEvent, useEffect } from 'react'
-import { useArray } from '@excelsia/hooks'
+import { useArray, useChangeEffect } from '@excelsia/hooks'
 import { LoadingOverlay } from 'common/components'
 import { useSetAvailability } from 'doctor/mutations/useSetAvailability'
 import Swal from 'sweetalert2'
@@ -183,21 +183,6 @@ const Day = styled<OverridableComponent<BoxTypeMap<DayProps>>>(Box)`
 const ensureDay = (target: EventTarget) =>
 	(target as HTMLDivElement).closest('.js-day') as HTMLDivElement | undefined
 
-function useChange(effect: () => void, deps: unknown[]) {
-	const isFirst = useRef(true)
-
-	useEffect(() => {
-		if (isFirst.current) {
-			isFirst.current = false
-			return
-		}
-
-		effect()
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [deps])
-}
-
 function Calendar({
 	onChange,
 	initialDates = [],
@@ -218,7 +203,7 @@ function Calendar({
 		setSelected,
 	} = useLilius({ selected: initialDates })
 
-	useChange(() => {
+	useChangeEffect(() => {
 		onChange(selected)
 	}, [selected])
 

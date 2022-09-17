@@ -37,27 +37,28 @@ export function NavBar(): ReactElement {
 			<img src={LogoImg} alt="Logo" />
 
 			{user?.type === UserType.DOCTOR ? (
-        <div className="navigationContainer">
-          <TextNavBar onClick={() => navigate('/schedule')}>Minha Agenda</TextNavBar>
+				<div className="navigationContainer">
 					<TextNavBar onClick={(): void => navigate('/patients')}>
 						Meus Pacientes
 					</TextNavBar>
-          <TextNavBar onClick={() => navigate('/anamnesis')}>Anamneses</TextNavBar>
-          <TextNavBar onClick={(): void => navigate('/evaluations')}>
+					<TextNavBar onClick={() => navigate('/anamnesis')}>
+						Anamneses
+					</TextNavBar>
+					<TextNavBar onClick={(): void => navigate('/evaluations')}>
 						Avaliações
 					</TextNavBar>
-          <TextNavBar onClick={(): void => navigate('/templates')}>
+					<TextNavBar onClick={(): void => navigate('/templates')}>
 						Modelos
 					</TextNavBar>
-          <TextNavBar onClick={(): void => navigate('/courses')}>
-						Cursos
+					<TextNavBar onClick={(): void => navigate('/evolutions')}>
+						Consultas
 					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/')}>
-						Dashboard
+					<TextNavBar onClick={(): void => navigate('/doctors/appointments')}>
+						Agendamentos
 					</TextNavBar>
-
-
-
+					<TextNavBar onClick={() => navigate('/exercises')}>
+						Exercicios
+					</TextNavBar>
 				</div>
 			) : (
 				<div className="navigationContainer">

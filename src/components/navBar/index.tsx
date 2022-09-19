@@ -41,6 +41,9 @@ export function NavBar(): ReactElement {
 					<TextNavBar onClick={(): void => navigate('/patients')}>
 						Meus Pacientes
 					</TextNavBar>
+					<TextNavBar onClick={(): void => navigate('/doctors/availability')}>
+						Minha Agenda
+					</TextNavBar>
 					<TextNavBar onClick={() => navigate('/anamnesis')}>
 						Anamneses
 					</TextNavBar>

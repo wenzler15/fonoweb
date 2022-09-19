@@ -64,15 +64,6 @@ export function PatientChart(): ReactElement {
 		},
 	})
 
-	if (patient.isError) {
-		return (
-			<>
-				
-				<NotFound />
-			</>
-		)
-	}
-
 	const handleShowAnamnesis = () => {
 		setShowAnamnesis(oldState => !oldState)
 	}
@@ -94,6 +85,19 @@ export function PatientChart(): ReactElement {
 		}
 	}
 
+	const handlePatientDownload = () => {
+		if (patientId) {
+			const handle = download.blob(`${patientId}.pdf`)
+
+			client(`patients/${patientId}/export`)
+				.blob()
+				.then(handle)
+				.catch(error => {
+					console.error(error)
+				})
+		}
+	}
+
 	const handleAnamnesisDownload = () => {
 		if (patientId) {
 			const handle = download.blob(`${patientId}.pdf`)
@@ -107,13 +111,16 @@ export function PatientChart(): ReactElement {
 		}
 	}
 
+	if (patient.isError) {
+		return <NotFound />
+	}
+
 	return (
 		<>
-			
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(2) }}>
 				<Paper elevation={2} sx={{ p: theme.spacing(4) }}>
 					<Grid container>
-						<Grid item xs={8} sx={{ display: 'flex', alignItems: 'center' }}>
+						<Grid item xs={6} sx={{ display: 'flex', alignItems: 'center' }}>
 							<Avatar
 								alt={patient.data?.name ?? 'avatar'}
 								src={patient.data?.avatar ?? ''}
@@ -123,7 +130,7 @@ export function PatientChart(): ReactElement {
 								{patient.data?.name}
 							</Typography>
 						</Grid>
-						<Grid item xs={4}>
+						<Grid item xs={6}>
 							<Stack
 								direction="row"
 								sx={{ display: 'flex', justifyContent: 'flex-end' }}
@@ -137,6 +144,7 @@ export function PatientChart(): ReactElement {
 									variant="contained"
 									size="large"
 									color="secondary"
+									onClick={handlePatientDownload}
 								>
 									Exportar Completo
 								</Button>
@@ -177,7 +185,7 @@ export function PatientChart(): ReactElement {
 								component="h3"
 								sx={{ mb: theme.spacing(2) }}
 							>
-								Telefone: (55) 3333-4444
+								Telefone: Não informado
 							</Typography>
 						</Grid>
 					</Grid>
@@ -238,9 +246,9 @@ export function PatientChart(): ReactElement {
 									color="primary"
 									variant="contained"
 									size="medium"
-									onClick={evaluationModal.show}
+									onClick={handleEvaluationsDownload}
 								>
-									Nova Avaliação
+									Exportar Avaliações
 								</Button>
 							</Grid>
 						</Grid>

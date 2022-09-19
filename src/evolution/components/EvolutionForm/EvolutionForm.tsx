@@ -33,6 +33,7 @@ import { format } from 'date-fns/fp'
 import { useAuthStore } from 'auth/providers'
 import { useFindManyExercises } from 'exercise/queries'
 import { Exercise } from '@prisma/client'
+import { len } from '@excelsia/general-helpers'
 
 const handleAddExercise =
 	(push: (data: InferType<typeof ExerciseSchema>) => void) => () =>
@@ -96,7 +97,7 @@ export function EvolutionForm({
 		}
 
 		if (
-			formExercises.filter(e => e.links.some(l => l!.length > 0)).length === 0
+			formExercises.filter(e => e.links?.some(l => l!.length > 0)).length === 0
 		) {
 			setFieldValue('exercises', [
 				{
@@ -280,7 +281,10 @@ export function EvolutionForm({
 														</Box>
 													)}
 													renderInput={params => (
-														<MTextField {...params} label="Movie" />
+														<MTextField
+															{...params}
+															label="Pesquisar exercícios"
+														/>
 													)}
 												/>
 											</Box>
@@ -334,7 +338,7 @@ export function EvolutionForm({
 																		spacing={2}
 																		sx={{ position: 'relative' }}
 																	>
-																		{exercise.links.map((link, linkIndex) => (
+																		{exercise.links?.map((link, linkIndex) => (
 																			<Grid key={link} item xs={6}>
 																				<Stack
 																					direction="row"
@@ -359,7 +363,7 @@ export function EvolutionForm({
 																						</IconButton>
 																					)}
 																					{linkIndex ===
-																						exercise.links.length - 1 && (
+																						len(exercise.links) - 1 && (
 																						<IconButton
 																							onClick={() =>
 																								linksField.push('')

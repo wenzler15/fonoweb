@@ -5,7 +5,6 @@ import { EvolutionForm } from 'evolution/components'
 import { useCreateEvolution } from 'evolution/mutations'
 import { CreateEvolutionSchema } from 'evolution/schemas'
 import { Back } from 'common/components'
-import { NavBar } from 'components/navBar'
 import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
@@ -83,42 +82,39 @@ export function EvolutionCreate() {
 			onSubmit={handleFormSubmit}
 		>
 			{({ handleSubmit }) => (
-				<>
-					
-					<Box sx={{ p: t => t.spacing(4) }}>
-						<Box
-							sx={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'space-between',
-							}}
+				<Box sx={{ p: t => t.spacing(4) }}>
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'space-between',
+						}}
+					>
+						<Typography
+							variant="h4"
+							component="h1"
+							color="secondary"
+							sx={{ mb: t => t.spacing(2) }}
 						>
-							<Typography
-								variant="h4"
-								component="h1"
-								color="secondary"
-								sx={{ mb: t => t.spacing(2) }}
-							>
-								Nova consulta
-								<Back />
-							</Typography>
-							<LoadingButton
-								onClick={() => handleSubmit()}
-								variant="contained"
-								color="secondary"
-								size="large"
-								loading={createEvolution.isLoading}
-							>
-								SALVAR
-							</LoadingButton>
-						</Box>
-						<Card>
-							<CardContent sx={{ p: t => t.spacing(4) }}>
-								<EvolutionForm />
-							</CardContent>
-						</Card>
+							Nova consulta
+							<Back />
+						</Typography>
+						<LoadingButton
+							onClick={() => handleSubmit()}
+							variant="contained"
+							color="secondary"
+							size="large"
+							loading={createEvolution.isLoading}
+						>
+							SALVAR
+						</LoadingButton>
 					</Box>
-				</>
+					<Card>
+						<CardContent sx={{ p: t => t.spacing(4) }}>
+							<EvolutionForm />
+						</CardContent>
+					</Card>
+				</Box>
 			)}
 		</Formik>
 	)

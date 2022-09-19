@@ -177,7 +177,7 @@ export function Appointments() {
 					onPaginationChange={setPagination}
 					actionsComponent={AppointmentListActions}
 					texts={{
-						empty: 'Nenhum exercício cadastrado',
+						empty: 'Nenhum atendimento agendado neste período',
 					}}
 				/>
 			</Paper>

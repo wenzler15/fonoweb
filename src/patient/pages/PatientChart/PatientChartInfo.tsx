@@ -24,8 +24,17 @@ const patientAnamneseInfo = (
 							</>
 						)}
 					</Typography>
+					<Typography variant="caption" component="h4" fontSize="1rem">
+						{anamnesis.specialty.name}
+					</Typography>
 				</Grid>
-				<Grid item xs={6} sx={{ display: 'flex' }} justifyContent="flex-end">
+				<Grid
+					item
+					xs={6}
+					display="flex"
+					justifyContent="flex-end"
+					alignItems="flex-start"
+				>
 					<Button
 						color="secondary"
 						variant="outlined"
@@ -36,14 +45,6 @@ const patientAnamneseInfo = (
 					</Button>
 				</Grid>
 			</Grid>
-			<Typography variant="body1" component="p">
-				{anamnesis.text ? (
-					// eslint-disable-next-line react/no-danger
-					<div dangerouslySetInnerHTML={{ __html: anamnesis.text }} />
-				) : (
-					'Não informado'
-				)}
-			</Typography>
 		</Paper>
 	</Box>
 )
@@ -140,28 +141,27 @@ const patientEvolutionInfo = (
 					</Typography>
 				)}
 				{isListable(evolution.exercises) && (
-					<>
+					<Box>
 						<Typography variant="subtitle1" component="p">
 							Exercícios:
 						</Typography>
-						<Box
-							sx={{
-								borderLeft: t => `1px solid ${t.palette.primary.main}`,
-								pl: t => t.spacing(2),
-							}}
-						>
-							{evolution.exercises.map((e, i) => (
-								<Box key={i}>
-									<Typography variant="h6" component="h3">
-										{e.title}
-									</Typography>
-									<Typography variant="body1" component="p">
-										{e.description}
-									</Typography>
-								</Box>
-							))}
-						</Box>
-					</>
+						{evolution.exercises.map((e, i) => (
+							<Box
+								key={i}
+								sx={{
+									borderBottom: t =>
+										i > 0 ? `1px solid ${t.palette.primary.main}` : undefined,
+								}}
+							>
+								<Typography variant="h6" component="h3">
+									{e.title}
+								</Typography>
+								<Typography variant="body1" component="p">
+									{e.description}
+								</Typography>
+							</Box>
+						))}
+					</Box>
 				)}
 			</Stack>
 		</Paper>
@@ -174,6 +174,15 @@ export function PatientChartInfo({ type, data }: PatientChartInfoProps) {
 
 	const downloadAnamnesis = () => {
 		client(`patients/${data.patientId}/anamnesis/${data.id}`)
+			.blob()
+			.then(handle)
+			.catch(error => {
+				console.error(error)
+			})
+	}
+
+	const downloadEvolution = () => {
+		client(`patients/${data.patientId}/evolutions/${data.id}`)
 			.blob()
 			.then(handle)
 			.catch(error => {
@@ -198,5 +207,5 @@ export function PatientChartInfo({ type, data }: PatientChartInfoProps) {
 		return patientEvaluationInfo(data, downloadEvaluation)
 	}
 
-	return patientEvolutionInfo(data, downloadEvaluation)
+	return patientEvolutionInfo(data, downloadEvolution)
 }

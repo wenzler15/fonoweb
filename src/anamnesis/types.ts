@@ -12,6 +12,7 @@ export type Anamnesis = {
 	createdAt: string
 	updatedAt: string
 	deletedAt: string | null
+	specialty: Specialty
 	doctor: Doctor & {
 		specialty: Specialty
 	}

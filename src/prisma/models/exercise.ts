@@ -13,6 +13,7 @@ export const Exercise = z.object({
   description: z.string(),
   links: jsonSchema,
   creatorId: z.string(),
+  specialtyId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
 })

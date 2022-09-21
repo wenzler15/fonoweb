@@ -3,6 +3,7 @@ import { StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdat
 import { IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema'
 import { JsonNullValueInputSchema } from '../enums/JsonNullValueInput.schema'
 import { DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema'
+import { SpecialtyUpdateOneRequiredWithoutExerciseNestedInputObjectSchema } from './SpecialtyUpdateOneRequiredWithoutExerciseNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -55,6 +56,11 @@ const Schema: z.ZodType<Prisma.ExerciseUpdateWithoutCreatorInput> = z
 				z.date(),
 				z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
 			])
+			.optional(),
+		specialty: z
+			.lazy(
+				() => SpecialtyUpdateOneRequiredWithoutExerciseNestedInputObjectSchema,
+			)
 			.optional(),
 	})
 	.strict()

@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { JsonNullValueInputSchema } from '../enums/JsonNullValueInput.schema'
 import { UserCreateNestedOneWithoutExercisesInputObjectSchema } from './UserCreateNestedOneWithoutExercisesInput.schema'
+import { SpecialtyCreateNestedOneWithoutExerciseInputObjectSchema } from './SpecialtyCreateNestedOneWithoutExerciseInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -25,6 +26,9 @@ const Schema: z.ZodType<Prisma.ExerciseCreateInput> = z
 		createdAt: z.date().optional(),
 		updatedAt: z.date().optional(),
 		creator: z.lazy(() => UserCreateNestedOneWithoutExercisesInputObjectSchema),
+		specialty: z.lazy(
+			() => SpecialtyCreateNestedOneWithoutExerciseInputObjectSchema,
+		),
 	})
 	.strict()
 

@@ -50,6 +50,12 @@ const Schema: z.ZodType<Prisma.ExerciseUncheckedUpdateManyInput> = z
 				z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
 			])
 			.optional(),
+		specialtyId: z
+			.union([
+				z.string(),
+				z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
+			])
+			.optional(),
 		createdAt: z
 			.union([
 				z.date(),

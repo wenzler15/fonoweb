@@ -44,6 +44,12 @@ const Schema: z.ZodType<Prisma.ExerciseUncheckedUpdateWithoutCreatorInput> = z
 		links: z
 			.union([z.lazy(() => JsonNullValueInputSchema), jsonSchema])
 			.optional(),
+		specialtyId: z
+			.union([
+				z.string(),
+				z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
+			])
+			.optional(),
 		createdAt: z
 			.union([
 				z.date(),

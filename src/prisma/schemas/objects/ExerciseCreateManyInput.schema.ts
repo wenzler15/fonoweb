@@ -22,6 +22,7 @@ const Schema: z.ZodType<Prisma.ExerciseCreateManyInput> = z
 			.union([z.lazy(() => JsonNullValueInputSchema), jsonSchema])
 			.optional(),
 		creatorId: z.string(),
+		specialtyId: z.string(),
 		createdAt: z.date().optional(),
 		updatedAt: z.date().optional(),
 	})

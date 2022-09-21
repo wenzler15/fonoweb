@@ -5,6 +5,7 @@ import { TemplateOrderByRelationAggregateInputObjectSchema } from './TemplateOrd
 import { EvaluationOrderByRelationAggregateInputObjectSchema } from './EvaluationOrderByRelationAggregateInput.schema'
 import { AnamnesisOrderByRelationAggregateInputObjectSchema } from './AnamnesisOrderByRelationAggregateInput.schema'
 import { EvolutionOrderByRelationAggregateInputObjectSchema } from './EvolutionOrderByRelationAggregateInput.schema'
+import { ExerciseOrderByRelationAggregateInputObjectSchema } from './ExerciseOrderByRelationAggregateInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -30,6 +31,9 @@ const Schema: z.ZodType<Prisma.SpecialtyOrderByWithRelationInput> = z
 			.optional(),
 		Evolution: z
 			.lazy(() => EvolutionOrderByRelationAggregateInputObjectSchema)
+			.optional(),
+		Exercise: z
+			.lazy(() => ExerciseOrderByRelationAggregateInputObjectSchema)
 			.optional(),
 	})
 	.strict()

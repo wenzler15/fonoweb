@@ -4,7 +4,6 @@ import { ExerciseForm } from 'exercise/components'
 import { useUpdateExercise } from 'exercise/mutations'
 import { CreateExerciseSchema } from 'exercise/schemas'
 import { Back, LoadingOverlay } from 'common/components'
-import { NavBar } from 'components/navBar'
 import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
@@ -32,10 +31,16 @@ export function ExerciseUpdate() {
 	})
 
 	const handleFormSubmit = ({
+		specialty,
 		...values
 	}: InferType<typeof CreateExerciseSchema>) => {
 		updateExercise.mutate({
 			id: exerciseId as string,
+			specialty: {
+				connect: {
+					id: specialty.id,
+				},
+			},
 			...values,
 		})
 	}
@@ -51,47 +56,44 @@ export function ExerciseUpdate() {
 							links: [''],
 						},
 						{ stripUnknown: true },
-					) as Exercise
+					) as unknown as Exercise
 				}
 				onSubmit={handleFormSubmit}
 			>
 				{({ handleSubmit }) => (
-					<>
-						
-						<Box sx={{ p: t => t.spacing(4) }}>
-							<Box
-								sx={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'space-between',
-								}}
+					<Box sx={{ p: t => t.spacing(4) }}>
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+							}}
+						>
+							<Typography
+								variant="h4"
+								component="h1"
+								color="secondary"
+								sx={{ mb: t => t.spacing(2) }}
 							>
-								<Typography
-									variant="h4"
-									component="h1"
-									color="secondary"
-									sx={{ mb: t => t.spacing(2) }}
-								>
-									Editar exercício
-									<Back />
-								</Typography>
-								<LoadingButton
-									onClick={() => handleSubmit()}
-									variant="contained"
-									color="secondary"
-									size="large"
-									loading={updateExercise.isLoading}
-								>
-									SALVAR
-								</LoadingButton>
-							</Box>
-							<Card>
-								<CardContent sx={{ p: t => t.spacing(4) }}>
-									<ExerciseForm />
-								</CardContent>
-							</Card>
+								Editar exercício
+								<Back />
+							</Typography>
+							<LoadingButton
+								onClick={() => handleSubmit()}
+								variant="contained"
+								color="secondary"
+								size="large"
+								loading={updateExercise.isLoading}
+							>
+								SALVAR
+							</LoadingButton>
 						</Box>
-					</>
+						<Card>
+							<CardContent sx={{ p: t => t.spacing(4) }}>
+								<ExerciseForm />
+							</CardContent>
+						</Card>
+					</Box>
 				)}
 			</Formik>
 			<LoadingOverlay show={exercise.isLoading} />

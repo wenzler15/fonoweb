@@ -10,6 +10,7 @@ const Schema: z.ZodType<Prisma.ExerciseMaxOrderByAggregateInput> = z
 		title: z.lazy(() => SortOrderSchema).optional(),
 		description: z.lazy(() => SortOrderSchema).optional(),
 		creatorId: z.lazy(() => SortOrderSchema).optional(),
+		specialtyId: z.lazy(() => SortOrderSchema).optional(),
 		createdAt: z.lazy(() => SortOrderSchema).optional(),
 		updatedAt: z.lazy(() => SortOrderSchema).optional(),
 	})

@@ -8,6 +8,7 @@ import { TemplateUncheckedUpdateManyWithoutSpecialtyNestedInputObjectSchema } fr
 import { EvaluationUncheckedUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './EvaluationUncheckedUpdateManyWithoutSpecialtyNestedInput.schema'
 import { AnamnesisUncheckedUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './AnamnesisUncheckedUpdateManyWithoutSpecialtyNestedInput.schema'
 import { EvolutionUncheckedUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './EvolutionUncheckedUpdateManyWithoutSpecialtyNestedInput.schema'
+import { ExerciseUncheckedUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './ExerciseUncheckedUpdateManyWithoutSpecialtyNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -76,6 +77,12 @@ const Schema: z.ZodType<Prisma.SpecialtyUncheckedUpdateInput> = z
 			.lazy(
 				() =>
 					EvolutionUncheckedUpdateManyWithoutSpecialtyNestedInputObjectSchema,
+			)
+			.optional(),
+		Exercise: z
+			.lazy(
+				() =>
+					ExerciseUncheckedUpdateManyWithoutSpecialtyNestedInputObjectSchema,
 			)
 			.optional(),
 	})

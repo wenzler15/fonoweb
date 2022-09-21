@@ -4,13 +4,13 @@ import { ExerciseForm } from 'exercise/components'
 import { useCreateExercise } from 'exercise/mutations'
 import { CreateExerciseSchema } from 'exercise/schemas'
 import { Back } from 'common/components'
-import { NavBar } from 'components/navBar'
 import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { InferType } from 'yup'
 import { useAuthStore } from 'auth/providers'
 import { UserWithDoctor } from 'user/types'
+import { Specialty } from '@prisma/client'
 
 export function ExerciseCreate() {
 	const navigate = useNavigate()
@@ -28,10 +28,16 @@ export function ExerciseCreate() {
 	const user = useAuthStore(state => state.user) as UserWithDoctor
 
 	const handleFormSubmit = ({
+		specialty,
 		...values
 	}: InferType<typeof CreateExerciseSchema>) => {
 		createExercise.mutate({
 			...values,
+			specialty: {
+				connect: {
+					id: specialty.id,
+				},
+			},
 			creator: {
 				connect: {
 					id: user.id,
@@ -44,6 +50,7 @@ export function ExerciseCreate() {
 		<Formik<InferType<typeof CreateExerciseSchema>>
 			validationSchema={CreateExerciseSchema}
 			initialValues={{
+				specialty: null as unknown as Specialty,
 				title: '',
 				description: '',
 				links: [''],
@@ -51,42 +58,39 @@ export function ExerciseCreate() {
 			onSubmit={handleFormSubmit}
 		>
 			{({ handleSubmit }) => (
-				<>
-					
-					<Box sx={{ p: t => t.spacing(4) }}>
-						<Box
-							sx={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'space-between',
-							}}
+				<Box sx={{ p: t => t.spacing(4) }}>
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'space-between',
+						}}
+					>
+						<Typography
+							variant="h4"
+							component="h1"
+							color="secondary"
+							sx={{ mb: t => t.spacing(2) }}
 						>
-							<Typography
-								variant="h4"
-								component="h1"
-								color="secondary"
-								sx={{ mb: t => t.spacing(2) }}
-							>
-								Novo exercício
-								<Back />
-							</Typography>
-							<LoadingButton
-								onClick={() => handleSubmit()}
-								variant="contained"
-								color="secondary"
-								size="large"
-								loading={createExercise.isLoading}
-							>
-								SALVAR
-							</LoadingButton>
-						</Box>
-						<Card>
-							<CardContent sx={{ p: t => t.spacing(4) }}>
-								<ExerciseForm />
-							</CardContent>
-						</Card>
+							Novo exercício
+							<Back />
+						</Typography>
+						<LoadingButton
+							onClick={() => handleSubmit()}
+							variant="contained"
+							color="secondary"
+							size="large"
+							loading={createExercise.isLoading}
+						>
+							SALVAR
+						</LoadingButton>
 					</Box>
-				</>
+					<Card>
+						<CardContent sx={{ p: t => t.spacing(4) }}>
+							<ExerciseForm />
+						</CardContent>
+					</Card>
+				</Box>
 			)}
 		</Formik>
 	)

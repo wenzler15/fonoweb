@@ -3,6 +3,7 @@ import { DoctorCreateNestedManyWithoutSpecialtyInputObjectSchema } from './Docto
 import { EvaluationCreateNestedManyWithoutSpecialtyInputObjectSchema } from './EvaluationCreateNestedManyWithoutSpecialtyInput.schema'
 import { AnamnesisCreateNestedManyWithoutSpecialtyInputObjectSchema } from './AnamnesisCreateNestedManyWithoutSpecialtyInput.schema'
 import { EvolutionCreateNestedManyWithoutSpecialtyInputObjectSchema } from './EvolutionCreateNestedManyWithoutSpecialtyInput.schema'
+import { ExerciseCreateNestedManyWithoutSpecialtyInputObjectSchema } from './ExerciseCreateNestedManyWithoutSpecialtyInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -25,6 +26,9 @@ const Schema: z.ZodType<Prisma.SpecialtyCreateWithoutTemplatesInput> = z
 			.optional(),
 		Evolution: z
 			.lazy(() => EvolutionCreateNestedManyWithoutSpecialtyInputObjectSchema)
+			.optional(),
+		Exercise: z
+			.lazy(() => ExerciseCreateNestedManyWithoutSpecialtyInputObjectSchema)
 			.optional(),
 	})
 	.strict()

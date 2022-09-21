@@ -179,7 +179,7 @@ model Doctor {
   doctorPatient DoctorPatient[]
   templates     Template[]
   evolutions    Evolution[]     @relation("EvolutionDoctorRelation")
-  appointments Appointment[]
+  appointments  Appointment[]
 
   @@map("doctors")
 }
@@ -213,6 +213,7 @@ model Specialty {
   anamnesis   Anamnesis[]
 
   Evolution Evolution[]
+  Exercise  Exercise[]
   @@map("specialties")
 }
 
@@ -289,10 +290,12 @@ model Exercise {
   description String   @db.Text
   links       Json     @default("[]") @db.Json
   creatorId   String   @map("creator_id") @db.Uuid
+  specialtyId String   @map("specialty_id") @db.Uuid
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
 
-  creator User @relation(fields: [creatorId], references: [id])
+  creator   User      @relation(fields: [creatorId], references: [id])
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
 
   @@map("exercises")
 }

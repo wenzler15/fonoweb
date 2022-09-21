@@ -7,6 +7,7 @@ import { DoctorUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './Docto
 import { TemplateUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './TemplateUpdateManyWithoutSpecialtyNestedInput.schema'
 import { AnamnesisUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './AnamnesisUpdateManyWithoutSpecialtyNestedInput.schema'
 import { EvolutionUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './EvolutionUpdateManyWithoutSpecialtyNestedInput.schema'
+import { ExerciseUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './ExerciseUpdateManyWithoutSpecialtyNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -59,6 +60,9 @@ const Schema: z.ZodType<Prisma.SpecialtyUpdateWithoutEvaluationsInput> = z
 			.optional(),
 		Evolution: z
 			.lazy(() => EvolutionUpdateManyWithoutSpecialtyNestedInputObjectSchema)
+			.optional(),
+		Exercise: z
+			.lazy(() => ExerciseUpdateManyWithoutSpecialtyNestedInputObjectSchema)
 			.optional(),
 	})
 	.strict()

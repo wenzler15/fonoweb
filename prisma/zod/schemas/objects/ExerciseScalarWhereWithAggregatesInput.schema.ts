@@ -44,6 +44,9 @@ const Schema: z.ZodType<Prisma.ExerciseScalarWhereWithAggregatesInput> = z
 		creatorId: z
 			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
+		specialtyId: z
+			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.date()])
 			.optional(),

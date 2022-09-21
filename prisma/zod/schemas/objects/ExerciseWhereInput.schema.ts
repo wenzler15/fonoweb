@@ -5,6 +5,8 @@ import { JsonFilterObjectSchema } from './JsonFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { UserRelationFilterObjectSchema } from './UserRelationFilter.schema'
 import { UserWhereInputObjectSchema } from './UserWhereInput.schema'
+import { SpecialtyRelationFilterObjectSchema } from './SpecialtyRelationFilter.schema'
+import { SpecialtyWhereInputObjectSchema } from './SpecialtyWhereInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -42,6 +44,9 @@ const Schema: z.ZodType<Prisma.ExerciseWhereInput> = z
 		creatorId: z
 			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
 			.optional(),
+		specialtyId: z
+			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
 			.optional(),
@@ -52,6 +57,12 @@ const Schema: z.ZodType<Prisma.ExerciseWhereInput> = z
 			.union([
 				z.lazy(() => UserRelationFilterObjectSchema),
 				z.lazy(() => UserWhereInputObjectSchema),
+			])
+			.optional(),
+		specialty: z
+			.union([
+				z.lazy(() => SpecialtyRelationFilterObjectSchema),
+				z.lazy(() => SpecialtyWhereInputObjectSchema),
 			])
 			.optional(),
 	})

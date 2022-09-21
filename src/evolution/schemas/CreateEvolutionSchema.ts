@@ -13,11 +13,9 @@ export const CreateEvolutionSchema = Yup.object({
 	patient: Yup.mixed<UserWithPatient>()
 		.required()
 		.defined()
-		.nullable(false)
 		.typeError('Paciente é obrigatório'),
 	specialty: Yup.mixed<Specialty>()
 		.required()
 		.defined()
-		.nullable(false)
 		.typeError('Especialidade é obrigatória'),
 })

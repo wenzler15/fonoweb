@@ -7,6 +7,7 @@ export const ExerciseScalarFieldEnumSchema = z.enum([
 	'description',
 	'links',
 	'creatorId',
+	'specialtyId',
 	'createdAt',
 	'updatedAt',
 ])

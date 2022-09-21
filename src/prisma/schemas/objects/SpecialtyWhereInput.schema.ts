@@ -8,6 +8,7 @@ import { TemplateListRelationFilterObjectSchema } from './TemplateListRelationFi
 import { EvaluationListRelationFilterObjectSchema } from './EvaluationListRelationFilter.schema'
 import { AnamnesisListRelationFilterObjectSchema } from './AnamnesisListRelationFilter.schema'
 import { EvolutionListRelationFilterObjectSchema } from './EvolutionListRelationFilter.schema'
+import { ExerciseListRelationFilterObjectSchema } from './ExerciseListRelationFilter.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -54,6 +55,7 @@ const Schema: z.ZodType<Prisma.SpecialtyWhereInput> = z
 			.optional(),
 		anamnesis: z.lazy(() => AnamnesisListRelationFilterObjectSchema).optional(),
 		Evolution: z.lazy(() => EvolutionListRelationFilterObjectSchema).optional(),
+		Exercise: z.lazy(() => ExerciseListRelationFilterObjectSchema).optional(),
 	})
 	.strict()
 

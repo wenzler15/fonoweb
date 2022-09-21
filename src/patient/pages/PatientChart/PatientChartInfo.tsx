@@ -41,7 +41,7 @@ const patientAnamneseInfo = (
 						size="small"
 						onClick={handleDownload}
 					>
-						Exportar
+						Baixar
 					</Button>
 				</Grid>
 			</Grid>
@@ -75,7 +75,7 @@ const patientEvaluationInfo = (
 							size="small"
 							onClick={handleDownload}
 						>
-							Exportar
+							Baixar
 						</Button>
 					</Grid>
 				</Grid>
@@ -123,7 +123,7 @@ const patientEvolutionInfo = (
 							size="small"
 							onClick={handleDownload}
 						>
-							Exportar
+							Baixar
 						</Button>
 					</Grid>
 				</Grid>

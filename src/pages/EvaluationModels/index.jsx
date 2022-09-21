@@ -14,7 +14,7 @@ function EvaluationModels() {
           <div>
             <h1>Modelos de Avaliações Disponíveis</h1>
           </div>
-          <button type="button">Exportar</button>
+          <button type="button">Baixar</button>
         </div>
 
         <div className="evaluation-model-available">

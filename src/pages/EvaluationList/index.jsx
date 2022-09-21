@@ -28,7 +28,7 @@ function EvaluationNew() {
 						</a>
 					</div>
 
-					<button type="button">Exportar</button>
+					<button type="button">Baixar</button>
 				</div>
 				{evaluations.data &&
 					evaluations.data.result.map(evaluation => (

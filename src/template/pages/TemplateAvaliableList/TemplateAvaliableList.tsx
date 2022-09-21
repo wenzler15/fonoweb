@@ -203,7 +203,7 @@ export function TemplateAvaliableList(): ReactElement {
 								variant="contained"
 								size="medium"
 							>
-								Exportar
+								Baixar
 							</Button>
 						</Grid>
 					</Grid>

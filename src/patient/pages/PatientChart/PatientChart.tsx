@@ -146,7 +146,7 @@ export function PatientChart(): ReactElement {
 									color="secondary"
 									onClick={handlePatientDownload}
 								>
-									Exportar Completo
+									Baixar Completo
 								</Button>
 								<Button
 									sx={{
@@ -203,7 +203,7 @@ export function PatientChart(): ReactElement {
 								size="medium"
 								onClick={handleAnamnesisDownload}
 							>
-								Exportar Anamneses
+								Baixar Anamneses
 							</Button>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -248,7 +248,7 @@ export function PatientChart(): ReactElement {
 									size="medium"
 									onClick={handleEvaluationsDownload}
 								>
-									Exportar Avaliações
+									Baixar Avaliações
 								</Button>
 							</Grid>
 						</Grid>

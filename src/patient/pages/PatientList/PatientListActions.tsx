@@ -20,7 +20,6 @@ export function PatientListActions({
 				variant="contained"
 				size="small"
 				color="primary"
-				sx={{ borderRadius: 0 }}
 				onClick={() => navigate(`/anamnesis/create?patient=${patient.id}`)}
 			>
 				Nova Anamnese
@@ -29,7 +28,6 @@ export function PatientListActions({
 				variant="contained"
 				size="small"
 				color="secondary"
-				sx={{ borderRadius: 0 }}
 				onClick={() => navigate(`/evaluations/create?patient=${patient.id}`)}
 			>
 				Nova Avaliação
@@ -38,7 +36,6 @@ export function PatientListActions({
 				variant="contained"
 				size="small"
 				color="inherit"
-				sx={{ borderRadius: 0 }}
 				onClick={() => navigate(`/patients/${patient.patientData.id}`)}
 			>
 				Nova Consulta

@@ -1,12 +1,10 @@
-import { GenderType } from 'patient'
+import { Gender } from 'patient'
 
-export function translateGenderType(
-	template: GenderType | `${GenderType}`,
-) {
+export function translateGenderType(template: Gender | `${Gender}`) {
 	switch (template) {
-		case GenderType.MALE:
+		case Gender.MALE:
 			return 'Masculino'
-		case GenderType.FEMALE:
+		case Gender.FEMALE:
 			return 'Feminino'
 		default:
 			return 'Unknown'

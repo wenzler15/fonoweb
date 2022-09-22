@@ -1,11 +1,5 @@
-import { NavBar } from 'components/navBar'
 import { ReactElement, useMemo, useState } from 'react'
-import * as cpf from '@fnando/cpf'
-import {
-	FloatingWhatsAppButton,
-	LoadingOverlay,
-	Table,
-} from 'common/components'
+import { LoadingOverlay, Table } from 'common/components'
 import { useNavigate } from 'react-router-dom'
 import { ColumnDef } from '@tanstack/react-table'
 import { usePatients } from 'patient/queries'
@@ -15,6 +9,8 @@ import { UserWithPatient } from 'user/types'
 import { PatientListActions } from 'patient/pages/PatientList/PatientListActions'
 import { CustomLink } from './PatientList.styles'
 import { format, parseISO } from 'date-fns/fp'
+import { translateGenderType } from 'patient/utils'
+import { Gender } from 'patient/types'
 
 export function PatientList(): ReactElement {
 	const [pagination, setPagination] = useState<Required<Pagination>>({
@@ -44,12 +40,17 @@ export function PatientList(): ReactElement {
 			{
 				header: 'Nome',
 				accessorKey: 'name',
+				size: 200,
 				// eslint-disable-next-line react/no-unstable-nested-components
 				cell: ({ row }) => (
 					<CustomLink to={`/patients/${row.original.patientData.id}`}>
 						{row.original.name}
 					</CustomLink>
 				),
+			},
+			{
+				header: 'Email',
+				accessorKey: 'email',
 			},
 			{
 				header: 'Data de nascimento',
@@ -60,8 +61,11 @@ export function PatientList(): ReactElement {
 						: 'Não informado',
 			},
 			{
-				header: 'CPF',
-				accessorFn: row => cpf.format(row.cpf),
+				header: 'Gênero',
+				accessorFn: row =>
+					row.gender
+						? translateGenderType(row.gender as Gender)
+						: 'Não informado',
 			},
 		],
 		[],
@@ -69,7 +73,6 @@ export function PatientList(): ReactElement {
 
 	return (
 		<>
-			
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
 				<Grid container>
 					<Grid item xs={10}>
@@ -84,7 +87,6 @@ export function PatientList(): ReactElement {
 					</Grid>
 					<Grid item xs={2} sx={{ textAlign: 'right' }}>
 						<Button
-							sx={{ borderRadius: 0 }}
 							variant="contained"
 							size="large"
 							color="primary"

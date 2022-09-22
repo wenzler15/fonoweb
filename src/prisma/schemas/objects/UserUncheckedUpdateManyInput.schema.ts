@@ -24,6 +24,13 @@ const Schema: z.ZodType<Prisma.UserUncheckedUpdateManyInput> = z
 				z.lazy(() => IntFieldUpdateOperationsInputObjectSchema),
 			])
 			.optional(),
+		socialName: z
+			.union([
+				z.string(),
+				z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema),
+			])
+			.optional()
+			.nullable(),
 		email: z
 			.union([
 				z.string(),
@@ -37,6 +44,13 @@ const Schema: z.ZodType<Prisma.UserUncheckedUpdateManyInput> = z
 			])
 			.optional(),
 		gender: z
+			.union([
+				z.string(),
+				z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema),
+			])
+			.optional()
+			.nullable(),
+		customGender: z
 			.union([
 				z.string(),
 				z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema),

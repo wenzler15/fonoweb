@@ -7,9 +7,11 @@ const Schema: z.ZodType<Prisma.UserMinOrderByAggregateInput> = z
 	.object({
 		id: z.lazy(() => SortOrderSchema).optional(),
 		numericId: z.lazy(() => SortOrderSchema).optional(),
+		socialName: z.lazy(() => SortOrderSchema).optional(),
 		email: z.lazy(() => SortOrderSchema).optional(),
 		name: z.lazy(() => SortOrderSchema).optional(),
 		gender: z.lazy(() => SortOrderSchema).optional(),
+		customGender: z.lazy(() => SortOrderSchema).optional(),
 		cpf: z.lazy(() => SortOrderSchema).optional(),
 		birthDate: z.lazy(() => SortOrderSchema).optional(),
 		password: z.lazy(() => SortOrderSchema).optional(),

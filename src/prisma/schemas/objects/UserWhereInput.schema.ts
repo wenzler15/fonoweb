@@ -42,6 +42,10 @@ const Schema: z.ZodType<Prisma.UserWhereInput> = z
 		numericId: z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])
 			.optional(),
+		socialName: z
+			.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()])
+			.optional()
+			.nullable(),
 		email: z
 			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
 			.optional(),
@@ -49,6 +53,10 @@ const Schema: z.ZodType<Prisma.UserWhereInput> = z
 			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
 			.optional(),
 		gender: z
+			.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()])
+			.optional()
+			.nullable(),
+		customGender: z
 			.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()])
 			.optional()
 			.nullable(),

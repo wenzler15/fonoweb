@@ -7,9 +7,11 @@ const Schema: z.ZodType<Prisma.UserCreateManyInput> = z
 	.object({
 		id: z.string().optional(),
 		numericId: z.number().optional(),
+		socialName: z.string().optional().nullable(),
 		email: z.string(),
 		name: z.string(),
 		gender: z.string().optional().nullable(),
+		customGender: z.string().optional().nullable(),
 		cpf: z.string().optional().nullable(),
 		birthDate: z.date().optional().nullable(),
 		password: z.string(),

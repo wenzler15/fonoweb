@@ -34,6 +34,13 @@ const Schema: z.ZodType<Prisma.UserScalarWhereWithAggregatesInput> = z
 		numericId: z
 			.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number()])
 			.optional(),
+		socialName: z
+			.union([
+				z.lazy(() => StringNullableWithAggregatesFilterObjectSchema),
+				z.string(),
+			])
+			.optional()
+			.nullable(),
 		email: z
 			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
@@ -41,6 +48,13 @@ const Schema: z.ZodType<Prisma.UserScalarWhereWithAggregatesInput> = z
 			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		gender: z
+			.union([
+				z.lazy(() => StringNullableWithAggregatesFilterObjectSchema),
+				z.string(),
+			])
+			.optional()
+			.nullable(),
+		customGender: z
 			.union([
 				z.lazy(() => StringNullableWithAggregatesFilterObjectSchema),
 				z.string(),

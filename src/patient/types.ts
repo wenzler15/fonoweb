@@ -2,7 +2,7 @@ import { Anamnesis } from 'anamnesis'
 import { Evaluation } from 'evaluation'
 import { Evolution } from 'evolution'
 
-export enum GenderType {
+export enum Gender {
 	MALE = 'MALE',
 	FEMALE = 'FEMALE',
 }
@@ -14,7 +14,7 @@ export type Patient = {
 	createdAt: string
 	updatedAt: string
 	deletedAt: string | null
-	gender: GenderType
+	gender: Gender
 }
 
 export type PatientChartInfoProps =

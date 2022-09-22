@@ -4,9 +4,11 @@ import { UserType } from "@prisma/client"
 export const User = z.object({
   id: z.string(),
   numericId: z.number().int(),
+  socialName: z.string().nullish(),
   email: z.string(),
   name: z.string(),
   gender: z.string().nullish(),
+  customGender: z.string().nullish(),
   cpf: z.string().nullish(),
   birthDate: z.date().nullish(),
   password: z.string(),

@@ -57,9 +57,11 @@ enum UserType {
 model User {
   id                   String    @id() @unique @default(uuid()) @db.Uuid
   numericId            Int       @default(autoincrement()) @map("numeric_id")
+  socialName           String?   @map("social_name")
   email                String
   name                 String
   gender               String?
+  customGender         String?   @map("custom_gender")
   cpf                  String?
   birthDate            DateTime? @map("birth_date")
   password             String

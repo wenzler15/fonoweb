@@ -11,14 +11,8 @@ const Schema: z.ZodType<Prisma.EvaluationUpsertWithWhereUniqueWithoutDoctorInput
 	z
 		.object({
 			where: z.lazy(() => EvaluationWhereUniqueInputObjectSchema),
-			update: z.union([
-				z.lazy(() => EvaluationUpdateWithoutDoctorInputObjectSchema),
-				z.lazy(() => EvaluationUncheckedUpdateWithoutDoctorInputObjectSchema),
-			]),
-			create: z.union([
-				z.lazy(() => EvaluationCreateWithoutDoctorInputObjectSchema),
-				z.lazy(() => EvaluationUncheckedCreateWithoutDoctorInputObjectSchema),
-			]),
+			update: z.any(),
+			create: z.any(),
 		})
 		.strict()
 

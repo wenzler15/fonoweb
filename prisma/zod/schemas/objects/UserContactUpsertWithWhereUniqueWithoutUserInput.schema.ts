@@ -11,14 +11,8 @@ const Schema: z.ZodType<Prisma.UserContactUpsertWithWhereUniqueWithoutUserInput>
 	z
 		.object({
 			where: z.lazy(() => UserContactWhereUniqueInputObjectSchema),
-			update: z.union([
-				z.lazy(() => UserContactUpdateWithoutUserInputObjectSchema),
-				z.lazy(() => UserContactUncheckedUpdateWithoutUserInputObjectSchema),
-			]),
-			create: z.union([
-				z.lazy(() => UserContactCreateWithoutUserInputObjectSchema),
-				z.lazy(() => UserContactUncheckedCreateWithoutUserInputObjectSchema),
-			]),
+			update: z.any(),
+			create: z.any(),
 		})
 		.strict()
 

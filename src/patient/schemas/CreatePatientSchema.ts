@@ -10,6 +10,7 @@ export const CreatePatientSchema = Yup.object({
 	name: Yup.string().required().trim(),
 	socialName: Yup.string().required().trim(),
 	email: Yup.string().email().required().trim(),
+	customGender: Yup.string().trim(),
 	gender: Yup.mixed<Gender>()
 		.strict()
 		.oneOf(Object.values(Gender) as Gender[])
@@ -25,9 +26,13 @@ export const CreatePatientSchema = Yup.object({
 		})
 		.required(),
 	birthDate: Yup.date()
-		.transform((_value, originalValue) =>
-			parse(new Date(), 'dd/MM/yyyy', originalValue),
-		)
+		.transform((_value, originalValue) => {
+			if (typeof originalValue === 'string') {
+				return parse(new Date(), 'dd/MM/yyyy', originalValue)
+			}
+
+			return originalValue
+		})
 		.required()
 		.typeError('Data de nascimento inválida'),
 })

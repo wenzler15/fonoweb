@@ -8,10 +8,7 @@ import type { Prisma } from '@prisma/client'
 const Schema: z.ZodType<Prisma.SpecialtyCreateOrConnectWithoutExerciseInput> = z
 	.object({
 		where: z.lazy(() => SpecialtyWhereUniqueInputObjectSchema),
-		create: z.union([
-			z.lazy(() => SpecialtyCreateWithoutExerciseInputObjectSchema),
-			z.lazy(() => SpecialtyUncheckedCreateWithoutExerciseInputObjectSchema),
-		]),
+		create: z.any(),
 	})
 	.strict()
 

@@ -8,14 +8,8 @@ import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyUpsertWithoutTemplatesInput> = z
 	.object({
-		update: z.union([
-			z.lazy(() => SpecialtyUpdateWithoutTemplatesInputObjectSchema),
-			z.lazy(() => SpecialtyUncheckedUpdateWithoutTemplatesInputObjectSchema),
-		]),
-		create: z.union([
-			z.lazy(() => SpecialtyCreateWithoutTemplatesInputObjectSchema),
-			z.lazy(() => SpecialtyUncheckedCreateWithoutTemplatesInputObjectSchema),
-		]),
+		update: z.any(),
+		create: z.any(),
 	})
 	.strict()
 

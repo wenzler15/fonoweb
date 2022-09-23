@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.SpecialtyCreateOrConnectWithoutTemplatesInput> =
 	z
 		.object({
 			where: z.lazy(() => SpecialtyWhereUniqueInputObjectSchema),
-			create: z.union([
-				z.lazy(() => SpecialtyCreateWithoutTemplatesInputObjectSchema),
-				z.lazy(() => SpecialtyUncheckedCreateWithoutTemplatesInputObjectSchema),
-			]),
+			create: z.any(),
 		})
 		.strict()
 

@@ -148,26 +148,12 @@ const Schema: z.ZodType<Prisma.UserUpdateInput> = z
 			])
 			.optional()
 			.nullable(),
-		patientData: z
-			.lazy(() => PatientUpdateOneWithoutUserNestedInputObjectSchema)
-			.optional(),
-		doctorData: z
-			.lazy(() => DoctorUpdateOneWithoutUserNestedInputObjectSchema)
-			.optional(),
-		addresses: z
-			.lazy(() => UserAdressUpdateManyWithoutUserNestedInputObjectSchema)
-			.optional(),
-		contacts: z
-			.lazy(() => UserContactUpdateManyWithoutUserNestedInputObjectSchema)
-			.optional(),
-		DoctorPatient: z
-			.lazy(
-				() => DoctorPatientUpdateManyWithoutAssignedByNestedInputObjectSchema,
-			)
-			.optional(),
-		exercises: z
-			.lazy(() => ExerciseUpdateManyWithoutCreatorNestedInputObjectSchema)
-			.optional(),
+		patientData: z.any(),
+		doctorData: z.any(),
+		addresses: z.any(),
+		contacts: z.any(),
+		DoctorPatient: z.any(),
+		exercises: z.any(),
 	})
 	.strict()
 

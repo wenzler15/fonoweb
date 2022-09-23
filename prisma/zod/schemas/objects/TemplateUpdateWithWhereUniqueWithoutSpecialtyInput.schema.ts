@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.TemplateUpdateWithWhereUniqueWithoutSpecialtyInpu
 	z
 		.object({
 			where: z.lazy(() => TemplateWhereUniqueInputObjectSchema),
-			data: z.union([
-				z.lazy(() => TemplateUpdateWithoutSpecialtyInputObjectSchema),
-				z.lazy(() => TemplateUncheckedUpdateWithoutSpecialtyInputObjectSchema),
-			]),
+			data: z.any(),
 		})
 		.strict()
 

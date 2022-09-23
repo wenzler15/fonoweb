@@ -31,26 +31,12 @@ const Schema: z.ZodType<Prisma.UserCreateInput> = z
 		createdAt: z.date().optional(),
 		updatedAt: z.date().optional(),
 		deletedAt: z.date().optional().nullable(),
-		patientData: z
-			.lazy(() => PatientCreateNestedOneWithoutUserInputObjectSchema)
-			.optional(),
-		doctorData: z
-			.lazy(() => DoctorCreateNestedOneWithoutUserInputObjectSchema)
-			.optional(),
-		addresses: z
-			.lazy(() => UserAdressCreateNestedManyWithoutUserInputObjectSchema)
-			.optional(),
-		contacts: z
-			.lazy(() => UserContactCreateNestedManyWithoutUserInputObjectSchema)
-			.optional(),
-		DoctorPatient: z
-			.lazy(
-				() => DoctorPatientCreateNestedManyWithoutAssignedByInputObjectSchema,
-			)
-			.optional(),
-		exercises: z
-			.lazy(() => ExerciseCreateNestedManyWithoutCreatorInputObjectSchema)
-			.optional(),
+		patientData: z.any(),
+		doctorData: z.any(),
+		addresses: z.any(),
+		contacts: z.any(),
+		DoctorPatient: z.any(),
+		exercises: z.any(),
 	})
 	.strict()
 

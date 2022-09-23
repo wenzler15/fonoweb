@@ -43,6 +43,7 @@ export function PatientCreate() {
 				birthDate: '',
 				// @ts-expect-error null
 				gender: '',
+				customGender: '',
 				socialName: '',
 				address: {
 					zipCode: '',

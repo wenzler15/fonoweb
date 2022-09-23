@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.AnamnesisUpdateWithWhereUniqueWithoutSpecialtyInp
 	z
 		.object({
 			where: z.lazy(() => AnamnesisWhereUniqueInputObjectSchema),
-			data: z.union([
-				z.lazy(() => AnamnesisUpdateWithoutSpecialtyInputObjectSchema),
-				z.lazy(() => AnamnesisUncheckedUpdateWithoutSpecialtyInputObjectSchema),
-			]),
+			data: z.any(),
 		})
 		.strict()
 

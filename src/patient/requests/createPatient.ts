@@ -9,6 +9,18 @@ export type CreatePatientRequestData = {
 	birthDate: Date
 	email: string
 	doctorId: string
+	address:
+		| {
+				streetName: string
+				zipCode: string
+				district: string
+				state: string
+				city: string
+				number: string
+				complement?: string | undefined
+		  }
+		| undefined
+	gender: string | undefined
 }
 
 export function createPatient(

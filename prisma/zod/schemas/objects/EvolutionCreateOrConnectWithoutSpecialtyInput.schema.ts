@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.EvolutionCreateOrConnectWithoutSpecialtyInput> =
 	z
 		.object({
 			where: z.lazy(() => EvolutionWhereUniqueInputObjectSchema),
-			create: z.union([
-				z.lazy(() => EvolutionCreateWithoutSpecialtyInputObjectSchema),
-				z.lazy(() => EvolutionUncheckedCreateWithoutSpecialtyInputObjectSchema),
-			]),
+			create: z.any(),
 		})
 		.strict()
 

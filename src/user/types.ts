@@ -1,27 +1,7 @@
-import { DoctorWithSpecialty } from 'doctor/types'
+import { Specialty, User, UserAdress, UserContact } from '@prisma/client'
+import { Doctor, DoctorWithSpecialty } from 'doctor/types'
 import { Patient } from 'patient/types'
-import { Merge } from 'type-fest'
-
-export type User = {
-	id: string
-	numericId: number
-	email: string
-	name: string
-	gender: string | null
-	cpf: string
-	birthDate: Date | null
-	password: string
-	type: UserType
-	avatar: string | null
-	facebookToken: string | null
-	passwordResetToken: string | null
-	passwordResetExpires: Date | null
-	isAdmin: boolean
-	isActive: boolean
-	createdAt: Date
-	updatedAt: Date
-	deletedAt: Date | null
-}
+import { Merge, Simplify } from 'type-fest'
 
 export enum UserType {
 	PATIENT = 'PATIENT',
@@ -29,14 +9,31 @@ export enum UserType {
 }
 
 export type Address = {
-  id: string;
-  zipCode: string;
-	streetName: string;
-	district: string;
-	number: string;
-	city: string;
-	state: string;
+	id: string
+	zipCode: string
+	streetName: string
+	district: string
+	number: string
+	city: string
+	state: string
 }
 
-export type UserWithPatient = Merge<User, { patientData: Patient }>
-export type UserWithDoctor = Merge<User, { doctorData: DoctorWithSpecialty, addresses: Address[] }>
+export type UserWithDoctor = User & {
+	doctorData: Doctor & { specialty: Specialty }
+}
+
+export type UserWithPatient = User & {
+	patientData: Patient
+}
+
+export type UserComplete = Simplify<
+	Merge<
+		Merge<UserWithDoctor, UserWithPatient>,
+		{
+			addresses: UserAdress[]
+			contacts: UserContact[]
+		}
+	>
+>
+
+export { type User } from '@prisma/client'

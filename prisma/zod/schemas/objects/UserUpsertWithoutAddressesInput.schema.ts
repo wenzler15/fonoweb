@@ -8,14 +8,8 @@ import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserUpsertWithoutAddressesInput> = z
 	.object({
-		update: z.union([
-			z.lazy(() => UserUpdateWithoutAddressesInputObjectSchema),
-			z.lazy(() => UserUncheckedUpdateWithoutAddressesInputObjectSchema),
-		]),
-		create: z.union([
-			z.lazy(() => UserCreateWithoutAddressesInputObjectSchema),
-			z.lazy(() => UserUncheckedCreateWithoutAddressesInputObjectSchema),
-		]),
+		update: z.any(),
+		create: z.any(),
 	})
 	.strict()
 

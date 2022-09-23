@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.UserAdressUpdateWithWhereUniqueWithoutUserInput> 
 	z
 		.object({
 			where: z.lazy(() => UserAdressWhereUniqueInputObjectSchema),
-			data: z.union([
-				z.lazy(() => UserAdressUpdateWithoutUserInputObjectSchema),
-				z.lazy(() => UserAdressUncheckedUpdateWithoutUserInputObjectSchema),
-			]),
+			data: z.any(),
 		})
 		.strict()
 

@@ -6,6 +6,7 @@ import {
 	Typography,
 	Stack,
 	Button,
+	Box,
 } from '@mui/material'
 import { Formik } from 'formik'
 import Swal from 'sweetalert2'
@@ -16,11 +17,9 @@ import { PatientForm } from '../PatientForm/PatientForm'
 import { useUpdatePatient } from 'patient/mutations'
 import { useUniversalParam } from 'routes/hooks'
 import { usePatientById } from 'patient/queries'
+import { mergeDeepRight, mergeRight } from 'rambda'
 
-export function PatientFormModal({
-	visible,
-	onClose,
-}: PatientFormModalProps) {
+export function PatientFormModal({ visible, onClose }: PatientFormModalProps) {
 	const updatePatient = useUpdatePatient({
 		onSuccess: () => {
 			onClose()
@@ -32,15 +31,15 @@ export function PatientFormModal({
 		},
 	})
 
-  const patientId = useUniversalParam('patient')
+	const patientId = useUniversalParam('patient')
 
-  const patient = usePatientById(patientId as string);
+	const patient = usePatientById(patientId as string)
 
 	const handleFormSubmit = ({
 		...values
 	}: InferType<typeof CreatePatientSchema>) => {
 		updatePatient.mutate({
-      id: patient.data?.id as string,
+			id: patient.data?.id as string,
 			...values,
 		})
 	}
@@ -63,34 +62,65 @@ export function PatientFormModal({
 						left: '50%',
 						transform: 'translate(-50%, -50%)',
 						width: 1000,
-						maxHeight: 'calc(100vh - 100px)',
-						overflow: 'auto',
+						overflow: 'hidden',
 						bgcolor: 'background.paper',
-						p: t => t.spacing(2),
 					}}
 				>
 					<Formik<InferType<typeof CreatePatientSchema>>
 						validationSchema={CreatePatientSchema}
-						initialValues={{
-                name: '',
-                birthDate: null,
-                email: '',
-                gender: '',
-						}}
+						initialValues={mergeDeepRight(
+							{
+								name: '',
+								email: '',
+								birthDate: '',
+								gender: '',
+								customGender: '',
+								socialName: '',
+								address: {
+									zipCode: '',
+									streetName: '',
+									district: '',
+									number: '',
+									city: '',
+									state: '',
+								},
+							},
+							{
+								name: patient.data?.name,
+								socialName: patient.data?.socialName,
+								email: patient.data?.email,
+								customGender: patient.data?.customGender,
+								gender: patient.data?.gender,
+								address: patient.data?.addresses[0] ?? {
+									zipCode: '',
+									streetName: '',
+									district: '',
+									number: '',
+									city: '',
+									state: '',
+								},
+								birthDate: patient.data?.birthDate ?? new Date(),
+							},
+						)}
 						onSubmit={handleFormSubmit}
 					>
 						{({ handleSubmit }) => (
-							<>
-								<Stack
-									direction="row"
-									spacing={2}
-									sx={{ mb: t => t.spacing(2) }}
+							<Box display="flex" flexDirection="column">
+								<Box
+									sx={{
+										flex: 1,
+										px: 4,
+										py: 3,
+										display: 'flex',
+										alignItems: 'center',
+										borderBottom: '1px solid #e0e0e0',
+									}}
 								>
 									<Typography
 										variant="h5"
 										component="h2"
 										color="secondary"
-										sx={{ width: '100%' }}
+										sx={{ flexGrow: 1 }}
 									>
 										Editar Paciente
 									</Typography>
@@ -101,9 +131,15 @@ export function PatientFormModal({
 									>
 										Salvar
 									</Button>
-								</Stack>
-								<PatientForm />
-							</>
+								</Box>
+								<Box
+									maxHeight="calc(100vh - 180px)"
+									sx={{ overflowY: 'auto' }}
+									p={4}
+								>
+									<PatientForm />
+								</Box>
+							</Box>
 						)}
 					</Formik>
 				</Card>

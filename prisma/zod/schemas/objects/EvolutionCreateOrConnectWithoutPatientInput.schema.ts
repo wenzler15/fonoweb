@@ -8,10 +8,7 @@ import type { Prisma } from '@prisma/client'
 const Schema: z.ZodType<Prisma.EvolutionCreateOrConnectWithoutPatientInput> = z
 	.object({
 		where: z.lazy(() => EvolutionWhereUniqueInputObjectSchema),
-		create: z.union([
-			z.lazy(() => EvolutionCreateWithoutPatientInputObjectSchema),
-			z.lazy(() => EvolutionUncheckedCreateWithoutPatientInputObjectSchema),
-		]),
+		create: z.any(),
 	})
 	.strict()
 

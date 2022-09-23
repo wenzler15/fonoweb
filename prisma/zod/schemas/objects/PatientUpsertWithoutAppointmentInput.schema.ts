@@ -8,14 +8,8 @@ import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.PatientUpsertWithoutAppointmentInput> = z
 	.object({
-		update: z.union([
-			z.lazy(() => PatientUpdateWithoutAppointmentInputObjectSchema),
-			z.lazy(() => PatientUncheckedUpdateWithoutAppointmentInputObjectSchema),
-		]),
-		create: z.union([
-			z.lazy(() => PatientCreateWithoutAppointmentInputObjectSchema),
-			z.lazy(() => PatientUncheckedCreateWithoutAppointmentInputObjectSchema),
-		]),
+		update: z.any(),
+		create: z.any(),
 	})
 	.strict()
 

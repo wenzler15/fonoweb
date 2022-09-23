@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.AppointmentUpdateWithWhereUniqueWithoutDoctorInpu
 	z
 		.object({
 			where: z.lazy(() => AppointmentWhereUniqueInputObjectSchema),
-			data: z.union([
-				z.lazy(() => AppointmentUpdateWithoutDoctorInputObjectSchema),
-				z.lazy(() => AppointmentUncheckedUpdateWithoutDoctorInputObjectSchema),
-			]),
+			data: z.any(),
 		})
 		.strict()
 

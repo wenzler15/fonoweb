@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.SpecialtyCreateOrConnectWithoutAnamnesisInput> =
 	z
 		.object({
 			where: z.lazy(() => SpecialtyWhereUniqueInputObjectSchema),
-			create: z.union([
-				z.lazy(() => SpecialtyCreateWithoutAnamnesisInputObjectSchema),
-				z.lazy(() => SpecialtyUncheckedCreateWithoutAnamnesisInputObjectSchema),
-			]),
+			create: z.any(),
 		})
 		.strict()
 

@@ -11,14 +11,8 @@ const Schema: z.ZodType<Prisma.TemplateUpsertWithWhereUniqueWithoutSpecialtyInpu
 	z
 		.object({
 			where: z.lazy(() => TemplateWhereUniqueInputObjectSchema),
-			update: z.union([
-				z.lazy(() => TemplateUpdateWithoutSpecialtyInputObjectSchema),
-				z.lazy(() => TemplateUncheckedUpdateWithoutSpecialtyInputObjectSchema),
-			]),
-			create: z.union([
-				z.lazy(() => TemplateCreateWithoutSpecialtyInputObjectSchema),
-				z.lazy(() => TemplateUncheckedCreateWithoutSpecialtyInputObjectSchema),
-			]),
+			update: z.any(),
+			create: z.any(),
 		})
 		.strict()
 

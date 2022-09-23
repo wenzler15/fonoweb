@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.AppointmentCreateOrConnectWithoutPatientInput> =
 	z
 		.object({
 			where: z.lazy(() => AppointmentWhereUniqueInputObjectSchema),
-			create: z.union([
-				z.lazy(() => AppointmentCreateWithoutPatientInputObjectSchema),
-				z.lazy(() => AppointmentUncheckedCreateWithoutPatientInputObjectSchema),
-			]),
+			create: z.any(),
 		})
 		.strict()
 

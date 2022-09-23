@@ -9,7 +9,7 @@ import {
 	FormControlLabel,
 	Checkbox,
 } from '@mui/material'
-import { Field, FormikErrors, useFormikContext } from 'formik'
+import { Field, FieldProps, FormikErrors, useFormikContext } from 'formik'
 import {
 	Label,
 	LabelInfo,
@@ -60,7 +60,7 @@ export function PatientForm() {
 	}, [patientId, patient.data, setFieldValue])
 
 	return (
-		<Stack spacing={2}>
+		<Stack>
 			<Grid container spacing={2}>
 				<Grid item xs={6}>
 					<Label>Nome Completo</Label>
@@ -98,7 +98,7 @@ export function PatientForm() {
 				</Grid>
 				<Grid item xs={6}>
 					<Label>Gênero do paciente [Biológico]</Label>
-					<LabelInfo>Opcional</LabelInfo>
+					<LabelInfo color="error">*Obrigatorio</LabelInfo>
 					<Field
 						component={SelectWrapper}
 						name="gender"
@@ -113,29 +113,40 @@ export function PatientForm() {
 					</Field>
 				</Grid>
 				<Grid item xs={6}>
+					<Label>Gênero que se identifica</Label>
+					<LabelInfo>Opcional</LabelInfo>
+					<Field
+						fullWidth
+						component={TextFieldWrapper}
+						name="customGender"
+						label="Gênero que se identifica"
+					/>
+				</Grid>
+				<Grid item xs={6}>
 					<Label>Data de nascimento</Label>
 					<LabelInfo color="error">*Obrigatorio</LabelInfo>
 					<Field name="birthDate" componet={TextField}>
-						{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-						{({ field, form: { values } }: any) => (
+						{({ field }: FieldProps<InferType<typeof CreatePatientSchema>>) => (
 							<InputMask
 								{...field}
-								onChange={field.onChange}
 								mask="99/99/9999"
 								name="birthDate"
-								value={values.birthDate}
+								value={values.birthDate.toString()}
 							>
-								{(inputProps: InputBaseComponentProps) => (
-									<MTextField
-										type="text"
-										inputProps={inputProps}
-										fullWidth
-										variant="outlined"
-										label="Data de nascimento"
-										helperText={errors.birthDate as FormikErrors<string>}
-										error={touched.birthDate && !!errors.birthDate}
-									/>
-								)}
+								{
+									// @ts-expect-error - The type of the field is not compatible with the type of the component
+									(inputProps: InputBaseComponentProps) => (
+										<MTextField
+											type="text"
+											inputProps={inputProps}
+											fullWidth
+											variant="outlined"
+											label="Data de nascimento"
+											helperText={errors.birthDate as FormikErrors<string>}
+											error={touched.birthDate && !!errors.birthDate}
+										/>
+									)
+								}
 							</InputMask>
 						)}
 					</Field>
@@ -153,103 +164,101 @@ export function PatientForm() {
 						placeholder="Email"
 					/>
 				</Grid>
-				<Grid item xs={6} />
-				<Paper
-					variant="outlined"
-					sx={{ px: 2, py: 3, width: '100%', marginTop: 4 }}
-				>
-					<Typography variant="h5" sx={{ mb: 2 }}>
-						Endereço <LabelInfo color="error">*Obrigatorio</LabelInfo>
-					</Typography>
-					<Grid container spacing={2}>
-						<Grid item xs={4}>
-							<Label>CEP</Label>
-							<Field name="address.zipCode" componet={TextField}>
-								{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-								{({ field, form: { values } }: any) => (
-									<InputMask
-										{...field}
-										onChange={field.onChange}
-										mask="99999-999"
-										name="address.zipCode"
-										value={values?.address.zipCode}
-									>
-										{(inputProps: InputBaseComponentProps) => (
-											<MTextField
-												type="text"
-												inputProps={inputProps}
-												fullWidth
-												variant="outlined"
-												placeholder="CEP"
-											/>
-										)}
-									</InputMask>
-								)}
-							</Field>
-						</Grid>
-						<Grid item xs={4}>
-							<Label>Rua</Label>
-							<Field
-								fullWidth
-								component={TextFieldWrapper}
-								name="address.streetName"
-								placeholder="Rua"
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<Label>Bairro</Label>
-							<Field
-								fullWidth
-								component={TextFieldWrapper}
-								name="address.district"
-								placeholder="Bairro"
-							/>
-						</Grid>
-						<Grid item xs={2}>
-							<Label>Número</Label>
-							<Field
-								fullWidth
-								component={TextFieldWrapper}
-								name="address.number"
-								placeholder="Número"
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<Label>Cidade</Label>
-							<Field
-								fullWidth
-								component={TextFieldWrapper}
-								name="address.city"
-								placeholder="Cidade"
-							/>
-						</Grid>
-						<Grid item xs={3}>
-							<Label>Complemento</Label>
-							<Field
-								fullWidth
-								component={TextFieldWrapper}
-								name="address.complement"
-								placeholder="Complemento"
-							/>
-						</Grid>
-						<Grid item xs={3}>
-							<Label>Estado</Label>
-							<Field
-								component={SelectWrapper}
-								name="address.state"
-								label="Estado"
-								formControl={{ fullWidth: true }}
-							>
-								{states.map(({ name, abbr }) => (
-									<MenuItem key={abbr} value={abbr}>
-										{name}
-									</MenuItem>
-								))}
-							</Field>
-						</Grid>
-					</Grid>
-				</Paper>
 			</Grid>
+			<Paper
+				variant="outlined"
+				sx={{ px: 2, py: 3, width: '100%', marginTop: 4 }}
+			>
+				<Typography variant="h5" sx={{ mb: 2 }}>
+					Endereço <LabelInfo color="error">*Obrigatorio</LabelInfo>
+				</Typography>
+				<Grid container spacing={2}>
+					<Grid item xs={4}>
+						<Label>CEP</Label>
+						<Field name="address.zipCode" componet={TextField}>
+							{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+							{({ field }: any) => (
+								<InputMask
+									{...field}
+									onChange={field.onChange}
+									mask="99999-999"
+									name="address.zipCode"
+								>
+									{(inputProps: InputBaseComponentProps) => (
+										<MTextField
+											type="text"
+											inputProps={inputProps}
+											fullWidth
+											variant="outlined"
+											placeholder="CEP"
+										/>
+									)}
+								</InputMask>
+							)}
+						</Field>
+					</Grid>
+					<Grid item xs={4}>
+						<Label>Rua</Label>
+						<Field
+							fullWidth
+							component={TextFieldWrapper}
+							name="address.streetName"
+							placeholder="Rua"
+						/>
+					</Grid>
+					<Grid item xs={4}>
+						<Label>Bairro</Label>
+						<Field
+							fullWidth
+							component={TextFieldWrapper}
+							name="address.district"
+							placeholder="Bairro"
+						/>
+					</Grid>
+					<Grid item xs={2}>
+						<Label>Número</Label>
+						<Field
+							fullWidth
+							component={TextFieldWrapper}
+							name="address.number"
+							placeholder="Número"
+						/>
+					</Grid>
+					<Grid item xs={4}>
+						<Label>Cidade</Label>
+						<Field
+							fullWidth
+							component={TextFieldWrapper}
+							name="address.city"
+							placeholder="Cidade"
+						/>
+					</Grid>
+					<Grid item xs={3}>
+						<Label>Complemento</Label>
+						<Field
+							fullWidth
+							component={TextFieldWrapper}
+							name="address.complement"
+							placeholder="Complemento"
+						/>
+					</Grid>
+					<Grid item xs={3}>
+						<Label>Estado</Label>
+						<Field
+							component={SelectWrapper}
+							name="address.state"
+							label="Estado"
+							formControl={{ fullWidth: true }}
+						>
+							{states.map(({ name, abbr }) => (
+								<MenuItem key={abbr} value={abbr}>
+									{name}
+								</MenuItem>
+							))}
+						</Field>
+					</Grid>
+				</Grid>
+			</Paper>
 		</Stack>
 	)
 }

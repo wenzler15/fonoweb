@@ -9,10 +9,7 @@ const Schema: z.ZodType<Prisma.ExerciseUpdateWithWhereUniqueWithoutCreatorInput>
 	z
 		.object({
 			where: z.lazy(() => ExerciseWhereUniqueInputObjectSchema),
-			data: z.union([
-				z.lazy(() => ExerciseUpdateWithoutCreatorInputObjectSchema),
-				z.lazy(() => ExerciseUncheckedUpdateWithoutCreatorInputObjectSchema),
-			]),
+			data: z.any(),
 		})
 		.strict()
 

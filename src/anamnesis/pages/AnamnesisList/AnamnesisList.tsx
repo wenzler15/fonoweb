@@ -1,6 +1,4 @@
-import { NavBar } from 'components/navBar'
 import { ReactElement, useState } from 'react'
-import { FloatingWhatsAppButton } from 'common/components'
 import { useNavigate, Link } from 'react-router-dom'
 import { Pagination } from 'common/types'
 import {
@@ -35,6 +33,8 @@ import { useTemplates } from 'template/queries'
 import { TemplateType, TemplateWithSpecialty } from 'template'
 import { useVisible } from 'common/hooks'
 import { Close } from '@mui/icons-material'
+import { download } from '@excelsia/general-helpers'
+import { client } from 'common/client'
 
 function RenderAvaliableTemplates({
 	template,
@@ -61,7 +61,6 @@ function RenderAvaliableTemplates({
 					direction="row"
 				>
 					<Button
-						sx={{ borderRadius: 0 }}
 						variant="contained"
 						size="medium"
 						onClick={modal.show}
@@ -69,7 +68,6 @@ function RenderAvaliableTemplates({
 						Visualizar
 					</Button>
 					<Button
-						sx={{ borderRadius: 0 }}
 						color="secondary"
 						variant="contained"
 						size="medium"
@@ -176,9 +174,24 @@ export function AnamnesisList(): ReactElement {
 		size: 9999,
 	})
 
+  const handleAnamnesisDownload = (patientId: string) => {
+		if (patientId) {
+			const handle = download.blob(`${patientId}.pdf`)
+
+			client(`patients/${patientId}/anamnesis`)
+				.blob()
+				.then(handle)
+				.catch(error => {
+					console.error(error)
+				})
+		}
+		return null;
+	}
+
+
 	return (
 		<Container>
-			
+
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
 				<Paper
 					elevation={3}
@@ -233,19 +246,17 @@ export function AnamnesisList(): ReactElement {
 						</Grid>
 						<Grid item xs={2} sx={{ textAlign: 'right' }}>
 							<Button
-								sx={{ borderRadius: 0 }}
 								variant="contained"
 								size="large"
 								color="primary"
-								onClick={() => navigate('/templates/create')}
 							>
-								EXPORTAR
+								BAIXAR
 							</Button>
 						</Grid>
 					</Grid>
 					<Collapse in={showAvaliableTemplate} timeout="auto" unmountOnExit>
-						{templates.data?.result && templates.data?.result.length > 0 ? (
-							templates.data?.result.map(template => (
+						{templates.data?.result && templates.data.result.length > 0 ? (
+							templates.data.result.map(template => (
 								<RenderAvaliableTemplates
 									template={template}
 									key={template.id}
@@ -273,15 +284,15 @@ export function AnamnesisList(): ReactElement {
 						</Grid>
 					</Grid>
 					<Collapse in={showMyTemplate} timeout="auto" unmountOnExit>
-						{anamnesis.data?.result && anamnesis.data?.result.length > 0 ? (
-							anamnesis.data?.result.map(anamnesi => (
+						{anamnesis.data?.result && anamnesis.data.result.length > 0 ? (
+							anamnesis.data.result.map(anamnesi => (
 								<Grid container mb={6} key={anamnesi.id}>
 									<Grid item xs={12}>
 										<Typography variant="h6" component="h3">
-											Avaliação {anamnesi.doctor.specialty.name}
+											Avaliação {anamnesi.specialty.name}
 										</Typography>
 										<Typography variant="body1" component="p">
-											{anamnesi.doctor.name}
+											{anamnesi.doctor.id}
 										</Typography>
 									</Grid>
 									<Grid item xs={2}>
@@ -294,13 +305,12 @@ export function AnamnesisList(): ReactElement {
 												size="small"
 												startIcon={<ArrowCircleDownIcon />}
 												variant="outlined"
-												sx={{ borderRadius: 0 }}
+                        onClick={() => handleAnamnesisDownload(anamnesi.patientId)}
 											>
 												Baixar
 											</Button>
 											<Button
 												size="small"
-												sx={{ borderRadius: 0 }}
 												variant="outlined"
 											>
 												Excluir
@@ -328,7 +338,7 @@ export function AnamnesisList(): ReactElement {
 					</Button>
 				</Paper>
 			</Box>
-			
+
 		</Container>
 	)
 }

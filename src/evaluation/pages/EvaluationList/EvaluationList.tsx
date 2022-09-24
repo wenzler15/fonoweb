@@ -1,4 +1,3 @@
-import { NavBar } from 'components/navBar'
 import { ReactElement, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Pagination } from 'common/types'
@@ -34,12 +33,14 @@ import { useVisible } from 'common/hooks'
 import { TemplateType, TemplateWithSpecialty } from 'template'
 import { Close } from '@mui/icons-material'
 import { useTemplates } from 'template/queries'
+import { client } from 'common/client'
+import { download } from '@excelsia/general-helpers'
 
-const RenderAvaliableTemplates = ({
+function RenderAvaliableTemplates({
 	template,
 }: {
 	template: TemplateWithSpecialty
-}): ReactElement => {
+}): ReactElement {
 	const modal = useVisible()
 
 	return (
@@ -60,7 +61,6 @@ const RenderAvaliableTemplates = ({
 					direction="row"
 				>
 					<Button
-						sx={{ borderRadius: 0 }}
 						variant="contained"
 						size="medium"
 						onClick={modal.show}
@@ -68,7 +68,6 @@ const RenderAvaliableTemplates = ({
 						Visualizar
 					</Button>
 					<Button
-						sx={{ borderRadius: 0 }}
 						color="secondary"
 						variant="contained"
 						size="medium"
@@ -174,9 +173,24 @@ export function EvaluationList(): ReactElement {
 		size: 9999,
 	})
 
+  const handleEvaluationsDownload = (patientId: string) => {
+		if (patientId) {
+			const handle = download.blob(`${patientId}.pdf`)
+
+			client(`patients/${patientId}/evolutions`)
+				.blob()
+				.then(handle)
+				.catch(error => {
+					console.error(error)
+				})
+		}
+		return null;
+	}
+
+
 	return (
 		<Container>
-			
+
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
 				<Paper
 					elevation={3}
@@ -234,19 +248,18 @@ export function EvaluationList(): ReactElement {
 						</Grid>
 						<Grid item xs={2} sx={{ textAlign: 'right' }}>
 							<Button
-								sx={{ borderRadius: 0 }}
 								variant="contained"
 								size="large"
 								color="primary"
 								onClick={() => navigate('/templates/create')}
 							>
-								EXPORTAR
+								BAIXAR
 							</Button>
 						</Grid>
 					</Grid>
 					<Collapse in={showAvaliableTemplate} timeout="auto" unmountOnExit>
-						{templates.data?.result && templates.data?.result.length > 0 ? (
-							templates.data?.result.map(template => (
+						{templates.data?.result && templates.data.result.length > 0 ? (
+							templates.data.result.map(template => (
 								<RenderAvaliableTemplates
 									template={template}
 									key={template.id}
@@ -274,8 +287,8 @@ export function EvaluationList(): ReactElement {
 						</Grid>
 					</Grid>
 					<Collapse in={showMyTemplate} timeout="auto" unmountOnExit>
-						{evaluations.data?.result && evaluations.data?.result.length > 0 ? (
-							evaluations.data?.result.map(evaluation => (
+						{evaluations.data?.result && evaluations.data.result.length > 0 ? (
+							evaluations.data.result.map(evaluation => (
 								<Grid container mb={6} key={evaluation.id}>
 									<Grid item xs={12}>
 										<Typography variant="h6" component="h3">
@@ -295,13 +308,12 @@ export function EvaluationList(): ReactElement {
 												size="small"
 												startIcon={<ArrowCircleDownIcon />}
 												variant="outlined"
-												sx={{ borderRadius: 0 }}
+                        onClick={() => handleEvaluationsDownload(evaluation.patientId)}
 											>
 												Baixar
 											</Button>
 											<Button
 												size="small"
-												sx={{ borderRadius: 0 }}
 												variant="outlined"
 											>
 												Excluir

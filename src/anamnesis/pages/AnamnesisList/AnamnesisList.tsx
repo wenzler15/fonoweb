@@ -32,6 +32,8 @@ import { useTemplates } from 'template/queries'
 import { TemplateType, TemplateWithSpecialty } from 'template'
 import { useVisible } from 'common/hooks'
 import { Close } from '@mui/icons-material'
+import { download } from '@excelsia/general-helpers'
+import { client } from 'common/client'
 
 function RenderAvaliableTemplates({
 	template,
@@ -57,16 +59,10 @@ function RenderAvaliableTemplates({
 					alignItems="flex-end"
 					direction="row"
 				>
-					<Button
-						sx={{ borderRadius: 0 }}
-						variant="contained"
-						size="medium"
-						onClick={modal.show}
-					>
+					<Button variant="contained" size="medium" onClick={modal.show}>
 						Visualizar
 					</Button>
 					<Button
-						sx={{ borderRadius: 0 }}
 						color="secondary"
 						variant="contained"
 						size="medium"
@@ -170,6 +166,20 @@ export function AnamnesisList(): ReactElement {
 		size: 9999,
 	})
 
+	const handleAnamnesisDownload = (patientId: string) => {
+		if (patientId) {
+			const handle = download.blob(`${patientId}.pdf`)
+
+			client(`patients/${patientId}/anamnesis`)
+				.blob()
+				.then(handle)
+				.catch(error => {
+					console.error(error)
+				})
+		}
+		return null
+	}
+
 	return (
 		<Container>
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
@@ -225,14 +235,8 @@ export function AnamnesisList(): ReactElement {
 							</CustomButton>
 						</Grid>
 						<Grid item xs={2} sx={{ textAlign: 'right' }}>
-							<Button
-								sx={{ borderRadius: 0 }}
-								variant="contained"
-								size="large"
-								color="primary"
-								onClick={() => navigate('/templates/create')}
-							>
-								EXPORTAR
+							<Button variant="contained" size="large" color="primary">
+								BAIXAR
 							</Button>
 						</Grid>
 					</Grid>
@@ -287,15 +291,13 @@ export function AnamnesisList(): ReactElement {
 												size="small"
 												startIcon={<ArrowCircleDownIcon />}
 												variant="outlined"
-												sx={{ borderRadius: 0 }}
+												onClick={() =>
+													handleAnamnesisDownload(anamnesi.patientId)
+												}
 											>
 												Baixar
 											</Button>
-											<Button
-												size="small"
-												sx={{ borderRadius: 0 }}
-												variant="outlined"
-											>
+											<Button size="small" variant="outlined">
 												Excluir
 											</Button>
 										</Stack>

@@ -41,7 +41,7 @@ const handleAddExercise =
 			cuid: cuid(),
 			title: '',
 			description: '',
-			links: [],
+			links: [''],
 		})
 
 export function EvolutionForm({

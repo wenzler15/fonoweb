@@ -32,6 +32,10 @@ import { useAnamnesis } from 'anamnesis/queries'
 import { client } from 'common/client'
 import { download, isListable } from '@excelsia/general-helpers'
 import { useEvolutions } from 'evolution/queries'
+import { translateGenderType } from 'patient/utils'
+import { pipe } from 'fp-ts/lib/function'
+import { displayAddress } from 'common/utils/displayAddress'
+import { ifElse, isNil } from 'rambda'
 
 export function PatientChart(): ReactElement {
 	const theme = useTheme()
@@ -167,25 +171,50 @@ export function PatientChart(): ReactElement {
 			</Box>
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
 				<Paper elevation={2} sx={{ p: theme.spacing(4) }}>
-					<Grid container sx={{ mb: theme.spacing(6) }}>
+					<Typography
+						variant="h5"
+						component="h3"
+						color="secondary"
+						sx={{ mb: theme.spacing(2) }}
+					>
+						{patient.data?.name}
+						{patient.data?.birthDate
+							? ` - ${calculateAge(patient.data.birthDate)} anos`
+							: ''}
+					</Typography>
+					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<Typography
-								variant="h5"
-								component="h3"
-								color="secondary"
-								sx={{ mb: theme.spacing(2) }}
-							>
-								{patient.data?.name}
-								{patient.data?.birthDate
-									? ` - ${calculateAge(patient.data.birthDate)} anos`
-									: ''}
+							<Typography variant="h6" component="h3">
+								Email: {patient.data?.email ?? 'Não informado'}
 							</Typography>
-							<Typography
-								variant="h6"
-								component="h3"
-								sx={{ mb: theme.spacing(2) }}
-							>
-								Telefone: Não informado
+						</Grid>
+						<Grid item xs={6}>
+							<Typography variant="h6" component="h3">
+								Nome social: {patient.data?.socialName ?? 'Não informado'}
+							</Typography>
+						</Grid>
+						<Grid item xs={6}>
+							<Typography variant="h6" component="h3">
+								Gênero:{' '}
+								{patient.data?.gender
+									? translateGenderType(patient.data.gender)
+									: 'Não informado'}
+							</Typography>
+						</Grid>
+						<Grid item xs={6}>
+							<Typography variant="h6" component="h3">
+								Gênero que se identifica:{' '}
+								{patient.data?.customGender ?? 'Não informado'}
+							</Typography>
+						</Grid>
+						<Grid item xs={6}>
+							<Typography variant="h6" component="h3">
+								Endereço:{' '}
+								{pipe(
+									// @ts-expect-error guard is being used
+									patient.data?.addresses[0],
+									ifElse(isNil, () => 'Não informado', displayAddress),
+								)}
 							</Typography>
 						</Grid>
 					</Grid>

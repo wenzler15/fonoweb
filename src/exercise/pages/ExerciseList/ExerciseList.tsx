@@ -1,4 +1,3 @@
-import { NavBar } from 'components/navBar'
 import { Exercise } from '@prisma/client'
 import { ReactElement, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -70,7 +69,6 @@ export function ExerciseList(): ReactElement {
 
 	return (
 		<Container>
-			
 			<Box sx={{ p: theme.spacing(4), pb: theme.spacing(9) }}>
 				<Box
 					display="flex"

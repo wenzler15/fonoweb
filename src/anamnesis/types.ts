@@ -1,3 +1,4 @@
+import { User } from '@prisma/client'
 import { Doctor } from 'doctor/types'
 import { Specialty } from 'specialty'
 
@@ -15,6 +16,7 @@ export type Anamnesis = {
 	specialty: Specialty
 	doctor: Doctor & {
 		specialty: Specialty
+		user: User
 	}
 }
 

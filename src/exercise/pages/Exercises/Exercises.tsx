@@ -1,12 +1,12 @@
 import { ReactElement, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { Pagination } from 'common/types'
+import { useNavigate } from 'react-router-dom'
 import {
 	Container,
 	CustomArrowRight,
 	CustomButton,
 	CustomArrowDown,
 } from './styles'
-import { useAnamnesis } from 'anamnesis/queries'
 import {
 	Collapse,
 	Box,
@@ -25,29 +25,37 @@ import {
 	Card,
 	IconButton,
 	Backdrop,
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemText,
+	Pagination as MuiPagination,
 } from '@mui/material'
 import { useSpecialties } from 'specialty/queries'
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
-import { useTemplates } from 'template/queries'
-import { TemplateType, TemplateWithSpecialty } from 'template'
+import { useFindManyExercises } from 'exercise/queries'
 import { useVisible } from 'common/hooks'
 import { Close } from '@mui/icons-material'
+import { useAuthStore } from 'auth/providers'
+import { UserWithDoctor } from 'user/types'
+import { Exercise } from 'exercise/types'
+import { isListable } from '@excelsia/general-helpers'
+import { LoadingOverlay } from 'common/components'
 
-function RenderAvaliableTemplates({
-	template,
+function RenderAvaliableExercises({
+	exercise,
 }: {
-	template: TemplateWithSpecialty
+	exercise: Exercise
 }): ReactElement {
 	const modal = useVisible()
 
 	return (
-		<Grid container spacing={2} mb={6} key={template.id}>
+		<Grid container spacing={2} mb={6} key={exercise.id}>
 			<Grid item xs={10}>
 				<Typography variant="h5" component="h2">
-					{template.title}
+					{exercise.title}
 				</Typography>
 				<Typography variant="body1" component="p">
-					{template.specialty.name}
+					{exercise.specialty.name}
 				</Typography>
 			</Grid>
 			<Grid item xs={2}>
@@ -64,20 +72,6 @@ function RenderAvaliableTemplates({
 						onClick={modal.show}
 					>
 						Visualizar
-					</Button>
-					<Button
-						sx={{ borderRadius: 0 }}
-						color="secondary"
-						variant="contained"
-						size="medium"
-						type="button"
-					>
-						<Link
-							to={`/anamnesis/create?template=${template.id}`}
-							style={{ color: 'white', textDecoration: 'none' }}
-						>
-							Usar
-						</Link>
 					</Button>
 				</Stack>
 			</Grid>
@@ -111,7 +105,7 @@ function RenderAvaliableTemplates({
 							}}
 						>
 							<Typography variant="h5" component="h2">
-								Modelo: {template.title}
+								{exercise.title}
 							</Typography>
 							<IconButton onClick={modal.hide}>
 								<Close />
@@ -121,12 +115,28 @@ function RenderAvaliableTemplates({
 							elevation={1}
 							sx={{
 								maxHeight: 800,
-								p: t => t.spacing(2),
 								border: '1px solid #eee',
 								overflow: 'auto',
 							}}
-							dangerouslySetInnerHTML={{ __html: template.html }}
-						/>
+						>
+							<List>
+								<ListItem disablePadding>
+									<ListItemButton>
+										<ListItemText
+											primary={exercise.title}
+											secondary={exercise.description}
+										/>
+									</ListItemButton>
+								</ListItem>
+								{exercise.links.map(link => (
+									<ListItem key={link}>
+										<a href={link} target="_blank" rel="noreferrer">
+											{link}
+										</a>
+									</ListItem>
+								))}
+							</List>
+						</Paper>
 					</Card>
 				</Fade>
 			</Modal>
@@ -134,33 +144,40 @@ function RenderAvaliableTemplates({
 	)
 }
 
-export function AnamnesisList(): ReactElement {
-	const [showAvaliableTemplate, setShowAvaliableTemplate] =
+export function Exercises(): ReactElement {
+	const [showAvaliableExercise, setShowAvaliableExercise] =
 		useState<boolean>(true)
-	const [showMyTemplate, setShowMyTemplate] = useState<boolean>(true)
+	const [showMyExercise, setShowMyExercise] = useState<boolean>(true)
 
-	const handleChangeAvaliableTemplate = () => {
-		setShowAvaliableTemplate(oldState => !oldState)
+	const handleChangeAvaliableExercise = () => {
+		setShowAvaliableExercise(oldState => !oldState)
 	}
-	const handleChangeMyTemplate = () => {
-		setShowMyTemplate(oldState => !oldState)
+	const handleChangeMyExercise = () => {
+		setShowMyExercise(oldState => !oldState)
 	}
 
 	const [specialty, setSpecialty] = useState<string>()
 
 	const navigate = useNavigate()
+	const user = useAuthStore(state => state.user) as UserWithDoctor
 
-	const anamnesis = useAnamnesis({
-		page: 1,
-		size: 9999,
-		specialtyId: specialty,
+	const [exercisePagination, setExercisePagination] = useState<
+		Required<Pagination>
+	>({
+		page: 0,
+		size: 5,
 	})
 
-	const templates = useTemplates({
-		page: 1,
-		size: 9999,
-		type: 'ANAMNESIS' as TemplateType,
-		specialtyId: specialty,
+	const exercises = useFindManyExercises({
+		where: {
+			creatorId: user.id,
+			specialtyId: specialty,
+		},
+		orderBy: {
+			createdAt: 'desc',
+		},
+		take: exercisePagination.size,
+		skip: exercisePagination.page * exercisePagination.size,
 	})
 
 	const theme = useTheme()
@@ -201,11 +218,8 @@ export function AnamnesisList(): ReactElement {
 						</FormControl>
 					</Stack>
 				</Paper>
-				<Paper
-					elevation={3}
-					sx={{ p: t => t.spacing(2), mb: t => t.spacing(2) }}
-				>
-					<Grid container mb={8}>
+				<Paper elevation={3} sx={{ p: t => t.spacing(2) }}>
+					<Grid container mb={2}>
 						<Grid item xs={10}>
 							<Typography
 								variant="h5"
@@ -213,11 +227,11 @@ export function AnamnesisList(): ReactElement {
 								color="secondary"
 								sx={{ mb: theme.spacing(2) }}
 							>
-								Anamneses
+								Exercícios
 							</Typography>
-							<CustomButton onClick={handleChangeAvaliableTemplate}>
-								Modelos de anamneses disponíveis
-								{showAvaliableTemplate ? (
+							<CustomButton onClick={handleChangeAvaliableExercise}>
+								Modelos de exercícios disponíveis
+								{showAvaliableExercise ? (
 									<CustomArrowDown />
 								) : (
 									<CustomArrowRight />
@@ -230,18 +244,18 @@ export function AnamnesisList(): ReactElement {
 								variant="contained"
 								size="large"
 								color="primary"
-								onClick={() => navigate('/templates/create')}
+								onClick={() => navigate('/exercises/create')}
 							>
 								EXPORTAR
 							</Button>
 						</Grid>
 					</Grid>
-					<Collapse in={showAvaliableTemplate} timeout="auto" unmountOnExit>
-						{templates.data?.result && templates.data.result.length > 0 ? (
-							templates.data.result.map(template => (
-								<RenderAvaliableTemplates
-									template={template}
-									key={template.id}
+					<Collapse in={showAvaliableExercise} timeout="auto" unmountOnExit>
+						{exercises.data?.result && exercises.data.result.length > 0 ? (
+							exercises.data.result.map(exercise => (
+								<RenderAvaliableExercises
+									exercise={exercise}
+									key={exercise.id}
 								/>
 							))
 						) : (
@@ -251,76 +265,29 @@ export function AnamnesisList(): ReactElement {
 								</Typography>
 							</Box>
 						)}
-					</Collapse>
-				</Paper>
-				<Paper
-					elevation={3}
-					sx={{ p: t => t.spacing(2), mb: t => t.spacing(2) }}
-				>
-					<Grid container mb={8}>
-						<Grid item xs={10}>
-							<CustomButton onClick={handleChangeMyTemplate}>
-								Meus Modelos
-								{showMyTemplate ? <CustomArrowDown /> : <CustomArrowRight />}
-							</CustomButton>
-						</Grid>
-					</Grid>
-					<Collapse in={showMyTemplate} timeout="auto" unmountOnExit>
-						{anamnesis.data?.result && anamnesis.data.result.length > 0 ? (
-							anamnesis.data.result.map(anamnesi => (
-								<Grid container mb={6} key={anamnesi.id}>
-									<Grid item xs={12}>
-										<Typography variant="h6" component="h3">
-											Avaliação {anamnesi.specialty.name}
-										</Typography>
-										<Typography variant="body1" component="p">
-											{anamnesi.doctor.user.name}
-										</Typography>
-									</Grid>
-									<Grid item xs={2}>
-										<Stack
-											spacing={2}
-											direction="row"
-											sx={{ textAlign: 'left' }}
-										>
-											<Button
-												size="small"
-												startIcon={<ArrowCircleDownIcon />}
-												variant="outlined"
-												sx={{ borderRadius: 0 }}
-											>
-												Baixar
-											</Button>
-											<Button
-												size="small"
-												sx={{ borderRadius: 0 }}
-												variant="outlined"
-											>
-												Excluir
-											</Button>
-										</Stack>
-									</Grid>
-								</Grid>
-							))
-						) : (
-							<Box component="span" sx={{ display: 'block' }}>
-								<Typography variant="h6" component="h4" align="center">
-									Sem dados
-								</Typography>
-							</Box>
-						)}
+						<MuiPagination
+							count={Math.ceil(
+								(exercises.data?.count ?? 0) / exercisePagination.size,
+							)}
+							page={exercisePagination.page + 1}
+							onChange={(_, page) =>
+								setExercisePagination({ ...exercisePagination, page: page - 1 })
+							}
+						/>
 					</Collapse>
 					<Button
+						sx={{ marginTop: 2 }}
 						variant="contained"
 						fullWidth
 						type="button"
 						size="large"
-						onClick={() => navigate('/anamnesis/create')}
+						onClick={() => navigate('/exercises/create')}
 					>
-						Criar uma nova Anamnese
+						Criar novo exercício
 					</Button>
 				</Paper>
 			</Box>
+			<LoadingOverlay show={exercises.isLoading} />
 		</Container>
 	)
 }

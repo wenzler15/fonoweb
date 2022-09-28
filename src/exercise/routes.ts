@@ -1,10 +1,10 @@
-import { ExerciseCreate, ExerciseList, ExerciseUpdate } from 'exercise/pages'
+import { ExerciseCreate, Exercises, ExerciseUpdate } from 'exercise/pages'
 
 export const EXERCISE_ROUTES = [
 	{
 		auth: true,
 		path: '/exercises',
-		element: ExerciseList,
+		element: Exercises,
 	},
 	{
 		auth: true,

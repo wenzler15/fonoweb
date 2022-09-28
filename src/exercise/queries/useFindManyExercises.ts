@@ -1,6 +1,6 @@
-import { Exercise } from '@prisma/client'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { findManyExercises } from 'exercise/requests'
+import { Exercise } from 'exercise/types'
 import { ExerciseFindManySchema } from 'prisma/schemas/findManyExercise.schema'
 import { z } from 'zod'
 

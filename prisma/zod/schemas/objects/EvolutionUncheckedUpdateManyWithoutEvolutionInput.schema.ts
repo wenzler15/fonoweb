@@ -6,7 +6,7 @@ import { NullableStringFieldUpdateOperationsInputObjectSchema } from './Nullable
 import { DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema'
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const literalSchema = z.union([z.string(), z.number(), z.boolean()])
 const jsonSchema: z.ZodType<Prisma.InputJsonValue> = z.lazy(() =>

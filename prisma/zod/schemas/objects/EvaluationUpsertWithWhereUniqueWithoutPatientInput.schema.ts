@@ -5,14 +5,20 @@ import { EvaluationUncheckedUpdateWithoutPatientInputObjectSchema } from './Eval
 import { EvaluationCreateWithoutPatientInputObjectSchema } from './EvaluationCreateWithoutPatientInput.schema'
 import { EvaluationUncheckedCreateWithoutPatientInputObjectSchema } from './EvaluationUncheckedCreateWithoutPatientInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.EvaluationUpsertWithWhereUniqueWithoutPatientInput> =
 	z
 		.object({
 			where: z.lazy(() => EvaluationWhereUniqueInputObjectSchema),
-			update: z.any(),
-			create: z.any(),
+			update: z.union([
+				z.lazy(() => EvaluationUpdateWithoutPatientInputObjectSchema),
+				z.lazy(() => EvaluationUncheckedUpdateWithoutPatientInputObjectSchema),
+			]),
+			create: z.union([
+				z.lazy(() => EvaluationCreateWithoutPatientInputObjectSchema),
+				z.lazy(() => EvaluationUncheckedCreateWithoutPatientInputObjectSchema),
+			]),
 		})
 		.strict()
 

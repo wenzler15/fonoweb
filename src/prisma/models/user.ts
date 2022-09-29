@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { UserType } from "@prisma/client"
+import { UserType } from "@prisma/client/.prisma/client"
 
 export const User = z.object({
   id: z.string(),

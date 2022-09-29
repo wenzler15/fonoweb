@@ -5,7 +5,7 @@ import { EvaluationCreateNestedManyWithoutPatientInputObjectSchema } from './Eva
 import { DoctorPatientCreateNestedManyWithoutPatientInputObjectSchema } from './DoctorPatientCreateNestedManyWithoutPatientInput.schema'
 import { EvolutionCreateNestedManyWithoutPatientInputObjectSchema } from './EvolutionCreateNestedManyWithoutPatientInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.PatientCreateWithoutAppointmentInput> = z
 	.object({

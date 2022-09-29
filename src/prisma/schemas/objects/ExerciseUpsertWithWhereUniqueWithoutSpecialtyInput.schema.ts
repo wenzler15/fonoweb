@@ -5,7 +5,7 @@ import { ExerciseUncheckedUpdateWithoutSpecialtyInputObjectSchema } from './Exer
 import { ExerciseCreateWithoutSpecialtyInputObjectSchema } from './ExerciseCreateWithoutSpecialtyInput.schema'
 import { ExerciseUncheckedCreateWithoutSpecialtyInputObjectSchema } from './ExerciseUncheckedCreateWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.ExerciseUpsertWithWhereUniqueWithoutSpecialtyInput> =
 	z

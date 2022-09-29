@@ -5,14 +5,20 @@ import { TemplateUncheckedUpdateWithoutSpecialtyInputObjectSchema } from './Temp
 import { TemplateCreateWithoutSpecialtyInputObjectSchema } from './TemplateCreateWithoutSpecialtyInput.schema'
 import { TemplateUncheckedCreateWithoutSpecialtyInputObjectSchema } from './TemplateUncheckedCreateWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.TemplateUpsertWithWhereUniqueWithoutSpecialtyInput> =
 	z
 		.object({
 			where: z.lazy(() => TemplateWhereUniqueInputObjectSchema),
-			update: z.any(),
-			create: z.any(),
+			update: z.union([
+				z.lazy(() => TemplateUpdateWithoutSpecialtyInputObjectSchema),
+				z.lazy(() => TemplateUncheckedUpdateWithoutSpecialtyInputObjectSchema),
+			]),
+			create: z.union([
+				z.lazy(() => TemplateCreateWithoutSpecialtyInputObjectSchema),
+				z.lazy(() => TemplateUncheckedCreateWithoutSpecialtyInputObjectSchema),
+			]),
 		})
 		.strict()
 

@@ -3,13 +3,16 @@ import { TemplateWhereUniqueInputObjectSchema } from './TemplateWhereUniqueInput
 import { TemplateUpdateWithoutDoctorInputObjectSchema } from './TemplateUpdateWithoutDoctorInput.schema'
 import { TemplateUncheckedUpdateWithoutDoctorInputObjectSchema } from './TemplateUncheckedUpdateWithoutDoctorInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.TemplateUpdateWithWhereUniqueWithoutDoctorInput> =
 	z
 		.object({
 			where: z.lazy(() => TemplateWhereUniqueInputObjectSchema),
-			data: z.any(),
+			data: z.union([
+				z.lazy(() => TemplateUpdateWithoutDoctorInputObjectSchema),
+				z.lazy(() => TemplateUncheckedUpdateWithoutDoctorInputObjectSchema),
+			]),
 		})
 		.strict()
 

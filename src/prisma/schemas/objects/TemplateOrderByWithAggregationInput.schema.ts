@@ -6,7 +6,7 @@ import { TemplateMaxOrderByAggregateInputObjectSchema } from './TemplateMaxOrder
 import { TemplateMinOrderByAggregateInputObjectSchema } from './TemplateMinOrderByAggregateInput.schema'
 import { TemplateSumOrderByAggregateInputObjectSchema } from './TemplateSumOrderByAggregateInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.TemplateOrderByWithAggregationInput> = z
 	.object({

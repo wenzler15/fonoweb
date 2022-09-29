@@ -3,12 +3,15 @@ import { DoctorWhereUniqueInputObjectSchema } from './DoctorWhereUniqueInput.sch
 import { DoctorCreateWithoutSpecialtyInputObjectSchema } from './DoctorCreateWithoutSpecialtyInput.schema'
 import { DoctorUncheckedCreateWithoutSpecialtyInputObjectSchema } from './DoctorUncheckedCreateWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.DoctorCreateOrConnectWithoutSpecialtyInput> = z
 	.object({
 		where: z.lazy(() => DoctorWhereUniqueInputObjectSchema),
-		create: z.any(),
+		create: z.union([
+			z.lazy(() => DoctorCreateWithoutSpecialtyInputObjectSchema),
+			z.lazy(() => DoctorUncheckedCreateWithoutSpecialtyInputObjectSchema),
+		]),
 	})
 	.strict()
 

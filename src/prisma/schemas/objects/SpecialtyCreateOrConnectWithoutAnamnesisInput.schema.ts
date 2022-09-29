@@ -3,7 +3,7 @@ import { SpecialtyWhereUniqueInputObjectSchema } from './SpecialtyWhereUniqueInp
 import { SpecialtyCreateWithoutAnamnesisInputObjectSchema } from './SpecialtyCreateWithoutAnamnesisInput.schema'
 import { SpecialtyUncheckedCreateWithoutAnamnesisInputObjectSchema } from './SpecialtyUncheckedCreateWithoutAnamnesisInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyCreateOrConnectWithoutAnamnesisInput> =
 	z

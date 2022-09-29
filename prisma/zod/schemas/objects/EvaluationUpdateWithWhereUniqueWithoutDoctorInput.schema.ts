@@ -3,13 +3,16 @@ import { EvaluationWhereUniqueInputObjectSchema } from './EvaluationWhereUniqueI
 import { EvaluationUpdateWithoutDoctorInputObjectSchema } from './EvaluationUpdateWithoutDoctorInput.schema'
 import { EvaluationUncheckedUpdateWithoutDoctorInputObjectSchema } from './EvaluationUncheckedUpdateWithoutDoctorInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.EvaluationUpdateWithWhereUniqueWithoutDoctorInput> =
 	z
 		.object({
 			where: z.lazy(() => EvaluationWhereUniqueInputObjectSchema),
-			data: z.any(),
+			data: z.union([
+				z.lazy(() => EvaluationUpdateWithoutDoctorInputObjectSchema),
+				z.lazy(() => EvaluationUncheckedUpdateWithoutDoctorInputObjectSchema),
+			]),
 		})
 		.strict()
 

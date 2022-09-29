@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { ExerciseCreateManySpecialtyInputObjectSchema } from './ExerciseCreateManySpecialtyInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.ExerciseCreateManySpecialtyInputEnvelope> = z
 	.object({

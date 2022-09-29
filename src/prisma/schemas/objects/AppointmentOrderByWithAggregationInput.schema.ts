@@ -6,7 +6,7 @@ import { AppointmentMaxOrderByAggregateInputObjectSchema } from './AppointmentMa
 import { AppointmentMinOrderByAggregateInputObjectSchema } from './AppointmentMinOrderByAggregateInput.schema'
 import { AppointmentSumOrderByAggregateInputObjectSchema } from './AppointmentSumOrderByAggregateInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AppointmentOrderByWithAggregationInput> = z
 	.object({

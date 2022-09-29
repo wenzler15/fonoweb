@@ -14,7 +14,7 @@ import { UserContactUpdateManyWithoutUserNestedInputObjectSchema } from './UserC
 import { DoctorPatientUpdateManyWithoutAssignedByNestedInputObjectSchema } from './DoctorPatientUpdateManyWithoutAssignedByNestedInput.schema'
 import { ExerciseUpdateManyWithoutCreatorNestedInputObjectSchema } from './ExerciseUpdateManyWithoutCreatorNestedInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserUpdateInput> = z
 	.object({
@@ -148,12 +148,26 @@ const Schema: z.ZodType<Prisma.UserUpdateInput> = z
 			])
 			.optional()
 			.nullable(),
-		patientData: z.any(),
-		doctorData: z.any(),
-		addresses: z.any(),
-		contacts: z.any(),
-		DoctorPatient: z.any(),
-		exercises: z.any(),
+		patientData: z
+			.lazy(() => PatientUpdateOneWithoutUserNestedInputObjectSchema)
+			.optional(),
+		doctorData: z
+			.lazy(() => DoctorUpdateOneWithoutUserNestedInputObjectSchema)
+			.optional(),
+		addresses: z
+			.lazy(() => UserAdressUpdateManyWithoutUserNestedInputObjectSchema)
+			.optional(),
+		contacts: z
+			.lazy(() => UserContactUpdateManyWithoutUserNestedInputObjectSchema)
+			.optional(),
+		DoctorPatient: z
+			.lazy(
+				() => DoctorPatientUpdateManyWithoutAssignedByNestedInputObjectSchema,
+			)
+			.optional(),
+		exercises: z
+			.lazy(() => ExerciseUpdateManyWithoutCreatorNestedInputObjectSchema)
+			.optional(),
 	})
 	.strict()
 

@@ -4,7 +4,7 @@ import { UserUncheckedUpdateWithoutPatientDataInputObjectSchema } from './UserUn
 import { UserCreateWithoutPatientDataInputObjectSchema } from './UserCreateWithoutPatientDataInput.schema'
 import { UserUncheckedCreateWithoutPatientDataInputObjectSchema } from './UserUncheckedCreateWithoutPatientDataInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserUpsertWithoutPatientDataInput> = z
 	.object({

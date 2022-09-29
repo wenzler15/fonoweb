@@ -3,7 +3,7 @@ import { SortOrderSchema } from '../enums/SortOrder.schema'
 import { DoctorOrderByWithRelationInputObjectSchema } from './DoctorOrderByWithRelationInput.schema'
 import { PatientOrderByWithRelationInputObjectSchema } from './PatientOrderByWithRelationInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AppointmentOrderByWithRelationInput> = z
 	.object({

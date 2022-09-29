@@ -4,7 +4,7 @@ import { UserUncheckedCreateWithoutDoctorDataInputObjectSchema } from './UserUnc
 import { UserCreateOrConnectWithoutDoctorDataInputObjectSchema } from './UserCreateOrConnectWithoutDoctorDataInput.schema'
 import { UserWhereUniqueInputObjectSchema } from './UserWhereUniqueInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserCreateNestedOneWithoutDoctorDataInput> =
 	z.union([

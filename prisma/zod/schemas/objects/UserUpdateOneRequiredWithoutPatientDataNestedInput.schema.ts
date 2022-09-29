@@ -7,7 +7,7 @@ import { UserWhereUniqueInputObjectSchema } from './UserWhereUniqueInput.schema'
 import { UserUpdateWithoutPatientDataInputObjectSchema } from './UserUpdateWithoutPatientDataInput.schema'
 import { UserUncheckedUpdateWithoutPatientDataInputObjectSchema } from './UserUncheckedUpdateWithoutPatientDataInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutPatientDataNestedInput> =
 	z.union([

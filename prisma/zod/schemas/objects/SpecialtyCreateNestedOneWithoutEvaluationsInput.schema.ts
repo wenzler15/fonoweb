@@ -4,7 +4,7 @@ import { SpecialtyUncheckedCreateWithoutEvaluationsInputObjectSchema } from './S
 import { SpecialtyCreateOrConnectWithoutEvaluationsInputObjectSchema } from './SpecialtyCreateOrConnectWithoutEvaluationsInput.schema'
 import { SpecialtyWhereUniqueInputObjectSchema } from './SpecialtyWhereUniqueInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyCreateNestedOneWithoutEvaluationsInput> =
 	z.union([

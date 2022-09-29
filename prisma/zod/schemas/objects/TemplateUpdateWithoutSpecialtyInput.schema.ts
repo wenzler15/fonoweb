@@ -8,7 +8,7 @@ import { DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldU
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema'
 import { DoctorUpdateOneRequiredWithoutTemplatesNestedInputObjectSchema } from './DoctorUpdateOneRequiredWithoutTemplatesNestedInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.TemplateUpdateWithoutSpecialtyInput> = z
 	.object({

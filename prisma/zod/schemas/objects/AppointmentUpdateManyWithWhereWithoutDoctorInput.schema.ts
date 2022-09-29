@@ -3,7 +3,7 @@ import { AppointmentScalarWhereInputObjectSchema } from './AppointmentScalarWher
 import { AppointmentUpdateManyMutationInputObjectSchema } from './AppointmentUpdateManyMutationInput.schema'
 import { AppointmentUncheckedUpdateManyWithoutAppointmentsInputObjectSchema } from './AppointmentUncheckedUpdateManyWithoutAppointmentsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AppointmentUpdateManyWithWhereWithoutDoctorInput> =
 	z

@@ -3,7 +3,7 @@ import { DoctorPatientWhereUniqueInputObjectSchema } from './DoctorPatientWhereU
 import { DoctorPatientCreateWithoutAssignedByInputObjectSchema } from './DoctorPatientCreateWithoutAssignedByInput.schema'
 import { DoctorPatientUncheckedCreateWithoutAssignedByInputObjectSchema } from './DoctorPatientUncheckedCreateWithoutAssignedByInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.DoctorPatientCreateOrConnectWithoutAssignedByInput> =
 	z

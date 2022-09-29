@@ -3,12 +3,15 @@ import { EvolutionWhereUniqueInputObjectSchema } from './EvolutionWhereUniqueInp
 import { EvolutionCreateWithoutDoctorInputObjectSchema } from './EvolutionCreateWithoutDoctorInput.schema'
 import { EvolutionUncheckedCreateWithoutDoctorInputObjectSchema } from './EvolutionUncheckedCreateWithoutDoctorInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.EvolutionCreateOrConnectWithoutDoctorInput> = z
 	.object({
 		where: z.lazy(() => EvolutionWhereUniqueInputObjectSchema),
-		create: z.any(),
+		create: z.union([
+			z.lazy(() => EvolutionCreateWithoutDoctorInputObjectSchema),
+			z.lazy(() => EvolutionUncheckedCreateWithoutDoctorInputObjectSchema),
+		]),
 	})
 	.strict()
 

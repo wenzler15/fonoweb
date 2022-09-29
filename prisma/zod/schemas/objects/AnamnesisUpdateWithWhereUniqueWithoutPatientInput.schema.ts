@@ -3,13 +3,16 @@ import { AnamnesisWhereUniqueInputObjectSchema } from './AnamnesisWhereUniqueInp
 import { AnamnesisUpdateWithoutPatientInputObjectSchema } from './AnamnesisUpdateWithoutPatientInput.schema'
 import { AnamnesisUncheckedUpdateWithoutPatientInputObjectSchema } from './AnamnesisUncheckedUpdateWithoutPatientInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AnamnesisUpdateWithWhereUniqueWithoutPatientInput> =
 	z
 		.object({
 			where: z.lazy(() => AnamnesisWhereUniqueInputObjectSchema),
-			data: z.any(),
+			data: z.union([
+				z.lazy(() => AnamnesisUpdateWithoutPatientInputObjectSchema),
+				z.lazy(() => AnamnesisUncheckedUpdateWithoutPatientInputObjectSchema),
+			]),
 		})
 		.strict()
 

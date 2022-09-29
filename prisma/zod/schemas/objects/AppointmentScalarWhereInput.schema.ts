@@ -6,7 +6,7 @@ import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.sch
 import { EnumAppointmentStatusFilterObjectSchema } from './EnumAppointmentStatusFilter.schema'
 import { AppointmentStatusSchema } from '../enums/AppointmentStatus.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AppointmentScalarWhereInput> = z
 	.object({

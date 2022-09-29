@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { AppointmentStatusSchema } from '../enums/AppointmentStatus.schema'
 import { DoctorCreateNestedOneWithoutAppointmentsInputObjectSchema } from './DoctorCreateNestedOneWithoutAppointmentsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AppointmentCreateWithoutPatientInput> = z
 	.object({

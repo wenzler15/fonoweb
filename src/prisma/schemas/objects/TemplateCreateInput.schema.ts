@@ -3,7 +3,7 @@ import { TemplateTypeSchema } from '../enums/TemplateType.schema'
 import { DoctorCreateNestedOneWithoutTemplatesInputObjectSchema } from './DoctorCreateNestedOneWithoutTemplatesInput.schema'
 import { SpecialtyCreateNestedOneWithoutTemplatesInputObjectSchema } from './SpecialtyCreateNestedOneWithoutTemplatesInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.TemplateCreateInput> = z
 	.object({

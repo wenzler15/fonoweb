@@ -3,13 +3,16 @@ import { ExerciseWhereUniqueInputObjectSchema } from './ExerciseWhereUniqueInput
 import { ExerciseUpdateWithoutSpecialtyInputObjectSchema } from './ExerciseUpdateWithoutSpecialtyInput.schema'
 import { ExerciseUncheckedUpdateWithoutSpecialtyInputObjectSchema } from './ExerciseUncheckedUpdateWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.ExerciseUpdateWithWhereUniqueWithoutSpecialtyInput> =
 	z
 		.object({
 			where: z.lazy(() => ExerciseWhereUniqueInputObjectSchema),
-			data: z.any(),
+			data: z.union([
+				z.lazy(() => ExerciseUpdateWithoutSpecialtyInputObjectSchema),
+				z.lazy(() => ExerciseUncheckedUpdateWithoutSpecialtyInputObjectSchema),
+			]),
 		})
 		.strict()
 

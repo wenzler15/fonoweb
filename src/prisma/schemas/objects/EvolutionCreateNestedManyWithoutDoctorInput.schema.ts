@@ -5,7 +5,7 @@ import { EvolutionCreateOrConnectWithoutDoctorInputObjectSchema } from './Evolut
 import { EvolutionCreateManyDoctorInputEnvelopeObjectSchema } from './EvolutionCreateManyDoctorInputEnvelope.schema'
 import { EvolutionWhereUniqueInputObjectSchema } from './EvolutionWhereUniqueInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.EvolutionCreateNestedManyWithoutDoctorInput> =
 	z.union([

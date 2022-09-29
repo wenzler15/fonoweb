@@ -7,7 +7,7 @@ import { UserContactOrderByRelationAggregateInputObjectSchema } from './UserCont
 import { DoctorPatientOrderByRelationAggregateInputObjectSchema } from './DoctorPatientOrderByRelationAggregateInput.schema'
 import { ExerciseOrderByRelationAggregateInputObjectSchema } from './ExerciseOrderByRelationAggregateInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserOrderByWithRelationInput> = z
 	.object({

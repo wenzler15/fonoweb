@@ -6,7 +6,7 @@ import { PatientMaxOrderByAggregateInputObjectSchema } from './PatientMaxOrderBy
 import { PatientMinOrderByAggregateInputObjectSchema } from './PatientMinOrderByAggregateInput.schema'
 import { PatientSumOrderByAggregateInputObjectSchema } from './PatientSumOrderByAggregateInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.PatientOrderByWithAggregationInput> = z
 	.object({

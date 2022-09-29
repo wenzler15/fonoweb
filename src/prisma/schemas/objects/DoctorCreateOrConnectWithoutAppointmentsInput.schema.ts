@@ -3,7 +3,7 @@ import { DoctorWhereUniqueInputObjectSchema } from './DoctorWhereUniqueInput.sch
 import { DoctorCreateWithoutAppointmentsInputObjectSchema } from './DoctorCreateWithoutAppointmentsInput.schema'
 import { DoctorUncheckedCreateWithoutAppointmentsInputObjectSchema } from './DoctorUncheckedCreateWithoutAppointmentsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.DoctorCreateOrConnectWithoutAppointmentsInput> =
 	z

@@ -5,7 +5,7 @@ import { AppointmentCreateOrConnectWithoutDoctorInputObjectSchema } from './Appo
 import { AppointmentCreateManyDoctorInputEnvelopeObjectSchema } from './AppointmentCreateManyDoctorInputEnvelope.schema'
 import { AppointmentWhereUniqueInputObjectSchema } from './AppointmentWhereUniqueInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AppointmentCreateNestedManyWithoutDoctorInput> =
 	z.union([

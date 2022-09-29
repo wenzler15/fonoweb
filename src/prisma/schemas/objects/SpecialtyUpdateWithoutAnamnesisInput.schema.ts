@@ -9,7 +9,7 @@ import { EvaluationUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './E
 import { EvolutionUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './EvolutionUpdateManyWithoutSpecialtyNestedInput.schema'
 import { ExerciseUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './ExerciseUpdateManyWithoutSpecialtyNestedInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyUpdateWithoutAnamnesisInput> = z
 	.object({

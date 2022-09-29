@@ -4,7 +4,7 @@ import { IntWithAggregatesFilterObjectSchema } from './IntWithAggregatesFilter.s
 import { BoolWithAggregatesFilterObjectSchema } from './BoolWithAggregatesFilter.schema'
 import { DateTimeWithAggregatesFilterObjectSchema } from './DateTimeWithAggregatesFilter.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyScalarWhereWithAggregatesInput> = z
 	.object({

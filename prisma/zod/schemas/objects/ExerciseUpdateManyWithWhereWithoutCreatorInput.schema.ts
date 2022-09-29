@@ -3,7 +3,7 @@ import { ExerciseScalarWhereInputObjectSchema } from './ExerciseScalarWhereInput
 import { ExerciseUpdateManyMutationInputObjectSchema } from './ExerciseUpdateManyMutationInput.schema'
 import { ExerciseUncheckedUpdateManyWithoutExercisesInputObjectSchema } from './ExerciseUncheckedUpdateManyWithoutExercisesInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.ExerciseUpdateManyWithWhereWithoutCreatorInput> =
 	z

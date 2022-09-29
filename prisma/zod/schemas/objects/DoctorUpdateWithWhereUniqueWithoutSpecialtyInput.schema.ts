@@ -3,13 +3,16 @@ import { DoctorWhereUniqueInputObjectSchema } from './DoctorWhereUniqueInput.sch
 import { DoctorUpdateWithoutSpecialtyInputObjectSchema } from './DoctorUpdateWithoutSpecialtyInput.schema'
 import { DoctorUncheckedUpdateWithoutSpecialtyInputObjectSchema } from './DoctorUncheckedUpdateWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.DoctorUpdateWithWhereUniqueWithoutSpecialtyInput> =
 	z
 		.object({
 			where: z.lazy(() => DoctorWhereUniqueInputObjectSchema),
-			data: z.any(),
+			data: z.union([
+				z.lazy(() => DoctorUpdateWithoutSpecialtyInputObjectSchema),
+				z.lazy(() => DoctorUncheckedUpdateWithoutSpecialtyInputObjectSchema),
+			]),
 		})
 		.strict()
 

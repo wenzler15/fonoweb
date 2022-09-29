@@ -5,14 +5,20 @@ import { AnamnesisUncheckedUpdateWithoutDoctorInputObjectSchema } from './Anamne
 import { AnamnesisCreateWithoutDoctorInputObjectSchema } from './AnamnesisCreateWithoutDoctorInput.schema'
 import { AnamnesisUncheckedCreateWithoutDoctorInputObjectSchema } from './AnamnesisUncheckedCreateWithoutDoctorInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AnamnesisUpsertWithWhereUniqueWithoutDoctorInput> =
 	z
 		.object({
 			where: z.lazy(() => AnamnesisWhereUniqueInputObjectSchema),
-			update: z.any(),
-			create: z.any(),
+			update: z.union([
+				z.lazy(() => AnamnesisUpdateWithoutDoctorInputObjectSchema),
+				z.lazy(() => AnamnesisUncheckedUpdateWithoutDoctorInputObjectSchema),
+			]),
+			create: z.union([
+				z.lazy(() => AnamnesisCreateWithoutDoctorInputObjectSchema),
+				z.lazy(() => AnamnesisUncheckedCreateWithoutDoctorInputObjectSchema),
+			]),
 		})
 		.strict()
 

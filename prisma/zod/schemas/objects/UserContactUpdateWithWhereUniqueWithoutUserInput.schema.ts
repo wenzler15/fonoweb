@@ -3,13 +3,16 @@ import { UserContactWhereUniqueInputObjectSchema } from './UserContactWhereUniqu
 import { UserContactUpdateWithoutUserInputObjectSchema } from './UserContactUpdateWithoutUserInput.schema'
 import { UserContactUncheckedUpdateWithoutUserInputObjectSchema } from './UserContactUncheckedUpdateWithoutUserInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserContactUpdateWithWhereUniqueWithoutUserInput> =
 	z
 		.object({
 			where: z.lazy(() => UserContactWhereUniqueInputObjectSchema),
-			data: z.any(),
+			data: z.union([
+				z.lazy(() => UserContactUpdateWithoutUserInputObjectSchema),
+				z.lazy(() => UserContactUncheckedUpdateWithoutUserInputObjectSchema),
+			]),
 		})
 		.strict()
 

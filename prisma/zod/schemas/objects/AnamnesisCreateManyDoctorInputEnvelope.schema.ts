@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { AnamnesisCreateManyDoctorInputObjectSchema } from './AnamnesisCreateManyDoctorInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AnamnesisCreateManyDoctorInputEnvelope> = z
 	.object({

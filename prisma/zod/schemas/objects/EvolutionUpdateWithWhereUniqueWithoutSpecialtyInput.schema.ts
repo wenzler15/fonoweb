@@ -3,13 +3,16 @@ import { EvolutionWhereUniqueInputObjectSchema } from './EvolutionWhereUniqueInp
 import { EvolutionUpdateWithoutSpecialtyInputObjectSchema } from './EvolutionUpdateWithoutSpecialtyInput.schema'
 import { EvolutionUncheckedUpdateWithoutSpecialtyInputObjectSchema } from './EvolutionUncheckedUpdateWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.EvolutionUpdateWithWhereUniqueWithoutSpecialtyInput> =
 	z
 		.object({
 			where: z.lazy(() => EvolutionWhereUniqueInputObjectSchema),
-			data: z.any(),
+			data: z.union([
+				z.lazy(() => EvolutionUpdateWithoutSpecialtyInputObjectSchema),
+				z.lazy(() => EvolutionUncheckedUpdateWithoutSpecialtyInputObjectSchema),
+			]),
 		})
 		.strict()
 

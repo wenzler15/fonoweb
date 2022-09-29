@@ -4,12 +4,18 @@ import { DoctorUncheckedUpdateWithoutEvaluationsInputObjectSchema } from './Doct
 import { DoctorCreateWithoutEvaluationsInputObjectSchema } from './DoctorCreateWithoutEvaluationsInput.schema'
 import { DoctorUncheckedCreateWithoutEvaluationsInputObjectSchema } from './DoctorUncheckedCreateWithoutEvaluationsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.DoctorUpsertWithoutEvaluationsInput> = z
 	.object({
-		update: z.any(),
-		create: z.any(),
+		update: z.union([
+			z.lazy(() => DoctorUpdateWithoutEvaluationsInputObjectSchema),
+			z.lazy(() => DoctorUncheckedUpdateWithoutEvaluationsInputObjectSchema),
+		]),
+		create: z.union([
+			z.lazy(() => DoctorCreateWithoutEvaluationsInputObjectSchema),
+			z.lazy(() => DoctorUncheckedCreateWithoutEvaluationsInputObjectSchema),
+		]),
 	})
 	.strict()
 

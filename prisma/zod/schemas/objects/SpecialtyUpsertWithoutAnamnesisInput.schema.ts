@@ -4,12 +4,18 @@ import { SpecialtyUncheckedUpdateWithoutAnamnesisInputObjectSchema } from './Spe
 import { SpecialtyCreateWithoutAnamnesisInputObjectSchema } from './SpecialtyCreateWithoutAnamnesisInput.schema'
 import { SpecialtyUncheckedCreateWithoutAnamnesisInputObjectSchema } from './SpecialtyUncheckedCreateWithoutAnamnesisInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyUpsertWithoutAnamnesisInput> = z
 	.object({
-		update: z.any(),
-		create: z.any(),
+		update: z.union([
+			z.lazy(() => SpecialtyUpdateWithoutAnamnesisInputObjectSchema),
+			z.lazy(() => SpecialtyUncheckedUpdateWithoutAnamnesisInputObjectSchema),
+		]),
+		create: z.union([
+			z.lazy(() => SpecialtyCreateWithoutAnamnesisInputObjectSchema),
+			z.lazy(() => SpecialtyUncheckedCreateWithoutAnamnesisInputObjectSchema),
+		]),
 	})
 	.strict()
 

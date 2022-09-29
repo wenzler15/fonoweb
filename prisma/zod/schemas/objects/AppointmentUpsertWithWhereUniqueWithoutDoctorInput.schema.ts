@@ -5,14 +5,20 @@ import { AppointmentUncheckedUpdateWithoutDoctorInputObjectSchema } from './Appo
 import { AppointmentCreateWithoutDoctorInputObjectSchema } from './AppointmentCreateWithoutDoctorInput.schema'
 import { AppointmentUncheckedCreateWithoutDoctorInputObjectSchema } from './AppointmentUncheckedCreateWithoutDoctorInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AppointmentUpsertWithWhereUniqueWithoutDoctorInput> =
 	z
 		.object({
 			where: z.lazy(() => AppointmentWhereUniqueInputObjectSchema),
-			update: z.any(),
-			create: z.any(),
+			update: z.union([
+				z.lazy(() => AppointmentUpdateWithoutDoctorInputObjectSchema),
+				z.lazy(() => AppointmentUncheckedUpdateWithoutDoctorInputObjectSchema),
+			]),
+			create: z.union([
+				z.lazy(() => AppointmentCreateWithoutDoctorInputObjectSchema),
+				z.lazy(() => AppointmentUncheckedCreateWithoutDoctorInputObjectSchema),
+			]),
 		})
 		.strict()
 

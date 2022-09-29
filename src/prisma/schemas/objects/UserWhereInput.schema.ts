@@ -16,7 +16,7 @@ import { UserContactListRelationFilterObjectSchema } from './UserContactListRela
 import { DoctorPatientListRelationFilterObjectSchema } from './DoctorPatientListRelationFilter.schema'
 import { ExerciseListRelationFilterObjectSchema } from './ExerciseListRelationFilter.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserWhereInput> = z
 	.object({

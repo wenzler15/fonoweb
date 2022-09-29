@@ -5,7 +5,7 @@ import { UserAdressCreateOrConnectWithoutUserInputObjectSchema } from './UserAdr
 import { UserAdressCreateManyUserInputEnvelopeObjectSchema } from './UserAdressCreateManyUserInputEnvelope.schema'
 import { UserAdressWhereUniqueInputObjectSchema } from './UserAdressWhereUniqueInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserAdressUncheckedCreateNestedManyWithoutUserInput> =
 	z.union([

@@ -4,7 +4,7 @@ import { UserUncheckedCreateWithoutContactsInputObjectSchema } from './UserUnche
 import { UserCreateOrConnectWithoutContactsInputObjectSchema } from './UserCreateOrConnectWithoutContactsInput.schema'
 import { UserWhereUniqueInputObjectSchema } from './UserWhereUniqueInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserCreateNestedOneWithoutContactsInput> =
 	z.union([

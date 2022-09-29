@@ -4,12 +4,18 @@ import { SpecialtyUncheckedUpdateWithoutEvaluationsInputObjectSchema } from './S
 import { SpecialtyCreateWithoutEvaluationsInputObjectSchema } from './SpecialtyCreateWithoutEvaluationsInput.schema'
 import { SpecialtyUncheckedCreateWithoutEvaluationsInputObjectSchema } from './SpecialtyUncheckedCreateWithoutEvaluationsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyUpsertWithoutEvaluationsInput> = z
 	.object({
-		update: z.any(),
-		create: z.any(),
+		update: z.union([
+			z.lazy(() => SpecialtyUpdateWithoutEvaluationsInputObjectSchema),
+			z.lazy(() => SpecialtyUncheckedUpdateWithoutEvaluationsInputObjectSchema),
+		]),
+		create: z.union([
+			z.lazy(() => SpecialtyCreateWithoutEvaluationsInputObjectSchema),
+			z.lazy(() => SpecialtyUncheckedCreateWithoutEvaluationsInputObjectSchema),
+		]),
 	})
 	.strict()
 

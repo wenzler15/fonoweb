@@ -5,7 +5,7 @@ import { AnamnesisCreateOrConnectWithoutDoctorInputObjectSchema } from './Anamne
 import { AnamnesisCreateManyDoctorInputEnvelopeObjectSchema } from './AnamnesisCreateManyDoctorInputEnvelope.schema'
 import { AnamnesisWhereUniqueInputObjectSchema } from './AnamnesisWhereUniqueInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AnamnesisUncheckedCreateNestedManyWithoutDoctorInput> =
 	z.union([

@@ -4,12 +4,18 @@ import { UserUncheckedUpdateWithoutContactsInputObjectSchema } from './UserUnche
 import { UserCreateWithoutContactsInputObjectSchema } from './UserCreateWithoutContactsInput.schema'
 import { UserUncheckedCreateWithoutContactsInputObjectSchema } from './UserUncheckedCreateWithoutContactsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserUpsertWithoutContactsInput> = z
 	.object({
-		update: z.any(),
-		create: z.any(),
+		update: z.union([
+			z.lazy(() => UserUpdateWithoutContactsInputObjectSchema),
+			z.lazy(() => UserUncheckedUpdateWithoutContactsInputObjectSchema),
+		]),
+		create: z.union([
+			z.lazy(() => UserCreateWithoutContactsInputObjectSchema),
+			z.lazy(() => UserUncheckedCreateWithoutContactsInputObjectSchema),
+		]),
 	})
 	.strict()
 

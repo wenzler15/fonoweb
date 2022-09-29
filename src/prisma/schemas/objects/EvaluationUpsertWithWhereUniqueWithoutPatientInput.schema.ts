@@ -5,7 +5,7 @@ import { EvaluationUncheckedUpdateWithoutPatientInputObjectSchema } from './Eval
 import { EvaluationCreateWithoutPatientInputObjectSchema } from './EvaluationCreateWithoutPatientInput.schema'
 import { EvaluationUncheckedCreateWithoutPatientInputObjectSchema } from './EvaluationUncheckedCreateWithoutPatientInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.EvaluationUpsertWithWhereUniqueWithoutPatientInput> =
 	z

@@ -5,14 +5,20 @@ import { EvolutionUncheckedUpdateWithoutPatientInputObjectSchema } from './Evolu
 import { EvolutionCreateWithoutPatientInputObjectSchema } from './EvolutionCreateWithoutPatientInput.schema'
 import { EvolutionUncheckedCreateWithoutPatientInputObjectSchema } from './EvolutionUncheckedCreateWithoutPatientInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.EvolutionUpsertWithWhereUniqueWithoutPatientInput> =
 	z
 		.object({
 			where: z.lazy(() => EvolutionWhereUniqueInputObjectSchema),
-			update: z.any(),
-			create: z.any(),
+			update: z.union([
+				z.lazy(() => EvolutionUpdateWithoutPatientInputObjectSchema),
+				z.lazy(() => EvolutionUncheckedUpdateWithoutPatientInputObjectSchema),
+			]),
+			create: z.union([
+				z.lazy(() => EvolutionCreateWithoutPatientInputObjectSchema),
+				z.lazy(() => EvolutionUncheckedCreateWithoutPatientInputObjectSchema),
+			]),
 		})
 		.strict()
 

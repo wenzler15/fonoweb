@@ -3,12 +3,15 @@ import { UserWhereUniqueInputObjectSchema } from './UserWhereUniqueInput.schema'
 import { UserCreateWithoutContactsInputObjectSchema } from './UserCreateWithoutContactsInput.schema'
 import { UserUncheckedCreateWithoutContactsInputObjectSchema } from './UserUncheckedCreateWithoutContactsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.UserCreateOrConnectWithoutContactsInput> = z
 	.object({
 		where: z.lazy(() => UserWhereUniqueInputObjectSchema),
-		create: z.any(),
+		create: z.union([
+			z.lazy(() => UserCreateWithoutContactsInputObjectSchema),
+			z.lazy(() => UserUncheckedCreateWithoutContactsInputObjectSchema),
+		]),
 	})
 	.strict()
 

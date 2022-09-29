@@ -9,7 +9,7 @@ import { DoctorUpdateWithWhereUniqueWithoutSpecialtyInputObjectSchema } from './
 import { DoctorUpdateManyWithWhereWithoutSpecialtyInputObjectSchema } from './DoctorUpdateManyWithWhereWithoutSpecialtyInput.schema'
 import { DoctorScalarWhereInputObjectSchema } from './DoctorScalarWhereInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.DoctorUpdateManyWithoutSpecialtyNestedInput> =
 	z.union([

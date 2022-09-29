@@ -3,13 +3,16 @@ import { PatientWhereUniqueInputObjectSchema } from './PatientWhereUniqueInput.s
 import { PatientCreateWithoutEvaluationsInputObjectSchema } from './PatientCreateWithoutEvaluationsInput.schema'
 import { PatientUncheckedCreateWithoutEvaluationsInputObjectSchema } from './PatientUncheckedCreateWithoutEvaluationsInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.PatientCreateOrConnectWithoutEvaluationsInput> =
 	z
 		.object({
 			where: z.lazy(() => PatientWhereUniqueInputObjectSchema),
-			create: z.any(),
+			create: z.union([
+				z.lazy(() => PatientCreateWithoutEvaluationsInputObjectSchema),
+				z.lazy(() => PatientUncheckedCreateWithoutEvaluationsInputObjectSchema),
+			]),
 		})
 		.strict()
 

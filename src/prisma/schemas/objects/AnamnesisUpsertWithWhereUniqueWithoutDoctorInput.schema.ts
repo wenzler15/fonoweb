@@ -5,7 +5,7 @@ import { AnamnesisUncheckedUpdateWithoutDoctorInputObjectSchema } from './Anamne
 import { AnamnesisCreateWithoutDoctorInputObjectSchema } from './AnamnesisCreateWithoutDoctorInput.schema'
 import { AnamnesisUncheckedCreateWithoutDoctorInputObjectSchema } from './AnamnesisUncheckedCreateWithoutDoctorInput.schema'
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
 
 const Schema: z.ZodType<Prisma.AnamnesisUpsertWithWhereUniqueWithoutDoctorInput> =
 	z

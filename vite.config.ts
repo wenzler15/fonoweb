@@ -5,7 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import nodePolyfills from 'rollup-plugin-polyfill-node'
 
 // eslint-disable-next-line import/no-default-export
-export default defineConfig({
+export default defineConfig(({ command }) => ({
 	build: {
 		outDir: 'dist',
 		rollupOptions: {
@@ -14,7 +14,7 @@ export default defineConfig({
 		},
 	},
 	define: {
-		global: {},
+    ...(command !== 'build' && { global: {} }),
 	},
 	plugins: [
 		tsconfigPaths(),
@@ -25,4 +25,4 @@ export default defineConfig({
 			},
 		}),
 	],
-})
+}))

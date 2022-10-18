@@ -239,15 +239,16 @@ export function Exercises(): ReactElement {
 							</CustomButton>
 						</Grid>
 						<Grid item xs={2} sx={{ textAlign: 'right' }}>
-							<Button
-								sx={{ borderRadius: 0 }}
-								variant="contained"
-								size="large"
-								color="primary"
-								onClick={() => navigate('/exercises/create')}
-							>
-								EXPORTAR
-							</Button>
+							{user.isAdmin && (
+								<Button
+									variant="contained"
+									size="large"
+									color="primary"
+									onClick={() => navigate('/exercises/create')}
+								>
+									Novo exercício
+								</Button>
+							)}
 						</Grid>
 					</Grid>
 					<Collapse in={showAvaliableExercise} timeout="auto" unmountOnExit>

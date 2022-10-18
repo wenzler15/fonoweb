@@ -15,8 +15,11 @@ import { UserAdressListRelationFilterObjectSchema } from './UserAdressListRelati
 import { UserContactListRelationFilterObjectSchema } from './UserContactListRelationFilter.schema'
 import { DoctorPatientListRelationFilterObjectSchema } from './DoctorPatientListRelationFilter.schema'
 import { ExerciseListRelationFilterObjectSchema } from './ExerciseListRelationFilter.schema'
+import { CourseListRelationFilterObjectSchema } from './CourseListRelationFilter.schema'
+import { LessonListRelationFilterObjectSchema } from './LessonListRelationFilter.schema'
+import { WatchedVideoListRelationFilterObjectSchema } from './WatchedVideoListRelationFilter.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserWhereInput> = z
 	.object({
@@ -133,6 +136,11 @@ const Schema: z.ZodType<Prisma.UserWhereInput> = z
 			.lazy(() => DoctorPatientListRelationFilterObjectSchema)
 			.optional(),
 		exercises: z.lazy(() => ExerciseListRelationFilterObjectSchema).optional(),
+		courses: z.lazy(() => CourseListRelationFilterObjectSchema).optional(),
+		lessons: z.lazy(() => LessonListRelationFilterObjectSchema).optional(),
+		watched: z
+			.lazy(() => WatchedVideoListRelationFilterObjectSchema)
+			.optional(),
 	})
 	.strict()
 

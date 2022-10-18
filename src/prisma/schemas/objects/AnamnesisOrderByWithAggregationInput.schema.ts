@@ -6,7 +6,7 @@ import { AnamnesisMaxOrderByAggregateInputObjectSchema } from './AnamnesisMaxOrd
 import { AnamnesisMinOrderByAggregateInputObjectSchema } from './AnamnesisMinOrderByAggregateInput.schema'
 import { AnamnesisSumOrderByAggregateInputObjectSchema } from './AnamnesisSumOrderByAggregateInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.AnamnesisOrderByWithAggregationInput> = z
 	.object({

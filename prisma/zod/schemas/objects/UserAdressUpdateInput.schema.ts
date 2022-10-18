@@ -6,7 +6,7 @@ import { DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldU
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema'
 import { UserUpdateOneRequiredWithoutAddressesNestedInputObjectSchema } from './UserUpdateOneRequiredWithoutAddressesNestedInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserAdressUpdateInput> = z
 	.object({

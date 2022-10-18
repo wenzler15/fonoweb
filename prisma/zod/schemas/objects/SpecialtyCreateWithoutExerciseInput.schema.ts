@@ -4,8 +4,9 @@ import { TemplateCreateNestedManyWithoutSpecialtyInputObjectSchema } from './Tem
 import { EvaluationCreateNestedManyWithoutSpecialtyInputObjectSchema } from './EvaluationCreateNestedManyWithoutSpecialtyInput.schema'
 import { AnamnesisCreateNestedManyWithoutSpecialtyInputObjectSchema } from './AnamnesisCreateNestedManyWithoutSpecialtyInput.schema'
 import { EvolutionCreateNestedManyWithoutSpecialtyInputObjectSchema } from './EvolutionCreateNestedManyWithoutSpecialtyInput.schema'
+import { CourseCreateNestedManyWithoutSpecialtyInputObjectSchema } from './CourseCreateNestedManyWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyCreateWithoutExerciseInput> = z
 	.object({
@@ -27,8 +28,11 @@ const Schema: z.ZodType<Prisma.SpecialtyCreateWithoutExerciseInput> = z
 		anamnesis: z
 			.lazy(() => AnamnesisCreateNestedManyWithoutSpecialtyInputObjectSchema)
 			.optional(),
-		Evolution: z
+		evolution: z
 			.lazy(() => EvolutionCreateNestedManyWithoutSpecialtyInputObjectSchema)
+			.optional(),
+		course: z
+			.lazy(() => CourseCreateNestedManyWithoutSpecialtyInputObjectSchema)
 			.optional(),
 	})
 	.strict()

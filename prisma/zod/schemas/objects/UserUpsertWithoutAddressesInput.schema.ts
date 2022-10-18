@@ -4,7 +4,7 @@ import { UserUncheckedUpdateWithoutAddressesInputObjectSchema } from './UserUnch
 import { UserCreateWithoutAddressesInputObjectSchema } from './UserCreateWithoutAddressesInput.schema'
 import { UserUncheckedCreateWithoutAddressesInputObjectSchema } from './UserUncheckedCreateWithoutAddressesInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserUpsertWithoutAddressesInput> = z
 	.object({

@@ -4,7 +4,7 @@ import { SpecialtyUncheckedCreateWithoutExerciseInputObjectSchema } from './Spec
 import { SpecialtyCreateOrConnectWithoutExerciseInputObjectSchema } from './SpecialtyCreateOrConnectWithoutExerciseInput.schema'
 import { SpecialtyWhereUniqueInputObjectSchema } from './SpecialtyWhereUniqueInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyCreateNestedOneWithoutExerciseInput> =
 	z.union([

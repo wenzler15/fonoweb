@@ -5,7 +5,7 @@ import { UserContactCreateOrConnectWithoutUserInputObjectSchema } from './UserCo
 import { UserContactCreateManyUserInputEnvelopeObjectSchema } from './UserContactCreateManyUserInputEnvelope.schema'
 import { UserContactWhereUniqueInputObjectSchema } from './UserContactWhereUniqueInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserContactCreateNestedManyWithoutUserInput> =
 	z.union([

@@ -6,8 +6,9 @@ import { EvaluationOrderByRelationAggregateInputObjectSchema } from './Evaluatio
 import { AnamnesisOrderByRelationAggregateInputObjectSchema } from './AnamnesisOrderByRelationAggregateInput.schema'
 import { EvolutionOrderByRelationAggregateInputObjectSchema } from './EvolutionOrderByRelationAggregateInput.schema'
 import { ExerciseOrderByRelationAggregateInputObjectSchema } from './ExerciseOrderByRelationAggregateInput.schema'
+import { CourseOrderByRelationAggregateInputObjectSchema } from './CourseOrderByRelationAggregateInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyOrderByWithRelationInput> = z
 	.object({
@@ -29,11 +30,14 @@ const Schema: z.ZodType<Prisma.SpecialtyOrderByWithRelationInput> = z
 		anamnesis: z
 			.lazy(() => AnamnesisOrderByRelationAggregateInputObjectSchema)
 			.optional(),
-		Evolution: z
+		evolution: z
 			.lazy(() => EvolutionOrderByRelationAggregateInputObjectSchema)
 			.optional(),
-		Exercise: z
+		exercise: z
 			.lazy(() => ExerciseOrderByRelationAggregateInputObjectSchema)
+			.optional(),
+		course: z
+			.lazy(() => CourseOrderByRelationAggregateInputObjectSchema)
 			.optional(),
 	})
 	.strict()

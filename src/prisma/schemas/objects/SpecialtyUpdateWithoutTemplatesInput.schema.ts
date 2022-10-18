@@ -8,8 +8,9 @@ import { EvaluationUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './E
 import { AnamnesisUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './AnamnesisUpdateManyWithoutSpecialtyNestedInput.schema'
 import { EvolutionUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './EvolutionUpdateManyWithoutSpecialtyNestedInput.schema'
 import { ExerciseUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './ExerciseUpdateManyWithoutSpecialtyNestedInput.schema'
+import { CourseUpdateManyWithoutSpecialtyNestedInputObjectSchema } from './CourseUpdateManyWithoutSpecialtyNestedInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyUpdateWithoutTemplatesInput> = z
 	.object({
@@ -58,11 +59,14 @@ const Schema: z.ZodType<Prisma.SpecialtyUpdateWithoutTemplatesInput> = z
 		anamnesis: z
 			.lazy(() => AnamnesisUpdateManyWithoutSpecialtyNestedInputObjectSchema)
 			.optional(),
-		Evolution: z
+		evolution: z
 			.lazy(() => EvolutionUpdateManyWithoutSpecialtyNestedInputObjectSchema)
 			.optional(),
-		Exercise: z
+		exercise: z
 			.lazy(() => ExerciseUpdateManyWithoutSpecialtyNestedInputObjectSchema)
+			.optional(),
+		course: z
+			.lazy(() => CourseUpdateManyWithoutSpecialtyNestedInputObjectSchema)
 			.optional(),
 	})
 	.strict()

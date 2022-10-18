@@ -5,8 +5,11 @@ import { DoctorUncheckedCreateNestedOneWithoutUserInputObjectSchema } from './Do
 import { UserAdressUncheckedCreateNestedManyWithoutUserInputObjectSchema } from './UserAdressUncheckedCreateNestedManyWithoutUserInput.schema'
 import { UserContactUncheckedCreateNestedManyWithoutUserInputObjectSchema } from './UserContactUncheckedCreateNestedManyWithoutUserInput.schema'
 import { ExerciseUncheckedCreateNestedManyWithoutCreatorInputObjectSchema } from './ExerciseUncheckedCreateNestedManyWithoutCreatorInput.schema'
+import { CourseUncheckedCreateNestedManyWithoutCreatorInputObjectSchema } from './CourseUncheckedCreateNestedManyWithoutCreatorInput.schema'
+import { LessonUncheckedCreateNestedManyWithoutCreatorInputObjectSchema } from './LessonUncheckedCreateNestedManyWithoutCreatorInput.schema'
+import { WatchedVideoUncheckedCreateNestedManyWithoutUserInputObjectSchema } from './WatchedVideoUncheckedCreateNestedManyWithoutUserInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserUncheckedCreateWithoutDoctorPatientInput> = z
 	.object({
@@ -49,6 +52,21 @@ const Schema: z.ZodType<Prisma.UserUncheckedCreateWithoutDoctorPatientInput> = z
 		exercises: z
 			.lazy(
 				() => ExerciseUncheckedCreateNestedManyWithoutCreatorInputObjectSchema,
+			)
+			.optional(),
+		courses: z
+			.lazy(
+				() => CourseUncheckedCreateNestedManyWithoutCreatorInputObjectSchema,
+			)
+			.optional(),
+		lessons: z
+			.lazy(
+				() => LessonUncheckedCreateNestedManyWithoutCreatorInputObjectSchema,
+			)
+			.optional(),
+		watched: z
+			.lazy(
+				() => WatchedVideoUncheckedCreateNestedManyWithoutUserInputObjectSchema,
 			)
 			.optional(),
 	})

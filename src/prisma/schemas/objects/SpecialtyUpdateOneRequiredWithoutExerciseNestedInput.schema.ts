@@ -7,7 +7,7 @@ import { SpecialtyWhereUniqueInputObjectSchema } from './SpecialtyWhereUniqueInp
 import { SpecialtyUpdateWithoutExerciseInputObjectSchema } from './SpecialtyUpdateWithoutExerciseInput.schema'
 import { SpecialtyUncheckedUpdateWithoutExerciseInputObjectSchema } from './SpecialtyUncheckedUpdateWithoutExerciseInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyUpdateOneRequiredWithoutExerciseNestedInput> =
 	z.union([

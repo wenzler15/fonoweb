@@ -5,7 +5,7 @@ import { EvaluationUncheckedUpdateWithoutSpecialtyInputObjectSchema } from './Ev
 import { EvaluationCreateWithoutSpecialtyInputObjectSchema } from './EvaluationCreateWithoutSpecialtyInput.schema'
 import { EvaluationUncheckedCreateWithoutSpecialtyInputObjectSchema } from './EvaluationUncheckedCreateWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.EvaluationUpsertWithWhereUniqueWithoutSpecialtyInput> =
 	z

@@ -5,7 +5,7 @@ import { AppointmentUncheckedUpdateWithoutPatientInputObjectSchema } from './App
 import { AppointmentCreateWithoutPatientInputObjectSchema } from './AppointmentCreateWithoutPatientInput.schema'
 import { AppointmentUncheckedCreateWithoutPatientInputObjectSchema } from './AppointmentUncheckedCreateWithoutPatientInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.AppointmentUpsertWithWhereUniqueWithoutPatientInput> =
 	z

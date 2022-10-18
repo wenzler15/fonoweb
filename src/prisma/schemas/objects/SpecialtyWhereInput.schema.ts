@@ -9,8 +9,9 @@ import { EvaluationListRelationFilterObjectSchema } from './EvaluationListRelati
 import { AnamnesisListRelationFilterObjectSchema } from './AnamnesisListRelationFilter.schema'
 import { EvolutionListRelationFilterObjectSchema } from './EvolutionListRelationFilter.schema'
 import { ExerciseListRelationFilterObjectSchema } from './ExerciseListRelationFilter.schema'
+import { CourseListRelationFilterObjectSchema } from './CourseListRelationFilter.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.SpecialtyWhereInput> = z
 	.object({
@@ -54,8 +55,9 @@ const Schema: z.ZodType<Prisma.SpecialtyWhereInput> = z
 			.lazy(() => EvaluationListRelationFilterObjectSchema)
 			.optional(),
 		anamnesis: z.lazy(() => AnamnesisListRelationFilterObjectSchema).optional(),
-		Evolution: z.lazy(() => EvolutionListRelationFilterObjectSchema).optional(),
-		Exercise: z.lazy(() => ExerciseListRelationFilterObjectSchema).optional(),
+		evolution: z.lazy(() => EvolutionListRelationFilterObjectSchema).optional(),
+		exercise: z.lazy(() => ExerciseListRelationFilterObjectSchema).optional(),
+		course: z.lazy(() => CourseListRelationFilterObjectSchema).optional(),
 	})
 	.strict()
 

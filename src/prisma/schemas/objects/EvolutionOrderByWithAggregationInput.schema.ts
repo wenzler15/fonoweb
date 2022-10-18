@@ -6,7 +6,7 @@ import { EvolutionMaxOrderByAggregateInputObjectSchema } from './EvolutionMaxOrd
 import { EvolutionMinOrderByAggregateInputObjectSchema } from './EvolutionMinOrderByAggregateInput.schema'
 import { EvolutionSumOrderByAggregateInputObjectSchema } from './EvolutionSumOrderByAggregateInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.EvolutionOrderByWithAggregationInput> = z
 	.object({

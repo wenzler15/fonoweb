@@ -3,7 +3,7 @@ import { TemplateWhereUniqueInputObjectSchema } from './TemplateWhereUniqueInput
 import { TemplateCreateWithoutDoctorInputObjectSchema } from './TemplateCreateWithoutDoctorInput.schema'
 import { TemplateUncheckedCreateWithoutDoctorInputObjectSchema } from './TemplateUncheckedCreateWithoutDoctorInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.TemplateCreateOrConnectWithoutDoctorInput> = z
 	.object({

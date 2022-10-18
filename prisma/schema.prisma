@@ -1,8 +1,12 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["interactiveTransactions"]
-  output          = "../node_modules/@prisma/client/.prisma/client/"
 }
+
+// generator nestgraphql {
+//     provider = "prisma-nestjs-graphql"
+//     output = "../src/graphql"
+// }
 
 generator client-front {
   provider        = "prisma-client-js"
@@ -84,6 +88,10 @@ model User {
 
   DoctorPatient DoctorPatient[]
   exercises     Exercise[]
+  courses       Course[]
+  lessons       Lesson[]
+  watched       WatchedVideo[]
+
   @@map("users")
 }
 
@@ -215,8 +223,10 @@ model Specialty {
   evaluations Evaluation[]
   anamnesis   Anamnesis[]
 
-  Evolution Evolution[]
-  Exercise  Exercise[]
+  evolution Evolution[]
+  exercise  Exercise[]
+  course    Course[]
+
   @@map("specialties")
 }
 
@@ -320,4 +330,78 @@ model Template {
   specialty Specialty @relation(fields: [specialtyId], references: [id])
 
   @@map("templates")
+}
+
+model Course {
+  id          String    @id() @unique @default(uuid()) @db.Uuid
+  numericId   Int       @default(autoincrement()) @map("numeric_id")
+  creatorId   String    @map("creator_id") @db.Uuid
+  specialtyId String    @map("specialty_id") @db.Uuid
+  order       Int       @default(0)
+  title       String
+  cover       String?
+  description String    @db.Text
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  creator   User      @relation(fields: [creatorId], references: [id])
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
+  lessons   Lesson[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id          String    @id() @unique @default(uuid()) @db.Uuid
+  numericId   Int       @default(autoincrement()) @map("numeric_id")
+  creatorId   String    @map("creator_id") @db.Uuid
+  courseId    String    @map("course_id") @db.Uuid
+  order       Int       @default(0)
+  title       String
+  description String    @db.Text
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  creator User          @relation(fields: [creatorId], references: [id])
+  course  Course        @relation(fields: [courseId], references: [id])
+  videos  LessonVideo[]
+
+  @@map("lessons")
+}
+
+model LessonVideo {
+  id        String    @id() @unique @default(uuid()) @db.Uuid
+  numericId Int       @default(autoincrement()) @map("numeric_id")
+  lessonId  String    @map("lesson_id") @db.Uuid
+  order     Int       @default(0)
+  title     String
+  video     String
+  isActive  Boolean   @default(true) @map("is_active")
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  lesson  Lesson         @relation(fields: [lessonId], references: [id])
+  watched WatchedVideo[]
+
+  @@map("lesson_videos")
+}
+
+model WatchedVideo {
+  id        String    @id() @unique @default(uuid()) @db.Uuid
+  numericId Int       @default(autoincrement()) @map("numeric_id")
+  userId    String    @map("user_id") @db.Uuid
+  videoId   String    @map("video_id") @db.Uuid
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  user  User        @relation(fields: [userId], references: [id])
+  video LessonVideo @relation(fields: [videoId], references: [id])
+
+  @@map("watched_videos")
 }

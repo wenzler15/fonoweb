@@ -7,7 +7,7 @@ import { PatientWhereUniqueInputObjectSchema } from './PatientWhereUniqueInput.s
 import { PatientUpdateWithoutAnamnesisInputObjectSchema } from './PatientUpdateWithoutAnamnesisInput.schema'
 import { PatientUncheckedUpdateWithoutAnamnesisInputObjectSchema } from './PatientUncheckedUpdateWithoutAnamnesisInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.PatientUpdateOneRequiredWithoutAnamnesisNestedInput> =
 	z.union([

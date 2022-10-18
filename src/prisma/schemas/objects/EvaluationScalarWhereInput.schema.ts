@@ -5,7 +5,7 @@ import { StringNullableFilterObjectSchema } from './StringNullableFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.EvaluationScalarWhereInput> = z
 	.object({

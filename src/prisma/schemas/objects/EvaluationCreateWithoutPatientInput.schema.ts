@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { DoctorCreateNestedOneWithoutEvaluationsInputObjectSchema } from './DoctorCreateNestedOneWithoutEvaluationsInput.schema'
 import { SpecialtyCreateNestedOneWithoutEvaluationsInputObjectSchema } from './SpecialtyCreateNestedOneWithoutEvaluationsInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.EvaluationCreateWithoutPatientInput> = z
 	.object({

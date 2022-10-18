@@ -9,7 +9,7 @@ import { TemplateUpdateWithWhereUniqueWithoutDoctorInputObjectSchema } from './T
 import { TemplateUpdateManyWithWhereWithoutDoctorInputObjectSchema } from './TemplateUpdateManyWithWhereWithoutDoctorInput.schema'
 import { TemplateScalarWhereInputObjectSchema } from './TemplateScalarWhereInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.TemplateUncheckedUpdateManyWithoutDoctorNestedInput> =
 	z.union([

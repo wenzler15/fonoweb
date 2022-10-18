@@ -13,8 +13,11 @@ import { UserAdressUpdateManyWithoutUserNestedInputObjectSchema } from './UserAd
 import { UserContactUpdateManyWithoutUserNestedInputObjectSchema } from './UserContactUpdateManyWithoutUserNestedInput.schema'
 import { DoctorPatientUpdateManyWithoutAssignedByNestedInputObjectSchema } from './DoctorPatientUpdateManyWithoutAssignedByNestedInput.schema'
 import { ExerciseUpdateManyWithoutCreatorNestedInputObjectSchema } from './ExerciseUpdateManyWithoutCreatorNestedInput.schema'
+import { CourseUpdateManyWithoutCreatorNestedInputObjectSchema } from './CourseUpdateManyWithoutCreatorNestedInput.schema'
+import { LessonUpdateManyWithoutCreatorNestedInputObjectSchema } from './LessonUpdateManyWithoutCreatorNestedInput.schema'
+import { WatchedVideoUpdateManyWithoutUserNestedInputObjectSchema } from './WatchedVideoUpdateManyWithoutUserNestedInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserUpdateInput> = z
 	.object({
@@ -167,6 +170,15 @@ const Schema: z.ZodType<Prisma.UserUpdateInput> = z
 			.optional(),
 		exercises: z
 			.lazy(() => ExerciseUpdateManyWithoutCreatorNestedInputObjectSchema)
+			.optional(),
+		courses: z
+			.lazy(() => CourseUpdateManyWithoutCreatorNestedInputObjectSchema)
+			.optional(),
+		lessons: z
+			.lazy(() => LessonUpdateManyWithoutCreatorNestedInputObjectSchema)
+			.optional(),
+		watched: z
+			.lazy(() => WatchedVideoUpdateManyWithoutUserNestedInputObjectSchema)
 			.optional(),
 	})
 	.strict()

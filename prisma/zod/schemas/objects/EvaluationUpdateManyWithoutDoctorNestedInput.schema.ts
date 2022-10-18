@@ -9,7 +9,7 @@ import { EvaluationUpdateWithWhereUniqueWithoutDoctorInputObjectSchema } from '.
 import { EvaluationUpdateManyWithWhereWithoutDoctorInputObjectSchema } from './EvaluationUpdateManyWithWhereWithoutDoctorInput.schema'
 import { EvaluationScalarWhereInputObjectSchema } from './EvaluationScalarWhereInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.EvaluationUpdateManyWithoutDoctorNestedInput> =
 	z.union([

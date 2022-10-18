@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { AppointmentStatus } from "@prisma/client/.prisma/client"
+import { AppointmentStatus } from "@prisma/client"
 
 export const Appointment = z.object({
   id: z.string(),

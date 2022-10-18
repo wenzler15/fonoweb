@@ -3,7 +3,7 @@ import { EvolutionWhereUniqueInputObjectSchema } from './EvolutionWhereUniqueInp
 import { EvolutionUpdateWithoutPatientInputObjectSchema } from './EvolutionUpdateWithoutPatientInput.schema'
 import { EvolutionUncheckedUpdateWithoutPatientInputObjectSchema } from './EvolutionUncheckedUpdateWithoutPatientInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.EvolutionUpdateWithWhereUniqueWithoutPatientInput> =
 	z

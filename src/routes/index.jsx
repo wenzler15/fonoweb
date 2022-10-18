@@ -14,6 +14,7 @@ import { EVALUATION_ROUTES } from '../evaluation'
 import { EVOLUTION_ROUTES } from '../evolution'
 import { EXERCISE_ROUTES } from '../exercise'
 import { AUTH_ROUTES } from '../auth'
+import { COURSE_ROUTES } from '../course'
 
 function AppRoutes() {
 	return (
@@ -30,6 +31,7 @@ function AppRoutes() {
 				EVOLUTION_ROUTES,
 				EXERCISE_ROUTES,
 				AUTH_ROUTES,
+				COURSE_ROUTES,
 			]
 				.flat()
 				.map(({ element: Element, auth, ...route }) => (

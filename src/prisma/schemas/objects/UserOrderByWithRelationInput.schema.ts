@@ -6,8 +6,11 @@ import { UserAdressOrderByRelationAggregateInputObjectSchema } from './UserAdres
 import { UserContactOrderByRelationAggregateInputObjectSchema } from './UserContactOrderByRelationAggregateInput.schema'
 import { DoctorPatientOrderByRelationAggregateInputObjectSchema } from './DoctorPatientOrderByRelationAggregateInput.schema'
 import { ExerciseOrderByRelationAggregateInputObjectSchema } from './ExerciseOrderByRelationAggregateInput.schema'
+import { CourseOrderByRelationAggregateInputObjectSchema } from './CourseOrderByRelationAggregateInput.schema'
+import { LessonOrderByRelationAggregateInputObjectSchema } from './LessonOrderByRelationAggregateInput.schema'
+import { WatchedVideoOrderByRelationAggregateInputObjectSchema } from './WatchedVideoOrderByRelationAggregateInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserOrderByWithRelationInput> = z
 	.object({
@@ -48,6 +51,15 @@ const Schema: z.ZodType<Prisma.UserOrderByWithRelationInput> = z
 			.optional(),
 		exercises: z
 			.lazy(() => ExerciseOrderByRelationAggregateInputObjectSchema)
+			.optional(),
+		courses: z
+			.lazy(() => CourseOrderByRelationAggregateInputObjectSchema)
+			.optional(),
+		lessons: z
+			.lazy(() => LessonOrderByRelationAggregateInputObjectSchema)
+			.optional(),
+		watched: z
+			.lazy(() => WatchedVideoOrderByRelationAggregateInputObjectSchema)
 			.optional(),
 	})
 	.strict()

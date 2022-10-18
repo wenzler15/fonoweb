@@ -5,7 +5,7 @@ import { EvolutionUncheckedUpdateWithoutSpecialtyInputObjectSchema } from './Evo
 import { EvolutionCreateWithoutSpecialtyInputObjectSchema } from './EvolutionCreateWithoutSpecialtyInput.schema'
 import { EvolutionUncheckedCreateWithoutSpecialtyInputObjectSchema } from './EvolutionUncheckedCreateWithoutSpecialtyInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.EvolutionUpsertWithWhereUniqueWithoutSpecialtyInput> =
 	z

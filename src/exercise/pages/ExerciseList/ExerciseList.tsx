@@ -79,16 +79,18 @@ export function ExerciseList(): ReactElement {
 					<Typography variant="h4" component="h1" color="secondary">
 						Exercícios
 					</Typography>
-					<Box display="flex" flexDirection="row" justifyContent="flex-end">
-						<Button
-							size="large"
-							variant="contained"
-							color="secondary"
-							onClick={() => navigate('/exercises/create')}
-						>
-							Novo exercício
-						</Button>
-					</Box>
+					{user.isAdmin && (
+						<Box display="flex" flexDirection="row" justifyContent="flex-end">
+							<Button
+								size="large"
+								variant="contained"
+								color="secondary"
+								onClick={() => navigate('/exercises/create')}
+							>
+								Novo exercício
+							</Button>
+						</Box>
+					)}
 				</Box>
 				<Table<Exercise>
 					data={exercises.data?.result ?? []}

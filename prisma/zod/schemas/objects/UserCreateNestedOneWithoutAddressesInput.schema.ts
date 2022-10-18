@@ -4,7 +4,7 @@ import { UserUncheckedCreateWithoutAddressesInputObjectSchema } from './UserUnch
 import { UserCreateOrConnectWithoutAddressesInputObjectSchema } from './UserCreateOrConnectWithoutAddressesInput.schema'
 import { UserWhereUniqueInputObjectSchema } from './UserWhereUniqueInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserCreateNestedOneWithoutAddressesInput> =
 	z.union([

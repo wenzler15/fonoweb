@@ -14,8 +14,8 @@ import { useCurrentUser } from 'doctor/queries'
 
 export function DoctorProfile() {
 	const navigate = useNavigate()
-  const { data } = useCurrentUser();
-  const user = data?.result;
+	const { data } = useCurrentUser()
+	const user = data?.result
 
 	const updateDoctor = useUpdateDoctor({
 		onSuccess: () => {
@@ -31,53 +31,62 @@ export function DoctorProfile() {
 	const handleFormSubmit = async ({
 		...values
 	}: InferType<typeof UpdateDoctorSchema>) => {
-    const shouldUpdate = values.addresses.filter(address => address.id);
-    const shouldCreate = values.addresses.filter(address => isNil(address.id));
+		const shouldUpdate = values.addresses.filter(address => address.id)
+		const shouldCreate = values.addresses.filter(address => isNil(address.id))
 
-    const normalizeData = {
-        ...pick(['name', 'email', 'cpf'], values),
-        addresses: {
-          ...(shouldCreate.length > 0 && {
-            createMany: {
-              data: [
-                ...shouldCreate,
-              ],
-            },
-          }),
-          ...(shouldUpdate.length > 0 && {
-            update: [
-              ...values.addresses.filter(address => address.id).map(address => ({
-                where: {
-                  id: address.id,
-                },
-                data: {
-                  ...pick(['zipCode', 'streetName', 'number', 'district', 'city', 'state'], address),
-                }
-              }))
-            ],
-          })
-        }
-    }
+		const normalizeData = {
+			...pick(['name', 'email', 'cpf'], values),
+			addresses: {
+				...(shouldCreate.length > 0 && {
+					createMany: {
+						data: [...shouldCreate],
+					},
+				}),
+				...(shouldUpdate.length > 0 && {
+					update: [
+						...values.addresses
+							.filter(address => address.id)
+							.map(address => ({
+								where: {
+									id: address.id,
+								},
+								data: {
+									...pick(
+										[
+											'zipCode',
+											'streetName',
+											'number',
+											'district',
+											'city',
+											'state',
+										],
+										address,
+									),
+								},
+							})),
+					],
+				}),
+			},
+		}
 
-    updateDoctor.mutate({ id: user?.id as string, ...normalizeData })
+		updateDoctor.mutate({ id: user?.id as string, ...normalizeData })
 	}
 
 	return (
 		<>
 			<Formik<InferType<typeof UpdateDoctorSchema>>
 				validationSchema={UpdateDoctorSchema}
-        // TODO: Get initial values from current user
+				// TODO: Get initial values from current user
 				initialValues={{
-          name: '',
-          cpf: '',
-          email: '',
-          addresses: user?.addresses || [],
-        }}
+					name: '',
+					cpf: '',
+					email: '',
+					addresses: user?.addresses || [],
+				}}
 				onSubmit={handleFormSubmit}
 			>
 				{({ handleSubmit }) => (
 					<>
-						<NavBar />
 						<Box sx={{ p: t => t.spacing(4) }}>
 							<Box
 								sx={{

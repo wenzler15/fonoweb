@@ -53,8 +53,8 @@ export function NavBar(): ReactElement {
 					<TextNavBar onClick={(): void => navigate('/templates')}>
 						Modelos
 					</TextNavBar>
-					<TextNavBar onClick={(): void => navigate('/evolutions')}>
-						Consultas
+					<TextNavBar onClick={(): void => navigate('/courses')}>
+						Cursos
 					</TextNavBar>
 					<TextNavBar onClick={(): void => navigate('/doctors/appointments')}>
 						Agendamentos

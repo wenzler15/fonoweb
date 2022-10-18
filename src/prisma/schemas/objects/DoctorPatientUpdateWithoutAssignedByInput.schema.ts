@@ -4,7 +4,7 @@ import { BoolFieldUpdateOperationsInputObjectSchema } from './BoolFieldUpdateOpe
 import { DoctorUpdateOneRequiredWithoutDoctorPatientNestedInputObjectSchema } from './DoctorUpdateOneRequiredWithoutDoctorPatientNestedInput.schema'
 import { PatientUpdateOneRequiredWithoutDoctorPatientNestedInputObjectSchema } from './PatientUpdateOneRequiredWithoutDoctorPatientNestedInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.DoctorPatientUpdateWithoutAssignedByInput> = z
 	.object({

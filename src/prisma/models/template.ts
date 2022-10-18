@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { TemplateType } from "@prisma/client/.prisma/client"
+import { TemplateType } from "@prisma/client"
 
 export const Template = z.object({
   id: z.string(),

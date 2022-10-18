@@ -8,7 +8,7 @@ import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './Nullab
 import { PatientUpdateOneRequiredWithoutEvolutionsNestedInputObjectSchema } from './PatientUpdateOneRequiredWithoutEvolutionsNestedInput.schema'
 import { DoctorUpdateOneRequiredWithoutEvolutionsNestedInputObjectSchema } from './DoctorUpdateOneRequiredWithoutEvolutionsNestedInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const literalSchema = z.union([z.string(), z.number(), z.boolean()])
 const jsonSchema: z.ZodType<Prisma.InputJsonValue> = z.lazy(() =>

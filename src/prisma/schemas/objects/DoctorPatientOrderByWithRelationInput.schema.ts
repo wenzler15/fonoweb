@@ -4,7 +4,7 @@ import { DoctorOrderByWithRelationInputObjectSchema } from './DoctorOrderByWithR
 import { PatientOrderByWithRelationInputObjectSchema } from './PatientOrderByWithRelationInput.schema'
 import { UserOrderByWithRelationInputObjectSchema } from './UserOrderByWithRelationInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.DoctorPatientOrderByWithRelationInput> = z
 	.object({

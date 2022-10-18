@@ -5,8 +5,11 @@ import { DoctorCreateNestedOneWithoutUserInputObjectSchema } from './DoctorCreat
 import { UserAdressCreateNestedManyWithoutUserInputObjectSchema } from './UserAdressCreateNestedManyWithoutUserInput.schema'
 import { UserContactCreateNestedManyWithoutUserInputObjectSchema } from './UserContactCreateNestedManyWithoutUserInput.schema'
 import { ExerciseCreateNestedManyWithoutCreatorInputObjectSchema } from './ExerciseCreateNestedManyWithoutCreatorInput.schema'
+import { CourseCreateNestedManyWithoutCreatorInputObjectSchema } from './CourseCreateNestedManyWithoutCreatorInput.schema'
+import { LessonCreateNestedManyWithoutCreatorInputObjectSchema } from './LessonCreateNestedManyWithoutCreatorInput.schema'
+import { WatchedVideoCreateNestedManyWithoutUserInputObjectSchema } from './WatchedVideoCreateNestedManyWithoutUserInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserCreateWithoutDoctorPatientInput> = z
 	.object({
@@ -44,6 +47,15 @@ const Schema: z.ZodType<Prisma.UserCreateWithoutDoctorPatientInput> = z
 			.optional(),
 		exercises: z
 			.lazy(() => ExerciseCreateNestedManyWithoutCreatorInputObjectSchema)
+			.optional(),
+		courses: z
+			.lazy(() => CourseCreateNestedManyWithoutCreatorInputObjectSchema)
+			.optional(),
+		lessons: z
+			.lazy(() => LessonCreateNestedManyWithoutCreatorInputObjectSchema)
+			.optional(),
+		watched: z
+			.lazy(() => WatchedVideoCreateNestedManyWithoutUserInputObjectSchema)
 			.optional(),
 	})
 	.strict()

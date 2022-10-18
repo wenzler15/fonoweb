@@ -9,7 +9,7 @@ import { EvaluationUpdateManyWithoutPatientNestedInputObjectSchema } from './Eva
 import { DoctorPatientUpdateManyWithoutPatientNestedInputObjectSchema } from './DoctorPatientUpdateManyWithoutPatientNestedInput.schema'
 import { AppointmentUpdateManyWithoutPatientNestedInputObjectSchema } from './AppointmentUpdateManyWithoutPatientNestedInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.PatientUpdateWithoutEvolutionsInput> = z
 	.object({

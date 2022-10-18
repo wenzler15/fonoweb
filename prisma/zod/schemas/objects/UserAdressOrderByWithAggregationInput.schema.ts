@@ -6,7 +6,7 @@ import { UserAdressMaxOrderByAggregateInputObjectSchema } from './UserAdressMaxO
 import { UserAdressMinOrderByAggregateInputObjectSchema } from './UserAdressMinOrderByAggregateInput.schema'
 import { UserAdressSumOrderByAggregateInputObjectSchema } from './UserAdressSumOrderByAggregateInput.schema'
 
-import type { Prisma } from '../../../../node_modules/@prisma/client/.prisma/client'
+import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.UserAdressOrderByWithAggregationInput> = z
 	.object({

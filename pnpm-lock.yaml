@@ -31,6 +31,7 @@ specifiers:
   '@types/eslint': ^8.4.6
   '@types/html-to-draftjs': ^1.4.0
   '@types/lodash': ^4.14.184
+  '@types/mime-types': ^2.1.1
   '@types/mui-image': ^1.0.1
   '@types/node': ^18.7.14
   '@types/nodemailer': ^6.4.5
@@ -85,6 +86,7 @@ specifiers:
   ky: ^0.31.2
   lodash: ^4.17.21
   mercadopago: ^1.5.13
+  mime-types: ^2.1.35
   modern-normalize: ^1.1.0
   mui-image: ^1.0.7
   nodemailer: ^6.7.8
@@ -162,6 +164,7 @@ dependencies:
   '@types/dompurify': 2.3.4
   '@types/draft-convert': 2.1.4
   '@types/draft-js': 0.11.9
+  '@types/mime-types': 2.1.1
   '@types/mui-image': 1.0.1
   '@types/react-draft-wysiwyg': 1.13.4
   '@types/styled-components': 5.1.26
@@ -189,6 +192,7 @@ dependencies:
   ky: 0.31.3
   lodash: 4.17.21
   mercadopago: 1.5.14
+  mime-types: 2.1.35
   modern-normalize: 1.1.0
   mui-image: 1.0.7_tlk2u32dbjfokbxe42vptp6ruy
   nodemailer: 6.7.8
@@ -4144,6 +4148,10 @@ packages:
   /@types/lodash/4.14.184:
     resolution: {integrity: sha512-RoZphVtHbxPZizt4IcILciSWiC6dcn+eZ8oX9IWEYfDMcocdd42f7NPI6fQj+6zI8y4E0L7gu2pcZKLGTRaV9Q==}
     dev: true
+
+  /@types/mime-types/2.1.1:
+    resolution: {integrity: sha512-vXOTGVSLR2jMw440moWTC7H19iUyLtP3Z1YTj7cSsubOICinjMxFeb/V57v9QdyyPGbbWolUFSSmSiRSn94tFw==}
+    dev: false
 
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}

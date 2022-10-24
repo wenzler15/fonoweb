@@ -10,6 +10,7 @@ import { Field, FieldArray, useFormikContext } from 'formik'
 import { Close, Add } from '@mui/icons-material'
 import { useSpecialties } from 'specialty/queries'
 import { Specialty } from '@prisma/client'
+import { Upload } from 'common/formik'
 
 function useFieldValue<T>(key: string): T {
 	const { values } = useFormikContext<Record<string, unknown>>()
@@ -65,6 +66,9 @@ export function ExerciseForm() {
 					label="Descrição"
 					rows={2}
 				/>
+			</Grid>
+			<Grid item xs={12}>
+				<Upload label="Capa" multiple={false} name="cover" />
 			</Grid>
 			<Grid item xs={12} container spacing={2}>
 				<FieldArray name="links">

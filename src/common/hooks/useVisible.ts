@@ -6,6 +6,7 @@ export function useVisible({
 	visible: boolean
 	show: () => void
 	hide: () => void
+	toggle: () => void
 } {
 	const [visible, setVisible] = useState(initialState)
 	return useMemo(

@@ -17,12 +17,13 @@ import { Box, Stack, styled, useTheme } from '@mui/system'
 import { LoadingOverlay } from 'common/components'
 import { getYoutubeIdFromUrl } from 'common/utils/getYoutubeIdFromUrl'
 import { useSetVideoAsWatched } from 'course/mutations'
+import { useDeleteCourse } from 'course/mutations/useDeleteCourse'
 import { useSetVideoAsNotWatched } from 'course/mutations/useSetVideoAsNotWatched'
 import { useFindFirstCourse } from 'course/queries'
 import { useIsVideoWatched } from 'course/queries/useIsVideoWatched'
 import { Lesson, LessonVideo } from 'course/types'
 import { useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 const C = styled(AccordionSummary)`
@@ -60,6 +61,42 @@ export function CourseDetail() {
 
 	const setVideoAsNotWatched = useSetVideoAsNotWatched(options)
 	const setVideoAsWatched = useSetVideoAsWatched(options)
+	const navigate = useNavigate()
+	const remove = useDeleteCourse({
+		onSuccess: () => {
+			Swal.fire({
+				title: 'Sucesso',
+				text: 'Curso removido com sucesso',
+				icon: 'success',
+			})
+			navigate('/courses')
+		},
+		onError: () => {
+			Swal.fire({
+				title: 'Error',
+				text: 'Não foi possível remover o curso',
+				icon: 'error',
+			})
+		},
+	})
+
+	const handleCourseRemove = () => {
+		Swal.fire({
+			title: 'Tem certeza?',
+			text: 'Você não poderá reverter isso!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: theme.palette.primary.main,
+			cancelButtonColor: theme.palette.error.main,
+			confirmButtonText: 'Sim, deletar!',
+		}).then(result => {
+			if (result.isConfirmed) {
+				remove.mutate({
+					id: courseId!,
+				})
+			}
+		})
+	}
 
 	const watchedCurrentHandlerText = () => {
 		if (isVideoWatched.isLoading) {
@@ -93,13 +130,34 @@ export function CourseDetail() {
 					pb: 9,
 				}}
 			>
-				<Box mb={2}>
-					<Typography variant="h4" component="h1">
-						{course.data?.title}
-					</Typography>
-					<Typography variant="body1" component="h2" color="textSecondary">
-						{course.data?.description}
-					</Typography>
+				<Box mb={2} display="flex" alignItems="center">
+					<Box flexGrow={1}>
+						<Typography variant="h4" component="h1">
+							{course.data?.title}
+						</Typography>
+						<Typography variant="body1" component="h2" color="textSecondary">
+							{course.data?.description}
+						</Typography>
+					</Box>
+					<Stack direction="row" spacing={2}>
+						<Button
+							variant="contained"
+							color="primary"
+							size="large"
+							component={Link}
+							to={`/courses/${course.data?.id ?? ''}/edit`}
+						>
+							Editar curso
+						</Button>
+						<Button
+							variant="contained"
+							color="error"
+							size="large"
+							onClick={handleCourseRemove}
+						>
+							Remover curso
+						</Button>
+					</Stack>
 				</Box>
 				<Grid container spacing={4}>
 					<Grid item xs={7}>

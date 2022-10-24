@@ -9,7 +9,12 @@ export function Back() {
 			variant="subtitle2"
 			color="primary"
 			component="a"
-			sx={{ display: 'flex', cursor: 'pointer', alignItems: 'center' }}
+			sx={{
+				display: 'flex',
+				cursor: 'pointer',
+				alignItems: 'center',
+				maxWidth: '100px',
+			}}
 			onClick={() => navigate(-1)}
 		>
 			<KeyboardBackspaceIcon sx={{ mr: t => t.spacing(0.5) }} /> VOLTAR

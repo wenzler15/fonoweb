@@ -6,6 +6,12 @@ import { Evaluation } from 'evaluation'
 import { len, download, isListable } from '@excelsia/general-helpers'
 import { client } from 'common/client'
 import { Evolution } from 'evolution'
+import { isYoutube } from 'common/utils/isYoutube'
+import { getYoutubeIdFromUrl } from 'common/utils/getYoutubeIdFromUrl'
+import { map, piped } from 'rambdax'
+import { getVimeoIdFromUrl } from 'common/utils/getVimeoIdFromUrl'
+import { isVimeo } from 'common/utils/isVimeo'
+import { EmbedVideo } from 'common/components'
 
 const patientAnamneseInfo = (
 	anamnesis: Anamnesis,
@@ -130,7 +136,15 @@ const patientEvolutionInfo = (
 				<Typography variant="body1" component="p">
 					{evolution.text ? (
 						// eslint-disable-next-line react/no-danger
-						<div dangerouslySetInnerHTML={{ __html: evolution.text }} />
+						<Box
+							sx={{
+								'& p': {
+									marginTop: '0 !important',
+									marginBottom: 1,
+								},
+							}}
+							dangerouslySetInnerHTML={{ __html: evolution.text }}
+						/>
 					) : (
 						'Não informado'
 					)}
@@ -141,27 +155,31 @@ const patientEvolutionInfo = (
 					</Typography>
 				)}
 				{isListable(evolution.exercises) && (
-					<Box>
+					<Stack spacing={1}>
 						<Typography variant="subtitle1" component="p">
 							Exercícios:
 						</Typography>
 						{evolution.exercises.map((e, i) => (
-							<Box
-								key={i}
-								sx={{
-									borderBottom: t =>
-										i > 0 ? `1px solid ${t.palette.primary.main}` : undefined,
-								}}
-							>
+							<Box key={i}>
 								<Typography variant="h6" component="h3">
 									{e.title}
 								</Typography>
 								<Typography variant="body1" component="p">
 									{e.description}
 								</Typography>
+								<Grid container spacing={2}>
+									{piped(
+										e.links,
+										map(l => (
+											<Grid item key={l} xs={6}>
+												<EmbedVideo url={l} title={e.title} />
+											</Grid>
+										)),
+									)}
+								</Grid>
 							</Box>
 						))}
-					</Box>
+					</Stack>
 				)}
 			</Stack>
 		</Paper>

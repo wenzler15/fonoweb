@@ -10,7 +10,14 @@ export function useFindFirstCourse(
 	return useQuery(['findFirstCourse', query], () =>
 		client('courses/one', {
 			method: 'POST',
-			json: query,
+			json: {
+				...query,
+				where: {
+					...query.where,
+					// eslint-disable-next-line unicorn/no-null
+					deletedAt: null,
+				},
+			},
 		})
 			.json<{ result: Course }>()
 			.then(r => r.result),

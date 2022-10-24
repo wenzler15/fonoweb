@@ -11,7 +11,14 @@ export function useFindManyCourses(
 		() =>
 			client('courses', {
 				method: 'POST',
-				json: query,
+				json: {
+					...query,
+					where: {
+						...query.where,
+						// eslint-disable-next-line unicorn/no-null
+						deletedAt: null,
+					},
+				},
 			})
 				.json<{ result: Course[]; count: number }>()
 				.then(response => ({

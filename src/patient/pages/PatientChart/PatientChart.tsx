@@ -1,4 +1,3 @@
-import { NavBar } from 'components/navBar'
 import { ReactElement, useState } from 'react'
 import {
 	useTheme,

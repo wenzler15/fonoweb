@@ -27,7 +27,7 @@ export function CourseList() {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [view, setView] = useState(View.ALL)
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const { user } = useAuthStore()
+	const user = useAuthStore(s => s.user!)
 	const [pagination, setPagination] = useState<Required<Pagination>>({
 		page: 0,
 		size: 5,
@@ -44,6 +44,7 @@ export function CourseList() {
 				},
 			},
 		}
+
 	const courses = useFindManyCourses({
 		...queries[view],
 		...queries.common,
@@ -68,9 +69,25 @@ export function CourseList() {
 				}}
 			>
 				<Box sx={{ mb: 2 }}>
-					<Typography variant="h4" component="h1" color="secondary">
-						Cursos disponíveis
-					</Typography>
+					<Box sx={{ display: 'flex' }}>
+						<Box sx={{ flexGrow: 1 }}>
+							<Typography variant="h4" component="h1" color="secondary">
+								Cursos disponíveis
+							</Typography>
+						</Box>
+						<Box>
+							{user.isAdmin && (
+								<Button
+									component={Link}
+									to="/courses/create"
+									variant="contained"
+									size="large"
+								>
+									Criar curso
+								</Button>
+							)}
+						</Box>
+					</Box>
 					<Typography
 						variant="body1"
 						component="h2"
@@ -119,9 +136,7 @@ export function CourseList() {
 							<Grid container spacing={2}>
 								<Grid item xs={3}>
 									<Image
-										src={`${
-											course.cover ?? 'https://via.placeholder.com/150'
-										}?e=${(Date.now() + i).toString()}`}
+										src={`${course.cover ?? 'https://via.placeholder.com/150'}`}
 										alt={course.title}
 									/>
 								</Grid>

@@ -1,8 +1,9 @@
 import { z } from 'zod'
-import { StringFilterObjectSchema } from './StringFilter.schema'
+import { UuidFilterObjectSchema } from './UuidFilter.schema'
 import { IntFilterObjectSchema } from './IntFilter.schema'
 import { EnumTemplateTypeFilterObjectSchema } from './EnumTemplateTypeFilter.schema'
 import { TemplateTypeSchema } from '../enums/TemplateType.schema'
+import { StringFilterObjectSchema } from './StringFilter.schema'
 import { BoolFilterObjectSchema } from './BoolFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema'
@@ -27,14 +28,12 @@ const Schema: z.ZodType<Prisma.TemplateScalarWhereInput> = z
 				z.lazy(() => TemplateScalarWhereInputObjectSchema).array(),
 			])
 			.optional(),
-		id: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
-			.optional(),
+		id: z.union([z.lazy(() => UuidFilterObjectSchema), z.string()]).optional(),
 		numericId: z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])
 			.optional(),
 		doctorId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		type: z
 			.union([
@@ -43,7 +42,7 @@ const Schema: z.ZodType<Prisma.TemplateScalarWhereInput> = z
 			])
 			.optional(),
 		specialtyId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		title: z
 			.union([z.lazy(() => StringFilterObjectSchema), z.string()])

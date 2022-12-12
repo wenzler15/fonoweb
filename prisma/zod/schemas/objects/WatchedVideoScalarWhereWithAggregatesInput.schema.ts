@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema'
+import { UuidWithAggregatesFilterObjectSchema } from './UuidWithAggregatesFilter.schema'
 import { IntWithAggregatesFilterObjectSchema } from './IntWithAggregatesFilter.schema'
 import { DateTimeWithAggregatesFilterObjectSchema } from './DateTimeWithAggregatesFilter.schema'
 import { DateTimeNullableWithAggregatesFilterObjectSchema } from './DateTimeNullableWithAggregatesFilter.schema'
@@ -29,16 +29,16 @@ const Schema: z.ZodType<Prisma.WatchedVideoScalarWhereWithAggregatesInput> = z
 			])
 			.optional(),
 		id: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		numericId: z
 			.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number()])
 			.optional(),
 		userId: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		videoId: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.date()])

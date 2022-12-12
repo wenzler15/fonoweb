@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { StringFilterObjectSchema } from './StringFilter.schema'
+import { UuidFilterObjectSchema } from './UuidFilter.schema'
 import { IntFilterObjectSchema } from './IntFilter.schema'
 import { StringNullableFilterObjectSchema } from './StringNullableFilter.schema'
 import { JsonFilterObjectSchema } from './JsonFilter.schema'
@@ -26,17 +26,15 @@ const Schema: z.ZodType<Prisma.DoctorScalarWhereInput> = z
 				z.lazy(() => DoctorScalarWhereInputObjectSchema).array(),
 			])
 			.optional(),
-		id: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
-			.optional(),
+		id: z.union([z.lazy(() => UuidFilterObjectSchema), z.string()]).optional(),
 		numericId: z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])
 			.optional(),
 		userId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		specialtyId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		crfa: z
 			.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()])

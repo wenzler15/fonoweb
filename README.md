@@ -68,3 +68,21 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Passos para execução do projeto
+
+Caso já exista a pasta prisma na raiz do projeto:
+* yarn install / npm install
+* npx prisma generate
+* yarn start / npm run start
+
+Caso não exista a pasta prisma na raiz do projeto:
+* yarn install / npm install
+* npx prisma init
+* Configurar os schemas baseado na sua aplicação
+* npm install @prisma/client (caso ainda não esteja instalado)
+* npx prisma generate
+* yarn start / npm run start
+###
+

@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.0.1.tgz#b38b444ad3aa5fedbb15f2f746dcd934226a12dd"
   integrity sha512-+u76oB43nOHrF4DDWRLWDCtci7f3QJoEBigemIdIeTi1ODqjx6Tad9NCVnPRwewWlKkVab5PlK8DCtPTyX7S8g==
 
+"@aldabil/react-scheduler@^2.5.14":
+  version "2.5.14"
+  resolved "https://registry.yarnpkg.com/@aldabil/react-scheduler/-/react-scheduler-2.5.14.tgz#6215e3acd41f626b68392172703e3854a7b3bd69"
+  integrity sha512-lEq7zL5s3MpI7DcUX216wy/cnVo38Ljw+yb25WkxIslrKBgf/ZKfHkx4qorYaIWNdbQCzmnxqnugBplRjQkhTg==
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"

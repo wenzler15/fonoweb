@@ -3,10 +3,11 @@ import { SortOrderSchema } from '../enums/SortOrder.schema'
 
 import type { Prisma } from '@prisma/client'
 
-const Schema: z.ZodType<Prisma.DoctorPatientOrderByRelationAggregateInput> = z
-	.object({
-		_count: z.lazy(() => SortOrderSchema).optional(),
-	})
-	.strict()
+const Schema: z.ZodType<Prisma.DoctorPatientOrderByRelationAggregateInputType> =
+	z
+		.object({
+			_count: z.lazy(() => SortOrderSchema).optional(),
+		})
+		.strict()
 
 export const DoctorPatientOrderByRelationAggregateInputObjectSchema = Schema

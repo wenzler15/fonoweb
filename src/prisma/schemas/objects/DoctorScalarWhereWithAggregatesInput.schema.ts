@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema'
+import { UuidWithAggregatesFilterObjectSchema } from './UuidWithAggregatesFilter.schema'
 import { IntWithAggregatesFilterObjectSchema } from './IntWithAggregatesFilter.schema'
 import { StringNullableWithAggregatesFilterObjectSchema } from './StringNullableWithAggregatesFilter.schema'
 import { JsonWithAggregatesFilterObjectSchema } from './JsonWithAggregatesFilter.schema'
@@ -27,16 +27,16 @@ const Schema: z.ZodType<Prisma.DoctorScalarWhereWithAggregatesInput> = z
 			])
 			.optional(),
 		id: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		numericId: z
 			.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number()])
 			.optional(),
 		userId: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		specialtyId: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		crfa: z
 			.union([

@@ -3,7 +3,7 @@ import { SortOrderSchema } from '../enums/SortOrder.schema'
 
 import type { Prisma } from '@prisma/client'
 
-const Schema: z.ZodType<Prisma.LessonOrderByRelationAggregateInput> = z
+const Schema: z.ZodType<Prisma.LessonOrderByRelationAggregateInputType> = z
 	.object({
 		_count: z.lazy(() => SortOrderSchema).optional(),
 	})

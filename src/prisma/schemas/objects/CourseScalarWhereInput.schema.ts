@@ -1,6 +1,7 @@
 import { z } from 'zod'
-import { StringFilterObjectSchema } from './StringFilter.schema'
+import { UuidFilterObjectSchema } from './UuidFilter.schema'
 import { IntFilterObjectSchema } from './IntFilter.schema'
+import { StringFilterObjectSchema } from './StringFilter.schema'
 import { StringNullableFilterObjectSchema } from './StringNullableFilter.schema'
 import { BoolFilterObjectSchema } from './BoolFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
@@ -26,17 +27,15 @@ const Schema: z.ZodType<Prisma.CourseScalarWhereInput> = z
 				z.lazy(() => CourseScalarWhereInputObjectSchema).array(),
 			])
 			.optional(),
-		id: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
-			.optional(),
+		id: z.union([z.lazy(() => UuidFilterObjectSchema), z.string()]).optional(),
 		numericId: z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])
 			.optional(),
 		creatorId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		specialtyId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		order: z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])

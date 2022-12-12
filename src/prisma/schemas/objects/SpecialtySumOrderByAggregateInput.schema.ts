@@ -3,7 +3,7 @@ import { SortOrderSchema } from '../enums/SortOrder.schema'
 
 import type { Prisma } from '@prisma/client'
 
-const Schema: z.ZodType<Prisma.SpecialtySumOrderByAggregateInput> = z
+const Schema: z.ZodType<Prisma.SpecialtySumOrderByAggregateInputType> = z
 	.object({
 		numericId: z.lazy(() => SortOrderSchema).optional(),
 	})

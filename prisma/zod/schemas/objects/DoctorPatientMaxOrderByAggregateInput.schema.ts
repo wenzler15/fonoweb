@@ -3,7 +3,7 @@ import { SortOrderSchema } from '../enums/SortOrder.schema'
 
 import type { Prisma } from '@prisma/client'
 
-const Schema: z.ZodType<Prisma.DoctorPatientMaxOrderByAggregateInput> = z
+const Schema: z.ZodType<Prisma.DoctorPatientMaxOrderByAggregateInputType> = z
 	.object({
 		doctorId: z.lazy(() => SortOrderSchema).optional(),
 		patientId: z.lazy(() => SortOrderSchema).optional(),

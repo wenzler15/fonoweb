@@ -1,7 +1,8 @@
 import { z } from 'zod'
-import { StringFilterObjectSchema } from './StringFilter.schema'
+import { UuidFilterObjectSchema } from './UuidFilter.schema'
 import { IntFilterObjectSchema } from './IntFilter.schema'
 import { StringNullableFilterObjectSchema } from './StringNullableFilter.schema'
+import { StringFilterObjectSchema } from './StringFilter.schema'
 import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema'
 import { EnumUserTypeFilterObjectSchema } from './EnumUserTypeFilter.schema'
 import { UserTypeSchema } from '../enums/UserType.schema'
@@ -39,9 +40,7 @@ const Schema: z.ZodType<Prisma.UserWhereInput> = z
 				z.lazy(() => UserWhereInputObjectSchema).array(),
 			])
 			.optional(),
-		id: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
-			.optional(),
+		id: z.union([z.lazy(() => UuidFilterObjectSchema), z.string()]).optional(),
 		numericId: z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])
 			.optional(),

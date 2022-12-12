@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { StringFilterObjectSchema } from './StringFilter.schema'
+import { UuidFilterObjectSchema } from './UuidFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { BoolFilterObjectSchema } from './BoolFilter.schema'
 
@@ -24,13 +24,13 @@ const Schema: z.ZodType<Prisma.DoctorPatientScalarWhereInput> = z
 			])
 			.optional(),
 		doctorId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		patientId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		assignedById: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])

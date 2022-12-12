@@ -1,6 +1,7 @@
 import { z } from 'zod'
-import { StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema'
+import { UuidWithAggregatesFilterObjectSchema } from './UuidWithAggregatesFilter.schema'
 import { IntWithAggregatesFilterObjectSchema } from './IntWithAggregatesFilter.schema'
+import { StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema'
 import { JsonWithAggregatesFilterObjectSchema } from './JsonWithAggregatesFilter.schema'
 import { DateTimeWithAggregatesFilterObjectSchema } from './DateTimeWithAggregatesFilter.schema'
 
@@ -29,7 +30,7 @@ const Schema: z.ZodType<Prisma.ExerciseScalarWhereWithAggregatesInput> = z
 			])
 			.optional(),
 		id: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		numericId: z
 			.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number()])
@@ -42,10 +43,10 @@ const Schema: z.ZodType<Prisma.ExerciseScalarWhereWithAggregatesInput> = z
 			.optional(),
 		links: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
 		creatorId: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		specialtyId: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.date()])

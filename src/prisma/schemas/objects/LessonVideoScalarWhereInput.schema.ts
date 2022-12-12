@@ -1,6 +1,7 @@
 import { z } from 'zod'
-import { StringFilterObjectSchema } from './StringFilter.schema'
+import { UuidFilterObjectSchema } from './UuidFilter.schema'
 import { IntFilterObjectSchema } from './IntFilter.schema'
+import { StringFilterObjectSchema } from './StringFilter.schema'
 import { BoolFilterObjectSchema } from './BoolFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema'
@@ -25,14 +26,12 @@ const Schema: z.ZodType<Prisma.LessonVideoScalarWhereInput> = z
 				z.lazy(() => LessonVideoScalarWhereInputObjectSchema).array(),
 			])
 			.optional(),
-		id: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
-			.optional(),
+		id: z.union([z.lazy(() => UuidFilterObjectSchema), z.string()]).optional(),
 		numericId: z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])
 			.optional(),
 		lessonId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		order: z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])

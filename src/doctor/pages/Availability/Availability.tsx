@@ -341,19 +341,19 @@ export function Availability() {
         const userString = localStorage.getItem('@fonoweb/auth');
         const userJson = JSON.parse(userString)
 
-        // const resp = await api.get('/patients', {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${userJson.state.token}`
-        //     }
-        // })
-
-        const resp = await axios.get('http://localhost:8000/patients', {
+        const resp = await api.get('/patients', {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YzhiYmY2ZC02ZWUyLTQ4MDgtOGEwMi1hNDgwNWNkNTgyNDgiLCJpYXQiOjE2NzA4NjI0MjEsImV4cCI6MTY3MDk0ODgyMX0.rWcgnI4is6gja3ZPUOZjTJoIzYtUnA6dqzF0l7Kfsz0`
+                'Authorization': `Bearer ${userJson.state.token}`
             }
         })
+
+        // const resp = await axios.get('http://localhost:8000/patients', {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YzhiYmY2ZC02ZWUyLTQ4MDgtOGEwMi1hNDgwNWNkNTgyNDgiLCJpYXQiOjE2NzA4NjI0MjEsImV4cCI6MTY3MDk0ODgyMX0.rWcgnI4is6gja3ZPUOZjTJoIzYtUnA6dqzF0l7Kfsz0`
+        //     }
+        // })
 
 
         const pacientsResult = resp.data.result;
@@ -375,19 +375,19 @@ export function Availability() {
         const userString = localStorage.getItem('@fonoweb/auth');
         const userJson = JSON.parse(userString)
 
-        // const resp = await api.get(`/appointments/${userJson.state.user.id}`, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${userJson.state.token}`
-        //     }
-        // })
-
-        const resp = await axios.get('http://localhost:8000/appointments/d7b0cead-63cb-4136-ba6a-02caf8b6bd09', {
+        const resp = await api.get(`/appointments/${userJson.state.user.id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YzhiYmY2ZC02ZWUyLTQ4MDgtOGEwMi1hNDgwNWNkNTgyNDgiLCJpYXQiOjE2NzA4NjI0MjEsImV4cCI6MTY3MDk0ODgyMX0.rWcgnI4is6gja3ZPUOZjTJoIzYtUnA6dqzF0l7Kfsz0`
+                'Authorization': `Bearer ${userJson.state.token}`
             }
         })
+
+        // const resp = await axios.get('http://localhost:8000/appointments/d7b0cead-63cb-4136-ba6a-02caf8b6bd09', {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YzhiYmY2ZC02ZWUyLTQ4MDgtOGEwMi1hNDgwNWNkNTgyNDgiLCJpYXQiOjE2NzA4NjI0MjEsImV4cCI6MTY3MDk0ODgyMX0.rWcgnI4is6gja3ZPUOZjTJoIzYtUnA6dqzF0l7Kfsz0`
+        //     }
+        // })
 
         const appointmentsArray = [];
 
@@ -401,6 +401,7 @@ export function Availability() {
                 title: item.patient.user.name,
                 start: oldDateObj,
                 end: newDateObj,
+                status: item.status,
                 // eslint-disable-next-line unicorn/no-nested-ternary
                 color: item.status === "CANCELED" ? '#d45b1e' : (item.status === "SCHEDULED" || item.status === "CONFIRMED" ? '#1e98d4' : item.status === "FINISHED" ? 'green' : '#d10000')
             })
@@ -416,7 +417,28 @@ export function Availability() {
         if (action === "edit") {
             /** PUT event to remote DB */
         } else if (action === "create") {
-            /**POST event to remote DB */
+
+            // const userString = localStorage.getItem('@fonoweb/auth');
+            // const userJson = JSON.parse(userString)
+
+            // const patientId = patients.find((item) => item.value === event.title);
+
+            // const toSend = {
+            //     doctor_id: userJson.state.user.id,
+            //     patient_id: patientId ? patientId.id : 0,
+            //     when: event.start,
+            //     status: event.status
+            // }
+
+            const toSend = {
+                doctor_id: '018a0bd8-e807-499d-855c-f32cc643afba',
+                patient_id: '0297fb7f-4056-430c-8398-8b38e6646dc1',
+                when: event.start,
+                status: event.status
+            }
+
+            console.log("ola", toSend);
+
         }
         /**
          * Make sure to return 4 mandatory fields:
@@ -467,10 +489,10 @@ export function Availability() {
                         name: "status",
                         type: "select",
                         options: [
-                            { id: 1, text: "Atendido", value: 1 },
-                            { id: 2, text: "Falta", value: 2 },
-                            { id: 3, text: "Confirmado", value: 3 },
-                            { id: 4, text: "Cancelado/Desmarcado", value: 4 }
+                            { id: 1, text: "Atendido", value: "FINISHED" },
+                            { id: 2, text: "Falta", value: "FALTA" },
+                            { id: 3, text: "Confirmado", value: "SCHEDULED" },
+                            { id: 4, text: "Cancelado/Desmarcado", value: "CANCELED" }
                         ],
                         config: { label: "Status", required: true, errMsg: "Por favor selecione um status" }
                     }

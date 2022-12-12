@@ -334,28 +334,7 @@ function Calendar({
 }
 
 export function Availability() {
-    const [booked, setBooked] = useState([
-        {
-            event_id: 1,
-            title: "Evento cancelado",
-            start: new Date("2022/12/15 09:30"),
-            end: new Date("2022/12/15 10:30"),
-            color: '#d45b1e'
-        },
-        {
-            event_id: 2,
-            title: "Evento confirmado",
-            start: new Date("2022/11/27 10:00"),
-            end: new Date("2022/11/27 11:00"),
-        },
-        {
-            event_id: 3,
-            title: "Evento pendente",
-            start: new Date("2022/11/28 10:00"),
-            end: new Date("2022/11/28 11:00"),
-            color: "grey"
-        },
-    ])
+    const [booked, setBooked] = useState([])
     const [patients, setPatients] = useState([])
 
     const getPatients = async () => {
@@ -419,11 +398,11 @@ export function Availability() {
 
             appointmentsArray.push({
                 event_id: item.id,
-                title: "Evento pendente",
+                title: item.patient.user.name,
                 start: oldDateObj,
                 end: newDateObj,
                 // eslint-disable-next-line unicorn/no-nested-ternary
-                color: item.status === "CANCELED" ? '#d45b1e' : (item.status === "SCHEDULED" ? '#1e98d4' : item.status === "FINISHED" ? 'green' : '#d10000')
+                color: item.status === "CANCELED" ? '#d45b1e' : (item.status === "SCHEDULED" || item.status === "CONFIRMED" ? '#1e98d4' : item.status === "FINISHED" ? 'green' : '#d10000')
             })
         })
 

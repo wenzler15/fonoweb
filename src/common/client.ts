@@ -2,7 +2,7 @@ import { AuthStore } from 'auth/providers'
 import ky from 'ky'
 
 export const client = ky.extend({
-  prefixUrl: "https://backend.fonoweb.app.br",
+  prefixUrl: "http://localhost:8000",
   hooks: {
     beforeRequest: [
       request => {

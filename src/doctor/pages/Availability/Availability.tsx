@@ -341,19 +341,19 @@ export function Availability() {
         const userString = localStorage.getItem('@fonoweb/auth');
         const userJson = JSON.parse(userString)
 
-        const resp = await api.get('/patients', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userJson.state.token}`
-            }
-        })
-
-        // const resp = await axios.get('http://localhost:8000/patients', {
+        // const resp = await api.get('/patients', {
         //     headers: {
         //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YzhiYmY2ZC02ZWUyLTQ4MDgtOGEwMi1hNDgwNWNkNTgyNDgiLCJpYXQiOjE2NzA4NjI0MjEsImV4cCI6MTY3MDk0ODgyMX0.rWcgnI4is6gja3ZPUOZjTJoIzYtUnA6dqzF0l7Kfsz0`
+        //         'Authorization': `Bearer ${userJson.state.token}`
         //     }
         // })
+
+        const resp = await axios.get('http://localhost:8000/patients', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YzhiYmY2ZC02ZWUyLTQ4MDgtOGEwMi1hNDgwNWNkNTgyNDgiLCJpYXQiOjE2NzA4NjI0MjEsImV4cCI6MTY3MDk0ODgyMX0.rWcgnI4is6gja3ZPUOZjTJoIzYtUnA6dqzF0l7Kfsz0`
+            }
+        })
 
 
         const pacientsResult = resp.data.result;
@@ -375,19 +375,19 @@ export function Availability() {
         const userString = localStorage.getItem('@fonoweb/auth');
         const userJson = JSON.parse(userString)
 
-        const resp = await api.get(`/appointments/${userJson.state.user.id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userJson.state.token}`
-            }
-        })
-
-        // const resp = await axios.get('http://localhost:8000/appointments/d7b0cead-63cb-4136-ba6a-02caf8b6bd09', {
+        // const resp = await api.get(`/appointments/${userJson.state.user.id}`, {
         //     headers: {
         //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YzhiYmY2ZC02ZWUyLTQ4MDgtOGEwMi1hNDgwNWNkNTgyNDgiLCJpYXQiOjE2NzA4NjI0MjEsImV4cCI6MTY3MDk0ODgyMX0.rWcgnI4is6gja3ZPUOZjTJoIzYtUnA6dqzF0l7Kfsz0`
+        //         'Authorization': `Bearer ${userJson.state.token}`
         //     }
         // })
+
+        const resp = await axios.get('http://localhost:8000/appointments/d7b0cead-63cb-4136-ba6a-02caf8b6bd09', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YzhiYmY2ZC02ZWUyLTQ4MDgtOGEwMi1hNDgwNWNkNTgyNDgiLCJpYXQiOjE2NzA4NjI0MjEsImV4cCI6MTY3MDk0ODgyMX0.rWcgnI4is6gja3ZPUOZjTJoIzYtUnA6dqzF0l7Kfsz0`
+            }
+        })
 
         const appointmentsArray = [];
 

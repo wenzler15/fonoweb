@@ -9,13 +9,14 @@ const Schema: z.ZodType<Prisma.AppointmentCreateWithoutPatientInput> = z
 		id: z.string().optional(),
 		numericId: z.number().optional(),
 		when: z.date(),
+		end: z.date(),
 		createdAt: z.date().optional(),
 		updatedAt: z.date().optional(),
 		deletedAt: z.date().optional().nullable(),
 		status: z.lazy(() => AppointmentStatusSchema).optional(),
-		doctor: z.lazy(
-			() => DoctorCreateNestedOneWithoutAppointmentsInputObjectSchema,
-		),
+		doctor: z
+			.lazy(() => DoctorCreateNestedOneWithoutAppointmentsInputObjectSchema)
+			.optional(),
 	})
 	.strict()
 

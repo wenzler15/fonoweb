@@ -10,6 +10,7 @@ const Schema: z.ZodType<Prisma.AppointmentUncheckedCreateInput> = z
 		doctorId: z.string(),
 		patientId: z.string(),
 		when: z.date(),
+		end: z.date(),
 		createdAt: z.date().optional(),
 		updatedAt: z.date().optional(),
 		deletedAt: z.date().optional().nullable(),

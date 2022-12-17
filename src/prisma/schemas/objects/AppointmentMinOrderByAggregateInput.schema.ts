@@ -10,6 +10,7 @@ const Schema: z.ZodType<Prisma.AppointmentMinOrderByAggregateInputType> = z
 		doctorId: z.lazy(() => SortOrderSchema).optional(),
 		patientId: z.lazy(() => SortOrderSchema).optional(),
 		when: z.lazy(() => SortOrderSchema).optional(),
+		end: z.lazy(() => SortOrderSchema).optional(),
 		createdAt: z.lazy(() => SortOrderSchema).optional(),
 		updatedAt: z.lazy(() => SortOrderSchema).optional(),
 		deletedAt: z.lazy(() => SortOrderSchema).optional(),

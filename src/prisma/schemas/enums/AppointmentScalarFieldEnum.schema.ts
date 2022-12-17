@@ -6,6 +6,7 @@ export const AppointmentScalarFieldEnumSchema = z.enum([
 	'doctorId',
 	'patientId',
 	'when',
+	'end',
 	'createdAt',
 	'updatedAt',
 	'deletedAt',

@@ -9,7 +9,7 @@ import { PatientUncheckedUpdateWithoutAppointmentInputObjectSchema } from './Pat
 
 import type { Prisma } from '@prisma/client'
 
-const Schema: z.ZodType<Prisma.PatientUpdateOneRequiredWithoutAppointmentNestedInput> =
+const Schema: z.ZodType<Prisma.PatientUpdateOneWithoutAppointmentNestedInput> =
 	z.union([
 		z
 			.object({
@@ -39,6 +39,16 @@ const Schema: z.ZodType<Prisma.PatientUpdateOneRequiredWithoutAppointmentNestedI
 			.strict(),
 		z
 			.object({
+				disconnect: z.boolean().optional(),
+			})
+			.strict(),
+		z
+			.object({
+				delete: z.boolean().optional(),
+			})
+			.strict(),
+		z
+			.object({
 				connect: z.lazy(() => PatientWhereUniqueInputObjectSchema).optional(),
 			})
 			.strict(),
@@ -56,5 +66,4 @@ const Schema: z.ZodType<Prisma.PatientUpdateOneRequiredWithoutAppointmentNestedI
 			.strict(),
 	])
 
-export const PatientUpdateOneRequiredWithoutAppointmentNestedInputObjectSchema =
-	Schema
+export const PatientUpdateOneWithoutAppointmentNestedInputObjectSchema = Schema

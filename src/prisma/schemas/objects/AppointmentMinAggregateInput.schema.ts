@@ -9,6 +9,7 @@ const Schema: z.ZodType<Prisma.AppointmentMinAggregateInputType> = z
 		doctorId: z.literal(true).optional(),
 		patientId: z.literal(true).optional(),
 		when: z.literal(true).optional(),
+		end: z.literal(true).optional(),
 		createdAt: z.literal(true).optional(),
 		updatedAt: z.literal(true).optional(),
 		deletedAt: z.literal(true).optional(),

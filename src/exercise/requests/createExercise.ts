@@ -5,14 +5,14 @@ import { ExerciseCreateInputObjectSchema } from 'prisma/schemas/objects/Exercise
 import { z } from 'zod'
 
 export type CreateExerciseRequestData = z.infer<
-	typeof ExerciseCreateInputObjectSchema
+  typeof ExerciseCreateInputObjectSchema
 >
 
 export function createExercise(
-	data: CreateExerciseRequestData,
+  data: CreateExerciseRequestData,
 ): Promise<Response<Exercise>> {
-	return client('exercises/create', {
-		method: 'post',
-		json: data,
-	}).json()
+  return client('exercises/create', {
+    method: 'post',
+    json: data,
+  }).json()
 }

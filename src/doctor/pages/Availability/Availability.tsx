@@ -412,7 +412,7 @@ export function Availability() {
         end: finish,
         status: item.status,
         // eslint-disable-next-line unicorn/no-nested-ternary
-        color: item.status === "CANCELED" ? '#d45b1e' : (item.status === "CONFIRMED" ? '#1e98d4' : item.status === "FINISHED" ? 'green' : '#d10000')
+        color: item.status === "CANCELED" ? '#d45b1e' : (item.status === "CONFIRMED" ? '#1e98d4' : item.status === "BOOKED" ? '#ccc' : item.status === "FINISHED" ? 'green' : '#d10000')
       })
     })
 
@@ -513,7 +513,8 @@ export function Availability() {
               { id: 1, text: "Atendido", value: "FINISHED" },
               { id: 2, text: "Falta", value: "SCHEDULED" },
               { id: 3, text: "Confirmado", value: "CONFIRMED" },
-              { id: 4, text: "Cancelado/Desmarcado", value: "CANCELED" }
+              { id: 4, text: "Cancelado/Desmarcado", value: "CANCELED" },
+              { id: 5, text: 'Agendado', value: "BOOKED" }
             ],
             config: { label: "Status", required: true, errMsg: "Por favor selecione um status" }
           }
@@ -551,6 +552,8 @@ export function Availability() {
           <p>Confirmado</p>
           <div style={{ width: 10, height: 10, background: '#d45b1e', marginTop: 22, marginRight: 5, marginLeft: 10 }} />
           <p>Cancelado/Desmarcado</p>
+          <div style={{ width: 10, height: 10, background: '#ccc', marginTop: 22, marginRight: 5, marginLeft: 10 }} />
+          <p>Agendado</p>
         </div>
       </div>
     </div>

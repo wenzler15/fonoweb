@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { AppointmentStatusSchema } from '../enums/AppointmentStatus.schema'
-import { DoctorCreateNestedOneWithoutAppointmentsInputObjectSchema } from './DoctorCreateNestedOneWithoutAppointmentsInput.schema'
 import { PatientCreateNestedOneWithoutAppointmentInputObjectSchema } from './PatientCreateNestedOneWithoutAppointmentInput.schema'
+import { DoctorCreateNestedOneWithoutAppointmentsInputObjectSchema } from './DoctorCreateNestedOneWithoutAppointmentsInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -15,12 +15,12 @@ const Schema: z.ZodType<Prisma.AppointmentCreateInput> = z
 		updatedAt: z.date().optional(),
 		deletedAt: z.date().optional().nullable(),
 		status: z.lazy(() => AppointmentStatusSchema).optional(),
-		doctor: z
-			.lazy(() => DoctorCreateNestedOneWithoutAppointmentsInputObjectSchema)
-			.optional(),
-		patient: z
-			.lazy(() => PatientCreateNestedOneWithoutAppointmentInputObjectSchema)
-			.optional(),
+		Patient: z.lazy(
+			() => PatientCreateNestedOneWithoutAppointmentInputObjectSchema,
+		),
+		Doctor: z.lazy(
+			() => DoctorCreateNestedOneWithoutAppointmentsInputObjectSchema,
+		),
 	})
 	.strict()
 

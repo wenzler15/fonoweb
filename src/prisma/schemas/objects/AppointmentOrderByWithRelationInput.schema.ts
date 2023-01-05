@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { SortOrderSchema } from '../enums/SortOrder.schema'
-import { DoctorOrderByWithRelationInputObjectSchema } from './DoctorOrderByWithRelationInput.schema'
 import { PatientOrderByWithRelationInputObjectSchema } from './PatientOrderByWithRelationInput.schema'
+import { DoctorOrderByWithRelationInputObjectSchema } from './DoctorOrderByWithRelationInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -17,10 +17,10 @@ const Schema: z.ZodType<Prisma.AppointmentOrderByWithRelationInput> = z
 		updatedAt: z.lazy(() => SortOrderSchema).optional(),
 		deletedAt: z.lazy(() => SortOrderSchema).optional(),
 		status: z.lazy(() => SortOrderSchema).optional(),
-		doctor: z.lazy(() => DoctorOrderByWithRelationInputObjectSchema).optional(),
-		patient: z
+		Patient: z
 			.lazy(() => PatientOrderByWithRelationInputObjectSchema)
 			.optional(),
+		Doctor: z.lazy(() => DoctorOrderByWithRelationInputObjectSchema).optional(),
 	})
 	.strict()
 

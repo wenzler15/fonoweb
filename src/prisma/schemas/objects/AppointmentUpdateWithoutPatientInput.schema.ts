@@ -5,7 +5,7 @@ import { DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldU
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema'
 import { AppointmentStatusSchema } from '../enums/AppointmentStatus.schema'
 import { EnumAppointmentStatusFieldUpdateOperationsInputObjectSchema } from './EnumAppointmentStatusFieldUpdateOperationsInput.schema'
-import { DoctorUpdateOneWithoutAppointmentsNestedInputObjectSchema } from './DoctorUpdateOneWithoutAppointmentsNestedInput.schema'
+import { DoctorUpdateOneRequiredWithoutAppointmentsNestedInputObjectSchema } from './DoctorUpdateOneRequiredWithoutAppointmentsNestedInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -62,8 +62,10 @@ const Schema: z.ZodType<Prisma.AppointmentUpdateWithoutPatientInput> = z
 				),
 			])
 			.optional(),
-		doctor: z
-			.lazy(() => DoctorUpdateOneWithoutAppointmentsNestedInputObjectSchema)
+		Doctor: z
+			.lazy(
+				() => DoctorUpdateOneRequiredWithoutAppointmentsNestedInputObjectSchema,
+			)
 			.optional(),
 	})
 	.strict()

@@ -1,15 +1,14 @@
 import { z } from 'zod'
 import { UuidFilterObjectSchema } from './UuidFilter.schema'
 import { IntFilterObjectSchema } from './IntFilter.schema'
-import { StringFilterObjectSchema } from './StringFilter.schema'
 import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema'
 import { EnumAppointmentStatusFilterObjectSchema } from './EnumAppointmentStatusFilter.schema'
 import { AppointmentStatusSchema } from '../enums/AppointmentStatus.schema'
-import { DoctorRelationFilterObjectSchema } from './DoctorRelationFilter.schema'
-import { DoctorWhereInputObjectSchema } from './DoctorWhereInput.schema'
 import { PatientRelationFilterObjectSchema } from './PatientRelationFilter.schema'
 import { PatientWhereInputObjectSchema } from './PatientWhereInput.schema'
+import { DoctorRelationFilterObjectSchema } from './DoctorRelationFilter.schema'
+import { DoctorWhereInputObjectSchema } from './DoctorWhereInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -36,10 +35,10 @@ const Schema: z.ZodType<Prisma.AppointmentWhereInput> = z
 			.union([z.lazy(() => IntFilterObjectSchema), z.number()])
 			.optional(),
 		doctorId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		patientId: z
-			.union([z.lazy(() => StringFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidFilterObjectSchema), z.string()])
 			.optional(),
 		when: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
@@ -63,20 +62,18 @@ const Schema: z.ZodType<Prisma.AppointmentWhereInput> = z
 				z.lazy(() => AppointmentStatusSchema),
 			])
 			.optional(),
-		doctor: z
-			.union([
-				z.lazy(() => DoctorRelationFilterObjectSchema),
-				z.lazy(() => DoctorWhereInputObjectSchema),
-			])
-			.optional()
-			.nullable(),
-		patient: z
+		Patient: z
 			.union([
 				z.lazy(() => PatientRelationFilterObjectSchema),
 				z.lazy(() => PatientWhereInputObjectSchema),
 			])
-			.optional()
-			.nullable(),
+			.optional(),
+		Doctor: z
+			.union([
+				z.lazy(() => DoctorRelationFilterObjectSchema),
+				z.lazy(() => DoctorWhereInputObjectSchema),
+			])
+			.optional(),
 	})
 	.strict()
 

@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { UuidWithAggregatesFilterObjectSchema } from './UuidWithAggregatesFilter.schema'
 import { IntWithAggregatesFilterObjectSchema } from './IntWithAggregatesFilter.schema'
-import { StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema'
 import { DateTimeWithAggregatesFilterObjectSchema } from './DateTimeWithAggregatesFilter.schema'
 import { DateTimeNullableWithAggregatesFilterObjectSchema } from './DateTimeNullableWithAggregatesFilter.schema'
 import { EnumAppointmentStatusWithAggregatesFilterObjectSchema } from './EnumAppointmentStatusWithAggregatesFilter.schema'
@@ -38,10 +37,10 @@ const Schema: z.ZodType<Prisma.AppointmentScalarWhereWithAggregatesInput> = z
 			.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number()])
 			.optional(),
 		doctorId: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		patientId: z
-			.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+			.union([z.lazy(() => UuidWithAggregatesFilterObjectSchema), z.string()])
 			.optional(),
 		when: z
 			.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.date()])

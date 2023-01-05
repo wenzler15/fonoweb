@@ -300,7 +300,7 @@ export function EvolutionForm({
                           fullWidth
                           onChange={(_, e) => handleSelectOldExercise(e)}
                           autoHighlight
-                          options={specialtyFilter === 0 ? exercises.data?.result ?? [] : exercises.data?.result.filter((item) => item.specialty.id === specialtyFilter)}
+                          options={specialtyFilter === "0" ? exercises.data?.result ?? [] : exercises.data?.result.filter((item) => item.specialty.id === specialtyFilter)}
                           getOptionLabel={option => option.title}
                           renderOption={(props, option) => (
                             <Box component="li" {...props} key={option.id}>

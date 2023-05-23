@@ -358,6 +358,7 @@ export function Availability() {
     //   }
     // })
 
+    console.log("pacientsResult", resp.data.result)
 
     const pacientsResult = resp.data.result;
 
@@ -380,7 +381,7 @@ export function Availability() {
     const userString = localStorage.getItem('@fonoweb/auth');
     const userJson = JSON.parse(userString)
 
-    const resp = await api.get(`/appointments/${userJson.state.user.id}`, {
+    const resp = await api.get(`/appointments/${userJson.state.user.doctorData.id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${userJson.state.token}`
@@ -403,10 +404,11 @@ export function Availability() {
 
       const info = patientsInfo.find((itemSub: any) => itemSub.id === item.patientId)
 
+      console.log("patientsInfo", item.patientId)
 
       appointmentsArray.push({
         event_id: item.id,
-        title: info.value,
+        title: info ? info.value : 'Agendamento',
         start: begin,
         // eslint-disable-next-line unicorn/prefer-logical-operator-over-ternary
         end: finish,
@@ -425,7 +427,7 @@ export function Availability() {
     const userJson = JSON.parse(userString)
 
     const toSend = {
-      doctorId: userJson.state.user.id,
+      doctorId: userJson.state.user.doctorData.id,
       patientId: event.title,
       when: event.start,
       status: event.status,

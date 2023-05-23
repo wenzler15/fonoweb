@@ -46,7 +46,7 @@ const handleAddExercise =
       cuid: cuid(),
       title: '',
       description: '',
-      links: [''],
+      links: ['']
     })
 
 export function EvolutionForm({
@@ -246,7 +246,7 @@ export function EvolutionForm({
                     spacing={2}
                     sx={{ justifyContent: 'flex-end' }}
                   >
-                    {!commentInput.visible && (
+                    {/* {!commentInput.visible && (
                       <Button
                         size="large"
                         color="secondary"
@@ -254,7 +254,7 @@ export function EvolutionForm({
                       >
                         Adicionar Comentário
                       </Button>
-                    )}
+                    )} */}
                     <Button
                       variant="contained"
                       size="large"
@@ -352,6 +352,19 @@ export function EvolutionForm({
                                   </IconButton>
                                 )}
                               </Stack>
+                            </Stack>
+                            <Stack
+                              direction="row"
+                              spacing={2}
+                              sx={{ p: t => t.spacing(2) }}
+                            >
+                              <Field
+                                name={`exercises.${index}.comments`}
+                                component={TextField}
+                                fullWidth
+                                label={`Comentário do exercício ${index + 1}`}
+                                size="small"
+                              />
                             </Stack>
                             <Box sx={{ p: t => t.spacing(2), pt: 0 }}>
                               <FieldArray

@@ -35,6 +35,9 @@ import { useSearchParams } from 'react-router-dom'
 import { useSpecialties } from 'specialty/queries'
 import { Specialty } from 'specialty'
 import { api } from "../../../services";
+import { TemplateForm } from 'template/components/TemplateForm/TemplateForm'
+import { CreateTemplateDto, CreateTemplateSchema } from 'template/schemas'
+import { useCreateTemplate } from 'template/mutations'
 
 const handleAddQuestion = (push: (data: WithCuid<Question>) => void) => () =>
   push({
@@ -47,6 +50,7 @@ export function AnamnesisForm() {
   const [models, setModels] = useState("");
   const [modelsToShow, setModelsToShow] = useState("")
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const [searchParams] = useSearchParams()
   const {
@@ -93,6 +97,29 @@ export function AnamnesisForm() {
   useEffect(() => {
     getTemps();
   }, []);
+
+  const createTemplate = useCreateTemplate({
+    onSuccess: () => {
+      setShowModal(false)
+      Swal.fire({
+        title: 'Success',
+        text: 'Modelo criado com sucesso',
+        icon: 'success',
+      })
+    },
+  })
+
+  const handleFormSubmit = async ({
+    specialty,
+    ...values
+  }: CreateTemplateDto) => {
+    await createTemplate
+      .mutateAsync({
+        ...values,
+        specialtyId: specialty.id,
+      })
+      .catch(console.error)
+  }
 
   const modalTemplates = useVisible()
 
@@ -164,7 +191,7 @@ export function AnamnesisForm() {
       <FieldArray
         name="questions"
         render={({ push, remove }) => (
-          <Card>
+          <Card style={{ opacity: showModal ? 0.5 : 1 }}>
             <CardContent sx={{ p: t => t.spacing(2) }}>
               <Box
                 sx={{
@@ -233,8 +260,8 @@ export function AnamnesisForm() {
           </Card>
         )}
       />
-      <Grid container spacing={2}>
-        <Grid item xs={5}>
+      <Grid container spacing={2} style={{ opacity: showModal ? 0.5 : 1 }}>
+        <Grid item xs={4}>
           <Field
             fullWidth
             name="patient"
@@ -253,7 +280,7 @@ export function AnamnesisForm() {
             )}
           />
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={4}>
           <Field
             fullWidth
             name="specialty"
@@ -284,7 +311,39 @@ export function AnamnesisForm() {
             Selecionar Modelo
           </Button>
         </Grid>
+        <Grid item xs={2} sx={{ textAlign: 'right' }}>
+          <Button
+            onClick={() => setShowModal(true)}
+            variant="contained"
+            size="large"
+            color="secondary"
+          >
+            Criar Modelo
+          </Button>
+        </Grid>
       </Grid>
+      {showModal && (
+        <div style={{ background: '#fff', position: 'absolute', width: '90%', padding: 20, border: '1px solid #000', borderRadius: 10 }}>
+          <div onClick={() => setShowModal(false)} style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', marginBottom: 20, cursor: 'pointer' }}>
+            <div style={{ border: '1px solid #FFF', borderRadius: 20, width: 30, height: 30, background: '#ff4040' }}>
+              <p style={{ fontSize: 16, marginLeft: 9, marginTop: 2, color: '#fff' }}>X</p>
+            </div>
+          </div>
+          <TemplateForm<CreateTemplateDto>
+            schema={CreateTemplateSchema}
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onSubmit={handleFormSubmit}
+            initialValues={{
+              title: '',
+              html: '',
+              // @ts-expect-error null
+              type: null,
+              // @ts-expect-error null
+              specialty: specialties.data?.result,
+            }}
+          />
+        </div>
+      )}
       {modelsToShow !== '' && modelsToShow.length > 0 ? modelsToShow.map((item) => (
         <div style={{ border: '1px solid #CCC', width: '50%', padding: 10, borderRadius: 10, cursor: 'pointer' }} onClick={() => {
           const blocksFromHtml = htmlToDraft(item.html)
@@ -303,7 +362,9 @@ export function AnamnesisForm() {
       )) : (
         <> </>
       )}
-      <Editor name="text" editorState={editorState} />
+      {!showModal && (
+        <Editor name="text" editorState={editorState} />
+      )}
       <LoadingOverlay show={patients.isLoading} />
       <TemplateSelector
         type={TemplateType.ANAMNESIS}

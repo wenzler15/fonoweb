@@ -57,7 +57,6 @@ export const TextNavBar = styled.div`
 
 export const UserContainer = styled.div`
 	display: flex;
-
 	margin-left: auto;
 	justify-content: space-between;
 	align-items: center;
@@ -73,7 +72,7 @@ export const UserContainer = styled.div`
 `
 
 export const UserContainerButton = styled(Button)`
-	background: #181818;
+
 	height: 64px;
 	width: 64px;
 	border-radius: 50%;

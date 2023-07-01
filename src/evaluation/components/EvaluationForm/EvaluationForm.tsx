@@ -6,6 +6,7 @@ import {
   Button,
   Stack,
 } from '@mui/material'
+import { useSearchParams } from 'react-router-dom'
 import { Autocomplete, TextField } from 'formik-mui'
 import { Field, useFormikContext } from 'formik'
 import { useTemplateDetail, useTemplates } from 'template/queries'
@@ -49,6 +50,8 @@ export function EvaluationForm({
     EditorState.createEmpty(),
   )
 
+  const [searchParams] = useSearchParams()
+
   const specialties = useSpecialties({
     page: 1,
     size: 9999,
@@ -65,10 +68,10 @@ export function EvaluationForm({
   })
 
   useEffect(() => {
-    if (patientId && !patient) {
+    if (searchParams.get('patient') && !patient) {
       setFieldValue(
         'patient',
-        patients.data?.result.find(p => p.patientData.id === patientId),
+        patients.data?.result.find(p => p.id === searchParams.get('patient')),
       )
     }
   }, [patientId, patient, patients.data?.result, setFieldValue])
@@ -220,37 +223,34 @@ export function EvaluationForm({
             />
           </Grid>
           <Grid item xs={6} style={{ opacity: showModal ? 0.5 : 1 }}>
-            {patientId && (
+            {/* {patientId && (
               <MTextField
                 fullWidth
                 disabled
                 label="Paciente"
                 value={
-                  patients.data?.result.find(
-                    p => p.patientData.id === patientId,
-                  )?.name
+                  patients.data?.result[0].name
                 }
               />
-            )}
-            {!patientId && (
-              <Field
-                fullWidth
-                name="patient"
-                component={Autocomplete}
-                options={patients.data?.result ?? []}
-                getOptionLabel={(option: UserWithPatient) => option.name}
-                renderInput={(params: AutocompleteRenderInputParams) => (
-                  <MTextField
-                    {...params}
-                    name="patient-search"
-                    error={touched.patient && !!errors.patient}
-                    helperText={errors.patient}
-                    label="Paciente"
-                    variant="outlined"
-                  />
-                )}
-              />
-            )}
+            )} */}
+            <Field
+              fullWidth
+              disabled={searchParams.get('patient') ? true : false}
+              name="patient"
+              component={Autocomplete}
+              options={patients.data?.result ?? []}
+              getOptionLabel={(option: UserWithPatient) => option.name}
+              renderInput={(params: AutocompleteRenderInputParams) => (
+                <MTextField
+                  {...params}
+                  name="patient-search"
+                  error={touched.patient && !!errors.patient}
+                  helperText={errors.patient}
+                  label="Paciente"
+                  variant="outlined"
+                />
+              )}
+            />
           </Grid>
         </Grid>
         {!showModal && (

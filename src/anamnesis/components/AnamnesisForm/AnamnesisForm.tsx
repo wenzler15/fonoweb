@@ -188,7 +188,7 @@ export function AnamnesisForm() {
 
   return (
     <Stack spacing={2}>
-      <FieldArray
+      {/* <FieldArray
         name="questions"
         render={({ push, remove }) => (
           <Card style={{ opacity: showModal ? 0.5 : 1 }}>
@@ -259,11 +259,12 @@ export function AnamnesisForm() {
             </CardContent>
           </Card>
         )}
-      />
+      /> */}
       <Grid container spacing={2} style={{ opacity: showModal ? 0.5 : 1 }}>
         <Grid item xs={4}>
           <Field
             fullWidth
+            disabled={searchParams.get('patient') ? true : false}
             name="patient"
             component={Autocomplete}
             options={patients.data?.result ?? []}

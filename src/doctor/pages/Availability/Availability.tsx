@@ -358,7 +358,6 @@ export function Availability() {
     //   }
     // })
 
-    console.log("pacientsResult", resp.data.result)
 
     const pacientsResult = resp.data.result;
 
@@ -403,8 +402,6 @@ export function Availability() {
       // newDateObj.setTime(oldDateObj.getTime() + (30 * 60 * 1000));
 
       const info = patientsInfo.find((itemSub: any) => itemSub.id === item.patientId)
-
-      console.log("patientsInfo", item.patientId)
 
       appointmentsArray.push({
         event_id: item.id,

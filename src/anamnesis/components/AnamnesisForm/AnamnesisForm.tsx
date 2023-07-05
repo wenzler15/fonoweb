@@ -17,6 +17,7 @@ import {
   TextField as MTextField,
 } from '@mui/material'
 import cuid from 'cuid'
+import { format } from 'date-fns/fp'
 import { Autocomplete, TextField } from 'formik-mui'
 import { Field, FieldArray, useFormikContext } from 'formik'
 import { WithCuid } from 'common/types'
@@ -54,11 +55,12 @@ export function AnamnesisForm() {
 
   const [searchParams] = useSearchParams()
   const {
-    values: { questions, template, patient },
+    values: { questions, template, patient, appointmentDate },
     errors,
     touched,
     setFieldValue,
   } = useFormikContext<{
+    appointmentDate: Date
     questions: WithCuid<Question>[]
     patient: UserWithPatient | null
     template: Template | null
@@ -279,6 +281,15 @@ export function AnamnesisForm() {
                 variant="outlined"
               />
             )}
+          />
+        </Grid>
+
+        <Grid item xs={4}>
+          <MTextField
+            fullWidth
+            disabled
+            label="Data da consulta"
+            value={format('dd/MM/yyyy', new Date())}
           />
         </Grid>
         <Grid item xs={4}>

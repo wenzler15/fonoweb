@@ -16,6 +16,7 @@ import { Template, TemplateType } from 'template'
 import { ContentState, EditorState } from 'draft-js'
 import htmlToDraft from 'html-to-draftjs'
 import Swal from 'sweetalert2'
+import { format } from 'date-fns/fp'
 import { useEffect, useState } from 'react'
 import { useVisible } from 'common/hooks'
 import { TemplateSelector } from 'template/components/TemplateSelector/TemplateSelector'
@@ -31,11 +32,12 @@ export function EvaluationForm({
   config: { canUseTemplate = true } = {},
 }: EvaluationFormProps) {
   const {
-    values: { template, patient },
+    values: { template, patient, appointmentDate },
     errors,
     touched,
     setFieldValue,
   } = useFormikContext<{
+    appointmentDate: Date
     patient: UserWithPatient | null
     template: Template | null
     specialty: Specialty | null
@@ -158,7 +160,7 @@ export function EvaluationForm({
                 sx={{ width: '60%' }}
                 component={TextField}
                 name="title"
-                label="Título"
+                label="Título da avaliação"
               />
               {canUseTemplate && (
                 <Button
@@ -203,7 +205,7 @@ export function EvaluationForm({
               />
             </div>
           )}
-          <Grid item xs={6} style={{ opacity: showModal ? 0.5 : 1 }}>
+          <Grid item xs={4} style={{ opacity: showModal ? 0.5 : 1 }}>
             <Field
               fullWidth
               name="specialty"
@@ -222,7 +224,15 @@ export function EvaluationForm({
               )}
             />
           </Grid>
-          <Grid item xs={6} style={{ opacity: showModal ? 0.5 : 1 }}>
+          <Grid item xs={4}>
+            <MTextField
+              fullWidth
+              disabled
+              label="Data da consulta"
+              value={format('dd/MM/yyyy', appointmentDate)}
+            />
+          </Grid>
+          <Grid item xs={4} style={{ opacity: showModal ? 0.5 : 1 }}>
             {/* {patientId && (
               <MTextField
                 fullWidth

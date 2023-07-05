@@ -150,19 +150,16 @@ export function EvolutionForm({
               fullWidth
               component={TextField}
               name="title"
-              label="Título"
+              label="Título da consulta"
             />
           </Grid>
           <Grid item xs={4}>
             {canChangeAppointmentDate && (
-              <Field
-                component={DesktopDatePicker}
-                textField={{
-                  fullWidth: true,
-                }}
-                name="appointmentDate"
+              <MTextField
+                fullWidth
+                disabled
                 label="Data da consulta"
-                inputFormat="dd/MM/yyyy"
+                value={format('dd/MM/yyyy', appointmentDate)}
               />
             )}
             {!canChangeAppointmentDate && (

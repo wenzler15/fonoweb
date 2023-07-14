@@ -5,5 +5,4 @@ export const AppointmentStatusSchema = z.enum([
 	'CONFIRMED',
 	'CANCELED',
 	'FINISHED',
-	'BOOKED',
 ])

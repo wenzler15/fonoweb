@@ -2,7 +2,7 @@ import { AuthStore } from 'auth/providers'
 import ky from 'ky'
 
 export const client = ky.extend({
-  prefixUrl: "http://localhost:8000",
+  prefixUrl: "http://34.196.61.152:3000",
   hooks: {
     beforeRequest: [
       request => {

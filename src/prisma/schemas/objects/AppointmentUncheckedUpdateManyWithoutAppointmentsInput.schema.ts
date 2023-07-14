@@ -35,12 +35,6 @@ const Schema: z.ZodType<Prisma.AppointmentUncheckedUpdateManyWithoutAppointments
 					z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
 				])
 				.optional(),
-			end: z
-				.union([
-					z.date(),
-					z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
-				])
-				.optional(),
 			createdAt: z
 				.union([
 					z.date(),

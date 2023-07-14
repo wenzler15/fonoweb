@@ -5,7 +5,10 @@ import type { Prisma } from '@prisma/client'
 
 const Schema: z.ZodType<Prisma.EvolutionCreateManyPatientInputEnvelope> = z
 	.object({
-		data: z.lazy(() => EvolutionCreateManyPatientInputObjectSchema).array(),
+		data: z.union([
+			z.lazy(() => EvolutionCreateManyPatientInputObjectSchema),
+			z.lazy(() => EvolutionCreateManyPatientInputObjectSchema).array(),
+		]),
 		skipDuplicates: z.boolean().optional(),
 	})
 	.strict()

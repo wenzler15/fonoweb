@@ -6,9 +6,12 @@ import type { Prisma } from '@prisma/client'
 const Schema: z.ZodType<Prisma.DoctorPatientCreateManyAssignedByInputEnvelope> =
 	z
 		.object({
-			data: z
-				.lazy(() => DoctorPatientCreateManyAssignedByInputObjectSchema)
-				.array(),
+			data: z.union([
+				z.lazy(() => DoctorPatientCreateManyAssignedByInputObjectSchema),
+				z
+					.lazy(() => DoctorPatientCreateManyAssignedByInputObjectSchema)
+					.array(),
+			]),
 			skipDuplicates: z.boolean().optional(),
 		})
 		.strict()

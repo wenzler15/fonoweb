@@ -5,10 +5,10 @@ import { DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 import { DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema'
 import { EnumAppointmentStatusFilterObjectSchema } from './EnumAppointmentStatusFilter.schema'
 import { AppointmentStatusSchema } from '../enums/AppointmentStatus.schema'
-import { PatientRelationFilterObjectSchema } from './PatientRelationFilter.schema'
-import { PatientWhereInputObjectSchema } from './PatientWhereInput.schema'
 import { DoctorRelationFilterObjectSchema } from './DoctorRelationFilter.schema'
 import { DoctorWhereInputObjectSchema } from './DoctorWhereInput.schema'
+import { PatientRelationFilterObjectSchema } from './PatientRelationFilter.schema'
+import { PatientWhereInputObjectSchema } from './PatientWhereInput.schema'
 
 import type { Prisma } from '@prisma/client'
 
@@ -43,9 +43,6 @@ const Schema: z.ZodType<Prisma.AppointmentWhereInput> = z
 		when: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
 			.optional(),
-		end: z
-			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
-			.optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
 			.optional(),
@@ -62,16 +59,16 @@ const Schema: z.ZodType<Prisma.AppointmentWhereInput> = z
 				z.lazy(() => AppointmentStatusSchema),
 			])
 			.optional(),
-		Patient: z
-			.union([
-				z.lazy(() => PatientRelationFilterObjectSchema),
-				z.lazy(() => PatientWhereInputObjectSchema),
-			])
-			.optional(),
-		Doctor: z
+		doctor: z
 			.union([
 				z.lazy(() => DoctorRelationFilterObjectSchema),
 				z.lazy(() => DoctorWhereInputObjectSchema),
+			])
+			.optional(),
+		patient: z
+			.union([
+				z.lazy(() => PatientRelationFilterObjectSchema),
+				z.lazy(() => PatientWhereInputObjectSchema),
 			])
 			.optional(),
 	})

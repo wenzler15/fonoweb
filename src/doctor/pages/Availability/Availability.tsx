@@ -484,6 +484,8 @@ export function Availability() {
     getPatients();
   }, []);
 
+	console.log("oi", patients);
+
   return (
     <div>
       <Scheduler

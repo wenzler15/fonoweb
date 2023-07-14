@@ -29,12 +29,6 @@ const Schema: z.ZodType<Prisma.AppointmentUpdateWithoutPatientInput> = z
 				z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
 			])
 			.optional(),
-		end: z
-			.union([
-				z.date(),
-				z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
-			])
-			.optional(),
 		createdAt: z
 			.union([
 				z.date(),
@@ -62,7 +56,7 @@ const Schema: z.ZodType<Prisma.AppointmentUpdateWithoutPatientInput> = z
 				),
 			])
 			.optional(),
-		Doctor: z
+		doctor: z
 			.lazy(
 				() => DoctorUpdateOneRequiredWithoutAppointmentsNestedInputObjectSchema,
 			)

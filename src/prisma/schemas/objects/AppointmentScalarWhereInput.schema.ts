@@ -39,9 +39,6 @@ const Schema: z.ZodType<Prisma.AppointmentScalarWhereInput> = z
 		when: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
 			.optional(),
-		end: z
-			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
-			.optional(),
 		createdAt: z
 			.union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
 			.optional(),
